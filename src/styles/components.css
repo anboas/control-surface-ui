@@ -35493,6 +35493,10 @@ img.if-official-mark {
   flex: 1 1 27rem;
 }
 
+.if-schedule-gantt__card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+}
+
 .if-schedule-gantt__summary-card,
 .if-schedule-gantt__mini-card {
   display: grid;
@@ -35507,6 +35511,7 @@ img.if-official-mark {
 
 .if-schedule-gantt__summary-label,
 .if-schedule-gantt__mini-label {
+  min-width: 0;
   color: var(--if-text-muted);
   font-size: var(--if-font-size-2xs);
   font-weight: var(--if-font-weight-bold);
@@ -35701,6 +35706,14 @@ button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.if-schedule-gantt__mini-title {
+  display: -webkit-box;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .if-schedule-gantt__row-identity {
@@ -35915,6 +35928,23 @@ button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
 
 .if-schedule-gantt__mini-kv {
   justify-content: space-between;
+  align-items: flex-start;
+}
+
+.if-schedule-gantt__mini-kv > span {
+  color: var(--if-text-muted);
+}
+
+.if-schedule-gantt__mini-value {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
+  white-space: normal;
+}
+
+.if-schedule-gantt__pagination {
+  min-width: 0;
 }
 
 .if-schedule-gantt__posture--active,

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-06-08T17:17:08.826Z",
+  "generatedAt": "2026-06-08T18:22:33.203Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
@@ -83,8 +83,8 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "f32dd7eb469dec8c87ee6398c51269582e005f4c3bcef15b9b2e56ffceaa8f85",
-    "sha256SumsSha256": "9c0255febea5230b7cad4d8fb0e602cacb2d2dc360479d421df098c330ac7fa5",
+    "manifestComparableSha256": "8a4c23ef363f40e2094c5ab1b76bbaf826142611a866c98381ca836771541d9b",
+    "sha256SumsSha256": "e8378c583ca9d80ea8a5decb1f1a7169156d3f74dfe4f2f12152be1af0f90427",
     "artifactCount": 15,
     "artifacts": [
       {
@@ -104,13 +104,13 @@
       },
       {
         "path": "dist/interface-framework.css",
-        "bytes": 932685,
-        "sha256": "ed2a51a13bc34ea5dc82ad1426fa8bb4ba31ae6f49b388e91a426f4e1a4baef6"
+        "bytes": 933259,
+        "sha256": "37bd7b9c2990c147f5e8e339ea96c91133cfbb0c6807bf9e38d6a9c1681ba827"
       },
       {
         "path": "dist/interface-framework.min.css",
-        "bytes": 805255,
-        "sha256": "0b189691a4bef5f18569a9465dab7c0fc323b66b09415bb7565ba6a3269d817c"
+        "bytes": 805739,
+        "sha256": "1fc2463948a077d52fece6a9fe6b83c60a8eb22f21358c7c47d613ea78bbe995"
       },
       {
         "path": "dist/interface-framework.js",
