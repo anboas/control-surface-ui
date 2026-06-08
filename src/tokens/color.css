@@ -1,0 +1,77 @@
+:root {
+  --if-color-navy-950: #06142d;
+  --if-color-navy-900: #09245a;
+  --if-color-navy-800: #0b347f;
+  --if-color-navy-700: #0d47a1;
+  --if-color-navy-600: #145bd8;
+  --if-color-navy-500: #256fff;
+  --if-color-navy-100: #dfeaff;
+  --if-color-navy-050: #f3f7ff;
+
+  --if-color-neutral-950: #111827;
+  --if-color-neutral-900: #1f2937;
+  --if-color-neutral-800: #374151;
+  --if-color-neutral-700: #4b5563;
+  --if-color-neutral-600: #64748b;
+  --if-color-neutral-500: #8a95a6;
+  --if-color-neutral-400: #aab3c2;
+  --if-color-neutral-300: #cfd6e0;
+  --if-color-neutral-200: #e3e8ef;
+  --if-color-neutral-100: #f1f5f9;
+  --if-color-neutral-050: #f8fafc;
+  --if-color-white: #ffffff;
+
+  --if-color-teal-700: #087b7a;
+  --if-color-teal-500: #10a6a2;
+  --if-color-teal-100: #d8f7f2;
+  --if-color-green-700: #177a3d;
+  --if-color-green-500: #24a15b;
+  --if-color-green-100: #def8e8;
+  --if-color-amber-700: #a85b00;
+  --if-color-amber-500: #f59e0b;
+  --if-color-amber-100: #fff1d6;
+  --if-color-red-700: #b42318;
+  --if-color-red-500: #ef4444;
+  --if-color-red-100: #fee2e2;
+  --if-color-violet-700: #6d28d9;
+  --if-color-violet-500: #8b5cf6;
+  --if-color-violet-100: #ede9fe;
+  --if-color-cyan-700: #0369a1;
+  --if-color-cyan-500: #0ea5e9;
+  --if-color-cyan-100: #e0f2fe;
+
+  --if-bg-page: var(--if-color-neutral-050);
+  --if-bg-surface: var(--if-color-white);
+  --if-bg-subtle: var(--if-color-neutral-100);
+  --if-bg-muted: var(--if-color-neutral-200);
+  --if-bg-selected: var(--if-color-navy-050);
+  --if-bg-inverse: var(--if-color-navy-950);
+  --if-bg: var(--if-bg-surface);
+
+  --if-text: #101828;
+  --if-text-strong: #07152f;
+  --if-text-muted: #566174;
+  --if-text-subtle: #667085;
+  --if-text-inverse: #f8fafc;
+  --if-link: var(--if-color-navy-700);
+  --if-link-hover: var(--if-color-navy-900);
+
+  --if-border: var(--if-color-neutral-200);
+  --if-border-strong: var(--if-color-neutral-300);
+  --if-border-selected: var(--if-color-navy-500);
+  --if-focus: #256fff;
+
+  --if-accent: var(--if-color-navy-700);
+  --if-primary: var(--if-accent);
+  --if-accent-soft: var(--if-color-navy-050);
+  --if-info: var(--if-color-cyan-700);
+  --if-info-soft: var(--if-color-cyan-100);
+  --if-success: var(--if-color-green-700);
+  --if-success-soft: var(--if-color-green-100);
+  --if-warning: var(--if-color-amber-700);
+  --if-warning-soft: var(--if-color-amber-100);
+  --if-danger: var(--if-color-red-700);
+  --if-danger-soft: var(--if-color-red-100);
+  --if-purple: var(--if-color-violet-700);
+  --if-purple-soft: var(--if-color-violet-100);
+}

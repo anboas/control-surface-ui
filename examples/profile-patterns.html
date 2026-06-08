@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Profile Patterns</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell if-shell--library" data-density="comfortable">
+      <header class="if-topbar">
+        <a class="if-brand" href="./index.html"><span class="if-brand__mark" aria-hidden="true">PI</span><span>Policy Intelligence</span></a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./diagram3.html">Diagram3</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link is-active" href="./profile-patterns.html" aria-current="page">Profiles</a>
+          <a class="if-nav-link" href="./notification-patterns.html">Notifications</a>
+          <a class="if-nav-link" href="./action-patterns.html">Actions</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search profile patterns...">
+          </label>
+          <button class="if-icon-btn if-notification-btn" type="button" title="Notifications"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span><span class="if-notification-btn__badge">3</span></button>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu"><span class="if-avatar" aria-hidden="true">JD</span><span class="if-account-menu__name if-desktop-only">Jane Doe</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body">
+                <section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section>
+                <section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section>
+                <section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section>
+              </div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <main class="if-content">
+        <div class="if-page if-profile-showcase">
+          <header class="if-page-header" id="profile-patterns">
+            <div>
+              <h1 class="if-page-header__title">User Profile Area Patterns</h1>
+              <p class="if-panel__subtitle">Top-right account triggers, profile dropdowns, account switchers, preference panels, security surfaces, and compact mobile variants using the framework's existing popover and menu behavior.</p>
+            </div>
+            <span class="if-badge if-badge--info">Profile gallery</span>
+          </header>
+
+          <section class="if-library-section if-profile-showcase__intro">
+            <div>
+              <span class="if-library-section__eyebrow">Account composition</span>
+              <h2>Profile areas should scale from one avatar to a full operational control surface</h2>
+              <p>Each specimen uses the same account menu, popover, menu, avatar, button, badge, theme, and form primitives. The variation is in information density, risk posture, workspace context, and available actions.</p>
+            </div>
+            <div class="if-profile-summary-rail" aria-label="Profile pattern coverage">
+              <span><i class="if-framework-dot if-framework-dot--strong"></i>12 patterns</span>
+              <span><i class="if-framework-dot if-framework-dot--strong"></i>Popover ready</span>
+              <span><i class="if-framework-dot if-framework-dot--partial"></i>Menu variants</span>
+            </div>
+          </section>
+
+          <section class="if-profile-pattern-grid" aria-label="Top-right profile trigger patterns">
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 01</span><h2>Compact avatar trigger</h2><p>Smallest top-right account affordance for dense enterprise apps.</p></div>
+                <span class="if-badge if-badge--status-approved">Default</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>PI</span><strong>Review</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <button class="if-icon-btn" type="button" aria-label="Notifications"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span></button>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Jane Doe account menu" aria-expanded="false" aria-controls="profile-compact" data-if-popover-toggle="profile-compact"><span class="if-profile-avatar" aria-hidden="true">JD<span class="if-profile-presence"></span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-compact" role="dialog" aria-label="Compact account menu" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer</span><span>jane.doe@example.mil</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Quick actions</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Dashboard</strong><span class="if-account-action__meta">Open daily workspace</span></span></a><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="settings" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Preferences</strong><span class="if-account-action__meta">Theme, density, alerts</span></span></a></section></div>
+                      <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Active now</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 02</span><h2>Name and role trigger</h2><p>Shows identity before opening the menu, useful in shared workstations.</p></div>
+                <span class="if-badge if-badge--info">Verbose</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>OS</span><strong>Operations</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Maria Chen account menu" aria-expanded="false" aria-controls="profile-named" data-if-popover-toggle="profile-named"><span class="if-profile-avatar if-profile-avatar--image" aria-hidden="true">MC<span class="if-profile-presence"></span></span><span class="if-profile-identity__copy"><strong>Maria Chen</strong><span>Source operator</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-named" role="dialog" aria-label="Named account controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">MC</span><span class="if-account-surface__identity"><strong>Maria Chen</strong><span>Source operator - Federal feeds</span><span>maria.chen@example.mil</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./sources.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Source Console</strong><span class="if-account-action__meta">14 parser warnings</span></span><span class="if-badge if-badge--risk-high">14</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="review" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Extraction Review</strong><span class="if-account-action__meta">Assigned queue</span></span></a></section></div>
+                      <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last sync 8m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 03</span><h2>Status-aware profile</h2><p>Presence, availability, and queue state ride next to identity.</p></div>
+                <span class="if-badge if-badge--status-in-review">Team</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>QA</span><strong>Reviewer Console</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <span class="if-profile-mini-chip"><i class="if-framework-dot if-framework-dot--partial"></i>Focus mode</span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Avery Patel account menu" aria-expanded="false" aria-controls="profile-status" data-if-popover-toggle="profile-status"><span class="if-profile-avatar" aria-hidden="true">AP<span class="if-profile-presence if-profile-presence--busy"></span></span><span class="if-profile-identity__copy"><strong>Avery Patel</strong><span>Do not disturb</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-status" role="dialog" aria-label="Status account controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">AP</span><span class="if-account-surface__identity"><strong>Avery Patel</strong><span>Review lead - Cloud security</span><span>Busy until 3:30 PM</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Presence</span><div class="if-profile-trigger-row"><button class="if-btn if-btn--secondary if-btn--sm" type="button">Available</button><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button">Focus</button><button class="if-btn if-btn--secondary if-btn--sm" type="button">Away</button></div></section><section class="if-account-surface__section"><span class="if-account-surface__label">Load</span><div class="if-profile-metric-strip"><span><strong>17</strong>Assigned</span><span><strong>5</strong>Due today</span><span><strong>3</strong>Escalated</span></div></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 04</span><h2>Workspace switcher profile</h2><p>Combines account identity with current tenant, mission, or workspace.</p></div>
+                <span class="if-badge if-badge--confidence-high">Multi-workspace</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>IC</span><strong>Intel Hub</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <span class="if-profile-demo-topbar__meta"><span class="if-icon-slot" data-if-icon="folder" aria-hidden="true"></span>AI Governance Watch</span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Workspace and account menu" aria-expanded="false" aria-controls="profile-workspace" data-if-popover-toggle="profile-workspace"><span class="if-profile-avatar" aria-hidden="true">KS</span><span class="if-profile-identity__copy"><strong>Kai Smith</strong><span>AI Governance Watch</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-workspace" role="dialog" aria-label="Workspace account controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">KS</span><span class="if-account-surface__identity"><strong>Kai Smith</strong><span>Policy analyst</span><span>Current workspace: AI Governance Watch</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Switch workspace</span><div class="if-profile-account-list"><button class="if-profile-account-option" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="star" aria-hidden="true"></span><span><strong>AI Governance Watch</strong><span>78 artifacts | default</span></span><span class="if-badge if-badge--info">Active</span></button><button class="if-profile-account-option" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>Cloud Security</strong><span>128 artifacts</span></span></button><button class="if-profile-account-option" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span><span><strong>DoD Modernization</strong><span>142 artifacts</span></span></button></div></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 05</span><h2>Security and access profile</h2><p>Good for systems where role, clearance, and session state matter.</p></div>
+                <span class="if-badge if-badge--risk-high">Sensitive</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>SC</span><strong>Secure Console</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <span class="if-profile-mini-chip"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>MFA active</span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Security account menu" aria-expanded="false" aria-controls="profile-security" data-if-popover-toggle="profile-security"><span class="if-profile-avatar" aria-hidden="true">NL<span class="if-profile-presence"></span></span><span class="if-account-menu__name">Nora Lee</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-security" role="dialog" aria-label="Security account controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">NL</span><span class="if-account-surface__identity"><strong>Nora Lee</strong><span>Access: Reviewer, admin delegate</span><span>Session verified 12m ago</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Access</span><div class="if-profile-access-grid"><div class="if-profile-access-card"><strong>Role set</strong><span>Reviewer, source operator, admin delegate</span></div><div class="if-profile-access-card"><strong>Authentication</strong><span>MFA active | passwordless allowed</span></div><div class="if-profile-access-card"><strong>Session risk</strong><span>Low risk | managed device</span></div></div></section><section class="if-account-surface__section"><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Re-verify session</strong><span class="if-account-action__meta">Required before admin actions</span></span></button></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 06</span><h2>Account switcher</h2><p>Supports personal, team, and service-account contexts.</p></div>
+                <span class="if-badge if-badge--status-open">Switcher</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>DA</span><strong>Data Admin</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Account switcher menu" aria-expanded="false" aria-controls="profile-switcher" data-if-popover-toggle="profile-switcher"><span class="if-profile-avatar-stack" aria-hidden="true"><span class="if-profile-avatar">JD</span><span class="if-profile-avatar">TM</span><span class="if-profile-avatar">SA</span></span><span class="if-account-menu__name">3 accounts</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-switcher" role="dialog" aria-label="Account switcher" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Choose account</strong><span>Switch user context without leaving the page</span><span>Audit trail remains attached to each action</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Available accounts</span><div class="if-profile-account-list"><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">JD</span><span><strong>Jane Doe</strong><span>Personal reviewer workspace</span></span><span class="if-badge if-badge--info">Active</span></button><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">TM</span><span><strong>Team Mission Cell</strong><span>Shared triage queue</span></span></button><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">SA</span><span><strong>Source Automation</strong><span>Service-account monitor</span></span></button></div></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="if-profile-pattern-grid if-profile-pattern-grid--wide" aria-label="Expanded profile dropdown surfaces">
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 07</span><h2>Full preferences surface</h2><p>Profile dropdown owns theme, density, routing, confidence, and export actions.</p></div>
+                <span class="if-badge if-badge--status-approved">Rich</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>WK</span><strong>Workspace</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Full preferences account menu" aria-expanded="false" aria-controls="profile-preferences" data-if-popover-toggle="profile-preferences"><span class="if-profile-avatar if-profile-avatar--image" aria-hidden="true">JD</span><span class="if-profile-identity__copy"><strong>Jane Doe</strong><span>Comfortable | Light</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-preferences" role="dialog" aria-label="Full preference controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>Preference profile: default reviewer</span></span></header>
+                      <div class="if-account-surface__body">
+                        <section class="if-account-surface__section"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-surface__control"><span>Landing</span><strong>Daily Overview</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section>
+                        <section class="if-account-surface__section"><span class="if-account-surface__label">Exports</span><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export profile JSON</strong><span class="if-account-action__meta">Theme, density, saved views, notification rules</span></span></button></section>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 08</span><h2>Session management</h2><p>Shows device sessions and lets users terminate risky activity.</p></div>
+                <span class="if-badge if-badge--confidence-medium">Trust</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>TR</span><strong>Trust Center</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Session profile menu" aria-expanded="false" aria-controls="profile-sessions" data-if-popover-toggle="profile-sessions"><span class="if-profile-avatar" aria-hidden="true">ER<span class="if-profile-presence if-profile-presence--away"></span></span><span class="if-profile-identity__copy"><strong>Evan Reed</strong><span>2 active sessions</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-sessions" role="dialog" aria-label="Session controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">ER</span><span class="if-account-surface__identity"><strong>Evan Reed</strong><span>Security review user</span><span>2 active sessions</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Sessions</span><div class="if-profile-session-list"><div class="if-profile-session-row"><span><strong>Managed laptop</strong><span>Washington, DC | current</span></span><span class="if-badge if-badge--status-approved">Now</span></div><div class="if-profile-session-row"><span><strong>Tablet browser</strong><span>Arlington, VA | 41m ago</span></span><button class="if-btn if-btn--secondary if-btn--sm" type="button">End</button></div><div class="if-profile-session-row"><span><strong>CLI token</strong><span>Build agent | expires in 2h</span></span><button class="if-btn if-btn--secondary if-btn--sm" type="button">Revoke</button></div></div></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 09</span><h2>Role delegation surface</h2><p>Profile panel can expose temporary elevation and delegation state.</p></div>
+                <span class="if-badge if-badge--status-in-review">Governed</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>AD</span><strong>Admin</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <span class="if-profile-mini-chip"><span class="if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>Elevated</span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Role delegation menu" aria-expanded="false" aria-controls="profile-delegation" data-if-popover-toggle="profile-delegation"><span class="if-profile-avatar" aria-hidden="true">RB</span><span class="if-profile-identity__copy"><strong>Riley Brooks</strong><span>Admin delegate</span></span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-delegation" role="dialog" aria-label="Delegated role controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">RB</span><span class="if-account-surface__identity"><strong>Riley Brooks</strong><span>Temporary admin delegate</span><span>Elevation expires in 18m</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Delegation</span><div class="if-profile-access-grid"><div class="if-profile-access-card"><strong>Granted by</strong><span>Morgan Hale | 2:12 PM</span></div><div class="if-profile-access-card"><strong>Scope</strong><span>Source connector settings only</span></div><div class="if-profile-access-card"><strong>Audit</strong><span>All admin actions require reason capture</span></div></div></section><section class="if-account-surface__section"><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="pause" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Drop elevated access</strong><span class="if-account-action__meta">Return to reviewer role</span></span></button></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 10</span><h2>Lightweight command menu</h2><p>Uses the menu behavior when the dropdown is command-only.</p></div>
+                <span class="if-badge if-badge--info">Menu</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>CM</span><strong>Command</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-split-action-wrap">
+                    <button class="if-account-menu" type="button" aria-expanded="false" aria-controls="profile-command-menu" data-if-menu-toggle="profile-command-menu"><span class="if-profile-avatar" aria-hidden="true">SR</span><span class="if-account-menu__name">Sam Rivera</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <div class="if-menu" id="profile-command-menu" data-if-menu hidden>
+                      <button type="button" data-if-menu-item="profile"><span class="if-icon-slot" data-if-icon="user" aria-hidden="true"></span><span><strong>Open profile</strong><em>Identity and contact settings</em></span></button>
+                      <button type="button" data-if-menu-item="preferences"><span class="if-icon-slot" data-if-icon="settings" aria-hidden="true"></span><span><strong>Preferences</strong><em>Theme, density, and routing</em></span></button>
+                      <button type="button" data-if-menu-item="tokens"><span class="if-icon-slot" data-if-icon="api" aria-hidden="true"></span><span><strong>Access tokens</strong><em>Manage local integrations</em></span></button>
+                      <button type="button" data-if-menu-item="signout"><span class="if-icon-slot" data-if-icon="external" aria-hidden="true"></span><span><strong>Sign out</strong><em>End this browser session</em></span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="if-profile-pattern-grid" aria-label="Specialized profile area patterns">
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 11</span><h2>Team presence cluster</h2><p>Shows current user plus nearby collaborators in the top-right area.</p></div>
+                <span class="if-badge if-badge--confidence-high">Collaborative</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>GR</span><strong>Graph Review</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <span class="if-profile-avatar-stack" aria-label="Active collaborators"><span class="if-profile-avatar" aria-hidden="true">JD<span class="if-profile-presence"></span></span><span class="if-profile-avatar" aria-hidden="true">AP<span class="if-profile-presence if-profile-presence--busy"></span></span><span class="if-profile-avatar" aria-hidden="true">MC<span class="if-profile-presence if-profile-presence--away"></span></span></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-icon-btn" type="button" aria-label="Collaboration profile menu" aria-expanded="false" aria-controls="profile-team" data-if-popover-toggle="profile-team"><span class="if-icon-slot" data-if-icon="users" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-team" role="dialog" aria-label="Team presence" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">3</span><span class="if-account-surface__identity"><strong>Active collaborators</strong><span>3 people viewing this workspace</span><span>Last team update 1m ago</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">People</span><div class="if-profile-account-list"><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">JD</span><span><strong>Jane Doe</strong><span>Editing source annotations</span></span><span class="if-badge if-badge--status-approved">Live</span></button><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">AP</span><span><strong>Avery Patel</strong><span>Reviewing graph cluster</span></span></button><button class="if-profile-account-option" type="button"><span class="if-profile-avatar">MC</span><span><strong>Maria Chen</strong><span>Watching source queue</span></span></button></div></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Pattern 12</span><h2>Public-site profile menu</h2><p>Useful for personal sites, members areas, or lightweight public dashboards.</p></div>
+                <span class="if-badge if-badge--status-approved">Public</span>
+              </header>
+              <div class="if-profile-pattern-frame">
+                <div class="if-profile-demo-topbar">
+                  <div class="if-profile-demo-topbar__brand"><span>AB</span><strong>AdamBoas.com</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <a class="if-btn if-btn--secondary if-btn--sm" href="./adamboas.html">Profile</a>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-account-menu" type="button" aria-label="Public account menu" aria-expanded="false" aria-controls="profile-public" data-if-popover-toggle="profile-public"><span class="if-profile-avatar if-profile-avatar--image" aria-hidden="true">AB</span><span class="if-account-menu__name">Adam Boas</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-public" role="dialog" aria-label="Public profile controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">AB</span><span class="if-account-surface__identity"><strong>Adam Boas</strong><span>Profile, writing, and advisory work</span><span>Public site pattern</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><span class="if-account-surface__label">Public routes</span><a class="if-account-action" href="./adamboas.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="user" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Profile</strong><span class="if-account-action__meta">Background and writing</span></span></a><a class="if-account-action" href="./consulting.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="briefcase" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Consulting</strong><span class="if-account-action__meta">Engagement packages</span></span></a></section></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="if-profile-layout-grid" aria-label="Mobile and implementation guidance">
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Mobile</span><h2>Compact mobile header</h2><p>On small screens, keep identity compact and move deeper account actions into the panel.</p></div>
+              </header>
+              <div class="if-profile-mobile-frame">
+                <div class="if-profile-demo-topbar">
+                  <button class="if-icon-btn" type="button" aria-label="Open navigation"><span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span></button>
+                  <div class="if-profile-demo-topbar__brand"><span>PI</span><strong>Mobile</strong></div>
+                  <span class="if-profile-demo-topbar__spacer"></span>
+                  <div class="if-popover if-account-popover" data-if-popover>
+                    <button class="if-icon-btn" type="button" aria-label="Mobile account menu" aria-expanded="false" aria-controls="profile-mobile" data-if-popover-toggle="profile-mobile"><span class="if-profile-avatar" aria-hidden="true">JD</span></button>
+                    <section class="if-popover__panel if-account-surface" id="profile-mobile" role="dialog" aria-label="Mobile account controls" hidden>
+                      <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Mobile reviewer</span><span>Low-bandwidth mode available</span></span></header>
+                      <div class="if-account-surface__body"><section class="if-account-surface__section"><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Workspace</strong><span class="if-account-action__meta">Open mobile dashboard</span></span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="task" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review queue</strong><span class="if-account-action__meta">5 due today</span></span></a></section></div>
+                    </section>
+                  </div>
+                </div>
+                <div class="if-profile-mobile-body"><span class="if-badge if-badge--info">Today</span><h3 class="if-service-card__title">Review queue snapshot</h3><p class="if-service-card__body">Account actions stay one tap away without competing with primary mobile navigation.</p><div class="if-profile-metric-strip"><span><strong>5</strong>Due</span><span><strong>17</strong>Assigned</span><span><strong>2</strong>Alerts</span></div></div>
+                <div class="if-profile-mobile-nav"><button type="button" class="is-active"><span class="if-icon-slot" data-if-icon="home" aria-hidden="true"></span></button><button type="button"><span class="if-icon-slot" data-if-icon="search" aria-hidden="true"></span></button><button type="button"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span></button><button type="button"><span class="if-icon-slot" data-if-icon="user" aria-hidden="true"></span></button></div>
+              </div>
+            </article>
+
+            <article class="if-profile-pattern-card">
+              <header class="if-profile-pattern-card__header">
+                <div><span class="if-customization-label">Implementation notes</span><h2>Reusable profile contract</h2><p>Use these rules when adding a new top-right profile area.</p></div>
+              </header>
+              <ul class="if-profile-contract-list">
+                <li><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span>Use <code>.if-account-menu</code> for identity triggers and <code>.if-popover__panel.if-account-surface</code> for rich account panels.</span></li>
+                <li><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span>Use <code>.if-menu</code> only when the dropdown is a short command list and does not need identity, preferences, or metrics.</span></li>
+                <li><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span>Keep destructive or security-sensitive actions visually separated in their own account-surface section.</span></li>
+                <li><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span>Expose current user, active workspace, session status, and role state before the user has to click when those facts change behavior.</span></li>
+                <li><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span>Theme and density controls should reuse the same <code>data-if-theme</code>, <code>data-if-theme-label</code>, button, badge, and field primitives used elsewhere.</span></li>
+              </ul>
+              <div class="if-profile-code-note">
+                <strong>Minimum markup</strong>
+                <code>&lt;div class="if-popover if-account-popover" data-if-popover&gt;...&lt;button class="if-account-menu" data-if-popover-toggle="account-menu"&gt;...&lt;/button&gt;&lt;section class="if-popover__panel if-account-surface" id="account-menu" hidden&gt;...&lt;/section&gt;&lt;/div&gt;</code>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+      <div class="if-backdrop" data-if-backdrop hidden></div>
+    </div>
+    <script src="../dist/interface-framework.js?v=profile-patterns-20260601"></script>
+  </body>
+</html>

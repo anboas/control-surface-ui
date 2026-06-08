@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Sources & Agents</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable" data-demo-page="sources">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="sources-filters" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link is-active" href="./sources.html" aria-current="page">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search policies, sources, organizations...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <div class="if-main if-main--with-sidebar">
+        <aside class="if-sidebar" id="sources-filters" aria-label="Source filters">
+          <div class="if-sidebar__section">
+            <div class="if-cluster if-cluster--between">
+              <h2 class="if-sidebar__title">Filters</h2>
+              <a class="if-text-xs if-font-semibold" href="#">Reset</a>
+            </div>
+            <div class="if-filter-stack">
+              <label class="if-field"><span class="if-field__label">Source Tier</span><select class="if-select"><option>All Tiers</option><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select></label>
+              <label class="if-field"><span class="if-field__label">Source Health</span><select class="if-select"><option>All Health</option><option>Healthy</option><option>Degraded</option><option>Failed</option></select></label>
+              <label class="if-field"><span class="if-field__label">Access Mode</span><select class="if-select"><option>All Modes</option><option>API</option><option>Watchlist</option><option>Manual</option></select></label>
+              <label class="if-field"><span class="if-field__label">Parser Status</span><select class="if-select"><option>All Parsers</option><option>OK</option><option>Warnings</option><option>Errors</option></select></label>
+              <label class="if-field"><span class="if-field__label">Agent Status</span><select class="if-select"><option>All Agents</option><option>Healthy</option><option>Paused</option><option>Failed</option></select></label>
+              <label class="if-field"><span class="if-field__label">Last Run Window</span><input class="if-input" value="Apr 1, 2025 - May 12, 2025"></label>
+              <label class="if-switch"><input type="checkbox"><span class="if-switch__track" aria-hidden="true"></span><span>Show retired sources</span></label>
+              <button class="if-btn if-btn--secondary if-btn--block" type="button">Save View</button>
+            </div>
+          </div>
+        </aside>
+
+        <main class="if-content">
+          <div class="if-page">
+            <header class="if-page-header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                <div class="if-section-heading__body">
+                <h1 class="if-page-header__title">Policy Intelligence - Sources & Agent Controls</h1>
+                <p class="if-text-muted">Monitor source freshness, parser health, publication rules, and agent activity.</p>
+                </div>
+              </div>
+            </header>
+
+            <section class="if-panel">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <div class="if-section-heading__body">
+                  <h2 class="if-panel__title">Source-Aware Ingest Architecture</h2>
+                  <p class="if-panel__subtitle">Synthetic pipeline data modeled after the Azure deployment architecture: adapters, extraction, agents, knowledge stores, and experience surfaces.</p>
+                  </div>
+                </div>
+                <span class="if-badge if-badge--info">Demo data</span>
+              </div>
+              <div class="if-panel__body">
+                <div class="if-ingest-flow" data-demo-ingest-stages></div>
+              </div>
+            </section>
+
+            <section class="if-grid if-grid--2">
+              <article class="if-panel">
+                <div class="if-panel__header"><div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span><h2 class="if-panel__title">External Source Adapters</h2></div><a href="./graph-view.html">View graph</a></div>
+                <div class="if-panel__body">
+                  <div class="if-source-card-grid" data-demo-source-cards></div>
+                </div>
+              </article>
+              <article class="if-panel">
+                <div class="if-panel__header"><div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><h2 class="if-panel__title">Extracted Intelligence Objects</h2></div></div>
+                <div class="if-table-wrap">
+                  <table class="if-table">
+                    <thead><tr><th>Record</th><th>Type</th><th>Extracted</th><th>Agent</th><th>Confidence</th></tr></thead>
+                    <tbody data-demo-synthetic-records></tbody>
+                  </table>
+                </div>
+              </article>
+            </section>
+
+            <section class="if-metric-grid" aria-label="Source metrics">
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="database"></span><p class="if-metric__label">Active Sources</p></div><div class="if-metric__main"><p class="if-metric__value">124</p><span data-if-sparkline="88,96,101,109,113,119,124"></span></div><span class="if-metric__change if-text-success">Up 18% vs Apr 1 - Apr 30</span><div class="if-metric__meta"><span>Source Monitor</span><span>Synced 10:22 AM</span></div></article>
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="warning"></span><p class="if-metric__label">Sources Degraded</p></div><div class="if-metric__main"><p class="if-metric__value">7</p><span data-if-sparkline="12,11,10,9,8,7,7"></span></div><span class="if-metric__change">Down 12% vs Apr 1 - Apr 30</span><div class="if-metric__meta"><span>Parser health</span><span>Warnings + errors</span></div></article>
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="shield"></span><p class="if-metric__label">Agents Healthy</p></div><div class="if-metric__main"><p class="if-metric__value">7</p><span data-if-sparkline="7,7,7,7,7,7,7"></span></div><span class="if-metric__change">No change</span><div class="if-metric__meta"><span>Agent roster</span><span>Last run window</span></div></article>
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="pause"></span><p class="if-metric__label">Agents Paused</p></div><div class="if-metric__main"><p class="if-metric__value">1</p><span data-if-sparkline="4,3,3,2,2,1,1"></span></div><span class="if-metric__change">Down 50% vs Apr 1 - Apr 30</span><div class="if-metric__meta"><span>Ops controls</span><span>Manual pause</span></div></article>
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="plus"></span><p class="if-metric__label">New Source Candidates</p></div><div class="if-metric__main"><p class="if-metric__value">14</p><span data-if-sparkline="5,7,9,8,11,12,14"></span></div><span class="if-metric__change if-text-success">Up 27% vs Apr 1 - Apr 30</span><div class="if-metric__meta"><span>Discovery agent</span><span>Unpromoted</span></div></article>
+              <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="close"></span><p class="if-metric__label">Failed Runs</p></div><div class="if-metric__main"><p class="if-metric__value">3</p><span data-if-sparkline="8,7,6,6,5,4,3"></span></div><span class="if-metric__change">Down 25% vs Apr 1 - Apr 30</span><div class="if-metric__meta"><span>Audit log</span><span>Last 24 hours</span></div></article>
+            </section>
+
+            <section class="if-split if-split--admin">
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span><div><h2 class="if-panel__title">Sources (124)</h2><p class="if-panel__subtitle">Registry entries with freshness, parser, and document volume signals.</p></div></div>
+                  <div class="if-toolbar__group">
+                    <label class="if-search">
+                      <span class="if-search__icon" aria-hidden="true">Q</span>
+                      <span class="if-sr-only">Search sources</span>
+                      <input class="if-input" type="search" data-if-table-filter="#sources-data-table" placeholder="Search sources...">
+                    </label>
+                    <button class="if-btn" type="button">Columns</button>
+                    <button class="if-btn" type="button">Export</button>
+                  </div>
+                </div>
+                <div class="if-data-table" id="sources-data-table" data-if-data-table data-if-table-page-size="5">
+                  <div class="if-table-toolbar" aria-label="Source table status">
+                    <div class="if-table-toolbar__meta">
+                      <span><strong data-if-table-status="filtered">0</strong> matching</span>
+                      <span><strong data-if-table-status="visible">0</strong> visible</span>
+                      <span><strong data-if-table-status="selected">0</strong> selected</span>
+                      <span>Page <strong data-if-table-status="page">1</strong> of <strong data-if-table-status="pages">1</strong></span>
+                    </div>
+                    <div class="if-cluster">
+                      <button class="if-btn if-btn--secondary if-btn--sm" type="button">Bulk Run</button>
+                      <button class="if-btn if-btn--secondary if-btn--sm" type="button">Open Selected</button>
+                    </div>
+                  </div>
+                  <div class="if-table-wrap">
+                  <table class="if-table if-table--dense">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" data-if-table-select-all aria-label="Select all visible sources"></th>
+                        <th><span class="if-sr-only">Expand</span></th>
+                        <th><button class="if-table__sort" type="button" data-if-table-sort="source" aria-sort="none">Source</button></th>
+                        <th>Tier / Access</th>
+                        <th>Freshness</th>
+                        <th><button class="if-table__sort" type="button" data-if-table-sort="health" aria-sort="none">Health</button></th>
+                        <th><button class="if-table__sort" type="button" data-if-table-sort="docs" aria-sort="none">Docs</button></th>
+                        <th><button class="if-table__sort" type="button" data-if-table-sort="trust" aria-sort="none">Trust</button></th>
+                        <th><button class="if-table__sort" type="button" data-if-table-sort="queue" aria-sort="none">Queue</button></th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody data-demo-sources-body></tbody>
+                  </table>
+                  </div>
+                  <div class="if-table-footer">
+                    <span class="if-text-sm">Showing <strong data-if-table-status="start">0</strong>-<strong data-if-table-status="end">0</strong> of <strong data-if-table-status="filtered">0</strong> matching sources</span>
+                    <nav class="if-pagination" aria-label="Source table pagination">
+                      <button class="if-page-btn" type="button" data-if-table-prev aria-label="Previous page">&lt;</button>
+                      <span class="if-pagination__pages" data-if-table-pages></span>
+                      <button class="if-page-btn" type="button" data-if-table-next aria-label="Next page">&gt;</button>
+                      <select class="if-select" data-if-table-page-size aria-label="Rows per page">
+                        <option value="5">5 / page</option>
+                        <option value="10">10 / page</option>
+                        <option value="20">20 / page</option>
+                      </select>
+                    </nav>
+                  </div>
+                </div>
+              </article>
+
+              <div class="if-region">
+                <article class="if-panel">
+                  <div class="if-panel__header"><h2 class="if-panel__title">Agent Roster (8)</h2></div>
+                  <div class="if-table-wrap">
+                    <table class="if-table">
+                      <thead><tr><th>Agent</th><th>Status</th><th>Last Run</th><th>Next Run</th></tr></thead>
+                      <tbody data-demo-agents-body></tbody>
+                    </table>
+                  </div>
+                </article>
+                <div class="if-source-tools">
+                  <article class="if-panel">
+                    <div class="if-panel__header"><h2 class="if-panel__title">Run Controls</h2></div>
+                    <div class="if-panel__body if-command-panel">
+                      <button class="if-btn if-btn--primary if-btn--block" type="button" data-demo-action="run-all">Run Now (All Agents)</button>
+                      <button class="if-btn if-btn--block" type="button" data-demo-action="pause-agent">Pause Agent</button>
+                      <button class="if-btn if-btn--block" type="button">Resume Agents</button>
+                      <button class="if-btn if-btn--block" type="button">Reprocess Source</button>
+                      <button class="if-btn if-btn--block" type="button" data-demo-action="promote-source">Promote Candidate Source</button>
+                      <button class="if-btn if-btn--block" type="button">Hold for Review</button>
+                    </div>
+                  </article>
+                  <article class="if-panel">
+                    <div class="if-panel__header"><h2 class="if-panel__title">Publication Rules</h2></div>
+                    <div class="if-panel__body if-stack">
+                      <label class="if-field"><span class="if-field__label">Auto-Publish >=</span><input class="if-input" type="number" value="0.80" step="0.01"></label>
+                      <label class="if-field"><span class="if-field__label">Hold / Do Not Publish <</span><input class="if-input" type="number" value="0.50" step="0.01"></label>
+                      <label class="if-checkbox"><input type="checkbox" checked> Require 2 independent sources for auto-publish</label>
+                      <label class="if-checkbox"><input type="checkbox" checked> Block if source health is degraded</label>
+                      <label class="if-checkbox"><input type="checkbox" checked> Block if parser status has errors</label>
+                    </div>
+                  </article>
+                  <article class="if-panel">
+                    <div class="if-panel__header"><h2 class="if-panel__title">Audit Log (Recent)</h2></div>
+                    <div class="if-panel__body if-audit-log" data-demo-audit></div>
+                    <div class="if-panel__footer"><a href="#">View full audit log</a></div>
+                  </article>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+      <div class="if-backdrop" data-if-backdrop hidden></div>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>
+
+

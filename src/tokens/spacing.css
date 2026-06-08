@@ -1,0 +1,18 @@
+:root {
+  --if-space-0: 0;
+  --if-space-1: 0.25rem;
+  --if-space-2: 0.5rem;
+  --if-space-3: 0.75rem;
+  --if-space-4: 1rem;
+  --if-space-5: 1.25rem;
+  --if-space-6: 1.5rem;
+  --if-space-7: 1.75rem;
+  --if-space-8: 2rem;
+  --if-space-10: 2.5rem;
+  --if-space-12: 3rem;
+  --if-space-16: 4rem;
+  --if-page-gutter: clamp(0.75rem, 1.25vw, 1rem);
+  --if-sidebar-width: 15.75rem;
+  --if-detail-width: 29rem;
+  --if-topbar-height: 3.5rem;
+}

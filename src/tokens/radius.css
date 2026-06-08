@@ -1,0 +1,11 @@
+:root {
+  --if-radius-0: 0;
+  --if-radius-1: 0.125rem;
+  --if-radius-2: 0.25rem;
+  --if-radius-3: 0.3125rem;
+  --if-radius-4: 0.4375rem;
+  --if-radius-5: 0.625rem;
+  --if-radius-pill: 999px;
+  --if-card-radius: var(--if-radius-2);
+  --if-control-radius: var(--if-radius-2);
+}

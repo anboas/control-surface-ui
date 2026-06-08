@@ -1,0 +1,10 @@
+:root {
+  --if-z-base: 1;
+  --if-z-raised: 10;
+  --if-z-dropdown: 80;
+  --if-z-sticky: 50;
+  --if-z-drawer: 300;
+  --if-z-modal: 500;
+  --if-z-tooltip: 650;
+  --if-z-toast: 700;
+}

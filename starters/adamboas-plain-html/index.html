@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adam Boas Consulting Starter</title>
+    <link rel="stylesheet" href="./node_modules/control-surface-ui/dist/interface-framework.css">
+    <script src="./node_modules/control-surface-ui/dist/interface-framework.js" defer></script>
+  </head>
+  <body>
+    <div class="if-public-site">
+      <header class="if-site-nav">
+        <a class="if-site-brand" href="#"><strong>Adam Boas</strong><span>Consulting</span></a>
+        <nav class="if-site-nav__links" aria-label="Public routes">
+          <a href="#services">Services</a>
+          <a href="#experience">Experience</a>
+          <a href="#insights">Insights</a>
+          <a href="#profile">Profile</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="if-btn if-btn--primary if-btn--sm" type="button">Contact</button>
+      </header>
+
+      <main>
+        <section class="if-consulting-hero">
+          <div class="if-site-container if-consulting-hero__inner">
+            <div class="if-consulting-hero__copy">
+              <span class="if-page-header__eyebrow">Policy intelligence. Real-world impact.</span>
+              <h1>Strategic counsel for complex policy, AI, and defense environments.</h1>
+              <p>Starter public-site shell for homepage, services, profile, resume, blog posts, and contact flows.</p>
+              <div class="if-cluster"><a class="if-btn if-btn--primary" href="#contact">Work with us</a><a class="if-btn if-btn--secondary" href="#insights">Read insights</a></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="if-site-container if-stack" id="services">
+          <div class="if-consulting-section-head"><span>Services</span><h2>Reusable public-site sections</h2><p>Use these as route scaffolds, then replace synthetic content with the public-site content model.</p></div>
+          <div class="if-consulting-service-list">
+            <article class="if-consulting-service-row"><span class="if-service-card__icon if-icon-slot" data-if-icon="policy"></span><div><div class="if-consulting-service-row__head"><h3>Policy & Regulatory Strategy</h3><span>Strategy</span></div><p>Policy scans, risk posture, and executive decision briefs.</p></div></article>
+            <article class="if-consulting-service-row"><span class="if-service-card__icon if-icon-slot" data-if-icon="architecture"></span><div><div class="if-consulting-service-row__head"><h3>AI Control Planes</h3><span>Architecture</span></div><p>Governed autonomy, evidence loops, and trusted action surfaces.</p></div></article>
+            <article class="if-consulting-service-row"><span class="if-service-card__icon if-icon-slot" data-if-icon="briefcase"></span><div><div class="if-consulting-service-row__head"><h3>Strategic Advisory</h3><span>Executive</span></div><p>Leader prep, operating cadence, and issue framing.</p></div></article>
+          </div>
+        </section>
+
+        <section class="if-site-container if-stack" id="insights">
+          <div class="if-public-search" data-if-public-search data-if-public-search-target="#insight-results">
+            <div class="if-public-search__form" role="search">
+              <label class="if-search"><span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span><span class="if-sr-only">Search insights</span><input class="if-input" type="search" data-if-public-search-query placeholder="Search writing..."></label>
+              <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-public-search-clear>Clear</button>
+            </div>
+            <div class="if-public-search__topics">
+              <button class="if-chip if-chip--button is-active" type="button" data-if-public-search-filter="all" aria-pressed="true">All <span data-if-public-search-count>3 of 3</span></button>
+              <button class="if-chip if-chip--button" type="button" data-if-public-search-filter="memo" aria-pressed="false">Memos</button>
+              <button class="if-chip if-chip--button" type="button" data-if-public-search-filter="paper" aria-pressed="false">Papers</button>
+            </div>
+          </div>
+          <div id="insight-results" class="if-grid if-grid--3">
+            <article class="if-publication-card" data-if-public-search-result data-if-public-search-category="memo" data-if-public-search-text="delegated authority AI policy memo"><div class="if-publication-card__meta"><span class="if-badge">Memo</span><time>Apr 18, 2026</time></div><h3 class="if-publication-card__title">The Next AI Bottleneck Is Delegated Authority</h3><p class="if-publication-card__abstract">A starter insight card for public writing routes.</p></article>
+            <article class="if-publication-card" data-if-public-search-result data-if-public-search-category="paper" data-if-public-search-text="continuous assurance fabric reference architecture"><div class="if-publication-card__meta"><span class="if-badge">Paper</span><time>Feb 23, 2026</time></div><h3 class="if-publication-card__title">Continuous Assurance Fabric Reference Architecture</h3><p class="if-publication-card__abstract">A starter publication card with tags and metadata.</p></article>
+            <article class="if-publication-card" data-if-public-search-result data-if-public-search-category="memo" data-if-public-search-text="policy intelligence real world impact"><div class="if-publication-card__meta"><span class="if-badge">Brief</span><time>May 1, 2026</time></div><h3 class="if-publication-card__title">Policy Intelligence, Real-World Impact</h3><p class="if-publication-card__abstract">A starter brief for the homepage and insights index.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

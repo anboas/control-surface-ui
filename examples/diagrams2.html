@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Diagrams2 Stress Test</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="diagram2-main" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link is-active" href="./diagrams2.html" aria-current="page">Diagrams2</a>
+          <a class="if-nav-link" href="./diagram3.html">Diagram3</a>
+          <a class="if-nav-link" href="./diagram4.html">Diagram4</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" data-if-diagram-search data-if-diagram-search-target="#biotech-research-diagram" data-if-diagram-search-status="[data-if-biotech-search-status]" data-if-diagram-search-results="[data-if-biotech-search-results]" placeholder="Search diagram, policies, sources...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header"><div><h2>Notifications</h2><p>3 unread intelligence events</p></div><button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button></header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Diagram stress test</span>
+                <a class="if-notification-item if-notification-item--unread" href="./diagrams2.html"><span class="if-notification-item__icon if-icon-slot" data-if-icon="workflow" aria-hidden="true"></span><span class="if-notification-item__content"><strong class="if-notification-item__title">Biotech platform diagram added</strong><span class="if-notification-item__meta">Search, focus, layer toggles, and export exercise a denser composition.</span></span><span class="if-notification-item__time">now</span></a>
+                <a class="if-notification-item" href="./diagrams.html"><span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span><span class="if-notification-item__content"><strong class="if-notification-item__title">Azure architecture export ready</strong><span class="if-notification-item__meta">PNG/PDF export uses the rich architecture renderer.</span></span><span class="if-notification-item__time">8m</span></a>
+              </div>
+              <footer class="if-notifications__footer"><a class="if-text-xs if-font-semibold" href="./components.html">View design system</a><span class="if-text-xs if-text-muted">Live mock data</span></footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <main class="if-content" id="diagram2-main">
+        <div class="if-page if-diagram2-page">
+          <section class="if-biotech-diagram" id="biotech-research-diagram" data-if-diagram data-if-diagram-layout-key="biotech-research-intelligence-platform" data-if-diagram-layout-autosave="true" data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item]" data-if-focus-exclude=".if-diagram-control-panel, .if-diagram-authoring-surface, .if-diagram-source-panel, [data-if-diagram-detail]" aria-labelledby="biotech-diagram-title">
+            <header class="if-diagram-component-head if-biotech-header">
+              <div class="if-diagram-title-block if-biotech-header__main">
+                <p class="if-eyebrow">Diagrams2 Stress Surface</p>
+                <h1 class="if-architecture-header__title" id="biotech-diagram-title">AI-Enabled Research Intelligence Platform for Biotech (Azure)</h1>
+                <p class="if-architecture-header__subtitle">Evidence-backed insights. Governed by design. Accelerating scientific discovery.</p>
+                <div class="if-diagram-component-meta if-biotech-header__meta" aria-label="Diagram page metadata">
+                  <span class="if-badge if-badge--info">Framework primitive</span>
+                  <span class="if-badge if-badge--status-in-review">Editable layout</span>
+                  <span class="if-chip">9 routed connectors</span>
+                </div>
+              </div>
+              <section class="if-diagram-control-panel if-diagram-control-panel--chrome" aria-label="Biotech diagram controls">
+                <label class="if-search if-diagram-control-search">
+                  <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+                  <span class="if-sr-only">Search biotech diagram</span>
+                  <input class="if-input" type="search" data-if-diagram-search data-if-diagram-search-target="#biotech-research-diagram" data-if-diagram-search-status="[data-if-biotech-search-status]" data-if-diagram-search-results="[data-if-biotech-search-results]" placeholder="Search agents, data, governance..." autocomplete="off">
+                </label>
+                <div class="if-diagram-control-actions" role="group" aria-label="Diagram actions">
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-step="-1" aria-label="Previous search match" title="Previous search match"><span class="if-icon-slot" data-if-icon="arrowLeft" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-step="1" aria-label="Next search match" title="Next search match"><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-clear aria-label="Clear search" title="Clear search"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-reset aria-label="Clear diagram focus" title="Clear diagram focus"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-export="#biotech-research-diagram" data-if-export-format="png" data-if-export-name="biotech-research-intelligence-platform.png" aria-label="Export diagram as PNG" title="Export PNG"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-export="#biotech-research-diagram" data-if-export-format="pdf" data-if-export-name="biotech-research-intelligence-platform.pdf" aria-label="Export diagram as PDF" title="Export PDF"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span></button>
+                </div>
+                <div class="if-diagram-layer-controls" aria-label="Biotech diagram layer toggles">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="sources">Sources</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="workflows">Workflows</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="fabric">Fabric</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="outcomes">Outcomes</button>
+                </div>
+                <label class="if-field if-diagram-slider if-diagram-density-control"><span class="if-field__label">Node gap <strong data-if-biotech-output-gap>0.7rem</strong></span><input class="if-range" type="range" min="0.45" max="1.25" step="0.05" value="0.7" data-if-diagram-var="--biotech-gap" data-if-diagram-unit="rem" data-if-diagram-output="[data-if-biotech-output-gap]"></label>
+                <div class="if-diagram-control-status">
+                  <span class="if-diagram-search-status" data-if-biotech-search-status>Search diagram nodes, outcomes, platform services, and gaps</span>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready to export</span>
+                </div>
+                <div class="if-diagram-search-results" data-if-biotech-search-results hidden></div>
+              </section>
+            </header>
+
+            <section class="if-diagram-authoring-surface" aria-label="Diagram authoring controls">
+              <button class="if-diagram-edit-switch" type="button" aria-pressed="false" data-if-diagram-edit-toggle>
+                <span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>
+                <span><strong data-if-diagram-edit-toggle-label>Edit layout</strong><em data-if-diagram-edit-switch-copy>Turn on authoring tools</em></span>
+              </button>
+              <label class="if-field if-diagram-container-picker">
+                <span class="if-field__label">Target container</span>
+                <select class="if-select" data-if-diagram-container-select disabled></select>
+              </label>
+              <div class="if-diagram-tool-stack">
+                <span class="if-diagram-tool-stack__label">Tools</span>
+                <div class="if-diagram-tool-strip" role="toolbar" aria-label="Diagram editing tools">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="inspect"><span class="if-icon-slot" data-if-icon="eye" aria-hidden="true"></span>Inspect</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="text"><span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>Text</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="move"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span>Move</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="connect"><span class="if-icon-slot" data-if-icon="connector" aria-hidden="true"></span>Connect</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="style"><span class="if-icon-slot" data-if-icon="settings" aria-hidden="true"></span>Style</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="add"><span class="if-icon-slot" data-if-icon="plus" aria-hidden="true"></span>Add</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="delete"><span class="if-icon-slot" data-if-icon="trash" aria-hidden="true"></span>Delete</button>
+                </div>
+              </div>
+              <div class="if-diagram-tool-stack if-diagram-tool-stack--session">
+                <span class="if-diagram-tool-stack__label">Session</span>
+                <div class="if-diagram-session-actions" role="group" aria-label="Session layout actions">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-add-node><span class="if-icon-slot" data-if-icon="plus" aria-hidden="true"></span>Add node</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-add-from-source><span class="if-icon-slot" data-if-icon="artifact" aria-hidden="true"></span>Add from JSON</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-duplicate-node><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Duplicate</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-move-container><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span>Move selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reorder="up"><span class="if-icon-slot" data-if-icon="arrowUp" aria-hidden="true"></span>Move up</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reorder="down"><span class="if-icon-slot" data-if-icon="arrowDown" aria-hidden="true"></span>Move down</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-clear-selection><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span>Clear selection</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-copy-selected><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Copy selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-apply-selected><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Apply selected JSON</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reset-selected><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Reset selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-delete-selected><span class="if-icon-slot" data-if-icon="trash" aria-hidden="true"></span>Delete selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-undo-delete><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span>Undo delete</button>
+                  <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-layout-save><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Save</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-layout-load><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span>Load</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-layout-reset><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Reset</button>
+                </div>
+              </div>
+              <span class="if-diagram-layout-status" data-if-diagram-layout-status>Session layout ready</span>
+              <span class="if-diagram-tool-status" data-if-diagram-tool-status>Turn on edit mode to modify diagram content or layout.</span>
+            </section>
+
+            <details class="if-diagram-source-panel" open>
+              <summary><span class="if-icon-slot" data-if-icon="artifact" aria-hidden="true"></span><strong>Diagram JSON</strong><span data-if-diagram-source-status>0 nodes, 0 edges</span></summary>
+              <div class="if-diagram-source-panel__actions" role="group" aria-label="Diagram source actions">
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-refresh><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Refresh from diagram</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-validate><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span>Validate</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-format><span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>Format</button>
+                <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-source-apply><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Apply JSON</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-copy><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Copy JSON</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-download data-if-diagram-source-download-name="biotech-research-intelligence-platform.diagram.json"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>Download JSON</button>
+                <label class="if-btn if-btn--secondary if-btn--sm"><span class="if-icon-slot" data-if-icon="upload" aria-hidden="true"></span>Import JSON<input class="if-sr-only" type="file" accept=".json,.md,.txt,application/json,text/markdown,text/plain" data-if-diagram-source-import></label>
+              </div>
+              <label class="if-field if-diagram-source-panel__editor">
+                <span class="if-field__label">DiagramDocument source</span>
+                <textarea class="if-input if-diagram-source-editor" rows="10" spellcheck="false" data-if-diagram-source></textarea>
+              </label>
+            </details>
+
+            <section class="if-diagram-status-bar" aria-label="Diagram interaction status" aria-live="polite">
+              <span><strong data-if-diagram-stat="visible">0</strong> visible nodes</span>
+              <span><strong data-if-diagram-stat="layers">4/4</strong> layers active</span>
+              <span><strong data-if-diagram-stat="matches">0</strong> matches</span>
+              <span class="if-diagram-status-bar__selected"><strong data-if-diagram-stat="selected">No selection</strong></span>
+              <span class="if-diagram-status-bar__hint">Click nodes for details. Use arrow keys to traverse focused nodes.</span>
+            </section>
+
+            <aside class="if-diagram-detail-panel if-diagram-detail-panel--floating" data-if-diagram-detail hidden aria-live="polite">
+              <div class="if-diagram-detail-panel__summary">
+                <div><span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Biotech platform</span><h2 data-if-diagram-detail-title>Selected diagram item</h2><p data-if-diagram-detail-body>Click any node to inspect ownership, throughput, dependencies, and interface contract.</p></div>
+                <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close diagram details" title="Close details"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button>
+              </div>
+              <div class="if-diagram-detail-panel__metrics">
+                <div><span>Status</span><strong data-if-diagram-detail-status>Active</strong></div>
+                <div><span>Owner</span><strong data-if-diagram-detail-owner>Research intelligence</strong></div>
+                <div><span>Throughput</span><strong data-if-diagram-detail-throughput>0 artifacts</strong></div>
+                <div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>0 edges</strong></div>
+              </div>
+              <section class="if-diagram-detail-panel__contract"><span>Interface Contract</span><p data-if-diagram-detail-contract>Evidence-backed outputs with citations, provenance, confidence labels, and review gates.</p></section>
+              <section class="if-diagram-detail-panel__editor" data-if-diagram-editor aria-label="Selected node layout editor">
+                <div class="if-diagram-editor-head">
+                  <span>Layout Editor</span>
+                  <strong data-if-diagram-editor-current-tool>Inspect tool</strong>
+                  <em data-if-diagram-editor-selection-state>Select a node or route to begin.</em>
+                </div>
+                <dl class="if-diagram-edit-readouts">
+                  <div><dt>Node id</dt><dd data-if-diagram-edit-readout="id">No selection</dd></div>
+                  <div><dt>Layer</dt><dd data-if-diagram-edit-readout="layer">-</dd></div>
+                  <div><dt>Type</dt><dd data-if-diagram-edit-readout="type">-</dd></div>
+                  <div><dt>X</dt><dd data-if-diagram-edit-readout="x">-</dd></div>
+                  <div><dt>Y</dt><dd data-if-diagram-edit-readout="y">-</dd></div>
+                </dl>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--help" data-if-diagram-editor-group="inspect">
+                  <strong>Inspect mode</strong>
+                  <p>Select a node or route to review its contract, ownership, status, and connection metadata without changing the diagram.</p>
+                </div>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--help" data-if-diagram-editor-group="add">
+                  <strong>Add mode</strong>
+                  <p>Use Add node in the edit session toolbar, then select the new node to set type, layout, text, and visual treatment.</p>
+                </div>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--move" data-if-diagram-editor-group="move">
+                  <div class="if-diagram-nudge-pad" aria-label="Move selected node">
+                    <span>Move selected node</span>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="up" aria-label="Move selected node up"><span class="if-icon-slot" data-if-icon="arrowUp" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="left" aria-label="Move selected node left"><span class="if-icon-slot" data-if-icon="arrowLeft" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="down" aria-label="Move selected node down"><span class="if-icon-slot" data-if-icon="arrowDown" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="right" aria-label="Move selected node right"><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span></button>
+                  </div>
+                  <label class="if-field if-diagram-container-picker">
+                    <span class="if-field__label">Move to container</span>
+                    <select class="if-select" data-if-diagram-container-select disabled></select>
+                  </label>
+                  <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-move-container disabled><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span>Move to container</button>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="style">
+                  <label class="if-field"><span class="if-field__label">Node type</span><select class="if-select" data-if-diagram-node-type disabled><option value="source">Source</option><option value="workflow">Workflow</option><option value="agent">Agent</option><option value="search">Search</option><option value="graph">Graph</option><option value="storage">Storage</option><option value="governance">Governance</option><option value="outcome">Outcome</option><option value="review">Review</option><option value="service">Service</option><option value="custom">Custom</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Node layout</span><select class="if-select" data-if-diagram-node-layout disabled><option value="tile">Tile</option><option value="compact">Compact</option><option value="media">Media</option><option value="metric">Metric</option><option value="capability">Capability</option><option value="pipeline">Pipeline</option><option value="callout">Callout</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Background</span><select class="if-select" data-if-diagram-node-background disabled><option value="surface">Surface</option><option value="subtle">Subtle</option><option value="tint">Tint</option><option value="soft">Soft</option><option value="outline">Outline</option><option value="inverted">Inverted</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Icon</span><select class="if-select" data-if-diagram-node-icon disabled><option value="component">Component</option><option value="source">Source</option><option value="workflow">Workflow</option><option value="bot">Bot</option><option value="search">Search</option><option value="network">Network</option><option value="database">Database</option><option value="shield">Shield</option><option value="users">Users</option><option value="review">Review</option><option value="server">Server</option><option value="molecule">Molecule</option><option value="microscope">Microscope</option><option value="dna">DNA</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Node tone</span><select class="if-select" data-if-diagram-style-tone disabled><option value="default">Default</option><option value="accent">Accent</option><option value="primary">Primary</option><option value="success">Success</option><option value="warning">Warning</option><option value="danger">Danger</option><option value="purple">Purple</option><option value="green">Green</option><option value="neutral">Neutral</option></select></label>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="connect delete">
+                  <label class="if-field"><span class="if-field__label">Edge label</span><input class="if-input" type="text" value="Connects" data-if-diagram-route-label disabled></label>
+                  <label class="if-field"><span class="if-field__label">Edge route</span><select class="if-select" data-if-diagram-route-style disabled><option value="orthogonal">Smart orthogonal</option><option value="direct">Direct</option><option value="elbow">Elbow</option><option value="curved">Curved</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Edge tone</span><select class="if-select" data-if-diagram-route-tone disabled><option value="async">Async</option><option value="primary">Primary</option><option value="guarded">Guarded</option><option value="success">Success</option><option value="danger">Danger</option></select></label>
+                  <label class="if-field"><span class="if-field__label">From anchor</span><select class="if-select" data-if-diagram-route-from-anchor disabled><option value="auto">Auto</option><option value="left">Left</option><option value="right">Right</option><option value="top">Top</option><option value="bottom">Bottom</option></select></label>
+                  <label class="if-field"><span class="if-field__label">To anchor</span><select class="if-select" data-if-diagram-route-to-anchor disabled><option value="auto">Auto</option><option value="left">Left</option><option value="right">Right</option><option value="top">Top</option><option value="bottom">Bottom</option></select></label>
+                  <label class="if-field if-field--inline"><input type="checkbox" checked data-if-diagram-route-avoid disabled><span>Route around nodes</span></label>
+                  <label class="if-field"><span class="if-field__label">Waypoint X <strong data-if-diagram-route-waypoint-output>Auto</strong></span><input class="if-range" type="range" min="0" max="100" step="1" value="50" data-if-diagram-route-waypoint-x disabled></label>
+                  <label class="if-field"><span class="if-field__label">Waypoint Y</span><input class="if-range" type="range" min="0" max="100" step="1" value="50" data-if-diagram-route-waypoint-y disabled></label>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-route-clear-waypoint disabled>Reset edge bend</button>
+                  <button class="if-btn if-btn--danger if-btn--sm" type="button" data-if-diagram-route-delete disabled>Delete edge</button>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="text">
+                  <label class="if-field"><span class="if-field__label">Title</span><input class="if-input" type="text" data-if-diagram-edit-field="title" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Status</span><input class="if-input" type="text" data-if-diagram-edit-field="status" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Owner</span><input class="if-input" type="text" data-if-diagram-edit-field="owner" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Throughput</span><input class="if-input" type="text" data-if-diagram-edit-field="throughput" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Dependencies</span><input class="if-input" type="text" data-if-diagram-edit-field="dependencies" disabled></label>
+                  <label class="if-field if-diagram-editor__span"><span class="if-field__label">Description</span><textarea class="if-input" rows="2" data-if-diagram-edit-field="description" disabled></textarea></label>
+                  <label class="if-field if-diagram-editor__span"><span class="if-field__label">Interface contract</span><textarea class="if-input" rows="2" data-if-diagram-edit-field="contract" disabled></textarea></label>
+                </div>
+              </section>
+            </aside>
+
+            <div class="if-biotech-board" data-if-connector-routing data-if-connector-style="orthogonal" data-if-connector-obstacle-padding="10" data-if-diagram-add-target aria-label="AI enabled research intelligence platform diagram">
+              <span class="if-biotech-anchor if-biotech-anchor--sources-out" data-if-connector-node="sources-out" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--fabric-in" data-if-connector-node="fabric-in" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--workflow-out" data-if-connector-node="workflow-out" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--outcomes-in-top" data-if-connector-node="outcomes-in-top" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--fabric-out" data-if-connector-node="fabric-out" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--outcomes-in-mid" data-if-connector-node="outcomes-in-mid" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--agents-down" data-if-connector-node="agents-down" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--knowledge-up" data-if-connector-node="knowledge-up" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--knowledge-down" data-if-connector-node="knowledge-down" aria-hidden="true"></span>
+              <span class="if-biotech-anchor if-biotech-anchor--storage-up" data-if-connector-node="storage-up" aria-hidden="true"></span>
+              <span hidden data-if-connector-route="sources-to-fabric" data-if-connector-from="sources-out" data-if-connector-to="fabric-in" data-if-connector-label="Ingest" data-if-connector-tone="primary" data-if-connector-style="direct" data-if-connector-avoid="false"></span>
+              <span hidden data-if-connector-route="workflow-to-outcomes" data-if-connector-from="workflow-out" data-if-connector-to="outcomes-in-top" data-if-connector-label="Outputs" data-if-connector-tone="async" data-if-connector-style="direct" data-if-connector-avoid="false"></span>
+              <span hidden data-if-connector-route="fabric-to-outcomes" data-if-connector-from="fabric-out" data-if-connector-to="outcomes-in-mid" data-if-connector-label="Evidence APIs" data-if-connector-tone="primary" data-if-connector-style="direct" data-if-connector-avoid="false"></span>
+              <span hidden data-if-connector-route="agents-to-knowledge" data-if-connector-from="agents-down" data-if-connector-to="knowledge-up" data-if-connector-tone="guarded" data-if-connector-style="direct" data-if-connector-label-hidden="true" data-if-connector-avoid="false"></span>
+              <span hidden data-if-connector-route="knowledge-to-storage" data-if-connector-from="knowledge-down" data-if-connector-to="storage-up" data-if-connector-tone="success" data-if-connector-style="direct" data-if-connector-label-hidden="true" data-if-connector-avoid="false"></span>
+              <span hidden data-if-connector-route="doc-to-extraction" data-if-connector-from="doc-intelligence" data-if-connector-to="extraction-normalization" data-if-connector-tone="success" data-if-connector-style="direct" data-if-connector-label-hidden="true"></span>
+              <span hidden data-if-connector-route="extraction-to-dedup" data-if-connector-from="extraction-normalization" data-if-connector-to="dedup-enrichment" data-if-connector-tone="success" data-if-connector-style="direct" data-if-connector-label-hidden="true"></span>
+              <span hidden data-if-connector-route="dedup-to-lakehouse" data-if-connector-from="dedup-enrichment" data-if-connector-to="curated-lakehouse" data-if-connector-tone="success" data-if-connector-style="direct" data-if-connector-label-hidden="true"></span>
+              <span hidden data-if-connector-route="lakehouse-to-medallion" data-if-connector-from="curated-lakehouse" data-if-connector-to="fabric-medallion" data-if-connector-label="Medallion" data-if-connector-tone="success" data-if-connector-from-anchor="bottom" data-if-connector-to-anchor="top"></span>
+              <aside class="if-biotech-side if-biotech-side--sources" data-diagram-layer="sources" aria-label="Data sources" data-if-diagram-container="source-data" data-if-diagram-container-label="Data Sources" data-if-diagram-container-class="if-biotech-source-card" data-if-diagram-container-element="article" data-if-diagram-container-layer="sources" data-if-diagram-container-section="Data Sources" data-if-diagram-container-node-type="source" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="database" data-if-diagram-container-owner="Research intelligence" data-if-diagram-container-status="Data source">
+                <header>Data Sources</header>
+                <article class="if-biotech-source-card" data-if-diagram-item data-diagram-node-type="source" data-diagram-node-layout="media" data-diagram-node-background="surface" data-diagram-layer="sources" data-diagram-title="Scientific Literature" data-diagram-owner="Research corpus" data-diagram-status="Public and licensed" data-diagram-throughput="4 source classes" data-diagram-dependencies="6 extraction routes" data-diagram-contract="Literature sources emit article metadata, abstracts, full text where licensed, topic tags, and citation graph edges."><span class="if-icon-slot" data-if-icon="book" aria-hidden="true"></span><div><strong>Scientific Literature</strong><ul><li>PubMed / MEDLINE</li><li>Licensed journals</li><li>Preprint servers</li><li>Books, theses</li></ul></div></article>
+                <article class="if-biotech-source-card" data-if-diagram-item data-diagram-layer="sources" data-diagram-title="Patents" data-diagram-owner="IP discovery" data-diagram-status="Indexed" data-diagram-throughput="3 patent surfaces" data-diagram-dependencies="Prior-art and novelty routes"><span class="if-icon-slot" data-if-icon="certificate" aria-hidden="true"></span><div><strong>Patents</strong><ul><li>Public patent DB</li><li>USPTO, EPO, WIPO</li><li>Patent offices</li></ul></div></article>
+                <article class="if-biotech-source-card" data-if-diagram-item data-diagram-layer="sources" data-diagram-title="Biological and Chemical Data" data-diagram-owner="Scientific data fabric" data-diagram-status="Hybrid public/private" data-diagram-throughput="5 dataset classes" data-diagram-dependencies="Search, graph, enrichment"><span class="if-asset-slot if-asset-slot--brand" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23eefdf8'/%3E%3Cpath d='M21 10c18 11 4 33 22 44M43 10c-18 11-4 33-22 44' fill='none' stroke='%230f766e' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M23 20h18M18 32h28M23 44h18' stroke='%232563eb' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="dna" aria-hidden="true"></span><div><strong>Biological & Chemical Data</strong><ul><li>Protein / sequence DB</li><li>Structure repositories</li><li>Chemical DB</li><li>Reactions & pathways</li></ul></div></article>
+                <article class="if-biotech-source-card" data-if-diagram-item data-diagram-layer="sources" data-diagram-title="Regulatory and Clinical Data" data-diagram-owner="Compliance intelligence" data-diagram-status="Governed" data-diagram-throughput="3 regulated surfaces" data-diagram-dependencies="Governance and review gates"><span class="if-icon-slot" data-if-icon="microscope" aria-hidden="true"></span><div><strong>Regulatory & Clinical</strong><ul><li>Regulatory databases</li><li>Clinical trial registries</li><li>Guidelines & reports</li></ul></div></article>
+                <article class="if-biotech-source-card" data-if-diagram-item data-diagram-layer="sources" data-diagram-title="Internal Enterprise Data" data-diagram-owner="Enterprise connectors" data-diagram-status="Restricted" data-diagram-throughput="4 enterprise systems" data-diagram-dependencies="RBAC, connectors, batch streams"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><div><strong>Internal Enterprise Data</strong><ul><li>ELN / LIMS</li><li>Internal reports</li><li>SharePoint / Teams</li><li>Experimental results</li></ul></div></article>
+                <section class="if-biotech-connectivity" data-diagram-layer="sources"><h2>Ingestion & Connectivity</h2><span><span class="if-icon-slot" data-if-icon="api" aria-hidden="true"></span>API management</span><span><span class="if-icon-slot" data-if-icon="zap" aria-hidden="true"></span>Logic Apps / Functions</span><span><span class="if-icon-slot" data-if-icon="connector" aria-hidden="true"></span>Secure connectors</span><span><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Batch / streaming</span></section>
+              </aside>
+
+              <section class="if-biotech-workflows if-diagram-region if-diagram-region--purple" data-diagram-layer="workflows" aria-label="Research workflows and capabilities">
+                <header>Research Workflows & Capabilities <span>(Steps 3-7 with Continuous Iteration)</span></header>
+                <div class="if-biotech-workflow-strip if-diagram-region__band" data-if-diagram-container="research-workflows" data-if-diagram-container-label="Research Workflows" data-if-diagram-container-class="if-biotech-mini-capability" data-if-diagram-container-element="article" data-if-diagram-container-layer="workflows" data-if-diagram-container-section="Research Workflows &amp; Capabilities" data-if-diagram-container-node-type="workflow" data-if-diagram-container-layout="capability" data-if-diagram-container-background="tint" data-if-diagram-container-icon="search" data-if-diagram-container-owner="Research discovery" data-if-diagram-container-status="Workflow">
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-node-type="workflow" data-diagram-node-layout="capability" data-diagram-node-background="tint" data-diagram-layer="workflows" data-diagram-title="Landscape Assessment" data-diagram-owner="Research discovery" data-diagram-status="Exploration" data-diagram-throughput="Multi-source search" data-diagram-dependencies="3 source families"><span class="if-icon-slot" data-if-icon="search" aria-hidden="true"></span><strong>Landscape Assessment</strong><ul><li>Multi-source search</li><li>Topic / entity exploration</li><li>Trend identification</li></ul></article>
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-layer="workflows" data-diagram-title="Prior-Art and Patent Analysis" data-diagram-owner="IP review" data-diagram-status="Evidence mapping" data-diagram-throughput="Claims and novelty" data-diagram-dependencies="Patent + literature graph"><span class="if-icon-slot" data-if-icon="certificate" aria-hidden="true"></span><strong>Prior-Art & Patent Analysis</strong><ul><li>Deduplication</li><li>Claim mapping</li><li>Novelty & overlap</li></ul></article>
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-layer="workflows" data-diagram-title="Synthesis and Insights" data-diagram-owner="Synthesis agent" data-diagram-status="LLM-assisted" data-diagram-throughput="Evidence maps" data-diagram-dependencies="Search + graph + citations"><span class="if-icon-slot" data-if-icon="molecule" aria-hidden="true"></span><strong>Synthesis & Insights</strong><ul><li>Summaries</li><li>Evidence maps</li><li>Gap analysis</li></ul></article>
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-layer="workflows" data-diagram-title="Research Planning" data-diagram-owner="Planning workflow" data-diagram-status="Decision support" data-diagram-throughput="Feasibility signals" data-diagram-dependencies="Risk, evidence, novelty"><span class="if-icon-slot" data-if-icon="microscope" aria-hidden="true"></span><strong>Research Planning</strong><ul><li>Define aims</li><li>Experimental ideas</li><li>Risk considerations</li></ul></article>
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-layer="workflows" data-diagram-title="Proposal and IP Drafting" data-diagram-owner="Drafting agent" data-diagram-status="Cited outputs" data-diagram-throughput="Draft sections" data-diagram-dependencies="Citations and evidence"><span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span><strong>Proposal & IP Drafting</strong><ul><li>Draft aims</li><li>IP support artifacts</li><li>Citations & evidence</li></ul></article>
+                  <article class="if-biotech-mini-capability" data-if-diagram-item data-diagram-layer="workflows" data-diagram-title="Iterate with New Data" data-diagram-owner="Continuous learning loop" data-diagram-status="Iterative" data-diagram-throughput="New results" data-diagram-dependencies="Experiment + knowledge updates"><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span><strong>Iterate with New Data</strong><ul><li>Ingest new results</li><li>Update knowledge</li><li>Refine insights</li></ul></article>
+                </div>
+              </section>
+
+              <section class="if-biotech-fabric" data-diagram-layer="fabric" aria-label="AI powered research intelligence fabric">
+                <h2>AI-Powered Research Intelligence Fabric</h2>
+                <section class="if-biotech-layer if-biotech-layer--agents">
+                  <h3>Agentic Orchestration Layer</h3>
+                  <div class="if-biotech-agent-grid" data-if-diagram-container="agent-orchestration" data-if-diagram-container-label="Agent Orchestration" data-if-diagram-container-class="if-diagram-step" data-if-diagram-container-element="article" data-if-diagram-container-layer="fabric" data-if-diagram-container-section="Agentic Orchestration Layer" data-if-diagram-container-node-type="agent" data-if-diagram-container-layout="compact" data-if-diagram-container-background="surface" data-if-diagram-container-icon="bot" data-if-diagram-container-owner="Agent service" data-if-diagram-container-status="Agentic function">
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-node-type="agent" data-diagram-node-layout="compact" data-diagram-node-background="surface" data-diagram-layer="fabric" data-diagram-title="Research Orchestrator" data-diagram-owner="Agent service" data-diagram-status="Coordinator" data-diagram-throughput="Decompose goals" data-diagram-dependencies="Routes 6 agent tasks"><strong><span class="if-asset-slot if-asset-slot--sm" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='16' width='48' height='38' rx='10' fill='%23f4efff' stroke='%236d28d9' stroke-width='4'/%3E%3Cpath d='M32 8v8M22 32h.01M42 32h.01M24 43h16' stroke='%236d28d9' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="bot" aria-hidden="true"></span>Research Orchestrator</strong><span>Decompose goals. Route tasks.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Source Discovery Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Source Discovery Agent</strong><span>Find and retrieve relevant sources.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Extraction Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Extraction Agent</strong><span>Extract methods, results, entities.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Prior-Art Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Prior-Art Agent</strong><span>Compare, map, assess novelty.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Synthesis Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Synthesis Agent</strong><span>Summarize, analyze, visualize.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Drafting Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Drafting Agent</strong><span>Draft content with citations.</span></article>
+                    <article class="if-diagram-step" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Governance Agent"><strong><span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>Governance Agent</strong><span>Policy, citations, provenance check.</span></article>
+                  </div>
+                  <div class="if-biotech-foundry"><span class="if-asset-slot if-asset-slot--brand" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23eef5ff' stroke='%230d47a1' stroke-width='4'/%3E%3Cpath d='M21 34c0-10 10-18 22-12 5 3 7 10 2 15-5 6-16 4-18-3M43 30c0 10-10 18-22 12-5-3-7-10-2-15 5-6 16-4 18 3' fill='none' stroke='%230d47a1' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="bot" aria-hidden="true"></span>Azure OpenAI (GPT-4.1 / GPT-5) & Embeddings <span></span> Microsoft Foundry Agent Service</div>
+                </section>
+                <section class="if-biotech-layer if-biotech-layer--knowledge">
+                  <h3>Knowledge & Retrieval Layer</h3>
+                  <div class="if-biotech-knowledge-grid" data-if-diagram-container="knowledge-retrieval" data-if-diagram-container-label="Knowledge &amp; Retrieval" data-if-diagram-container-class="if-diagram-step" data-if-diagram-container-element="article" data-if-diagram-container-layer="fabric" data-if-diagram-container-section="Knowledge &amp; Retrieval Layer" data-if-diagram-container-node-type="search" data-if-diagram-container-layout="compact" data-if-diagram-container-background="surface" data-if-diagram-container-icon="search" data-if-diagram-container-owner="Retrieval layer" data-if-diagram-container-status="Retrieval capability">
+                    <article class="if-biotech-search-box" data-if-diagram-item data-diagram-node-type="search" data-diagram-node-layout="metric" data-diagram-node-background="surface" data-diagram-layer="fabric" data-diagram-title="Azure AI Search (Hybrid)" data-diagram-owner="Retrieval layer" data-diagram-status="Hybrid semantic" data-diagram-throughput="Keyword, vector, filters" data-diagram-dependencies="Embeddings + metadata"><strong>Azure AI Search (Hybrid)</strong><div><span><span class="if-icon-slot" data-if-icon="search" aria-hidden="true"></span>Keyword Search</span><span><span class="if-icon-slot" data-if-icon="network" aria-hidden="true"></span>Vector Search</span><span><span class="if-icon-slot" data-if-icon="sort" aria-hidden="true"></span>Semantic Ranker</span><span><span class="if-icon-slot" data-if-icon="filter" aria-hidden="true"></span>Metadata Filters</span><span><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>Security Trimming</span></div></article>
+                    <article class="if-biotech-knowledge-graph" data-if-diagram-item data-diagram-node-type="graph" data-diagram-node-layout="media" data-diagram-node-background="tint" data-diagram-layer="fabric" data-diagram-title="Knowledge Graph" data-diagram-owner="Relationship fabric" data-diagram-status="Graph-backed" data-diagram-throughput="Entities, relations, citations" data-diagram-dependencies="Search and provenance links"><span class="if-icon-slot" data-if-icon="molecule" aria-hidden="true"></span><div><strong>Knowledge Graph</strong><ul><li>Entities: genes, proteins, compounds, diseases</li><li>Relationships: mechanism, indication, pathway</li><li>Citations & provenance links</li></ul></div></article>
+                  </div>
+                </section>
+                <section class="if-biotech-layer if-biotech-layer--storage">
+                  <h3>Data Processing & Storage Layer</h3>
+                  <div class="if-biotech-pipeline" data-if-diagram-container="processing-storage" data-if-diagram-container-label="Processing &amp; Storage" data-if-diagram-container-class="if-diagram-step if-diagram-step--success" data-if-diagram-container-element="article" data-if-diagram-container-layer="fabric" data-if-diagram-container-section="Data Processing &amp; Storage Layer" data-if-diagram-container-node-type="storage" data-if-diagram-container-layout="pipeline" data-if-diagram-container-background="tint" data-if-diagram-container-icon="database" data-if-diagram-container-owner="Data platform" data-if-diagram-container-status="Pipeline capability">
+                    <article class="if-diagram-step if-diagram-step--success" data-if-connector-node="doc-intelligence" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Document Intelligence"><strong><span class="if-icon-slot" data-if-icon="artifact" aria-hidden="true"></span>Document Intelligence</strong><span>Layout, OCR, tables, figures, sections.</span></article>
+                    <article class="if-diagram-step if-diagram-step--success" data-if-connector-node="extraction-normalization" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Extraction and Normalization"><strong><span class="if-icon-slot" data-if-icon="parser" aria-hidden="true"></span>Extraction & Normalization</strong><span>Methods, outcomes, claims, entities, units.</span></article>
+                    <article class="if-diagram-step if-diagram-step--success" data-if-connector-node="dedup-enrichment" data-if-diagram-item data-diagram-layer="fabric" data-diagram-title="Deduplication and Enrichment"><strong><span class="if-icon-slot" data-if-icon="filter" aria-hidden="true"></span>Deduplication & Enrichment</strong><span>Cluster, deduplicate, normalize, enrich.</span></article>
+                    <article class="if-diagram-step if-diagram-step--success" data-if-connector-node="curated-lakehouse" data-if-diagram-item data-diagram-node-type="storage" data-diagram-node-layout="pipeline" data-diagram-node-background="tint" data-diagram-layer="fabric" data-diagram-title="Curated Lakehouse"><strong><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span>Curated Lakehouse</strong><span>Structured data, documents, embeddings.</span></article>
+                  </div>
+                  <div class="if-biotech-medallion" data-if-connector-node="fabric-medallion" data-if-diagram-item data-diagram-node-type="storage" data-diagram-node-layout="pipeline" data-diagram-node-background="soft" data-diagram-layer="fabric" data-diagram-title="Azure Databricks / Microsoft Fabric" data-diagram-status="Medallion pipeline" data-diagram-throughput="Bronze, silver, gold" data-diagram-dependencies="OneLake / ADLS Gen2">
+                    <strong>Azure Databricks / Microsoft Fabric</strong>
+                    <span>Bronze (Raw)</span><span>Silver (Parsed)</span><span>Gold (Curated)</span><em>OneLake / ADLS Gen2</em>
+                  </div>
+                </section>
+              </section>
+
+              <aside class="if-biotech-side if-biotech-side--outcomes" data-diagram-layer="outcomes" aria-label="Users and outcomes" data-if-diagram-container="users-outcomes" data-if-diagram-container-label="Users &amp; Outcomes" data-if-diagram-container-class="if-biotech-outcome-card" data-if-diagram-container-element="article" data-if-diagram-container-layer="outcomes" data-if-diagram-container-section="Users &amp; Outcomes" data-if-diagram-container-node-type="outcome" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="users" data-if-diagram-container-owner="Research teams" data-if-diagram-container-status="Outcome">
+                <header>Users & Outcomes</header>
+                <article class="if-biotech-outcome-card" data-if-diagram-item data-diagram-node-type="outcome" data-diagram-node-layout="media" data-diagram-node-background="surface" data-diagram-layer="outcomes" data-diagram-title="Scientists and Researchers" data-diagram-owner="Research teams" data-diagram-status="Primary users" data-diagram-throughput="Faster discovery" data-diagram-dependencies="Search + synthesis + experiments"><span class="if-icon-slot" data-if-icon="users" aria-hidden="true"></span><div><strong>Scientists / Researchers</strong><ul><li>Faster discovery</li><li>Deeper understanding</li><li>Better experiments</li></ul></div></article>
+                <article class="if-biotech-outcome-card" data-if-diagram-item data-diagram-layer="outcomes" data-diagram-title="IP and Legal Teams" data-diagram-owner="Legal teams" data-diagram-status="Review workflow" data-diagram-throughput="Novelty assessment" data-diagram-dependencies="Prior-art and citations"><span class="if-icon-slot" data-if-icon="gavel" aria-hidden="true"></span><div><strong>IP / Legal Teams</strong><ul><li>Stronger prior-art</li><li>Novelty assessment</li><li>IP strategy support</li></ul></div></article>
+                <article class="if-biotech-outcome-card" data-if-diagram-item data-diagram-layer="outcomes" data-diagram-title="Leadership" data-diagram-owner="Portfolio leaders" data-diagram-status="Decision support" data-diagram-throughput="Portfolio insights" data-diagram-dependencies="Risk and opportunity views"><span class="if-icon-slot" data-if-icon="dashboard" aria-hidden="true"></span><div><strong>Leadership</strong><ul><li>Portfolio insights</li><li>Risk & opportunity</li><li>Strategic decisions</li></ul></div></article>
+                <article class="if-biotech-outcome-card if-biotech-outcome-card--evidence" data-if-diagram-item data-diagram-layer="outcomes" data-diagram-title="Evidence-Backed Outputs" data-diagram-owner="Governance agent" data-diagram-status="Auditable" data-diagram-throughput="Citations, confidence, uncertainty" data-diagram-dependencies="Provenance ledger and review"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span><div><strong>Evidence-Backed Outputs</strong><ul><li>Citations & provenance</li><li>Confidence & limitations</li><li>Uncertainty labeling</li><li>Audit trail</li></ul></div></article>
+                <article class="if-biotech-outcome-card" data-if-diagram-item data-diagram-layer="outcomes" data-diagram-title="Human Review and Approval" data-diagram-owner="Accountable reviewers" data-diagram-status="Final accountable step" data-diagram-throughput="Review decisions" data-diagram-dependencies="Evidence and policy checks"><span class="if-icon-slot" data-if-icon="review" aria-hidden="true"></span><div><strong>Human Review & Approval</strong><ul><li>Final accountable scientific decisions</li></ul></div></article>
+              </aside>
+
+              <section class="if-biotech-governance" data-diagram-layer="fabric" aria-label="Governance, security, compliance, observability, and evaluation">
+                <section class="if-biotech-band if-biotech-band--governance">
+                  <h2>Governance, Security & Compliance <span>(Built-in at Every Layer)</span></h2>
+                  <div data-if-diagram-container="governance-controls" data-if-diagram-container-label="Governance Controls" data-if-diagram-container-class="if-platform-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="fabric" data-if-diagram-container-section="Governance, Security &amp; Compliance" data-if-diagram-container-node-type="governance" data-if-diagram-container-layout="compact" data-if-diagram-container-background="surface" data-if-diagram-container-icon="shield" data-if-diagram-container-owner="Governance team" data-if-diagram-container-status="Control">
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Microsoft Entra ID"><span class="if-asset-slot if-asset-slot--brand" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230078d4' d='M32 4 56 14v17c0 15-10 24-24 29C18 55 8 46 8 31V14z'/%3E%3Cpath fill='white' d='M22 30h20v18H22zM25 24a7 7 0 0 1 14 0v6h-5v-6a2 2 0 0 0-4 0v6h-5z'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="shield" aria-hidden="true"></span><span><strong>Microsoft Entra ID</strong><span>SSO, RBAC, groups</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Microsoft Purview"><span class="if-asset-slot if-asset-slot--brand" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='26' fill='%23ecfeff' stroke='%230e7490' stroke-width='4'/%3E%3Cpath d='M18 34c8-16 20-16 28 0M22 42c7 6 13 6 20 0M24 24c6-5 10-5 16 0' fill='none' stroke='%230e7490' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="audit" aria-hidden="true"></span><span><strong>Microsoft Purview</strong><span>Catalog, lineage, labels</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Key Vault"><span class="if-asset-slot if-asset-slot--brand" data-if-asset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='24' cy='24' r='13' fill='%23fff7ed' stroke='%23b45309' stroke-width='5'/%3E%3Cpath d='M34 34 56 56M44 44l-7 7M51 37l-7 7' stroke='%23b45309' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" data-if-asset-alt="" data-if-asset-kind="svg" data-if-asset-fit="contain" data-if-asset-fallback-icon="key" aria-hidden="true"></span><span><strong>Key Vault</strong><span>Secrets and certificates</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Defender for Cloud"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>Defender for Cloud</strong><span>Posture and threat protection</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Private Link / VNet"><span class="if-icon-slot" data-if-icon="network" aria-hidden="true"></span><span><strong>Private Link / VNet</strong><span>Isolation and egress control</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Audit & Compliance"><span class="if-icon-slot" data-if-icon="audit" aria-hidden="true"></span><span><strong>Audit & Compliance</strong><span>Logs, reports, regulatory readiness</span></span></article>
+                  </div>
+                </section>
+                <section class="if-biotech-band if-biotech-band--observability">
+                  <h2>Observability & Evaluation</h2>
+                  <div data-if-diagram-container="observability-evaluation" data-if-diagram-container-label="Observability &amp; Evaluation" data-if-diagram-container-class="if-platform-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="fabric" data-if-diagram-container-section="Observability &amp; Evaluation" data-if-diagram-container-node-type="review" data-if-diagram-container-layout="compact" data-if-diagram-container-background="surface" data-if-diagram-container-icon="trend" data-if-diagram-container-owner="Platform operations" data-if-diagram-container-status="Evaluation">
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Azure Monitor / Log Analytics"><span class="if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><span><strong>Azure Monitor / Log Analytics</strong><span>System health, performance</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Prompt Flow Evaluations"><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span><strong>Prompt Flow Evaluations</strong><span>Custom tests, regression</span></span></article>
+                    <article class="if-platform-service" data-if-diagram-item data-diagram-title="Foundry Tracing and Evaluation"><span class="if-icon-slot" data-if-icon="workflow" aria-hidden="true"></span><span><strong>Foundry Tracing & Evaluation</strong><span>Quality, groundedness, cost</span></span></article>
+                  </div>
+                </section>
+              </section>
+
+              <section class="if-biotech-principles" aria-label="Design principles">
+                <h2>Design Principles</h2>
+                <article data-if-diagram-item data-diagram-title="Trust and Transparency"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><strong>Trust & Transparency</strong><span>Traceable and explainable outputs</span></article>
+                <article data-if-diagram-item data-diagram-title="Human-in-the-Loop"><span class="if-icon-slot" data-if-icon="user" aria-hidden="true"></span><strong>Human-in-the-Loop</strong><span>AI augments experts, does not replace</span></article>
+                <article data-if-diagram-item data-diagram-title="Security and Privacy"><span class="if-icon-slot" data-if-icon="lock" aria-hidden="true"></span><strong>Security & Privacy</strong><span>Least privilege, data protection</span></article>
+                <article data-if-diagram-item data-diagram-title="Modular and Scalable"><span class="if-icon-slot" data-if-icon="network" aria-hidden="true"></span><strong>Modular & Scalable</strong><span>Open, extensible, cloud-native</span></article>
+                <article data-if-diagram-item data-diagram-title="Accuracy and Quality"><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><strong>Accuracy & Quality</strong><span>Evaluated, tested, improved</span></article>
+                <article data-if-diagram-item data-diagram-title="Responsible AI"><span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><strong>Responsible AI</strong><span>Safe, reliable, policy-aligned</span></article>
+              </section>
+            </div>
+          </section>
+
+          <section class="if-panel if-biotech-gap-panel" aria-labelledby="biotech-gap-title">
+            <div class="if-panel__header">
+              <div><h2 class="if-panel__title" id="biotech-gap-title">Faithfulness Audit: What The Framework Handles vs. What Is Missing</h2><p class="if-panel__subtitle">This page intentionally recreates the reference diagram with current framework primitives, then names the gaps still visible under stress.</p></div>
+              <span class="if-badge if-badge--status-in-review">Stress result</span>
+            </div>
+            <div class="if-panel__body">
+              <div class="if-biotech-audit-grid">
+                <article><span class="if-badge if-badge--status-approved">Handled</span><h3>Dense nested architecture surfaces</h3><p>Headers, source/outcome rails, nested layers, service cards, platform bands, search/focus, layer toggles, and export hooks compose cleanly with framework classes.</p></article>
+                <article><span class="if-badge if-badge--status-approved">Improved</span><h3>Overflow-safe dense cards</h3><p>Long labels now have explicit wrapping, card min-width contracts, and hover states that do not push outside the storage pipeline or medallion row.</p></article>
+                <article><span class="if-badge if-badge--status-approved">Improved</span><h3>Architecture connector grammar</h3><p>The diagram now has export-visible directional rails between sources, workflow, fabric, and outcomes, plus storage pipeline arrows that behave like component primitives instead of decoration.</p></article>
+                <article><span class="if-badge if-badge--confidence-medium">Partial</span><h3>Domain icon fidelity</h3><p>The registry now includes DNA, molecule, and microscope glyphs. It still needs richer branded Azure service symbols and a larger scientific/clinical icon family.</p></article>
+                <article><span class="if-badge if-badge--warning">Remaining</span><h3>Diagram schema export/import</h3><p>This is still hand-authored HTML. Production needs a JSON diagram schema that generates stages, lanes, connectors, legends, layer controls, detail metadata, and export names.</p></article>
+                <article><span class="if-badge if-badge--warning">Remaining</span><h3>Auto-layout and export fidelity</h3><p>The layout is CSS-tuned. Production should add fit-to-page, auto-spacing, label collision avoidance, route recalculation from data, and exact DOM/SVG export.</p></article>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>

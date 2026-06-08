@@ -1,0 +1,3649 @@
+{
+  "$schema": "https://control-surface-ui.local/schemas/component-manifest.schema.json",
+  "schemaVersion": "0.1.0",
+  "frameworkVersion": "0.1.0",
+  "generatedOn": "2026-05-18",
+  "purpose": "Agent-readable component inventory for selecting, wiring, and documenting Control Surface UI components without reading source files.",
+  "packageEntrypoints": {
+    "css": "control-surface-ui/css",
+    "esm": "control-surface-ui",
+    "browserGlobal": "dist/interface-framework.js",
+    "manifest": "control-surface-ui/component-manifest",
+    "recipes": "control-surface-ui/recipes",
+    "eventCatalog": "control-surface-ui/event-catalog"
+  },
+  "agentContract": {
+    "selectionOrder": [
+      "Match user intent to component.whenToUse",
+      "Check avoidWhen for mismatches",
+      "Choose one or more recipes by recipe id",
+      "Copy required classes and data attributes",
+      "Wire optional JavaScript APIs only if behavior is required",
+      "Listen to emitted events for host integration",
+      "Document the component choice using docs/agentic-ergonomics.md"
+    ],
+    "minimumReadSet": [
+      "docs/component-manifest.json",
+      "docs/recipes.md",
+      "docs/event-catalog.md",
+      "docs/component-api.md"
+    ],
+    "lifecycle": {
+      "esm": "import { init, destroy } from 'control-surface-ui'; init(root); destroy(root);",
+      "browser": "window.InterfaceFramework.init(root); window.InterfaceFramework.destroy(root);",
+      "partialHydration": "Use init(fragment, { modules: ['icons', 'tables'] }) after injection and destroy(fragment, { modules: ['tables'] }) before removal."
+    },
+    "programmaticBehavior": {
+      "controller": "Use InterfaceFramework.getComponentController(target) for open, close, toggle, select, setState, reset, refresh, and destroy across component families.",
+      "stateHelpers": [
+        "setDisclosureState",
+        "setPressed",
+        "setSelected",
+        "setExpanded"
+      ],
+      "rule": "Programmatic actions must travel through the same behavior paths as pointer and keyboard actions so ARIA state, events, and visual classes stay synchronized."
+    }
+  },
+  "readinessModel": {
+    "signals": [
+      "visual anatomy",
+      "behavior contract",
+      "adapter readiness",
+      "accessibility proof",
+      "responsive containment",
+      "theme and density",
+      "docs and recipes",
+      "scale and regression proof"
+    ],
+    "states": [
+      {
+        "label": "Ready",
+        "meaning": "Component has reusable markup, tokenized styling, documented APIs/events, accessible state, examples, and passing static behavior contracts."
+      },
+      {
+        "label": "Hardening",
+        "meaning": "Component is usable but still needs production fixtures, CI budget evidence, release provenance, or accepted-risk documentation."
+      }
+    ],
+    "inventoryApi": {
+      "root": "data-if-component-inventory",
+      "manifestSource": "data-if-component-manifest",
+      "deficiencySource": "data-if-component-inventory-deficiency-source",
+      "card": "data-if-inventory-id",
+      "cardReadinessSlot": "data-if-component-inventory-card-readiness",
+      "motionState": "data-if-component-inventory-motion",
+      "selectControl": "data-if-component-inventory-select",
+      "selectId": "data-if-component-inventory-select-id",
+      "categoryDrilldownControl": "data-if-component-inventory-category-set",
+      "categoryDrilldownValue": "data-if-component-inventory-category-value",
+      "capabilityGapControl": "data-if-component-inventory-capability",
+      "capabilityDrilldownControl": "data-if-component-inventory-capability-set",
+      "capabilityDrilldownValue": "data-if-component-inventory-capability-value",
+      "sortControl": "data-if-component-inventory-sort",
+      "presetControl": "data-if-component-inventory-preset",
+      "presetValue": "data-if-component-inventory-preset-value",
+      "activeFilterSlot": "data-if-component-inventory-active-filters",
+      "clearFilterControl": "data-if-component-inventory-clear-filter",
+      "filters": [
+        "data-if-component-inventory-filter",
+        "data-if-component-inventory-category",
+        "data-if-component-inventory-category-set",
+        "data-if-component-inventory-category-value",
+        "data-if-component-inventory-capability",
+        "data-if-component-inventory-capability-set",
+        "data-if-component-inventory-capability-value",
+        "data-if-component-inventory-active-filters",
+        "data-if-component-inventory-clear-filter",
+        "data-if-component-inventory-status",
+        "data-if-component-inventory-risk",
+        "data-if-component-inventory-sort",
+        "data-if-component-inventory-preset",
+        "data-if-component-inventory-preset-value"
+      ],
+      "detailSlots": [
+        "data-if-component-inventory-detail",
+        "data-if-component-inventory-selected-id",
+        "data-if-component-inventory-selected-title",
+        "data-if-component-inventory-selected-category",
+        "data-if-component-inventory-selected-status",
+        "data-if-component-inventory-selected-summary",
+        "data-if-component-inventory-selected-tags",
+        "data-if-component-inventory-selected-link",
+        "data-if-component-inventory-selected-classes",
+        "data-if-component-inventory-selected-attributes",
+        "data-if-component-inventory-selected-apis",
+        "data-if-component-inventory-selected-events",
+        "data-if-component-inventory-selected-docs",
+        "data-if-component-inventory-selected-examples",
+        "data-if-component-inventory-selected-a11y",
+        "data-if-component-inventory-selected-use",
+        "data-if-component-inventory-selected-avoid",
+        "data-if-component-inventory-selected-recipes",
+        "data-if-component-inventory-selected-score",
+        "data-if-component-inventory-selected-scorebar",
+        "data-if-component-inventory-selected-evidence",
+        "data-if-component-inventory-selected-missing",
+        "data-if-component-inventory-selected-actions"
+      ],
+      "reportSlots": [
+        "data-if-component-inventory-release-gate",
+        "data-if-component-inventory-risk-register",
+        "data-if-component-inventory-scorecard",
+        "data-if-component-inventory-report",
+        "data-if-component-inventory-actions",
+        "data-if-component-inventory-deficiency-source",
+        "data-if-component-inventory-deficiency-assessment",
+        "data-if-component-inventory-evidence-matrix",
+        "data-if-component-inventory-capability-coverage",
+        "data-if-component-inventory-view-state",
+        "data-if-component-inventory-snapshot"
+      ],
+      "stateHelper": "getComponentInventoryState",
+      "viewStateHelper": "getComponentInventoryViewState",
+      "viewStateApplyHelper": "applyComponentInventoryViewState",
+      "clearFilterHelper": "clearComponentInventoryFilter",
+      "presetHelper": "applyComponentInventoryPreset",
+      "readinessReportHelper": "getComponentInventoryReadinessReport",
+      "readinessScorecardHelper": "getComponentInventoryReadinessScorecard",
+      "readinessActionsHelper": "getComponentInventoryReadinessActions",
+      "deficiencyBacklogHelper": "getComponentInventoryDeficiencyBacklog",
+      "deficiencyAssessmentHelper": "getComponentInventoryDeficiencyAssessment",
+      "evidenceMatrixHelper": "getComponentInventoryEvidenceMatrix",
+      "capabilityCoverageHelper": "getComponentInventoryCapabilityCoverage",
+      "readinessSnapshotHelper": "getComponentInventoryReadinessSnapshot",
+      "releaseGateHelper": "getComponentInventoryReleaseGate",
+      "riskRegisterHelper": "getComponentInventoryRiskRegister",
+      "capabilityFilterHelper": "setComponentInventoryCapabilityFilter",
+      "selectionHelper": "selectComponentInventoryCard",
+      "keyboardHelper": "moveComponentInventorySelection",
+      "events": [
+        "if:component-inventory-filter",
+        "if:component-inventory-select",
+        "if:component-inventory-manifest",
+        "if:component-inventory-manifest-error"
+      ]
+    }
+  },
+  "categories": [
+    "layout",
+    "actions",
+    "inputs",
+    "navigation",
+    "overlays",
+    "data-display",
+    "intelligence-surfaces",
+    "governance",
+    "public-site",
+    "configuration"
+  ],
+  "components": [
+    {
+      "id": "shell-layout",
+      "name": "Shell And Layout",
+      "category": "layout",
+      "status": "production-ready",
+      "whenToUse": [
+        "Creating a full application page with topbar, sidebar, content, or right-side detail regions.",
+        "Creating a documentation or design-system surface that needs framework navigation."
+      ],
+      "avoidWhen": [
+        "Only a small embedded widget is needed inside a host page."
+      ],
+      "primaryClasses": [
+        "if-shell",
+        "if-main",
+        "if-main--with-sidebar",
+        "if-main--tri-pane",
+        "if-content",
+        "if-page",
+        "if-content-region",
+        "if-detail-region"
+      ],
+      "dataAttributes": [
+        "data-density",
+        "data-theme"
+      ],
+      "jsApis": [
+        "init",
+        "destroy",
+        "setTheme"
+      ],
+      "events": [
+        "if:framework-init",
+        "if:framework-destroy",
+        "if:theme-change"
+      ],
+      "recipes": [
+        "application-shell",
+        "tri-pane-workspace"
+      ],
+      "docs": [
+        "docs/component-api.md#shell-and-layout",
+        "docs/usage.md#density",
+        "docs/themes.md"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/dashboard.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Use one landmark header and one main region per page.",
+        "Use aria-label on sidebars and detail panels when their visible heading is not adjacent."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "theme-changing",
+          "density-changing",
+          "sidebar-collapsed",
+          "tri-pane-active"
+        ],
+        "hooks": [
+          "data-theme",
+          "data-density",
+          "setTheme",
+          "init",
+          "destroy"
+        ],
+        "transitions": [
+          "layout density rhythm",
+          "topbar/sidebar surface color",
+          "detail-region visibility"
+        ],
+        "policy": "Shell motion is limited to tokenized color, density, and region visibility transitions and must respect prefers-reduced-motion.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "topbar-utility-cluster",
+      "name": "Topbar And Utility Cluster",
+      "category": "layout",
+      "status": "production-ready",
+      "whenToUse": [
+        "Adding enterprise search, notification, and account controls to the top-right page context.",
+        "Making navigation route-aware with a compact active underline style."
+      ],
+      "avoidWhen": [
+        "The surface is public marketing content with a separate site navigation rhythm."
+      ],
+      "primaryClasses": [
+        "if-topbar",
+        "if-brand",
+        "if-topbar__nav",
+        "if-nav-link",
+        "if-topbar__actions",
+        "if-utility-cluster",
+        "if-utility-search",
+        "if-notification-menu",
+        "if-account-popover"
+      ],
+      "dataAttributes": [
+        "data-if-route-nav",
+        "data-if-popover",
+        "data-if-popover-toggle",
+        "data-if-autocomplete-remote",
+        "data-if-theme"
+      ],
+      "jsApis": [
+        "setRouteNavigation",
+        "togglePopover",
+        "registerAutocompleteAdapter",
+        "setTheme"
+      ],
+      "events": [
+        "if:route-change",
+        "if:autocomplete-request",
+        "if:theme-change"
+      ],
+      "recipes": [
+        "application-shell",
+        "theme-switcher",
+        "search-autosuggest"
+      ],
+      "docs": [
+        "docs/component-api.md#topbar-and-utility-cluster",
+        "docs/components.md#enterprise-utility-cluster"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Keep popover toggles as native buttons with aria-expanded and aria-controls.",
+        "Use aria-current='page' for the active route link."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "route-active",
+          "search-open",
+          "notifications-open",
+          "account-open",
+          "theme-changing"
+        ],
+        "hooks": [
+          "data-if-route-nav",
+          "data-if-popover-toggle",
+          "data-if-autocomplete-remote",
+          "setRouteNavigation",
+          "togglePopover"
+        ],
+        "transitions": [
+          "active underline",
+          "popover enter/exit",
+          "autocomplete suggestion refresh"
+        ],
+        "policy": "Utility-cluster state changes travel through the popover, route, and autocomplete APIs so keyboard, ARIA, and visual transition state stay synchronized.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "sidebar-navigation",
+      "name": "Sidebar And Navigation Lists",
+      "category": "navigation",
+      "status": "production-ready",
+      "whenToUse": [
+        "Creating filters, library sections, saved views, watchlists, or route groups.",
+        "Creating dense left navigation with optional counts and section headers."
+      ],
+      "avoidWhen": [
+        "The target screen has no persistent page-level navigation or filters."
+      ],
+      "primaryClasses": [
+        "if-sidebar",
+        "if-sidebar__section",
+        "if-sidebar__title",
+        "if-sidebar__nav",
+        "if-sidebar__link",
+        "if-sidebar__nav-group"
+      ],
+      "dataAttributes": [
+        "data-if-section-nav",
+        "data-if-route-nav",
+        "data-if-nav-toggle"
+      ],
+      "jsApis": [
+        "setRouteNavigation",
+        "init"
+      ],
+      "events": [
+        "if:route-change"
+      ],
+      "recipes": [
+        "application-shell",
+        "mobile-route-nav"
+      ],
+      "docs": [
+        "docs/component-api.md#sidebar-and-navigation-lists",
+        "docs/keyboard.md"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/search.html",
+        "examples/graph-view.html"
+      ],
+      "accessibility": [
+        "Give sidebars an accessible name when they contain navigation.",
+        "Do not use links for controls that only toggle filters."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "group-expanded",
+          "route-active",
+          "mobile-open",
+          "count-updated"
+        ],
+        "hooks": [
+          "data-if-nav-toggle",
+          "data-if-route-nav",
+          "data-if-collapsible-toggle"
+        ],
+        "transitions": [
+          "group disclosure",
+          "active-route emphasis",
+          "mobile drawer reveal"
+        ],
+        "policy": "Navigation motion uses disclosure and route-state classes only; reduced-motion users receive immediate open/close state changes.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "buttons-actions",
+      "name": "Buttons, Icon Buttons, And Command Strips",
+      "category": "actions",
+      "status": "production-ready",
+      "whenToUse": [
+        "Adding command hierarchy, review actions, toolbar actions, destructive confirmations, or dense icon-only controls.",
+        "Creating visual anchors for table rows, graph toolbars, and agent controls."
+      ],
+      "avoidWhen": [
+        "A text link is more appropriate for simple navigation."
+      ],
+      "primaryClasses": [
+        "if-btn",
+        "if-btn--primary",
+        "if-btn--secondary",
+        "if-btn--tertiary",
+        "if-btn--success",
+        "if-btn--warning",
+        "if-btn--danger",
+        "if-icon-btn",
+        "if-control-row",
+        "if-command-strip"
+      ],
+      "dataAttributes": [
+        "data-if-icon",
+        "data-if-menu-action",
+        "data-if-tooltip"
+      ],
+      "jsApis": [
+        "hydrateIcons",
+        "showTooltip",
+        "hideTooltip"
+      ],
+      "events": [
+        "if:menu-action",
+        "if:tooltip-show",
+        "if:tooltip-hide"
+      ],
+      "recipes": [
+        "review-action-bar",
+        "toolbar-actions"
+      ],
+      "docs": [
+        "docs/component-api.md#buttons",
+        "docs/component-api.md#icon-buttons"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/review.html"
+      ],
+      "accessibility": [
+        "Icon-only buttons require aria-label.",
+        "Destructive buttons should be visually and semantically distinct."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "idle",
+          "hover",
+          "focus-visible",
+          "pressed",
+          "loading",
+          "disabled",
+          "danger"
+        ],
+        "hooks": [
+          "data-if-demo-state",
+          "data-if-control-var",
+          "setPressed",
+          "getComponentController"
+        ],
+        "transitions": [
+          "state color",
+          "focus ring",
+          "loading affordance"
+        ],
+        "policy": "Action controls expose state hooks for demo and host code while preserving native button semantics and reduced-motion-safe transitions.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "split-button-menu",
+      "name": "Split Buttons And Menus",
+      "category": "actions",
+      "status": "production-ready",
+      "whenToUse": [
+        "A primary command has alternate formats or modes, such as export CSV, JSON, or PDF.",
+        "A compact toolbar needs a keyboard-accessible overflow or row action menu."
+      ],
+      "avoidWhen": [
+        "All actions are equally important; use a command strip instead."
+      ],
+      "primaryClasses": [
+        "if-split-action-wrap",
+        "if-split-action",
+        "if-split-action__toggle",
+        "if-menu"
+      ],
+      "dataAttributes": [
+        "data-if-menu-toggle",
+        "data-if-menu",
+        "data-if-menu-item",
+        "data-if-menu-label",
+        "data-if-menu-action"
+      ],
+      "jsApis": [
+        "openMenu",
+        "toggleMenu",
+        "closeMenus"
+      ],
+      "events": [
+        "if:menu-select",
+        "if:menu-action"
+      ],
+      "recipes": [
+        "split-export-action",
+        "toolbar-actions"
+      ],
+      "docs": [
+        "docs/component-api.md#split-buttons-and-menus",
+        "docs/keyboard.md"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/dashboard.html"
+      ],
+      "accessibility": [
+        "Menu toggle must expose aria-expanded.",
+        "Menu items use roving tabindex and close on Escape."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "closed",
+          "open",
+          "active-item",
+          "selected-format",
+          "escape-closed"
+        ],
+        "hooks": [
+          "data-if-menu-toggle",
+          "data-if-menu",
+          "data-if-menu-item",
+          "data-if-menu-action"
+        ],
+        "transitions": [
+          "menu enter/exit",
+          "active-item highlight",
+          "selection pulse"
+        ],
+        "policy": "Split-button menu transitions are driven by the same menu state used by keyboard roving, escape-stack cleanup, and action events.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "icon-system",
+      "name": "Icon System",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "A control, entity, organization, source, or provenance marker needs a consistent 24px outline glyph.",
+        "A design-system page needs a searchable icon catalog.",
+        "A diagram or card needs an approved SVG, PNG, JPG, WebP, AVIF, GIF, blob, or data URI mark with framework-managed sizing and fallback."
+      ],
+      "avoidWhen": [
+        "A large decorative photograph should be treated as content media or a background rather than as a compact icon/asset slot."
+      ],
+      "primaryClasses": [
+        "if-icon-slot",
+        "if-asset-slot",
+        "if-icon-catalog",
+        "if-icon-swatch"
+      ],
+      "dataAttributes": [
+        "data-if-icon",
+        "data-if-asset",
+        "data-if-asset-alt",
+        "data-if-asset-size",
+        "data-if-asset-width",
+        "data-if-asset-height",
+        "data-if-asset-fit",
+        "data-if-asset-position",
+        "data-if-asset-fallback-icon",
+        "data-if-asset-export",
+        "data-if-icon-catalog",
+        "data-if-icon-catalog-filter"
+      ],
+      "jsApis": [
+        "hydrateIcons",
+        "hydrateAssets"
+      ],
+      "events": [
+        "if:asset-load",
+        "if:asset-error"
+      ],
+      "recipes": [
+        "toolbar-actions",
+        "authority-hierarchy"
+      ],
+      "docs": [
+        "docs/icons.md",
+        "docs/component-api.md#icons"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/graph-view.html"
+      ],
+      "accessibility": [
+        "Use aria-hidden on decorative icons.",
+        "Pair meaningful icons with labels or accessible names.",
+        "Asset slots should use empty alt text for decorative marks and descriptive alt text when the mark carries information."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "default",
+          "muted",
+          "semantic",
+          "selected",
+          "disabled",
+          "large-seal"
+        ],
+        "hooks": [
+          "data-if-icon",
+          "data-if-icon-size",
+          "data-if-icon-state"
+        ],
+        "transitions": [
+          "semantic color",
+          "selected emphasis",
+          "hover focus outline"
+        ],
+        "policy": "Icons inherit tokenized currentColor state by default; larger domain seals keep motion to hover/focus emphasis and never animate essential meaning.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "theme-controls",
+      "name": "Theme Controls",
+      "category": "configuration",
+      "status": "production-ready",
+      "whenToUse": [
+        "A page or profile/account menu needs light, dark, high-contrast, system, or scoped theme switching.",
+        "A component showcase needs theme preview controls."
+      ],
+      "avoidWhen": [
+        "The host application owns all theme state and will only consume tokens."
+      ],
+      "primaryClasses": [
+        "if-account-theme-control",
+        "if-btn",
+        "if-select"
+      ],
+      "dataAttributes": [
+        "data-theme",
+        "data-if-theme",
+        "data-if-theme-control",
+        "data-if-theme-target",
+        "data-if-theme-label"
+      ],
+      "jsApis": [
+        "setTheme",
+        "getTheme",
+        "hydrateThemeControls"
+      ],
+      "events": [
+        "if:theme-change"
+      ],
+      "recipes": [
+        "theme-switcher"
+      ],
+      "docs": [
+        "docs/themes.md",
+        "docs/forced-colors.md",
+        "docs/theme-contrast-report.md",
+        "docs/component-api.md#theme-controls"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/index.html",
+        "examples/theme-states.html"
+      ],
+      "accessibility": [
+        "Default theme is light.",
+        "High contrast is a first-class option, not a decorative variant."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "form-validation",
+      "name": "Fields, Validation, Help Text, And Error Summaries",
+      "category": "inputs",
+      "status": "production-ready",
+      "whenToUse": [
+        "A form needs visible labels, help text, validation, error summaries, or reviewer decision reasons.",
+        "A host workflow needs field-state events for audit or telemetry."
+      ],
+      "avoidWhen": [
+        "The control is purely display-only metadata."
+      ],
+      "primaryClasses": [
+        "if-field",
+        "if-field__label",
+        "if-field__help",
+        "if-field__feedback",
+        "if-form-summary",
+        "if-input",
+        "if-select",
+        "if-textarea"
+      ],
+      "dataAttributes": [
+        "data-if-form",
+        "data-if-form-summary",
+        "data-if-validate",
+        "data-if-error",
+        "data-if-warning",
+        "data-if-valid",
+        "data-if-field-feedback"
+      ],
+      "jsApis": [
+        "validateField",
+        "validateForm",
+        "setFieldState"
+      ],
+      "events": [
+        "if:field-state",
+        "if:field-validate",
+        "if:form-validate"
+      ],
+      "recipes": [
+        "validated-review-form"
+      ],
+      "docs": [
+        "docs/component-api.md#fields-inputs-selects-and-help-text",
+        "docs/component-api.md#validation-and-error-summaries",
+        "docs/accessibility.md"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/review.html"
+      ],
+      "accessibility": [
+        "Every field must have a visible label.",
+        "Validation feedback must be wired through aria-describedby."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "search-autocomplete",
+      "name": "Search And Autocomplete",
+      "category": "inputs",
+      "status": "production-ready",
+      "whenToUse": [
+        "A search box needs local or server-side suggestions with highlighted matches.",
+        "A global search, table filter, or public-site search should expose keyboard-accessible suggestions."
+      ],
+      "avoidWhen": [
+        "The result set is too sensitive to expose suggestions before explicit submit."
+      ],
+      "primaryClasses": [
+        "if-search",
+        "if-autocomplete",
+        "if-autocomplete--reserve",
+        "if-search__icon",
+        "if-autocomplete__menu",
+        "if-autocomplete__item"
+      ],
+      "dataAttributes": [
+        "data-if-autocomplete",
+        "data-if-autocomplete-remote",
+        "data-if-autocomplete-mock",
+        "data-if-autocomplete-delay",
+        "data-if-autocomplete-limit",
+        "data-if-autocomplete-min",
+        "data-if-autocomplete-output",
+        "data-if-autocomplete-cancel",
+        "data-if-autocomplete-demo",
+        "data-if-filter",
+        "data-if-filter-target",
+        "data-if-adapter-state",
+        "data-if-adapter-status",
+        "data-if-adapter-retry"
+      ],
+      "jsApis": [
+        "hydrateAutocompleteInputs",
+        "getAutocompleteState",
+        "registerAutocompleteAdapter",
+        "unregisterAutocompleteAdapter",
+        "cancelAutocomplete",
+        "renderAutocomplete",
+        "setAdapterState",
+        "getAdapterState",
+        "retryAdapterRequest"
+      ],
+      "events": [
+        "if:autocomplete-request",
+        "if:autocomplete-results",
+        "if:autocomplete-cancel",
+        "if:autocomplete-error",
+        "if:autocomplete-select",
+        "if:autocomplete-state",
+        "if:adapter-state",
+        "if:adapter-retry"
+      ],
+      "recipes": [
+        "search-autosuggest",
+        "public-site-search"
+      ],
+      "docs": [
+        "docs/component-api.md#search-and-autocomplete",
+        "docs/components.md#autocomplete-search",
+        "docs/data-schemas.md"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/search.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Input behaves as a combobox with active-descendant management.",
+        "Escape closes suggestions without clearing the query."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "upload-dropzone",
+      "name": "Upload And Dropzone",
+      "category": "inputs",
+      "status": "production-ready",
+      "whenToUse": [
+        "A page needs artifact staging for PDFs, DOCX, CSV, JSON, source packages, or parser inputs.",
+        "Users need drag/drop, click-to-browse, selected-file feedback, and host upload events."
+      ],
+      "avoidWhen": [
+        "The upload is a background-only API integration with no user-visible artifact staging."
+      ],
+      "primaryClasses": [
+        "if-dropzone",
+        "if-dropzone__list",
+        "if-file-chip",
+        "if-state-note"
+      ],
+      "dataAttributes": [
+        "data-if-dropzone",
+        "data-if-dropzone-input",
+        "data-if-dropzone-list",
+        "data-if-dropzone-status"
+      ],
+      "jsApis": [
+        "renderDropzoneFiles"
+      ],
+      "events": [
+        "if:dropzone-change"
+      ],
+      "recipes": [
+        "upload-dropzone"
+      ],
+      "docs": [
+        "docs/component-api.md#upload-and-dropzone",
+        "docs/recipes.md#upload-dropzone"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Dropzones must retain a native file input.",
+        "Keyboard activation on Enter or Space should open the file picker."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "command-palette",
+      "name": "Command Palette",
+      "category": "overlays",
+      "status": "production-ready",
+      "whenToUse": [
+        "A dense product surface needs searchable action discovery, keyboard shortcuts, or cross-page commands.",
+        "An agentic workflow needs a single command surface for open graph, create review task, export, assign, or navigate actions."
+      ],
+      "avoidWhen": [
+        "Only two or three local actions exist; use a toolbar or split button."
+      ],
+      "primaryClasses": [
+        "if-command-palette",
+        "if-command-palette__list",
+        "if-command-palette__item"
+      ],
+      "dataAttributes": [
+        "data-if-command-palette",
+        "data-if-command-source",
+        "data-if-command-json",
+        "data-if-command-palette-toggle",
+        "data-if-command-input",
+        "data-if-command-item",
+        "data-if-command-id",
+        "data-if-command-label",
+        "data-if-command-route",
+        "data-if-command-shortcut",
+        "data-if-command-group",
+        "data-if-command-count",
+        "data-if-command-empty"
+      ],
+      "jsApis": [
+        "renderCommandPalette",
+        "hydrateCommandPalettes",
+        "getCommandPalette",
+        "getCommandPaletteState",
+        "openCommandPalette",
+        "closeCommandPalette",
+        "filterCommandPalette",
+        "runCommandPaletteItem"
+      ],
+      "events": [
+        "if:command-palette-open",
+        "if:command-palette-filter",
+        "if:command-palette-action"
+      ],
+      "recipes": [
+        "command-palette"
+      ],
+      "docs": [
+        "docs/component-api.md#command-palette",
+        "docs/recipes.md#command-palette"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Ctrl+K opens the first palette when present.",
+        "Arrow keys move through visible commands and Enter activates the active item."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "editable-grid",
+      "name": "Editable Grid",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "Extracted line items, claim candidates, obligation owners, or confidence values need lightweight inline editing.",
+        "A full spreadsheet is unnecessary but table cells need dirty-state and change events."
+      ],
+      "avoidWhen": [
+        "The grid requires formula engines, multi-sheet workbooks, or heavy spreadsheet semantics."
+      ],
+      "primaryClasses": [
+        "if-editable-grid",
+        "if-input--compact"
+      ],
+      "dataAttributes": [
+        "data-if-editable-grid",
+        "data-if-editable-cell",
+        "data-if-editable-grid-add",
+        "data-if-editable-grid-status",
+        "data-if-editable-grid-total"
+      ],
+      "jsApis": [
+        "setDataTableData"
+      ],
+      "events": [
+        "if:editable-grid-change"
+      ],
+      "recipes": [
+        "editable-grid"
+      ],
+      "docs": [
+        "docs/component-api.md#editable-grid",
+        "docs/recipes.md#editable-grid"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Editable cells should keep native focus behavior.",
+        "Status text should summarize row count and changes."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "date-calendar-picker",
+      "name": "Date And Calendar Picker",
+      "category": "inputs",
+      "status": "production-ready",
+      "whenToUse": [
+        "Review due dates, source windows, deadlines, or publication windows need compact date selection.",
+        "A host date library is not required for a simple single-date control."
+      ],
+      "avoidWhen": [
+        "The application needs recurring rules, timezone scheduling, or complex range calendars."
+      ],
+      "primaryClasses": [
+        "if-calendar-grid",
+        "if-field"
+      ],
+      "dataAttributes": [
+        "data-if-date-picker",
+        "data-if-date-select",
+        "data-if-date-output",
+        "data-if-date-summary",
+        "data-if-date-grid",
+        "data-if-date-nav",
+        "data-if-date-native",
+        "data-if-date-month-label"
+      ],
+      "jsApis": [
+        "selectDatePickerDate",
+        "setDatePickerValue"
+      ],
+      "events": [
+        "if:date-picker-change",
+        "if:date-picker-month"
+      ],
+      "recipes": [
+        "date-calendar-picker"
+      ],
+      "docs": [
+        "docs/component-api.md#date-and-calendar-picker",
+        "docs/recipes.md#date-calendar-picker"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Selected date must be visible in a text field or status row.",
+        "Calendar buttons expose pressed state and a roving tab stop.",
+        "Native date input remains available for mobile and assistive fallback."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "closed",
+          "open",
+          "date-hovered",
+          "date-selected",
+          "range-preview",
+          "invalid"
+        ],
+        "hooks": [
+          "data-if-date-picker",
+          "data-if-date-picker-toggle",
+          "data-if-date-picker-value",
+          "if:date-change"
+        ],
+        "transitions": [
+          "calendar popover enter/exit",
+          "selected-date emphasis",
+          "range-preview highlight"
+        ],
+        "policy": "Calendar motion follows popover state and selected-date state; reduced-motion users receive immediate open, close, and selection feedback.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "wizard-stepper",
+      "name": "Wizard And Stepper",
+      "category": "navigation",
+      "status": "production-ready",
+      "whenToUse": [
+        "A watchlist, rule builder, ingest setup, export flow, or review activation needs multi-step progress.",
+        "Users should move forward/backward or jump to previous completed steps."
+      ],
+      "avoidWhen": [
+        "All controls must be scanned simultaneously; use a panel stack or form section layout."
+      ],
+      "primaryClasses": [
+        "if-stepper",
+        "if-stepper--interactive",
+        "if-stepper--semantic",
+        "if-stepper--boxed",
+        "if-stepper--unboxed",
+        "if-stepper--compact",
+        "if-stepper--vertical",
+        "if-stepper--review",
+        "if-stepper__label",
+        "if-stepper__meta",
+        "if-wizard__progress",
+        "if-wizard__panel"
+      ],
+      "dataAttributes": [
+        "data-if-wizard",
+        "data-if-wizard-source",
+        "data-if-wizard-json",
+        "data-if-wizard-step",
+        "data-if-wizard-step-id",
+        "data-if-wizard-panel",
+        "data-if-wizard-next",
+        "data-if-wizard-prev",
+        "data-if-wizard-status",
+        "data-if-wizard-progress",
+        "data-if-demo-target",
+        "data-if-demo-state",
+        "data-if-demo-state-prefix"
+      ],
+      "jsApis": [
+        "renderWizard",
+        "hydrateWizard",
+        "getWizard",
+        "getWizardState",
+        "setWizardStep",
+        "setDemoState"
+      ],
+      "events": [
+        "if:wizard-step",
+        "if:demo-state"
+      ],
+      "recipes": [
+        "wizard-stepper"
+      ],
+      "docs": [
+        "docs/component-api.md#wizard-and-stepper",
+        "docs/recipes.md#wizard-stepper"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Use aria-current=step on the active step.",
+        "Step status must be visible outside color alone.",
+        "Arrow keys, Home, End, Enter, and Space should move or activate steps without losing the roving tab stop.",
+        "Semantic variants require readable labels or metadata for completed, active, future, blocked, and optional states.",
+        "Configuration controls that switch boxed/unboxed variants must keep aria-pressed synchronized."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "annotation-toolbar",
+      "name": "Annotation Toolbar",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "A document, claim, parser, or review surface needs CLM, REF, ORG, EVD, IMP, or ENB markup modes.",
+        "Reviewers need a compact toolbar for selecting semantic highlight classes."
+      ],
+      "avoidWhen": [
+        "Annotations are read-only and do not need mode switching."
+      ],
+      "primaryClasses": [
+        "if-annotation-toolbar",
+        "if-annotation-preview"
+      ],
+      "dataAttributes": [
+        "data-if-annotation-toolbar",
+        "data-if-annotation-current",
+        "data-if-annotation-tool",
+        "data-if-annotation-short",
+        "data-if-annotation-description",
+        "data-if-annotation-count",
+        "data-if-annotation-preview",
+        "data-if-annotation-label"
+      ],
+      "jsApis": [
+        "hydrateAnnotationToolbars",
+        "getAnnotationToolbar",
+        "getAnnotationToolbarState",
+        "setAnnotationTool"
+      ],
+      "events": [
+        "if:annotation-tool-change"
+      ],
+      "recipes": [
+        "annotation-toolbar"
+      ],
+      "docs": [
+        "docs/component-api.md#annotation-toolbar",
+        "docs/recipes.md#annotation-toolbar"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/document-viewer.html"
+      ],
+      "accessibility": [
+        "Toolbar buttons use aria-pressed for active mode.",
+        "Arrow keys, Home, End, Enter, and Space use a roving tab stop across tools.",
+        "Highlight previews include text labels, not color alone.",
+        "Abbreviated tool buttons should provide data-if-annotation-label and data-if-annotation-description."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "state-variants",
+      "name": "Empty, Loading, Success, Cancelled, And Error States",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "A table, adapter, search result, document artifact, upload area, or graph panel needs recoverable success/empty/loading/error/cancelled states.",
+        "A page needs consistent skeleton loading, no-results, retry, or degraded data feedback."
+      ],
+      "avoidWhen": [
+        "A destructive failure requires a modal confirmation or support handoff."
+      ],
+      "primaryClasses": [
+        "if-empty",
+        "if-loading",
+        "if-error-state",
+        "if-skeleton",
+        "if-state-preview"
+      ],
+      "dataAttributes": [
+        "data-if-state-preview",
+        "data-if-state-panel",
+        "data-if-state-variant",
+        "data-if-state-target",
+        "data-if-adapter-state",
+        "data-if-adapter-status",
+        "data-if-adapter-retry"
+      ],
+      "jsApis": [
+        "setStateVariant",
+        "setAdapterState",
+        "getAdapterState",
+        "runAdapterTask",
+        "cancelAdapterTask",
+        "getAdapterTaskState",
+        "retryAdapterRequest"
+      ],
+      "events": [
+        "if:state-variant-change",
+        "if:adapter-state",
+        "if:adapter-request",
+        "if:adapter-result",
+        "if:adapter-cancel",
+        "if:adapter-error",
+        "if:adapter-retry"
+      ],
+      "recipes": [
+        "state-variants"
+      ],
+      "docs": [
+        "docs/component-api.md#empty-loading-and-error-states",
+        "docs/recipes.md#state-variants"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "State panels must use text and actions, not icons alone.",
+        "Loading states should avoid trapping keyboard focus."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "tabs-accordions",
+      "name": "Tabs And Accordions",
+      "category": "navigation",
+      "status": "production-ready",
+      "whenToUse": [
+        "Related content needs scoped navigation inside a detail panel.",
+        "Sections need disclosure without leaving the page."
+      ],
+      "avoidWhen": [
+        "Users must compare all sections at once; use panels or split views instead."
+      ],
+      "primaryClasses": [
+        "if-tabs",
+        "if-tabs__list",
+        "if-accordion__trigger"
+      ],
+      "dataAttributes": [
+        "data-if-tabs",
+        "data-if-tabs-source",
+        "data-if-tabs-json",
+        "data-if-accordion",
+        "data-if-accordion-trigger",
+        "data-if-accordion-source",
+        "data-if-accordion-json"
+      ],
+      "jsApis": [
+        "renderTabs",
+        "getTabs",
+        "getTabsState",
+        "activateTab",
+        "renderAccordion",
+        "getAccordionState",
+        "setDisclosureState",
+        "init"
+      ],
+      "events": [
+        "if:tab-change",
+        "if:disclosure-toggle"
+      ],
+      "recipes": [
+        "metadata-detail-panel",
+        "document-intelligence-viewer"
+      ],
+      "docs": [
+        "docs/component-api.md#tabs",
+        "docs/component-api.md#accordions",
+        "docs/keyboard.md"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/document-viewer.html"
+      ],
+      "accessibility": [
+        "Tabs require role='tablist', role='tab', role='tabpanel', aria-controls, and aria-labelledby.",
+        "Accordion triggers should expose aria-expanded and aria-controls."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "overlays",
+      "name": "Popovers, Notifications, Account Menus, Modals, Drawers, And Toasts",
+      "category": "overlays",
+      "status": "production-ready",
+      "whenToUse": [
+        "A focused decision, account surface, notification inbox, contextual detail, or transient confirmation is needed.",
+        "A detail panel must open without navigating away."
+      ],
+      "avoidWhen": [
+        "The content is a primary workflow that deserves a full page or persistent pane."
+      ],
+      "primaryClasses": [
+        "if-popover",
+        "if-popover__panel",
+        "if-modal",
+        "if-modal__panel",
+        "if-drawer",
+        "if-toast",
+        "if-notifications",
+        "if-account-surface"
+      ],
+      "dataAttributes": [
+        "data-if-popover",
+        "data-if-popover-toggle",
+        "data-if-modal-open",
+        "data-if-modal-close",
+        "data-if-drawer-open",
+        "data-if-drawer-close",
+        "data-if-toast"
+      ],
+      "jsApis": [
+        "togglePopover",
+        "openModal",
+        "closeModal",
+        "openDrawer",
+        "closeDrawer",
+        "showToast"
+      ],
+      "events": [
+        "if:focus-clear"
+      ],
+      "recipes": [
+        "notification-account-cluster",
+        "metadata-detail-panel"
+      ],
+      "docs": [
+        "docs/component-api.md#popovers-account-menu-and-notifications",
+        "docs/component-api.md#architecture-diagrams"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Modals and drawers must trap focus and close with Escape.",
+        "Popovers need aria-expanded and aria-controls on the trigger."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "closed",
+          "opening",
+          "open",
+          "closing",
+          "modal-blocking",
+          "escape-closed"
+        ],
+        "hooks": [
+          "data-if-popover",
+          "data-if-popover-toggle",
+          "data-if-modal",
+          "data-if-drawer",
+          "togglePopover"
+        ],
+        "transitions": [
+          "popover collision-aware placement",
+          "modal/drawer entry",
+          "toast lifecycle"
+        ],
+        "policy": "Overlay motion is controlled by the escape stack and focus manager; open/close transitions never delay ARIA state or focus restoration.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "data-table",
+      "name": "Enterprise Data Table",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "Displaying records that require sorting, filtering, pagination, selection, expansion, resizing, pinning, virtualization, or server adapters.",
+        "Creating source registries, review queues, search results, or sibling comparisons."
+      ],
+      "avoidWhen": [
+        "Fewer than three simple facts can be represented as a metadata panel or card list."
+      ],
+      "primaryClasses": [
+        "if-table-wrap",
+        "if-table",
+        "if-table-toolbar",
+        "if-table-status",
+        "if-table-detail"
+      ],
+      "dataAttributes": [
+        "data-if-data-table",
+        "data-if-table-filter",
+        "data-if-table-sort",
+        "data-if-table-select",
+        "data-if-table-select-all",
+        "data-if-table-page",
+        "data-if-table-page-size",
+        "data-if-table-resizable",
+        "data-if-table-pin",
+        "data-if-table-virtual",
+        "data-if-table-adapter",
+        "data-if-adapter-state",
+        "data-if-adapter-status",
+        "data-if-adapter-retry"
+      ],
+      "jsApis": [
+        "applyDataTable",
+        "filterDataTable",
+        "sortDataTable",
+        "setDataTablePage",
+        "setDataTablePageSize",
+        "setDataTableDensity",
+        "setDataTableData",
+        "refreshDataTable",
+        "registerDataTableAdapter",
+        "unregisterDataTableAdapter",
+        "resizeDataTableColumn",
+        "pinDataTableColumn",
+        "setAdapterState",
+        "getAdapterState",
+        "retryAdapterRequest"
+      ],
+      "events": [
+        "if:table-sort",
+        "if:table-filter",
+        "if:table-select",
+        "if:table-density",
+        "if:table-request",
+        "if:table-results",
+        "if:table-cancel",
+        "if:table-error",
+        "if:table-column-resize",
+        "if:table-column-pin",
+        "if:adapter-state",
+        "if:adapter-retry"
+      ],
+      "recipes": [
+        "enterprise-data-table",
+        "sources-registry"
+      ],
+      "docs": [
+        "docs/component-api.md#enterprise-data-table",
+        "docs/data-schemas.md#data-table-adapter-schema"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/sources.html",
+        "examples/search.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Table controls must be buttons or inputs, not clickable cells alone.",
+        "Virtualized tables must keep range and total status visible."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "charts-analytics",
+      "name": "Charts, Analytics, And Sparklines",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "A dashboard, source table, design-system demo, or analytical surface needs dependency-free bar, line, pie, heatmap, funnel, scatter, treemap, gauge, bullet, histogram, or sparkline visualizations.",
+        "Small trendlines need to live inside KPI cards or table cells."
+      ],
+      "avoidWhen": [
+        "The application needs heavy statistical charting, canvas-scale datasets, or full BI interactions."
+      ],
+      "primaryClasses": [
+        "if-chart-card",
+        "if-chart",
+        "if-sparkline",
+        "if-meter",
+        "if-kpi-card"
+      ],
+      "dataAttributes": [
+        "data-if-chart",
+        "data-if-chart-data",
+        "data-if-chart-label",
+        "data-if-sparkline",
+        "data-if-sparkline-stream",
+        "data-if-chart-threshold",
+        "data-if-chart-point",
+        "data-if-chart-selected-index"
+      ],
+      "jsApis": [
+        "hydrateCharts",
+        "setChartDataset",
+        "setChartHeight",
+        "setChartThreshold",
+        "hydrateSparklines",
+        "renderSparkline",
+        "startSparklineStream",
+        "stepSparklineStream",
+        "stopSparklineStream",
+        "selectChartPoint"
+      ],
+      "events": [
+        "if:chart-dataset",
+        "if:chart-point-select"
+      ],
+      "recipes": [
+        "analytics-dashboard",
+        "source-health-table"
+      ],
+      "docs": [
+        "docs/component-api.md#charts-and-analytics",
+        "docs/data-schemas.md#chart-slot-schema"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/sources.html"
+      ],
+      "accessibility": [
+        "Pair charts with visible labels, captions, and summarized data where possible.",
+        "Hover-only details must also be available on focus."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits if:chart-dataset for dataset swaps and if:chart-point-select when users or host code select a chart datum",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "idle",
+          "hover",
+          "focus",
+          "streaming",
+          "threshold-crossed",
+          "dataset-updated",
+          "selected"
+        ],
+        "hooks": [
+          "data-if-chart",
+          "data-if-sparkline-stream",
+          "data-if-chart-threshold",
+          "setChartDataset",
+          "startSparklineStream",
+          "stopSparklineStream",
+          "data-if-chart-point",
+          "selectChartPoint",
+          "if:chart-point-select"
+        ],
+        "transitions": [
+          "bar/line value updates",
+          "sparkline streaming",
+          "hover/focus marker reveal",
+          "selected chart point emphasis"
+        ],
+        "policy": "Chart motion is data-state driven and resumable; selected points expose aria-selected and emit host-consumable selection events. Reduced-motion mode snaps values without animated interpolation.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "performance-scale-lab",
+      "name": "Performance And Scale Lab",
+      "category": "governance",
+      "status": "production-ready",
+      "whenToUse": [
+        "A design-system, release smoke page, or downstream sample needs to prove tables, graphs, diagrams, document viewers, and charts remain responsive with large synthetic data.",
+        "A host application needs a reusable overflow check that distinguishes page-breaking overflow from intentional internal scroll regions."
+      ],
+      "avoidWhen": [
+        "You need statistically rigorous benchmarking; use browser performance tooling and CI metrics in addition to this smoke component.",
+        "Large data should be loaded from a real service; use production adapters and feed the results into the same component surfaces."
+      ],
+      "primaryClasses": [
+        "if-performance-lab",
+        "if-performance-toolbar",
+        "if-performance-budget-card",
+        "if-performance-panel",
+        "if-performance-preview-grid"
+      ],
+      "dataAttributes": [
+        "data-if-performance-lab",
+        "data-if-performance-profile",
+        "data-if-performance-auto",
+        "data-if-performance-run",
+        "data-if-performance-table",
+        "data-if-performance-graph",
+        "data-if-performance-diagram",
+        "data-if-performance-document",
+        "data-if-performance-charts",
+        "data-if-performance-report",
+        "data-if-overflow-check",
+        "data-if-overflow-mode"
+      ],
+      "jsApis": [
+        "getPerformanceProfile",
+        "evaluatePerformanceBudgets",
+        "hydratePerformanceLabs",
+        "runPerformanceLab",
+        "measureOverflow"
+      ],
+      "events": [
+        "if:performance-run"
+      ],
+      "recipes": [
+        "performance-scale-lab"
+      ],
+      "docs": [
+        "docs/component-api.md#performance-and-scale-lab",
+        "docs/components.md#performance-and-scale-lab",
+        "docs/recipes.md#performance-scale-lab"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Do not treat visual rendering speed as the only pass condition; large demos still need keyboard focus, visible labels, and readable status.",
+        "Scrollable stress regions must be contained inside named panels so mobile users do not get page-wide horizontal overflow."
+      ],
+      "stability": "demo-only",
+      "contract": {
+        "stability": "demo-only",
+        "releaseTier": "Demo and QA tooling",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "idle",
+          "running",
+          "measuring",
+          "passed",
+          "warning",
+          "failed",
+          "cancelled"
+        ],
+        "hooks": [
+          "data-if-performance-lab",
+          "data-if-performance-run",
+          "data-if-performance-auto",
+          "data-if-overflow-check",
+          "runPerformanceLab"
+        ],
+        "transitions": [
+          "run status progress",
+          "budget card severity",
+          "overflow result reveal"
+        ],
+        "policy": "Scale-lab motion reports live state without layout shift; long-running runs expose cancel/retry state and respect reduced-motion preferences.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "kpi-metrics",
+      "name": "KPI And Dashboard Metrics",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "A dashboard needs dense scan units with icon, label, value, delta, trendline, and metadata row.",
+        "A compact metric needs source/date context for credibility."
+      ],
+      "avoidWhen": [
+        "The value cannot be summarized safely as a single number or status."
+      ],
+      "primaryClasses": [
+        "if-card",
+        "if-metric",
+        "if-metric__icon",
+        "if-metric__label",
+        "if-metric__value",
+        "if-metric__change",
+        "if-metric__meta"
+      ],
+      "dataAttributes": [
+        "data-if-icon",
+        "data-if-sparkline",
+        "data-if-kpi",
+        "data-if-kpi-state",
+        "data-if-sparkline-label",
+        "data-if-sparkline-output",
+        "data-if-sparkline-value-output",
+        "data-if-sparkline-stream"
+      ],
+      "jsApis": [
+        "hydrateIcons",
+        "renderSparkline",
+        "hydrateSparklines",
+        "startSparklineStream",
+        "stepSparklineStream",
+        "stopSparklineStream"
+      ],
+      "events": [
+        "if:kpi-metric-update"
+      ],
+      "recipes": [
+        "analytics-dashboard"
+      ],
+      "docs": [
+        "docs/component-api.md#kpi-and-dashboard-metrics"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/review.html",
+        "examples/sources.html"
+      ],
+      "accessibility": [
+        "Do not rely on color alone for positive or negative deltas.",
+        "Metric metadata should be visible, not tooltip-only."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits if:kpi-metric-update when metric value, delta, trendline, or streaming sparkline state changes",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "neutral",
+          "positive",
+          "negative",
+          "stale",
+          "loading",
+          "selected"
+        ],
+        "hooks": [
+          "data-if-kpi-state",
+          "data-if-sparkline",
+          "data-if-sparkline-stream",
+          "if:kpi-metric-update",
+          "data-if-sparkline-output",
+          "data-if-sparkline-value-output"
+        ],
+        "transitions": [
+          "delta color",
+          "sparkline value update",
+          "metadata row emphasis",
+          "metric update event dispatch"
+        ],
+        "policy": "KPI state changes are compact and scan-safe: value, label, delta, metadata, and sparkline update as one dense scan unit.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "metadata-panel",
+      "name": "Metadata Panels",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "An entity needs provenance, confidence, source, owner, date, review state, or linked metadata facts.",
+        "A detail pane must summarize an item without forcing navigation."
+      ],
+      "avoidWhen": [
+        "The relationship structure is primary; use graph, hierarchy, or relationship map components."
+      ],
+      "primaryClasses": [
+        "if-metadata-panel",
+        "if-metadata-grid",
+        "if-detail-panel",
+        "if-provenance-card",
+        "if-confidence-meter"
+      ],
+      "dataAttributes": [
+        "data-if-focus-detail",
+        "data-if-tabs"
+      ],
+      "jsApis": [
+        "resetFocusSurface",
+        "init"
+      ],
+      "events": [
+        "if:focus-select",
+        "if:focus-clear"
+      ],
+      "recipes": [
+        "metadata-detail-panel",
+        "document-intelligence-viewer"
+      ],
+      "docs": [
+        "docs/component-api.md#metadata-panels",
+        "docs/components.md#metadata-panels"
+      ],
+      "examples": [
+        "examples/index.html",
+        "examples/graph-view.html",
+        "examples/document-viewer.html"
+      ],
+      "accessibility": [
+        "Use definition-list semantics or visible labels for key-value facts.",
+        "Keep confidence labels textual in addition to meter visuals."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "collapsible-surface",
+      "name": "Collapsible Cards And Panels",
+      "category": "configuration",
+      "status": "production-ready",
+      "whenToUse": [
+        "A card, panel, metadata section, or design-system specimen needs optional inline details that can be hidden without changing routes.",
+        "A host app needs to persist expanded/collapsed section state as part of workspace preferences."
+      ],
+      "avoidWhen": [
+        "The surface should become a larger full-screen work area; use surface expansion instead.",
+        "The content is mutually exclusive navigation; use tabs or accordions."
+      ],
+      "primaryClasses": [
+        "if-collapsible-toggle",
+        "if-collapsible-region",
+        "if-collapsible-status",
+        "is-collapsed"
+      ],
+      "dataAttributes": [
+        "data-if-collapsible",
+        "data-if-collapsible-label",
+        "data-if-collapsible-title",
+        "data-if-collapsible-toggle",
+        "data-if-collapsible-region",
+        "data-if-collapsible-icon",
+        "data-if-collapsible-status",
+        "data-if-collapsed"
+      ],
+      "jsApis": [
+        "hydrateCollapsibleSurfaces",
+        "toggleCollapsibleSurface"
+      ],
+      "events": [
+        "if:collapsible-toggle"
+      ],
+      "recipes": [
+        "collapsible-surfaces"
+      ],
+      "docs": [
+        "docs/component-api.md#collapsible-surface-behavior",
+        "docs/recipes.md#collapsible-surfaces",
+        "docs/components.md#expandable-and-exportable-surfaces"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Use a native button for the toggle.",
+        "Behavior must sync aria-expanded and aria-controls to the hidden region.",
+        "Keep collapsed state optional; do not hide required workflow decisions by default."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "graph-explorer",
+      "name": "Graph Explorer",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "Users need to traverse policies, sources, organizations, obligations, evidence, gaps, events, and relationship types.",
+        "A dense network needs selectable nodes, edge labels, filters, clusters, panning, zooming, and external layout engines."
+      ],
+      "avoidWhen": [
+        "The relationship is a simple ordered chain; use relationship map or hierarchy instead."
+      ],
+      "primaryClasses": [
+        "if-graph-shell",
+        "if-graph-canvas",
+        "if-graph-viewport",
+        "if-graph-node",
+        "if-graph-node__child-count",
+        "if-edge-label",
+        "if-graph-toolbar",
+        "if-graph-organizer",
+        "if-graph-a11y"
+      ],
+      "dataAttributes": [
+        "data-if-graph",
+        "data-if-graph-source",
+        "data-if-graph-json",
+        "data-node-id",
+        "data-node-type",
+        "data-node-kind",
+        "data-if-graph-edge",
+        "data-edge-label-from",
+        "data-edge-label-to",
+        "data-edge-type",
+        "data-if-graph-layout",
+        "data-if-graph-mode",
+        "data-if-graph-viewport",
+        "data-if-graph-relation",
+        "data-if-graph-cluster",
+        "data-if-graph-child-count",
+        "data-cluster-member",
+        "data-if-graph-layout-engine"
+      ],
+      "jsApis": [
+        "renderGraph",
+        "hydrateGraph",
+        "getGraphState",
+        "getGraphSurface",
+        "setGraphMode",
+        "setGraphLayout",
+        "setGraphViewport",
+        "selectGraphNode",
+        "selectGraphEdge",
+        "traverseGraph",
+        "traceGraphFrom",
+        "toggleGraphCluster",
+        "applyGraphFilters",
+        "applyGraphOrganization",
+        "refreshGraphGeometry",
+        "registerGraphLayoutEngine",
+        "runGraphLayoutEngine",
+        "registerGraphNodeType",
+        "unregisterGraphNodeType",
+        "applyGraphNodeType",
+        "applyGraphNodeTypes",
+        "getGraphNodeTypeConfig",
+        "updateGraphA11yFallback",
+        "applyGraphLayoutResult",
+        "collectGraphLayoutInput",
+        "setAdapterState",
+        "getAdapterState",
+        "retryAdapterRequest"
+      ],
+      "events": [
+        "if:graph-node-select",
+        "if:graph-edge-select",
+        "if:graph-focus-reset",
+        "if:graph-mode",
+        "if:graph-viewport",
+        "if:graph-organization",
+        "if:graph-cluster",
+        "if:graph-node-types",
+        "if:graph-layout-request",
+        "if:graph-layout-result",
+        "if:graph-layout-cancel",
+        "if:graph-layout-error",
+        "if:adapter-state",
+        "if:adapter-retry"
+      ],
+      "recipes": [
+        "graph-explorer",
+        "graph-layout-adapter",
+        "authority-hierarchy"
+      ],
+      "docs": [
+        "docs/component-api.md#graph-view",
+        "docs/data-schemas.md#graph-node-type-schema",
+        "docs/data-schemas.md#graph-layout-adapter-schema"
+      ],
+      "examples": [
+        "examples/graph-view.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Provide data-if-graph-a11y fallback for keyboard and non-visual traversal.",
+        "Node and edge labels must be buttons when they are interactive."
+      ],
+      "stability": "experimental",
+      "contract": {
+        "stability": "experimental",
+        "releaseTier": "P1 production hardening",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "relationship-map",
+      "name": "Relationship Maps And Authority Chains",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "A compact authority path, impact path, or lineage chain needs directional connectors.",
+        "Showing summarized upstream/downstream relationships below a graph or detail panel."
+      ],
+      "avoidWhen": [
+        "Users need to drag nodes, filter edge types, or explore clusters; use graph explorer."
+      ],
+      "primaryClasses": [
+        "if-relationship-map",
+        "if-authority-chain",
+        "if-connector-arrow",
+        "if-relationship-map__arrow",
+        "if-chip"
+      ],
+      "dataAttributes": [
+        "data-if-connector-routing",
+        "data-if-connector-route"
+      ],
+      "jsApis": [
+        "refreshConnectorRoutes"
+      ],
+      "events": [
+        "if:connector-routes"
+      ],
+      "recipes": [
+        "authority-path",
+        "relationship-summary"
+      ],
+      "docs": [
+        "docs/component-api.md#relationship-maps-and-authority-chains"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/graph-view.html",
+        "examples/policy-data-model.html"
+      ],
+      "accessibility": [
+        "Describe relationship direction in aria-label or visible connector text.",
+        "Avoid raw ASCII arrows in final UI."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "default",
+          "hovered-edge",
+          "focused-node",
+          "selected-path",
+          "collapsed",
+          "expanded"
+        ],
+        "hooks": [
+          "data-if-relationship-map",
+          "data-if-path-node",
+          "data-if-path-edge",
+          "data-if-demo-state"
+        ],
+        "transitions": [
+          "path emphasis",
+          "edge-label focus",
+          "authority breadcrumb selection"
+        ],
+        "policy": "Relationship-map motion treats lines, arrows, labels, and nodes as a single semantic edge contract so hover/focus never separates visual meaning from the relationship.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "hierarchy-explorer",
+      "name": "Hierarchy Explorer",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "Representing organization hierarchy, policy authority hierarchy, law-to-implementation drilldown, branch rollups, or landscape anatomy.",
+        "Users need expandable parent-child disclosure with detail panels."
+      ],
+      "avoidWhen": [
+        "Relationships are many-to-many rather than hierarchical; use graph explorer."
+      ],
+      "primaryClasses": [
+        "if-hierarchy",
+        "if-hierarchy-tree",
+        "if-hierarchy-row",
+        "if-hierarchy-row__toggle",
+        "if-hierarchy-panel",
+        "if-landscape-hierarchy",
+        "if-landscape-node"
+      ],
+      "dataAttributes": [
+        "data-if-hierarchy",
+        "data-hierarchy-node",
+        "data-hierarchy-parent",
+        "data-hierarchy-type",
+        "data-hierarchy-kind",
+        "data-hierarchy-state",
+        "data-hierarchy-child-count",
+        "data-hierarchy-load",
+        "data-hierarchy-panel",
+        "data-if-hierarchy-toggle",
+        "data-if-connector-routing",
+        "data-if-connector-node",
+        "data-if-connector-route",
+        "data-if-connector-from",
+        "data-if-connector-to",
+        "data-if-connector-label",
+        "data-if-connector-tone"
+      ],
+      "jsApis": [
+        "selectHierarchyNode",
+        "toggleHierarchyBranch",
+        "applyHierarchyStructure",
+        "registerHierarchyNodeType",
+        "unregisterHierarchyNodeType",
+        "applyHierarchyNodeType",
+        "applyHierarchyNodeTypes",
+        "getHierarchyNodeTypeConfig"
+      ],
+      "events": [
+        "if:hierarchy-select",
+        "if:hierarchy-toggle",
+        "if:hierarchy-structure",
+        "if:hierarchy-node-types",
+        "if:hierarchy-load",
+        "if:hierarchy-dead-end",
+        "if:traversal-select"
+      ],
+      "recipes": [
+        "authority-hierarchy",
+        "landscape-hierarchy"
+      ],
+      "docs": [
+        "docs/component-api.md#hierarchy-explorer",
+        "docs/components.md#hierarchy-and-landscape-components",
+        "docs/data-schemas.md#hierarchy-node-schema"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/graph-view.html"
+      ],
+      "accessibility": [
+        "Use role='tree' or clear grouped lists for deep hierarchies.",
+        "Branch toggles must have aria-expanded and an explicit label.",
+        "Landscape connector labels must be visible text or mirrored in the related node accessible names."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "claim-tracking",
+      "name": "Claim Tracking And Status Timelines",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "A document parser extracts claims, obligations, references, implementation statements, or evidence needs that must be reviewed and completed.",
+        "A user needs to see whether line-item items have completed, failed, or are blocked."
+      ],
+      "avoidWhen": [
+        "The only requirement is a passive historical timeline; use item history viewer."
+      ],
+      "primaryClasses": [
+        "if-claim-tracker",
+        "if-claim-row",
+        "if-status-timeline",
+        "if-status-step",
+        "if-claim-evidence",
+        "if-claim-link-cloud"
+      ],
+      "dataAttributes": [
+        "data-if-claims",
+        "data-if-claims-source",
+        "data-if-claims-json",
+        "data-claim-id",
+        "data-claim-panel",
+        "data-if-claim-count",
+        "data-if-doc-jump"
+      ],
+      "jsApis": [
+        "renderClaimTracker",
+        "hydrateClaimTrackers",
+        "getClaimTrackerState",
+        "selectClaim"
+      ],
+      "events": [
+        "if:claim-select"
+      ],
+      "recipes": [
+        "claim-tracking-workbench",
+        "document-intelligence-viewer"
+      ],
+      "docs": [
+        "docs/component-api.md#claim-tracking-and-status-timelines",
+        "docs/components.md#claim-tracking-and-hierarchy-status"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/document-viewer.html"
+      ],
+      "accessibility": [
+        "Each status step needs visible text, not color alone.",
+        "Claims that jump to documents should identify the target line or section."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "item-history",
+      "name": "Item History Viewer",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "A policy, source, claim, finding, or organization needs version history, source history, decision history, or field-change history.",
+        "Users need to inspect the before/after impact of a change."
+      ],
+      "avoidWhen": [
+        "The primary story is completion status, not historical events; use claim tracking."
+      ],
+      "primaryClasses": [
+        "if-history-list",
+        "if-history-event",
+        "if-history-panel",
+        "if-history-field-grid",
+        "if-policy-diff"
+      ],
+      "dataAttributes": [
+        "data-if-history",
+        "data-history-event",
+        "data-history-panel",
+        "data-if-history-current"
+      ],
+      "jsApis": [
+        "selectHistoryEvent"
+      ],
+      "events": [
+        "if:history-select"
+      ],
+      "recipes": [
+        "item-history-viewer"
+      ],
+      "docs": [
+        "docs/component-api.md#item-history-viewer",
+        "docs/components.md#item-history-viewer"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/dashboard.html"
+      ],
+      "accessibility": [
+        "Event selection should be reachable by keyboard.",
+        "Current event state should be visible in text."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "timeline-idle",
+          "event-selected",
+          "diff-open",
+          "version-focused",
+          "audit-filtered"
+        ],
+        "hooks": [
+          "data-if-history-viewer",
+          "data-if-history-event",
+          "data-if-history-diff",
+          "selectComponentInventoryCard"
+        ],
+        "transitions": [
+          "event selection emphasis",
+          "before/after diff reveal",
+          "timeline filter refresh"
+        ],
+        "policy": "History-viewer transitions preserve chronological scan order and never hide surrounding context from keyboard or reduced-motion users.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    },
+    {
+      "id": "document-viewer",
+      "name": "Document Viewer And Reconstituted Text",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "Viewing ingested artifacts, embedded originals, reconstituted text, parser output, semantic highlighting, references, organizations, and claims.",
+        "A user needs full-text search, clickable highlights, and a section map."
+      ],
+      "avoidWhen": [
+        "Only a single source citation needs to be shown; use metadata panel or source card."
+      ],
+      "primaryClasses": [
+        "if-doc-workspace",
+        "if-doc-main",
+        "if-doc-reconstitution",
+        "if-doc-line",
+        "if-doc-line__number",
+        "if-doc-mark",
+        "if-doc-annotation-panel"
+      ],
+      "dataAttributes": [
+        "data-if-doc-workspace",
+        "data-if-doc-corpus",
+        "data-if-doc-source",
+        "data-if-doc-artifact",
+        "data-if-doc-viewer",
+        "data-if-doc-search",
+        "data-if-doc-highlight",
+        "data-if-doc-filter",
+        "data-if-doc-jump",
+        "data-if-doc-mode",
+        "data-if-doc-annotation",
+        "data-if-doc-annotation-panel",
+        "data-if-doc-match-count",
+        "data-if-doc-visible-count",
+        "data-if-doc-query-count",
+        "data-if-doc-total-count",
+        "data-if-doc-active-filter",
+        "data-if-doc-annotation-id",
+        "data-if-doc-annotation-confidence",
+        "data-if-doc-annotation-range",
+        "data-if-doc-annotation-source"
+      ],
+      "jsApis": [
+        "getDocumentViewer",
+        "getDocumentViewerState",
+        "getDocumentWorkspaceState",
+        "hydrateDocumentViewers",
+        "hydrateDocumentCorpus",
+        "hydrateDocumentAnnotations",
+        "selectDocumentArtifact",
+        "setDocumentArtifactMode",
+        "updateDocumentSearch",
+        "selectDocumentAnnotation",
+        "getDocumentAnnotationSchema",
+        "getDocumentAnnotationSchemas"
+      ],
+      "events": [
+        "if:doc-artifact-select",
+        "if:doc-search",
+        "if:doc-filter-change",
+        "if:doc-highlight-change",
+        "if:doc-search-clear",
+        "if:doc-jump",
+        "if:doc-annotation-select",
+        "if:doc-annotation-panel",
+        "if:doc-mode-change"
+      ],
+      "recipes": [
+        "document-intelligence-viewer",
+        "claim-tracking-workbench"
+      ],
+      "docs": [
+        "docs/component-api.md#document-viewer-and-reconstituted-text",
+        "docs/components.md#document-and-artifact-intelligence"
+      ],
+      "examples": [
+        "examples/document-viewer.html"
+      ],
+      "accessibility": [
+        "Line numbers and annotation labels should not disrupt reading order.",
+        "Annotation tooltips must also be reachable by focus or click."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "policy-diff",
+      "name": "Policy Diff Review",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "Comparing policy versions, obligations, line changes, or proposed edits side by side.",
+        "A review workflow needs approve/reject/escalate decisions tied to changed lines."
+      ],
+      "avoidWhen": [
+        "The comparison is purely metadata-level; use item history viewer."
+      ],
+      "primaryClasses": [
+        "if-policy-diff",
+        "if-policy-diff__toolbar",
+        "if-policy-diff__grid",
+        "if-policy-diff__detail",
+        "if-diff-line",
+        "if-diff-line--added",
+        "if-diff-line--removed"
+      ],
+      "dataAttributes": [
+        "data-if-policy-diff",
+        "data-if-policy-diff-source",
+        "data-if-policy-diff-json",
+        "data-if-diff-change",
+        "data-if-diff-panel",
+        "data-if-diff-prev",
+        "data-if-diff-next",
+        "data-if-diff-decision",
+        "data-if-diff-count",
+        "data-if-diff-status",
+        "data-if-diff-selected-summary",
+        "data-if-diff-decision-summary"
+      ],
+      "jsApis": [
+        "renderPolicyDiff",
+        "hydratePolicyDiff",
+        "getPolicyDiff",
+        "getPolicyDiffState",
+        "updatePolicyDiff",
+        "setPolicyDiffDecision"
+      ],
+      "events": [
+        "if:diff-select",
+        "if:diff-decision"
+      ],
+      "recipes": [
+        "policy-diff-review",
+        "review-action-bar"
+      ],
+      "docs": [
+        "docs/component-api.md#policy-diff-review",
+        "docs/components.md#policy-diff-review"
+      ],
+      "examples": [
+        "examples/dashboard.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Added and removed states need text labels, not only red/green.",
+        "Next/previous controls should announce current change count.",
+        "Change rows use roving focus with Arrow, Home, End, Enter, and Space support."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "review-workflow",
+      "name": "Reviewer Workflow",
+      "category": "governance",
+      "status": "production-ready",
+      "whenToUse": [
+        "A queue of findings needs roving selection, shortcut decisions, decision reason capture, counts, and ledger entries.",
+        "Analysts need approve, reject, escalate, assign, snooze, or reopen controls."
+      ],
+      "avoidWhen": [
+        "The item is not a human-in-the-loop review workflow."
+      ],
+      "primaryClasses": [
+        "if-review-workflow",
+        "if-review-workflow__item",
+        "if-review-workflow__ledger",
+        "if-command-strip"
+      ],
+      "dataAttributes": [
+        "data-if-review-workflow",
+        "data-if-review-workflow-source",
+        "data-if-review-workflow-json",
+        "data-if-review-item",
+        "data-if-review-panel",
+        "data-if-review-item-status",
+        "data-if-review-action",
+        "data-if-review-reason",
+        "data-if-review-count",
+        "data-if-review-ledger",
+        "data-if-review-current-id",
+        "data-if-review-current-title",
+        "data-if-review-current-status"
+      ],
+      "jsApis": [
+        "renderReviewWorkflow",
+        "getReviewWorkflow",
+        "getReviewWorkflowState",
+        "selectReviewWorkflowItem",
+        "applyReviewWorkflowAction",
+        "updateReviewWorkflow",
+        "hydrateReviewWorkflows",
+        "getKeyboardModel",
+        "hydrateKeyboardModel"
+      ],
+      "events": [
+        "if:review-workflow-select",
+        "if:review-workflow-action"
+      ],
+      "recipes": [
+        "review-action-bar",
+        "validated-review-form"
+      ],
+      "docs": [
+        "docs/component-api.md#keyboard-model-and-reviewer-workflow",
+        "docs/keyboard.md"
+      ],
+      "examples": [
+        "examples/review.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Document keyboard shortcuts near the workflow or in help.",
+        "Do not require shortcut keys for completion; buttons must remain available."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "architecture-diagram",
+      "name": "Architecture Diagram Primitives",
+      "category": "intelligence-surfaces",
+      "status": "production-ready",
+      "whenToUse": [
+        "Reconstructing architecture diagrams, flow diagrams, topology maps, swimlanes, trust boundaries, or dependency matrices using framework components.",
+        "Diagram boxes need hover/focus/click details, layer toggles, sliders, connector routing, and export.",
+        "Diagram nodes need either framework glyphs or embedded SVG/PNG/JPG/etc. service marks with consistent resizing."
+      ],
+      "avoidWhen": [
+        "The diagram is an arbitrary image with no interactive component model."
+      ],
+      "primaryClasses": [
+        "if-architecture-diagram",
+        "if-diagram-node",
+        "if-asset-slot",
+        "if-arch-stage",
+        "if-arch-service",
+        "if-diagram-region",
+        "if-diagram-region__band",
+        "if-diagram-status-bar",
+        "if-diagram-search-control",
+        "if-diagram-search-mark",
+        "if-diagram-search-badge",
+        "if-diagram-search-results",
+        "if-diagram-search-result",
+        "if-diagram-detail-panel",
+        "if-diagram-detail-panel__editor",
+        "if-diagram-layout-controls",
+        "if-diagram-layout-status",
+        "if-diagram-node-layout--compact",
+        "if-diagram-node-bg--tint",
+        "if-connector-layer"
+      ],
+      "dataAttributes": [
+        "data-if-diagram",
+        "data-if-diagram-item",
+        "data-if-diagram-detail",
+        "data-if-diagram-search",
+        "data-if-diagram-search-status",
+        "data-if-diagram-search-target",
+        "data-if-diagram-search-results",
+        "data-if-diagram-search-step",
+        "data-if-diagram-search-clear",
+        "data-if-diagram-search-result",
+        "data-if-diagram-stat",
+        "data-if-asset",
+        "data-if-asset-alt",
+        "data-if-asset-fit",
+        "data-if-asset-fallback-icon",
+        "data-if-asset-export",
+        "data-if-diagram-layer-toggle",
+        "data-if-diagram-var",
+        "data-if-diagram-layout-key",
+        "data-if-diagram-layout-adapter",
+        "data-if-diagram-layout-autosave",
+        "data-if-diagram-edit-toggle",
+        "data-if-diagram-edit-tool",
+        "data-if-diagram-tool-status",
+        "data-if-diagram-add-node",
+        "data-if-diagram-add-from-source",
+        "data-if-diagram-duplicate-node",
+        "data-if-diagram-reorder",
+        "data-if-diagram-clear-selection",
+        "data-if-diagram-copy-selected",
+        "data-if-diagram-apply-selected",
+        "data-if-diagram-reset-selected",
+        "data-if-diagram-delete-selected",
+        "data-if-diagram-nudge",
+        "data-if-diagram-undo-delete",
+        "data-if-diagram-style-tone",
+        "data-if-diagram-node-type",
+        "data-if-diagram-node-layout",
+        "data-if-diagram-node-background",
+        "data-if-diagram-node-icon",
+        "data-if-diagram-route-label",
+        "data-if-diagram-route-style",
+        "data-if-diagram-route-tone",
+        "data-if-diagram-route-from-anchor",
+        "data-if-diagram-route-to-anchor",
+        "data-if-diagram-route-avoid",
+        "data-if-diagram-route-waypoint-x",
+        "data-if-diagram-route-waypoint-y",
+        "data-if-diagram-route-waypoint-output",
+        "data-if-diagram-route-clear-waypoint",
+        "data-if-diagram-route-delete",
+        "data-if-diagram-edit-field",
+        "data-if-diagram-edit-readout",
+        "data-if-diagram-layout-save",
+        "data-if-diagram-layout-load",
+        "data-if-diagram-layout-reset",
+        "data-if-diagram-layout-status",
+        "data-if-diagram-source",
+        "data-if-diagram-source-refresh",
+        "data-if-diagram-source-validate",
+        "data-if-diagram-source-format",
+        "data-if-diagram-source-apply",
+        "data-if-diagram-source-copy",
+        "data-if-diagram-source-download",
+        "data-if-diagram-source-download-name",
+        "data-if-diagram-source-import",
+        "data-if-connector-routing",
+        "data-if-connector-node",
+        "data-if-connector-route",
+        "data-if-connector-label-node",
+        "data-if-connector-label-hidden",
+        "data-if-connector-waypoints",
+        "data-if-connector-avoid",
+        "data-if-connector-from-anchor",
+        "data-if-connector-to-anchor",
+        "data-if-export",
+        "data-if-export-adapter",
+        "data-if-export-cancel",
+        "data-if-adapter-state",
+        "data-if-adapter-status",
+        "data-diagram-node-type",
+        "data-diagram-node-layout",
+        "data-diagram-node-background",
+        "data-diagram-node-icon"
+      ],
+      "jsApis": [
+        "refreshConnectorRoutes",
+        "hydrateAssets",
+        "collectDiagramLayoutSnapshot",
+        "collectDiagramDocument",
+        "applyDiagramLayoutSnapshot",
+        "applyDiagramDocument",
+        "applySelectedDiagramJson",
+        "applyDiagramNodeType",
+        "applyDiagramNodeTypes",
+        "registerDiagramNodeType",
+        "unregisterDiagramNodeType",
+        "getDiagramNodeTypeConfig",
+        "setDiagramItemLayout",
+        "setDiagramItemBackground",
+        "setDiagramItemIcon",
+        "setDiagramEditMode",
+        "setDiagramEditTool",
+        "createDiagramNode",
+        "createDiagramNodeFromSource",
+        "duplicateDiagramItem",
+        "reorderDiagramItem",
+        "createDiagramConnectorRoute",
+        "refreshDiagramSourceEditor",
+        "validateDiagramSourceEditor",
+        "formatDiagramSourceEditor",
+        "copyDiagramSourceEditor",
+        "copySelectedDiagramJson",
+        "downloadDiagramSourceEditor",
+        "importDiagramSourceFile",
+        "extractDiagramSourceText",
+        "parseDiagramSourceValue",
+        "selectDiagramConnectorRoute",
+        "setDiagramConnectorRoute",
+        "deleteDiagramConnectorRoute",
+        "deleteSelectedDiagramTarget",
+        "resetSelectedDiagramTarget",
+        "undoDiagramDelete",
+        "updateSelectedDiagramRoute",
+        "deleteDiagramItem",
+        "saveDiagramLayout",
+        "loadDiagramLayout",
+        "resetDiagramLayout",
+        "resetDiagramFocus",
+        "registerDiagramLayoutAdapter",
+        "unregisterDiagramLayoutAdapter",
+        "toggleSurfaceExpansion",
+        "resetFocusSurface",
+        "updateDiagramSearch",
+        "updateDiagramStats",
+        "registerExportAdapter",
+        "unregisterExportAdapter",
+        "cancelSurfaceExport",
+        "setAdapterState",
+        "getAdapterState"
+      ],
+      "events": [
+        "if:diagram-select",
+        "if:diagram-clear",
+        "if:diagram-search",
+        "if:diagram-layer",
+        "if:diagram-var",
+        "if:diagram-edit-mode",
+        "if:diagram-edit-tool",
+        "if:diagram-node-types",
+        "if:diagram-node-create",
+        "if:diagram-source-node-create",
+        "if:diagram-node-duplicate",
+        "if:diagram-node-reorder",
+        "if:diagram-selected-copy",
+        "if:diagram-selected-apply",
+        "if:diagram-selected-reset",
+        "if:diagram-node-delete",
+        "if:diagram-node-style",
+        "if:diagram-inline-edit",
+        "if:diagram-route-create",
+        "if:diagram-route-select",
+        "if:diagram-route-edit",
+        "if:diagram-route-delete",
+        "if:diagram-delete-undo",
+        "if:diagram-node-move",
+        "if:diagram-item-edit",
+        "if:diagram-layout-apply",
+        "if:diagram-layout-save",
+        "if:diagram-layout-reset",
+        "if:asset-load",
+        "if:asset-error",
+        "if:connector-routes",
+        "if:surface-export",
+        "if:surface-export-request",
+        "if:surface-export-result",
+        "if:surface-export-cancel",
+        "if:surface-export-error",
+        "if:adapter-state"
+      ],
+      "recipes": [
+        "architecture-diagram",
+        "diagram-export"
+      ],
+      "docs": [
+        "docs/component-api.md#architecture-diagrams",
+        "docs/components.md#architecture-diagram-primitives"
+      ],
+      "examples": [
+        "examples/diagrams.html",
+        "examples/diagrams2.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Diagram nodes must be keyboard-selectable if they reveal details.",
+        "Provide text summaries for complex architecture diagrams.",
+        "Diagram search must expose result count text and keep matched text visible inside focused nodes.",
+        "Edit mode must keep draggable nodes keyboard-selectable and expose layout changes through events/adapters."
+      ],
+      "stability": "experimental",
+      "contract": {
+        "stability": "experimental",
+        "releaseTier": "P1 production hardening",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "governance-patterns",
+      "name": "Governance And Operations Patterns",
+      "category": "governance",
+      "status": "production-ready",
+      "whenToUse": [
+        "Showing agent health, run evaluation, provenance ledgers, degraded states, export/API contracts, alert rules, role-gated actions, or publication thresholds.",
+        "An operations page needs healthy, warning, degraded, paused, running, blocked, and failing states."
+      ],
+      "avoidWhen": [
+        "The item is a normal record table without operational state."
+      ],
+      "primaryClasses": [
+        "if-pattern-grid",
+        "if-pattern-card",
+        "if-agent-state-card",
+        "if-agent-runtime",
+        "if-contract-card",
+        "if-provenance-ledger"
+      ],
+      "dataAttributes": [
+        "data-if-control-var",
+        "data-if-demo-state"
+      ],
+      "jsApis": [
+        "setDemoState",
+        "setControlVariable",
+        "startSparklineStream"
+      ],
+      "events": [
+        "if:demo-state",
+        "if:control-var"
+      ],
+      "recipes": [
+        "agent-runtime",
+        "governance-operation-card"
+      ],
+      "docs": [
+        "docs/component-api.md#governance-and-operations-patterns",
+        "docs/data-schemas.md"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/sources.html"
+      ],
+      "accessibility": [
+        "Every operational state must have visible text.",
+        "Progress bars and meters need adjacent value labels."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "configuration-demo-controls",
+      "name": "Configurable Showcases",
+      "category": "configuration",
+      "status": "production-ready",
+      "whenToUse": [
+        "A design-system page needs live sliders, transitions, state toggles, theme demonstrations, or configurable component previews.",
+        "A host app needs token-controlled local customization without custom JavaScript."
+      ],
+      "avoidWhen": [
+        "Configuration is purely server-side and should not alter live CSS variables."
+      ],
+      "primaryClasses": [
+        "if-config-demo",
+        "if-config-control",
+        "if-range",
+        "if-motion-lab",
+        "if-showcase-preview",
+        "if-component-inventory-filter"
+      ],
+      "dataAttributes": [
+        "data-if-config-demo",
+        "data-if-config-demo-source",
+        "data-if-config-demo-json",
+        "data-if-control-var",
+        "data-if-control-target",
+        "data-if-control-output",
+        "data-if-control-unit",
+        "data-if-demo-state",
+        "data-if-demo-target",
+        "data-if-demo-state-prefix",
+        "data-if-component-inventory",
+        "data-if-component-manifest",
+        "data-if-inventory-id",
+        "data-if-component-inventory-filter",
+        "data-if-component-inventory-category",
+        "data-if-component-inventory-category-set",
+        "data-if-component-inventory-category-value",
+        "data-if-component-inventory-capability",
+        "data-if-component-inventory-capability-set",
+        "data-if-component-inventory-capability-value",
+        "data-if-component-inventory-active-filters",
+        "data-if-component-inventory-clear-filter",
+        "data-if-component-inventory-status",
+        "data-if-component-inventory-risk",
+        "data-if-component-inventory-sort",
+        "data-if-component-inventory-preset",
+        "data-if-component-inventory-preset-value",
+        "data-if-component-inventory-select",
+        "data-if-component-inventory-select-id",
+        "data-if-component-inventory-count",
+        "data-if-component-inventory-total",
+        "data-if-component-inventory-motion",
+        "data-if-component-inventory-card-readiness",
+        "data-if-component-inventory-evidence-average",
+        "data-if-component-inventory-low-evidence",
+        "data-if-component-inventory-release-gate",
+        "data-if-component-inventory-risk-register",
+        "data-if-component-inventory-scorecard",
+        "data-if-component-inventory-report",
+        "data-if-component-inventory-actions",
+        "data-if-component-inventory-deficiency-source",
+        "data-if-component-inventory-deficiency-assessment",
+        "data-if-component-inventory-evidence-matrix",
+        "data-if-component-inventory-capability-coverage",
+        "data-if-component-inventory-view-state",
+        "data-if-component-inventory-snapshot",
+        "data-if-component-inventory-detail",
+        "data-if-component-inventory-selected-id",
+        "data-if-component-inventory-selected-title",
+        "data-if-component-inventory-selected-category",
+        "data-if-component-inventory-selected-status",
+        "data-if-component-inventory-selected-summary",
+        "data-if-component-inventory-selected-tags",
+        "data-if-component-inventory-selected-link",
+        "data-if-component-inventory-selected-classes",
+        "data-if-component-inventory-selected-attributes",
+        "data-if-component-inventory-selected-apis",
+        "data-if-component-inventory-selected-events",
+        "data-if-component-inventory-selected-docs",
+        "data-if-component-inventory-selected-examples",
+        "data-if-component-inventory-selected-a11y",
+        "data-if-component-inventory-selected-use",
+        "data-if-component-inventory-selected-avoid",
+        "data-if-component-inventory-selected-recipes",
+        "data-if-component-inventory-selected-score",
+        "data-if-component-inventory-selected-scorebar",
+        "data-if-component-inventory-selected-evidence",
+        "data-if-component-inventory-selected-missing",
+        "data-if-component-inventory-selected-actions"
+      ],
+      "jsApis": [
+        "renderConfigurationDemo",
+        "hydrateConfigurationControls",
+        "hydrateComponentInventories",
+        "getConfigurationState",
+        "getComponentInventoryState",
+        "getComponentInventoryViewState",
+        "applyComponentInventoryViewState",
+        "applyComponentInventoryPreset",
+        "clearComponentInventoryFilter",
+        "getComponentInventoryReadinessReport",
+        "getComponentInventoryReadinessScorecard",
+        "getComponentInventoryReadinessActions",
+        "getComponentInventoryDeficiencyBacklog",
+        "getComponentInventoryDeficiencyAssessment",
+        "getComponentInventoryEvidenceMatrix",
+        "getComponentInventoryCapabilityCoverage",
+        "getComponentInventoryReadinessSnapshot",
+        "getComponentInventoryReleaseGate",
+        "getComponentInventoryRiskRegister",
+        "setComponentInventoryCapabilityFilter",
+        "setComponentInventoryCategoryFilter",
+        "applyComponentInventoryFilters",
+        "selectComponentInventoryCard",
+        "moveComponentInventorySelection",
+        "setControlVariable",
+        "setDemoState"
+      ],
+      "events": [
+        "if:control-var",
+        "if:demo-state",
+        "if:component-inventory-filter",
+        "if:component-inventory-select",
+        "if:component-inventory-manifest",
+        "if:component-inventory-manifest-error",
+        "if:component-inventory-deficiency"
+      ],
+      "recipes": [
+        "configurable-showcase"
+      ],
+      "docs": [
+        "docs/component-api.md#configuration-and-demo-controls",
+        "docs/components.md#configuration-and-demo-controls"
+      ],
+      "examples": [
+        "examples/components.html",
+        "examples/diagrams.html"
+      ],
+      "accessibility": [
+        "Slider outputs should update visible output elements.",
+        "State buttons should expose active state with aria-pressed when mutually exclusive."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
+      "id": "public-site-patterns",
+      "name": "Public Website Patterns",
+      "category": "public-site",
+      "status": "production-ready",
+      "whenToUse": [
+        "Building Adam Boas Consulting style pages: homepage, services, profile, resume, blog, publications, contact, reference loops, public search, or engagement packages.",
+        "A public site should use the framework token system without the dense enterprise shell."
+      ],
+      "avoidWhen": [
+        "The page is an internal product workspace; use shell-layout and product components."
+      ],
+      "primaryClasses": [
+        "if-site-shell",
+        "if-site-hero",
+        "if-service-card",
+        "if-profile-media",
+        "if-publication-card",
+        "if-reference-loop",
+        "if-public-search",
+        "if-attribution-strip",
+        "if-engagement-package",
+        "if-contact-grid"
+      ],
+      "dataAttributes": [
+        "data-if-autocomplete",
+        "data-if-public-search",
+        "data-if-public-search-query",
+        "data-if-public-search-filter",
+        "data-if-public-search-result",
+        "data-if-public-search-count",
+        "data-if-public-search-empty",
+        "data-if-route-nav",
+        "data-if-icon"
+      ],
+      "jsApis": [
+        "hydrateIcons",
+        "hydratePublicSearches",
+        "updatePublicSearch",
+        "setPublicSearchFilter",
+        "clearPublicSearch",
+        "setRouteNavigation",
+        "registerAutocompleteAdapter"
+      ],
+      "events": [
+        "if:route-change",
+        "if:autocomplete-select",
+        "if:public-search"
+      ],
+      "recipes": [
+        "public-consulting-page",
+        "public-site-search"
+      ],
+      "docs": [
+        "docs/component-api.md#public-website-patterns",
+        "docs/components.md#public-website-patterns"
+      ],
+      "examples": [
+        "examples/consulting.html",
+        "examples/adamboas.html"
+      ],
+      "accessibility": [
+        "Public pages should keep headings in document order.",
+        "Media and attribution should include source or alt text where relevant.",
+        "Public search filters should expose aria-pressed and empty states should be announced near the result set."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md variant matrix or component-specific API section",
+        "copyPasteCoverage": "docs/component-api.md copy-paste example or linked recipe",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits documented framework events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "motion/state hooks",
+        "states": [
+          "route-active",
+          "profile-expanded",
+          "insight-filtered",
+          "contact-submitted",
+          "reference-highlighted"
+        ],
+        "hooks": [
+          "data-if-route-nav",
+          "data-if-public-search",
+          "data-if-collapsible-toggle",
+          "data-if-demo-state"
+        ],
+        "transitions": [
+          "public route underline",
+          "profile/resume disclosure",
+          "insight search highlight"
+        ],
+        "policy": "Public-site motion uses the same route, disclosure, and search-highlight hooks as the application shell so marketing pages stay framework-compatible.",
+        "reducedMotion": "Use @media (prefers-reduced-motion: reduce) and immediate state synchronization for users who opt out of motion.",
+        "agentInstruction": "Select this family as motion-ready when these hooks and states are sufficient; otherwise add a component-specific state entry before shipping."
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "application-shell",
+      "title": "Application shell with topbar, utility cluster, sidebar, and content region",
+      "components": [
+        "shell-layout",
+        "topbar-utility-cluster",
+        "sidebar-navigation",
+        "overlays"
+      ],
+      "docs": [
+        "docs/recipes.md#application-shell"
+      ]
+    },
+    {
+      "id": "enterprise-data-table",
+      "title": "Data table with sorting, filtering, pagination, selection, resize, pinning, and server adapter",
+      "components": [
+        "data-table",
+        "search-autocomplete",
+        "buttons-actions"
+      ],
+      "docs": [
+        "docs/recipes.md#enterprise-data-table"
+      ]
+    },
+    {
+      "id": "graph-explorer",
+      "title": "Graph explorer with filters, traversal, clusters, node details, panning, zooming, and layout adapters",
+      "components": [
+        "graph-explorer",
+        "metadata-panel",
+        "relationship-map",
+        "hierarchy-explorer"
+      ],
+      "docs": [
+        "docs/recipes.md#graph-explorer"
+      ]
+    },
+    {
+      "id": "document-intelligence-viewer",
+      "title": "Artifact viewer with embedded source, reconstituted text, semantic highlights, claims, refs, and orgs",
+      "components": [
+        "document-viewer",
+        "claim-tracking",
+        "metadata-panel",
+        "relationship-map"
+      ],
+      "docs": [
+        "docs/recipes.md#document-intelligence-viewer"
+      ]
+    },
+    {
+      "id": "architecture-diagram",
+      "title": "Architecture diagram with stages, services, connectors, details, sliders, layers, and export",
+      "components": [
+        "architecture-diagram",
+        "configuration-demo-controls",
+        "metadata-panel"
+      ],
+      "docs": [
+        "docs/recipes.md#architecture-diagram"
+      ]
+    },
+    {
+      "id": "coverage-closure",
+      "title": "Coverage closure component suite for P0/P1 gaps",
+      "components": [
+        "upload-dropzone",
+        "command-palette",
+        "editable-grid",
+        "date-calendar-picker",
+        "wizard-stepper",
+        "annotation-toolbar",
+        "state-variants"
+      ],
+      "docs": [
+        "docs/recipes.md#coverage-closure"
+      ]
+    },
+    {
+      "id": "upload-dropzone",
+      "title": "Artifact staging with upload/dropzone feedback",
+      "components": [
+        "upload-dropzone"
+      ],
+      "docs": [
+        "docs/recipes.md#upload-dropzone"
+      ]
+    },
+    {
+      "id": "command-palette",
+      "title": "Searchable command palette with keyboard activation",
+      "components": [
+        "command-palette"
+      ],
+      "docs": [
+        "docs/recipes.md#command-palette"
+      ]
+    },
+    {
+      "id": "editable-grid",
+      "title": "Inline editable extracted-claim grid",
+      "components": [
+        "editable-grid"
+      ],
+      "docs": [
+        "docs/recipes.md#editable-grid"
+      ]
+    },
+    {
+      "id": "date-calendar-picker",
+      "title": "Compact date/calendar picker for due dates",
+      "components": [
+        "date-calendar-picker"
+      ],
+      "docs": [
+        "docs/recipes.md#date-calendar-picker"
+      ]
+    },
+    {
+      "id": "wizard-stepper",
+      "title": "Multi-step wizard and progress stepper",
+      "components": [
+        "wizard-stepper"
+      ],
+      "docs": [
+        "docs/recipes.md#wizard-stepper"
+      ]
+    },
+    {
+      "id": "annotation-toolbar",
+      "title": "Semantic annotation toolbar for document review",
+      "components": [
+        "annotation-toolbar"
+      ],
+      "docs": [
+        "docs/recipes.md#annotation-toolbar"
+      ]
+    },
+    {
+      "id": "state-variants",
+      "title": "Empty, loading, and error state variants",
+      "components": [
+        "state-variants"
+      ],
+      "docs": [
+        "docs/recipes.md#state-variants"
+      ]
+    }
+  ],
+  "eventFamilies": [
+    {
+      "family": "lifecycle",
+      "events": [
+        "if:framework-init:before",
+        "if:framework-init",
+        "if:framework-destroy:before",
+        "if:framework-destroy",
+        "if:behavior-init:before",
+        "if:behavior-init",
+        "if:behavior-init:error",
+        "if:behavior-destroy:before",
+        "if:behavior-destroy",
+        "if:behavior-destroy:error"
+      ]
+    },
+    {
+      "family": "data",
+      "events": [
+        "if:table-request",
+        "if:table-results",
+        "if:table-cancel",
+        "if:table-error",
+        "if:autocomplete-request",
+        "if:autocomplete-results",
+        "if:autocomplete-cancel",
+        "if:autocomplete-error",
+        "if:autocomplete-state",
+        "if:autocomplete-select"
+      ]
+    },
+    {
+      "family": "intelligence",
+      "events": [
+        "if:graph-node-select",
+        "if:graph-edge-select",
+        "if:graph-cluster",
+        "if:hierarchy-select",
+        "if:claim-select",
+        "if:history-select",
+        "if:doc-artifact-select",
+        "if:doc-search",
+        "if:doc-filter-change",
+        "if:doc-highlight-change",
+        "if:doc-search-clear",
+        "if:doc-jump",
+        "if:doc-annotation-select",
+        "if:doc-annotation-panel",
+        "if:doc-mode-change",
+        "if:diff-decision"
+      ]
+    },
+    {
+      "family": "ui-controls",
+      "events": [
+        "if:dropzone-change",
+        "if:command-palette-open",
+        "if:command-palette-filter",
+        "if:command-palette-action",
+        "if:editable-grid-change",
+        "if:date-picker-change",
+        "if:wizard-step",
+        "if:annotation-tool-change",
+        "if:state-variant-change"
+      ]
+    }
+  ],
+  "contractFreeze": {
+    "status": "frozen-for-v0.1-handoff",
+    "frozenOn": "2026-06-05",
+    "sourceOfTruth": "docs/component-manifest.json",
+    "companionDocs": [
+      "docs/component-api.md",
+      "docs/recipes.md",
+      "docs/event-catalog.md",
+      "docs/data-schemas.md",
+      "docs/github-shipping-work-items.md",
+      "docs/release-checklist.md"
+    ],
+    "stabilityTiers": {
+      "stable": "Public component contract is ready for downstream Policy MVP or AdamBoas.com planning and buildout. Markup, classes, data attributes, APIs, events or explicit static-event policy, accessibility notes, examples, and docs are required.",
+      "experimental": "Component is framework-owned and reusable, but production adoption must keep the documented fallback, adapter boundary, and hardening work item visible.",
+      "demo-only": "Component exists to test or demonstrate framework capabilities and should not be treated as a production surface without promotion."
+    },
+    "stableComponentRequirements": [
+      "identity fields",
+      "whenToUse and avoidWhen guidance",
+      "primary classes",
+      "data attributes array",
+      "JavaScript API array",
+      "emitted events or explicit static event policy",
+      "recipe ids",
+      "docs references",
+      "example references",
+      "accessibility guidance",
+      "contract evidence metadata"
+    ]
+  }
+}

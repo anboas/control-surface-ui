@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Policy Intelligence Starter</title>
+    <link rel="stylesheet" href="./node_modules/control-surface-ui/dist/interface-framework.css">
+    <script src="./node_modules/control-surface-ui/dist/interface-framework.js" defer></script>
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <a class="if-brand" href="#"><span class="if-brand__mark" aria-hidden="true">PI</span><span>Policy Intelligence</span></a>
+        <nav class="if-topbar__nav" aria-label="Primary routes">
+          <a class="if-nav-link is-active" href="#overview" aria-current="page">Overview</a>
+          <a class="if-nav-link" href="#graph">Graph</a>
+          <a class="if-nav-link" href="#documents">Documents</a>
+          <a class="if-nav-link" href="#review">Review</a>
+          <a class="if-nav-link" href="#sources">Sources</a>
+          <a class="if-nav-link" href="#search">Search</a>
+          <a class="if-nav-link" href="#workspace">Workspace</a>
+          <a class="if-nav-link" href="#diagrams">Diagrams</a>
+          <a class="if-nav-link" href="#data-model">Data Model</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Search</span>
+            <input class="if-input" type="search" data-if-autocomplete-local="starter-policy-search" placeholder="Search policies, sources, organizations...">
+          </label>
+          <button class="if-icon-btn if-notification-btn" type="button" title="Notifications"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span><span class="if-notification-btn__badge">3</span></button>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-expanded="false" aria-controls="starter-account" data-if-popover-toggle="starter-account"><span class="if-avatar" aria-hidden="true">JD</span><span class="if-account-menu__name">Jane Doe</span><span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span></button>
+            <section class="if-popover__panel if-account-surface" id="starter-account" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy reviewer</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-theme-control" aria-label="Theme preference">
+                <span class="if-account-theme-control__label">Theme</span>
+                <div class="if-account-theme-control__options" role="group" aria-label="Theme">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <div class="if-main if-main--with-sidebar if-main--with-context">
+        <aside class="if-sidebar">
+          <div class="if-sidebar__section">
+            <h2 class="if-sidebar__title">Watchlists</h2>
+            <nav class="if-sidebar__nav" aria-label="Watchlists">
+              <a class="if-sidebar__link is-active" href="#overview">Daily Overview <span class="if-badge if-badge--info">128</span></a>
+              <a class="if-sidebar__link" href="#review">Review Queue <span class="if-badge if-badge--risk-high">34</span></a>
+              <a class="if-sidebar__link" href="#sources">Source Health <span class="if-badge if-badge--status-open">7</span></a>
+              <a class="if-sidebar__link" href="#documents">Document Corpus <span class="if-badge">246</span></a>
+            </nav>
+          </div>
+        </aside>
+
+        <main class="if-content">
+          <section class="if-panel" id="overview">
+            <div class="if-panel__header">
+              <div><h1 class="if-panel__title">Policy Intelligence Overview</h1><p class="if-panel__subtitle">Starter route shell using packaged CSS/JS artifacts only.</p></div>
+              <button class="if-btn if-btn--primary" type="button">Create review task</button>
+            </div>
+            <div class="if-panel__body if-stack">
+              <div class="if-metric-grid">
+                <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><p class="if-metric__label">New policy changes</p></div><p class="if-metric__value">27</p><span class="if-metric__change">Up 18%</span><div class="if-metric__meta"><span>DoD, SEC NAV, OMB</span><span>Last 30 days</span></div></article>
+                <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span><p class="if-metric__label">Implementation gaps</p></div><p class="if-metric__value">22</p><span class="if-metric__change">Needs review</span><div class="if-metric__meta"><span>High confidence</span><span>Open</span></div></article>
+                <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="link" aria-hidden="true"></span><p class="if-metric__label">Linked opportunities</p></div><p class="if-metric__value">63</p><span class="if-metric__change">12 new</span><div class="if-metric__meta"><span>Graph traversal</span><span>Active</span></div></article>
+              </div>
+              <div class="if-table-wrap" role="region" aria-label="Policy records" tabindex="0">
+                <table class="if-table">
+                  <thead><tr><th scope="col">Policy</th><th scope="col">Authority</th><th scope="col">Updated</th><th scope="col">Confidence</th><th scope="col">Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><a href="#documents">DoDI 5200.01 Information Governance</a></td><td>DoD</td><td>May 1, 2025</td><td><span class="if-badge if-badge--confidence-high">High</span></td><td><span class="if-badge if-badge--status-in-review">In review</span></td></tr>
+                    <tr><td><a href="#documents">SECNAV Memo 25-104 Cloud Transition Guidance</a></td><td>SECNAV</td><td>May 6, 2025</td><td><span class="if-badge if-badge--confidence-high">High</span></td><td><span class="if-badge if-badge--status-open">Open</span></td></tr>
+                    <tr><td><a href="#sources">Federal Register API</a></td><td>Source</td><td>May 12, 2025</td><td><span class="if-badge if-badge--confidence-medium">Medium</span></td><td><span class="if-badge if-badge--status-approved">Healthy</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <aside class="if-context-region">
+          <section class="if-panel">
+            <div class="if-panel__header"><h2 class="if-panel__title">Route adapters</h2></div>
+            <div class="if-panel__body if-stack">
+              <p class="if-text-sm">Register production adapters for records, autocomplete, graph layout, document annotations, review queues, sources, search, workspace, diagrams, and exports.</p>
+              <span class="if-badge if-badge--status-in-review">Mock first</span>
+              <button class="if-btn if-btn--secondary" type="button">Open handoff docs</button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

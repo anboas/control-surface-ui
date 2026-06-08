@@ -1,0 +1,314 @@
+[
+  {
+    "id": "ndaa-fy2025",
+    "title": "National Defense Authorization Act for Fiscal Year 2025",
+    "shortTitle": "NDAA FY2025",
+    "type": "Public Law",
+    "source": "Congress.gov / GovInfo",
+    "status": "Verified public law",
+    "sourceUrl": "https://www.congress.gov/118/plaws/publ159/PLAW-118publ159.pdf",
+    "pages": "935",
+    "lineCount": 42,
+    "textChars": "sampled",
+    "confidence": "0.92",
+    "orgs": ["Congress", "DoD", "Military Departments", "CIO", "CISA", "OMB"],
+    "refs": [
+      { "title": "Title 10", "relation": "amends / authorizes", "jump": "Title 10" },
+      { "title": "FISMA", "relation": "cyber reporting context", "jump": "Federal Information Security Modernization Act" },
+      { "title": "DoDI 5200.01", "relation": "downstream policy candidate", "jump": "DoDI 5200.01" },
+      { "title": "OMB guidance", "relation": "implementation policy", "jump": "OMB" }
+    ],
+    "sections": [
+      { "ref": "I", "title": "Procurement", "meta": "Authorization and acquisition controls", "jump": "PROCUREMENT" },
+      { "ref": "VIII", "title": "Acquisition Policy", "meta": "Program authorities, reporting, and modernization", "jump": "acquisition" },
+      { "ref": "XVI", "title": "Cyber And Information", "meta": "Cybersecurity, data, and technology provisions", "jump": "cyber" },
+      { "ref": "XX", "title": "Implementation Duties", "meta": "Delegates actions to DoD, OMB, and component owners", "jump": "shall" }
+    ],
+    "authority": [
+      { "label": "Law", "type": "Public Law", "title": "Public Law 118-159", "text": "Root statutory authority for FY2025 defense programs.", "jump": "Public Law 118-159", "tone": "law" },
+      { "label": "Delegation", "type": "Department", "title": "DoD implementation", "text": "Creates or modifies defense program obligations.", "jump": "Department of Defense" },
+      { "label": "Policy", "type": "Issuance", "title": "DoDI / OMB / service policy", "text": "Downstream directives translate law into program rules.", "jump": "DoDI" },
+      { "label": "Evidence", "type": "Artifact", "title": "Program compliance packages", "text": "Lowest tracked evidence: reports, plans, milestones.", "jump": "program shall", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section reference", "text": "Public Law 118-159 - National Defense Authorization Act for Fiscal Year 2025." },
+      { "n": 2, "cats": "claim reference", "text": "The Act authorizes appropriations and establishes policy for Department of Defense programs for fiscal year 2025." },
+      { "n": 3, "cats": "claim org", "text": "The Secretary of Defense shall carry out required program, acquisition, cyber, and reporting actions through implementing guidance." },
+      { "n": 4, "cats": "reference", "text": "Related downstream records include DoDI 5200.01, FISMA modernization controls, OMB memoranda, and service implementation guidance." }
+    ],
+    "claims": [
+      "Secretary of Defense shall carry out required program and reporting actions.",
+      "DoD components shall provide evidence for modernization and acquisition controls.",
+      "Cyber and information provisions should be mapped to downstream policy and implementation artifacts."
+    ]
+  },
+  {
+    "id": "eo-14250",
+    "title": "Executive Order 14250, Addressing Risks From WilmerHale",
+    "shortTitle": "EO 14250",
+    "type": "Executive Order",
+    "source": "Federal Register / White House",
+    "status": "Verified executive order",
+    "sourceUrl": "https://www.federalregister.gov/executive-order/14250",
+    "pages": "HTML",
+    "lineCount": 29,
+    "textChars": "sampled",
+    "confidence": "0.84",
+    "orgs": ["President", "Attorney General", "Agency heads", "Federal contractors"],
+    "refs": [
+      { "title": "Federal procurement rules", "relation": "implementation surface", "jump": "Government contractors" },
+      { "title": "Agency access controls", "relation": "review state", "jump": "agency" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Policy", "meta": "Risk statement and covered parties", "jump": "policy" },
+      { "ref": "2", "title": "Security clearances", "meta": "Access review and restriction actions", "jump": "security clearances" },
+      { "ref": "3", "title": "Contracting", "meta": "Contractor relationship review", "jump": "Government contractors" }
+    ],
+    "authority": [
+      { "label": "Executive", "type": "EO", "title": "EO 14250", "text": "Executive direction for agency action.", "jump": "Executive Order 14250", "tone": "law" },
+      { "label": "Agency", "type": "Implementation", "title": "Agency reviews", "text": "Agencies identify affected clearances, contracts, and access.", "jump": "agency" },
+      { "label": "Evidence", "type": "Review", "title": "Access decision record", "text": "Tracked as reviewable administrative action.", "jump": "review", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section reference", "text": "Executive Order 14250 - Addressing Risks From WilmerHale." },
+      { "n": 2, "cats": "claim org", "text": "Agency heads shall review access, contracting, and clearance relationships affected by the order." },
+      { "n": 3, "cats": "claim reference", "text": "Government contractors and agency officials may require documented review actions and legal status tracking." }
+    ],
+    "claims": [
+      "Agency heads shall review access and contracting relationships.",
+      "Clearance and access actions require traceable decision records."
+    ]
+  },
+  {
+    "id": "dodi-5200-01",
+    "title": "DoDI 5200.01, DoD Information Security Program and Protection of Sensitive Compartmented Information",
+    "shortTitle": "DoDI 5200.01",
+    "type": "DoD Instruction",
+    "source": "WHS DoD Issuances Portal",
+    "status": "Verified issuance reference",
+    "sourceUrl": "https://www.esd.whs.mil/Directives/issuances/dodi/",
+    "pages": "source linked",
+    "lineCount": 58,
+    "textChars": "sampled",
+    "confidence": "0.88",
+    "orgs": ["DoD", "USD(I&S)", "DoD CIO", "Component heads", "Security managers"],
+    "refs": [
+      { "title": "EO 13526", "relation": "classification authority", "jump": "Executive Order 13526" },
+      { "title": "DoDM 5200.01", "relation": "manual implementation", "jump": "DoD Manual 5200.01" },
+      { "title": "DoDI 5200.48", "relation": "CUI relationship", "jump": "Controlled Unclassified Information" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "General Issuance Information", "meta": "Applicability and policy", "jump": "General Issuance Information" },
+      { "ref": "2", "title": "Responsibilities", "meta": "Security governance actors", "jump": "Responsibilities" },
+      { "ref": "3", "title": "Procedures", "meta": "Information security requirements", "jump": "Procedures" }
+    ],
+    "authority": [
+      { "label": "EO", "type": "Executive Order", "title": "EO 13526", "text": "National security information classification authority.", "jump": "Executive Order 13526", "tone": "law" },
+      { "label": "Policy", "type": "Instruction", "title": "DoDI 5200.01", "text": "Canonical information security program instruction.", "jump": "DoDI 5200.01", "tone": "current" },
+      { "label": "Implementation", "type": "Manual", "title": "DoDM 5200.01 volumes", "text": "Detailed marking, safeguarding, and program procedures.", "jump": "DoD Manual 5200.01", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section org", "text": "DoDI 5200.01 establishes policy and assigns responsibilities for the DoD Information Security Program." },
+      { "n": 2, "cats": "claim org", "text": "DoD Component heads shall establish procedures to identify, classify, mark, protect, and declassify information." },
+      { "n": 3, "cats": "reference", "text": "Related records include Executive Order 13526, DoD Manual 5200.01, and CUI policy." }
+    ],
+    "claims": [
+      "Component heads shall establish procedures for protection of classified information.",
+      "Security managers shall maintain records and evidence of program compliance."
+    ]
+  },
+  {
+    "id": "secnav-25-104",
+    "title": "SECNAV Memo 25-104, Cloud Transition Guidance",
+    "shortTitle": "SECNAV 25-104",
+    "type": "Service Memo",
+    "source": "Service Memo Watchlist",
+    "status": "Synthetic demo artifact",
+    "sourceUrl": "",
+    "pages": "8",
+    "lineCount": 36,
+    "textChars": "synthetic",
+    "confidence": "0.73",
+    "orgs": ["SECNAV", "DON CIO", "NAVWAR", "Navy Enterprise Cloud Office"],
+    "refs": [
+      { "title": "DoDI 5200.01", "relation": "security policy constraint", "jump": "DoDI 5200.01" },
+      { "title": "DISA Cloud Access Guide", "relation": "implementation guide", "jump": "DISA Cloud Access Guide" },
+      { "title": "DOWI 8320.14", "relation": "data exchange dependency", "jump": "DOWI 8320.14" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Intent", "meta": "Cloud transition objectives", "jump": "Intent" },
+      { "ref": "2", "title": "Responsibilities", "meta": "Owner and reviewer assignments", "jump": "responsibilities" },
+      { "ref": "3", "title": "Transition Actions", "meta": "Milestones and evidence", "jump": "shall" }
+    ],
+    "authority": [
+      { "label": "Law", "type": "NDAA", "title": "FY2025 modernization language", "text": "Root modernization driver.", "jump": "NDAA FY2025", "tone": "law" },
+      { "label": "Policy", "type": "DoDI", "title": "DoDI 5200.01", "text": "Information protection constraints.", "jump": "DoDI 5200.01" },
+      { "label": "Service", "type": "Memo", "title": "SECNAV Memo 25-104", "text": "Service-level transition direction.", "jump": "SECNAV Memo 25-104", "tone": "current" },
+      { "label": "Evidence", "type": "Plan", "title": "NAVWAR migration plan", "text": "Implementation milestones and review packages.", "jump": "NAVWAR", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section org", "text": "SECNAV Memo 25-104 - Cloud Transition Guidance." },
+      { "n": 2, "cats": "claim org", "text": "DON CIO shall publish cloud transition criteria for systems containing protected data." },
+      { "n": 3, "cats": "claim org enables", "text": "NAVWAR will submit an API gateway migration plan and attach evidence packages for review." },
+      { "n": 4, "cats": "reference", "text": "The memo references DoDI 5200.01, DISA Cloud Access Guide, and DOWI 8320.14." }
+    ],
+    "claims": [
+      "DON CIO shall publish cloud transition criteria.",
+      "NAVWAR will submit an API gateway migration plan.",
+      "Program owners shall attach evidence packages for review."
+    ]
+  },
+  {
+    "id": "fisma-modernization",
+    "title": "FISMA Modernization Document",
+    "shortTitle": "FISMA Modernization",
+    "type": "Statutory / policy package",
+    "source": "GovInfo / OMB demo ingest",
+    "status": "Synthetic decomposition from FISMA modernization concept",
+    "sourceUrl": "https://www.congress.gov/bill/113th-congress/senate-bill/2521",
+    "pages": "concept",
+    "lineCount": 34,
+    "textChars": "synthetic",
+    "confidence": "0.78",
+    "orgs": ["OMB", "DHS", "CISA", "Agency CIOs", "Inspectors General"],
+    "refs": [
+      { "title": "FISMA", "relation": "statutory base", "jump": "Federal Information Security Modernization Act" },
+      { "title": "OMB M-series guidance", "relation": "implementation guidance", "jump": "OMB" },
+      { "title": "CISA directives", "relation": "operational directive", "jump": "CISA" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Agency Security Programs", "meta": "Continuous monitoring and risk management", "jump": "agency information security" },
+      { "ref": "2", "title": "Incident Reporting", "meta": "Timelines, evidence, and escalation", "jump": "incident" },
+      { "ref": "3", "title": "Oversight", "meta": "OMB/CISA/IG reporting", "jump": "report" }
+    ],
+    "authority": [
+      { "label": "Law", "type": "FISMA", "title": "FISMA modernization", "text": "Agency security program statute.", "jump": "Federal Information Security Modernization Act", "tone": "law" },
+      { "label": "Policy", "type": "OMB", "title": "OMB implementation memo", "text": "Reporting, metrics, and oversight policy.", "jump": "OMB" },
+      { "label": "Operation", "type": "CISA", "title": "Cyber operational directives", "text": "Operational guidance and response duties.", "jump": "CISA", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section reference", "text": "FISMA modernization requires agencies to maintain information security programs and report incidents." },
+      { "n": 2, "cats": "claim org", "text": "Agency heads shall provide information security protections commensurate with risk." },
+      { "n": 3, "cats": "claim org", "text": "OMB and CISA will define reporting, evaluation, and operational coordination requirements." }
+    ],
+    "claims": [
+      "Agency heads shall maintain risk-based information security programs.",
+      "CISA will coordinate operational incident response requirements."
+    ]
+  },
+  {
+    "id": "omb-m-25-77",
+    "title": "OMB M-25-77, FISMA Modernization Implementation Guidance",
+    "shortTitle": "OMB M-25-77",
+    "type": "OMB Memorandum",
+    "source": "OMB Memoranda Feed",
+    "status": "Synthetic demo artifact - not verified as public OMB memo",
+    "sourceUrl": "",
+    "pages": "11",
+    "lineCount": 39,
+    "textChars": "synthetic",
+    "confidence": "0.62",
+    "orgs": ["OMB", "CISA", "Federal agencies", "Agency CIOs", "SAOP"],
+    "refs": [
+      { "title": "FISMA Modernization", "relation": "implements", "jump": "FISMA modernization" },
+      { "title": "NDAA FY2025", "relation": "aligns with", "jump": "NDAA FY2025" },
+      { "title": "Zero Trust guidance", "relation": "related", "jump": "zero trust" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Reporting Baseline", "meta": "Metrics and cadence", "jump": "reporting" },
+      { "ref": "2", "title": "Data Exchange", "meta": "Machine-readable submissions", "jump": "data exchange" },
+      { "ref": "3", "title": "Review Gates", "meta": "Agency review and escalation", "jump": "review" }
+    ],
+    "authority": [
+      { "label": "Law", "type": "FISMA", "title": "FISMA modernization", "text": "Statutory reporting and security program base.", "jump": "FISMA", "tone": "law" },
+      { "label": "Policy", "type": "OMB memo", "title": "OMB M-25-77", "text": "Synthetic implementation memo for demo coverage.", "jump": "OMB M-25-77", "tone": "current" },
+      { "label": "Evidence", "type": "Agency report", "title": "Machine-readable submission", "text": "Lowest tracked reporting artifact.", "jump": "submission", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section org", "text": "OMB M-25-77 - FISMA Modernization Implementation Guidance." },
+      { "n": 2, "cats": "claim org", "text": "Agencies shall submit machine-readable FISMA evidence packages on a quarterly cadence." },
+      { "n": 3, "cats": "claim org enables", "text": "CISA will provide validation results and route unresolved gaps to agency review queues." }
+    ],
+    "claims": [
+      "Agencies shall submit machine-readable evidence packages.",
+      "CISA will provide validation results and route unresolved gaps."
+    ]
+  },
+  {
+    "id": "dowi-8320-14",
+    "title": "DOWI 8320.14, Data Exchange Modernization",
+    "shortTitle": "DOWI 8320.14",
+    "type": "Department Instruction",
+    "source": "DoW Issuances demo source",
+    "status": "Synthetic demo artifact",
+    "sourceUrl": "",
+    "pages": "16",
+    "lineCount": 46,
+    "textChars": "synthetic",
+    "confidence": "0.71",
+    "orgs": ["DoW CIO", "DISA", "NAVWAR", "DoD Components", "Data owners"],
+    "refs": [
+      { "title": "NDAA FY2025", "relation": "modernization driver", "jump": "NDAA FY2025" },
+      { "title": "DoDI 5200.01", "relation": "security constraint", "jump": "DoDI 5200.01" },
+      { "title": "DISA Cloud Access Guide", "relation": "implementation guide", "jump": "DISA Cloud Access Guide" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Purpose", "meta": "Open data exchange mandate", "jump": "Purpose" },
+      { "ref": "2", "title": "Responsibilities", "meta": "DoW CIO, DISA, components", "jump": "Responsibilities" },
+      { "ref": "3", "title": "Implementation", "meta": "API, data catalog, controls", "jump": "API" }
+    ],
+    "authority": [
+      { "label": "Law", "type": "NDAA", "title": "FY2025 modernization driver", "text": "Modernization language becomes an exchange obligation.", "jump": "NDAA FY2025", "tone": "law" },
+      { "label": "Policy", "type": "Instruction", "title": "DOWI 8320.14", "text": "Data exchange modernization policy.", "jump": "DOWI 8320.14", "tone": "current" },
+      { "label": "Implementation", "type": "Guide", "title": "DISA Cloud Access Guide", "text": "Gateway controls and access evidence.", "jump": "DISA Cloud Access Guide", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section org", "text": "DOWI 8320.14 - Data Exchange Modernization." },
+      { "n": 2, "cats": "claim org", "text": "DISA shall maintain enterprise API gateway control patterns for approved exchange services." },
+      { "n": 3, "cats": "claim org enables", "text": "DoD Components will register authoritative data products in the data catalog before external exchange." },
+      { "n": 4, "cats": "reference", "text": "This instruction references DoDI 5200.01, NDAA FY2025 modernization language, and DISA Cloud Access Guide." }
+    ],
+    "claims": [
+      "DISA shall maintain enterprise API gateway control patterns.",
+      "Components will register authoritative data products before exchange."
+    ]
+  },
+  {
+    "id": "disa-cloud-access-guide",
+    "title": "DISA Cloud Access Guide",
+    "shortTitle": "DISA Cloud Access Guide",
+    "type": "Implementation Guide",
+    "source": "DISA implementation repository demo source",
+    "status": "Synthetic demo artifact",
+    "sourceUrl": "",
+    "pages": "22",
+    "lineCount": 51,
+    "textChars": "synthetic",
+    "confidence": "0.69",
+    "orgs": ["DISA", "Mission partners", "Cloud access office", "Security reviewers"],
+    "refs": [
+      { "title": "DoDI 5200.01", "relation": "protects information", "jump": "DoDI 5200.01" },
+      { "title": "DOWI 8320.14", "relation": "implements", "jump": "DOWI 8320.14" },
+      { "title": "SECNAV Memo 25-104", "relation": "guided implementation", "jump": "SECNAV Memo 25-104" }
+    ],
+    "sections": [
+      { "ref": "1", "title": "Access Request", "meta": "Eligibility, evidence, and approvals", "jump": "access request" },
+      { "ref": "2", "title": "Gateway Controls", "meta": "API and identity controls", "jump": "gateway" },
+      { "ref": "3", "title": "Audit Evidence", "meta": "Artifacts and review cadence", "jump": "audit evidence" }
+    ],
+    "authority": [
+      { "label": "Policy", "type": "Instruction", "title": "DOWI 8320.14", "text": "Exchange modernization policy.", "jump": "DOWI 8320.14" },
+      { "label": "Guide", "type": "Implementation", "title": "DISA Cloud Access Guide", "text": "Cloud access implementation guidance.", "jump": "DISA Cloud Access Guide", "tone": "current" },
+      { "label": "Evidence", "type": "Control package", "title": "Gateway access package", "text": "Request, approval, access, audit, and monitoring evidence.", "jump": "gateway", "tone": "implementation" }
+    ],
+    "lines": [
+      { "n": 1, "cats": "section org", "text": "DISA Cloud Access Guide - implementation guidance for enterprise cloud access and gateway controls." },
+      { "n": 2, "cats": "claim org", "text": "Mission partners shall submit access requests with system owner approval, data classification, and network boundary evidence." },
+      { "n": 3, "cats": "claim org enables", "text": "DISA will validate gateway controls and publish audit evidence for approved cloud connections." }
+    ],
+    "claims": [
+      "Mission partners shall submit access requests with required evidence.",
+      "DISA will validate gateway controls and publish audit evidence."
+    ]
+  }
+]

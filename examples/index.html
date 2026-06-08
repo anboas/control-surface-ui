@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Overview</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="overview-filters" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link is-active" href="./index.html" aria-current="page">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./diagram4.html">Diagram4</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./profile-patterns.html">Profiles</a>
+          <a class="if-nav-link" href="./notification-patterns.html">Notifications</a>
+          <a class="if-nav-link" href="./action-patterns.html">Actions</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search policies, sources, organizations...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <div class="if-main if-main--with-sidebar if-main--with-detail">
+        <aside class="if-sidebar" id="overview-filters" aria-label="Filters">
+          <div class="if-sidebar__section">
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Watchlists</h2>
+              <a class="if-text-xs if-font-semibold" href="#">New</a>
+            </div>
+            <nav class="if-sidebar__nav" aria-label="Watchlists">
+              <a class="if-sidebar__link is-active" href="#"><span class="if-sidebar__link-label">Cloud Security & Compliance</span><span class="if-badge if-badge--info">128</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Data Governance</span><span class="if-sidebar__count">96</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">DoD & IC Modernization</span><span class="if-sidebar__count">142</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">AI Governance Watch</span><span class="if-sidebar__count">78</span></a>
+            </nav>
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Saved Views</h2>
+              <span class="if-sidebar__count">6</span>
+            </div>
+            <nav class="if-sidebar__subnav" aria-label="Saved views">
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">My Daily Overview</span><span class="if-badge if-badge--info">Default</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">High-Risk Review Queue</span><span class="if-sidebar__link-meta">34</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Upcoming Deadlines</span><span class="if-sidebar__link-meta">14</span></a>
+            </nav>
+          </div>
+
+          <div class="if-sidebar__section">
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Filter Set</h2>
+              <a class="if-text-xs if-font-semibold" href="#">Reset</a>
+            </div>
+            <div class="if-filter-stack">
+              <label class="if-field">
+                <span class="if-field__label">Source</span>
+                <select class="if-select">
+                  <option>All sources</option>
+                  <option>DoD Issuances</option>
+                  <option>SECNAV</option>
+                  <option>OMB</option>
+                </select>
+              </label>
+              <label class="if-field">
+                <span class="if-field__label">Document type</span>
+                <select class="if-select">
+                  <option>All types</option>
+                  <option>Instruction</option>
+                  <option>Memo</option>
+                  <option>Directive</option>
+                </select>
+              </label>
+              <div class="if-filter-group">
+                <div class="if-filter-group__header">
+                  <span class="if-filter-group__title">Capability area</span>
+                </div>
+                <div class="if-chip-list">
+                  <span class="if-chip if-chip--removable">Cyber <button aria-label="Remove Cyber">&times;</button></span>
+                  <span class="if-chip if-chip--removable">Data <button aria-label="Remove Data">&times;</button></span>
+                  <span class="if-chip if-chip--removable">AI <button aria-label="Remove AI">&times;</button></span>
+                  <button class="if-chip" type="button">+</button>
+                </div>
+              </div>
+              <label class="if-field">
+                <span class="if-field__label">Date range</span>
+                <input class="if-input" type="text" value="Apr 1, 2025 - May 12, 2025">
+              </label>
+              <div class="if-range">
+                <div class="if-cluster if-cluster--between if-text-xs">
+                  <span>Confidence score</span>
+                  <span>0% - 100%</span>
+                </div>
+                <input type="range" min="0" max="100" value="55">
+              </div>
+              <div class="if-filter-group">
+                <span class="if-filter-group__title">Review state</span>
+                <label class="if-checkbox"><input type="checkbox"> Not reviewed (142)</label>
+                <label class="if-checkbox"><input type="checkbox" checked> In review (38)</label>
+                <label class="if-checkbox"><input type="checkbox" checked> Reviewed (156)</label>
+                <label class="if-checkbox"><input type="checkbox"> Archived (12)</label>
+              </div>
+              <label class="if-switch">
+                <input type="checkbox" checked>
+                <span class="if-switch__track" aria-hidden="true"></span>
+                <span>Show inferred links</span>
+              </label>
+              <button class="if-btn if-btn--secondary if-btn--block" type="button">Save View</button>
+            </div>
+          </div>
+        </aside>
+
+        <main class="if-content">
+          <div class="if-page">
+            <section class="if-panel">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+                  <div>
+                    <h1 class="if-panel__title">Policy Intelligence Overview</h1>
+                    <p class="if-panel__subtitle">Search policies, sources, organizations, obligations, evidence, and graph nodes.</p>
+                  </div>
+                </div>
+                <span class="if-badge if-badge--info">Mock server suggestions</span>
+              </div>
+              <div class="if-panel__body">
+                <div class="if-grid if-grid--2 if-align-start">
+                  <label class="if-field if-autocomplete">
+                    <span class="if-field__label">Autosuggest search</span>
+                    <span class="if-search if-w-full">
+                      <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+                      <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="220" data-if-autocomplete-limit="7" data-if-autocomplete-output="#overview-autocomplete-selection" placeholder="Try DoDI, NAVWAR, DISA, evidence, or gap">
+                    </span>
+                  </label>
+                  <div class="if-autocomplete-summary" id="overview-autocomplete-selection" aria-live="polite">
+                    <span class="if-autocomplete-summary__eyebrow">Selected suggestion</span>
+                    <strong>No suggestion selected</strong>
+                    <span>Type at least one character to emulate a server-side autosuggest response with highlighted matches.</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="if-metric-grid" aria-label="Overview metrics">
+              <article class="if-card if-metric">
+                <div class="if-metric__top">
+                  <span class="if-metric__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                  <p class="if-metric__label">New policy changes</p>
+                </div>
+                <div class="if-metric__main"><p class="if-metric__value">27</p><span data-if-sparkline="12,15,14,18,21,20,27" data-if-sparkline-label="New policy changes trending upward"></span></div>
+                <span class="if-metric__change if-text-success">Up 38% vs Apr 1 - Apr 30</span>
+                <div class="if-metric__meta"><span>DoD + SECNAV</span><span>Apr 1 - May 12</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top">
+                  <span class="if-metric__icon if-icon-slot" data-if-icon="hourglass" aria-hidden="true"></span>
+                  <p class="if-metric__label">Expiring DTMs</p>
+                </div>
+                <div class="if-metric__main"><p class="if-metric__value">14</p><span data-if-sparkline="18,17,16,15,15,14,14" data-if-sparkline-label="Expiring DTMs slightly decreasing"></span></div>
+                <span class="if-metric__change">Within 180 days</span>
+                <div class="if-metric__meta"><span>Directive tracker</span><span>Rolling 180 days</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top">
+                  <span class="if-metric__icon if-icon-slot" data-if-icon="link" aria-hidden="true"></span>
+                  <p class="if-metric__label">Linked opportunities</p>
+                </div>
+                <div class="if-metric__main"><p class="if-metric__value">63</p><span data-if-sparkline="40,45,43,50,54,58,63" data-if-sparkline-label="Linked opportunities trending upward"></span></div>
+                <span class="if-metric__change if-text-success">Up 12% vs Apr 1 - Apr 30</span>
+                <div class="if-metric__meta"><span>Impact Analyzer</span><span>Open opportunity graph</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top">
+                  <span class="if-metric__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <p class="if-metric__label">Implementation gaps</p>
+                </div>
+                <div class="if-metric__main"><p class="if-metric__value">22</p><span data-if-sparkline="13,15,16,18,19,21,22" data-if-sparkline-label="Implementation gaps trending upward"></span></div>
+                <span class="if-metric__change if-text-warning">10% vs prior period</span>
+                <div class="if-metric__meta"><span>Gap Agent v2.1</span><span>High + medium risk</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top">
+                  <span class="if-metric__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <p class="if-metric__label">Reviewed findings</p>
+                </div>
+                <div class="if-metric__main"><p class="if-metric__value">156</p><span data-if-sparkline="102,111,118,129,138,145,156" data-if-sparkline-label="Reviewed findings trending upward"></span></div>
+                <span class="if-metric__change">82% of total findings</span>
+                <div class="if-metric__meta"><span>Review console</span><span>Current queue</span></div>
+              </article>
+            </section>
+
+            <section class="if-panel if-expandable-surface" id="landscape-hierarchy" data-if-hierarchy>
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <div class="if-section-heading__body">
+                  <h1 class="if-panel__title">Landscape hierarchy</h1>
+                  <p class="if-panel__subtitle">A single drill-down view from statutory authority through policy, source records, claims, obligations, organizations, and implementation evidence.</p>
+                  </div>
+                </div>
+                <div class="if-toolbar__group">
+                  <span class="if-badge if-badge--info" data-if-hierarchy-current>NDAA FY2025</span>
+                  <button class="if-icon-btn" type="button" data-if-surface-expand="#landscape-hierarchy" aria-pressed="false" title="Expand hierarchy"><span class="if-icon-slot" data-if-icon="expand"></span></button>
+                  <button class="if-icon-btn" type="button" data-if-export="#landscape-hierarchy" data-if-export-format="png" data-if-export-name="landscape-hierarchy.png" title="Export hierarchy"><span class="if-icon-slot" data-if-icon="download"></span></button>
+                </div>
+              </div>
+              <div class="if-panel__body if-landscape-hierarchy">
+                <div class="if-landscape-hierarchy__map" role="tree" aria-label="Policy intelligence landscape hierarchy">
+                  <section class="if-landscape-level" aria-label="Law">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">Law</span><span class="if-landscape-level__meta">Statutory authority</span></div>
+                    <button class="if-landscape-node is-selected" type="button" role="treeitem" aria-selected="true" data-hierarchy-node="law-ndaa" data-hierarchy-label="NDAA FY2025">
+                      <span class="if-landscape-node__type">Public Law</span>
+                      <span class="if-landscape-node__title">NDAA FY2025</span>
+                      <span class="if-landscape-node__meta">Data interoperability and cyber modernization mandate</span>
+                      <span class="if-badge if-badge--high">Root</span>
+                    </button>
+                    <button class="if-landscape-node if-landscape-node--secondary" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="law-fisma" data-hierarchy-label="FISMA Modernization">
+                      <span class="if-landscape-node__type">Federal Law</span>
+                      <span class="if-landscape-node__title">FISMA Modernization</span>
+                      <span class="if-landscape-node__meta">Security controls and agency reporting</span>
+                    </button>
+                  </section>
+                  <section class="if-landscape-level" aria-label="Executive and department policy">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">Policy</span><span class="if-landscape-level__meta">Executive and department layer</span></div>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="eo-14250" data-hierarchy-parent="law-ndaa" data-hierarchy-label="EO 14250">
+                      <span class="if-landscape-node__type">Executive Order</span>
+                      <span class="if-landscape-node__title">EO 14250 Secure Government Data</span>
+                      <span class="if-landscape-node__meta">Derived from statutory modernization language</span>
+                      <span class="if-badge if-badge--confidence-high">0.91</span>
+                    </button>
+                    <button class="if-landscape-node if-landscape-node--secondary" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="omb-memo" data-hierarchy-parent="law-fisma" data-hierarchy-label="OMB M-25-77">
+                      <span class="if-landscape-node__type">OMB Memo</span>
+                      <span class="if-landscape-node__title">OMB M-25-77 AI Governance</span>
+                      <span class="if-landscape-node__meta">Cross-agency implementation expectations</span>
+                    </button>
+                  </section>
+                  <section class="if-landscape-level" aria-label="DoD policy">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">DoD Policy</span><span class="if-landscape-level__meta">Canonical issuance</span></div>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="dodi-5200" data-hierarchy-parent="eo-14250" data-hierarchy-label="DoDI 5200.01">
+                      <span class="if-landscape-node__type">Instruction</span>
+                      <span class="if-landscape-node__title">DoDI 5200.01 Information Governance</span>
+                      <span class="if-landscape-node__meta">Primary policy record and authority hub</span>
+                      <span class="if-badge if-badge--confidence-high">High</span>
+                    </button>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="dowi-8320" data-hierarchy-parent="dodi-5200" data-hierarchy-label="DoWI 8320.14">
+                      <span class="if-landscape-node__type">Working Instruction</span>
+                      <span class="if-landscape-node__title">DoWI 8320.14 Data Exchange</span>
+                      <span class="if-landscape-node__meta">API and data standards modernization</span>
+                    </button>
+                  </section>
+                  <section class="if-landscape-level" aria-label="Service guidance">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">Guidance</span><span class="if-landscape-level__meta">Service or agency layer</span></div>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="secnav-25-104" data-hierarchy-parent="dowi-8320" data-hierarchy-label="SECNAV Memo 25-104">
+                      <span class="if-landscape-node__type">Service Memo</span>
+                      <span class="if-landscape-node__title">SECNAV Memo 25-104 Cloud Transition</span>
+                      <span class="if-landscape-node__meta">Service-level migration and deadline guidance</span>
+                      <span class="if-badge if-badge--high">Linked</span>
+                    </button>
+                    <button class="if-landscape-node if-landscape-node--secondary" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="disa-guide" data-hierarchy-parent="dowi-8320" data-hierarchy-label="DISA Cloud Guide">
+                      <span class="if-landscape-node__type">Agency Guide</span>
+                      <span class="if-landscape-node__title">DISA Cloud Access Guide</span>
+                      <span class="if-landscape-node__meta">Identity, gateway, and network controls</span>
+                    </button>
+                  </section>
+                  <section class="if-landscape-level" aria-label="Claims and obligations">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">Tracked Items</span><span class="if-landscape-level__meta">Claims, obligations, events</span></div>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="claim-api" data-hierarchy-parent="secnav-25-104" data-hierarchy-label="API exchange claim">
+                      <span class="if-landscape-node__type">Extracted Claim</span>
+                      <span class="if-landscape-node__title">Require API-based data exchange</span>
+                      <span class="if-landscape-node__meta">Section 4.2, confidence 0.88</span>
+                      <span class="if-badge if-badge--status-in-review">In progress</span>
+                    </button>
+                    <button class="if-landscape-node if-landscape-node--gap" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="gap-records" data-hierarchy-parent="secnav-25-104" data-hierarchy-label="Records evidence gap">
+                      <span class="if-landscape-node__type">Implementation Gap</span>
+                      <span class="if-landscape-node__title">Records retention evidence missing</span>
+                      <span class="if-landscape-node__meta">One affected org without proof package</span>
+                      <span class="if-badge if-badge--status-blocked">Blocked</span>
+                    </button>
+                  </section>
+                  <section class="if-landscape-level" aria-label="Implementation evidence">
+                    <div class="if-landscape-level__header"><span class="if-landscape-level__label">Implementation</span><span class="if-landscape-level__meta">Lowest tracked artifact</span></div>
+                    <button class="if-landscape-node" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="navwar-plan" data-hierarchy-parent="claim-api" data-hierarchy-label="NAVWAR API Gateway Plan">
+                      <span class="if-landscape-node__type">Implementation Plan</span>
+                      <span class="if-landscape-node__title">NAVWAR API Gateway Migration Plan</span>
+                      <span class="if-landscape-node__meta">Milestones, system inventory, evidence attachments</span>
+                      <span class="if-badge if-badge--status-on-track">On track</span>
+                    </button>
+                    <button class="if-landscape-node if-landscape-node--gap" type="button" role="treeitem" aria-selected="false" data-hierarchy-node="retention-package" data-hierarchy-parent="gap-records" data-hierarchy-label="Retention control package">
+                      <span class="if-landscape-node__type">Evidence Package</span>
+                      <span class="if-landscape-node__title">Records Retention Control Package</span>
+                      <span class="if-landscape-node__meta">Required source proof not yet attached</span>
+                      <span class="if-badge if-badge--status-blocked">Missing</span>
+                    </button>
+                  </section>
+                </div>
+                <div class="if-landscape-hierarchy__detail">
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="law-ndaa">
+                    <div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">NDAA FY2025</h2><p class="if-hierarchy-panel__subtitle">Top-level statutory authority for data interoperability and modernization tracking.</p></div><span class="if-badge if-badge--high">Root authority</span></div>
+                    <div class="if-hierarchy-path"><span>Law</span><span>Executive Order</span><span>DoD policy</span><span>Service guidance</span><span>Claim</span><span>Implementation evidence</span></div>
+                    <div class="if-hierarchy-metrics"><div class="if-hierarchy-metric"><span>Downstream records</span><strong>42</strong></div><div class="if-hierarchy-metric"><span>Tracked claims</span><strong>18</strong></div><div class="if-hierarchy-metric"><span>Open gaps</span><strong>3</strong></div></div>
+                  </article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="law-fisma" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">FISMA Modernization</h2><p class="if-hierarchy-panel__subtitle">Cybersecurity reporting and control framework authority.</p></div><span class="if-badge if-badge--medium">Related root</span></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="eo-14250" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">EO 14250 Secure Government Data</h2><p class="if-hierarchy-panel__subtitle">Executive policy derived from statutory modernization requirements.</p></div><span class="if-badge if-badge--confidence-high">0.91</span></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="omb-memo" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">OMB M-25-77 AI Governance</h2><p class="if-hierarchy-panel__subtitle">Cross-agency guidance used as a related governance branch.</p></div><span class="if-badge if-badge--medium">Related</span></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="dodi-5200" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">DoDI 5200.01 Information Governance</h2><p class="if-hierarchy-panel__subtitle">Canonical policy record that anchors authority, relationship, source, and obligation links.</p></div><span class="if-badge if-badge--confidence-high">High confidence</span></div><div class="if-hierarchy-metrics"><div class="if-hierarchy-metric"><span>Inbound</span><strong>5</strong></div><div class="if-hierarchy-metric"><span>Outbound</span><strong>11</strong></div><div class="if-hierarchy-metric"><span>Claims</span><strong>6</strong></div></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="dowi-8320" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">DoWI 8320.14 Data Exchange</h2><p class="if-hierarchy-panel__subtitle">Working instruction that translates governance into API and standards obligations.</p></div><span class="if-badge if-badge--info">Policy record</span></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="secnav-25-104" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">SECNAV Memo 25-104 Cloud Transition</h2><p class="if-hierarchy-panel__subtitle">Service-level guidance with claims, deadlines, affected organizations, and review history.</p></div><span class="if-badge if-badge--high">Linked</span></div><div class="if-alert if-alert--info">This node can open the item history viewer for versions, source events, and review decisions.</div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="disa-guide" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">DISA Cloud Access Guide</h2><p class="if-hierarchy-panel__subtitle">Agency implementation guidance for identity, gateway, and network access.</p></div><span class="if-badge if-badge--medium">Guide</span></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="claim-api" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">Require API-based data exchange</h2><p class="if-hierarchy-panel__subtitle">Extracted claim from section 4.2, connected to downstream implementation plan evidence.</p></div><span class="if-badge if-badge--status-in-review">In progress</span></div><div class="if-status-timeline"><div class="if-status-step if-status-step--complete"><strong>Extracted</strong><span>May 9</span></div><div class="if-status-step if-status-step--complete"><strong>Validated</strong><span>0.88</span></div><div class="if-status-step if-status-step--active"><strong>Evidence</strong><span>NAVWAR plan</span></div><div class="if-status-step if-status-step--pending"><strong>Complete</strong><span>Awaiting review</span></div></div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="gap-records" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">Records retention evidence missing</h2><p class="if-hierarchy-panel__subtitle">A blocked implementation gap that descends to the missing proof package.</p></div><span class="if-badge if-badge--status-blocked">Blocked</span></div><div class="if-alert if-alert--warning">Missing evidence must be attached before this branch can be marked complete.</div></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="navwar-plan" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">NAVWAR API Gateway Migration Plan</h2><p class="if-hierarchy-panel__subtitle">Lowest tracked implementation document with milestones, source attachments, owners, and review state.</p></div><span class="if-badge if-badge--status-on-track">On track</span></div><dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Owner</dt><dd>NAVWAR</dd></div><div class="if-kv"><dt>Due</dt><dd>Aug 31, 2025</dd></div><div class="if-kv"><dt>Evidence</dt><dd>7 attached artifacts</dd></div><div class="if-kv"><dt>Review</dt><dd>In progress</dd></div></dl></article>
+                  <article class="if-hierarchy-panel" data-hierarchy-panel="retention-package" hidden><div class="if-hierarchy-panel__header"><div><h2 class="if-hierarchy-panel__title">Records Retention Control Package</h2><p class="if-hierarchy-panel__subtitle">Lowest tracked evidence artifact for the blocked records-retention branch.</p></div><span class="if-badge if-badge--status-blocked">Missing</span></div></article>
+                </div>
+              </div>
+            </section>
+
+            <section class="if-panel if-grid-span-all">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                  <div class="if-section-heading__body">
+                  <h2 class="if-panel__title">DoDI Line-Item Intelligence</h2>
+                  <p class="if-panel__subtitle">A reusable decomposition view for turning instructions into claims, obligations, evidence needs, and implementation tracking.</p>
+                  </div>
+                </div>
+                <div class="if-toolbar__group">
+                  <span class="if-badge if-badge--info">DoDI 8320.02 sample</span>
+                  <span class="if-badge if-badge--confidence-high">12 obligations</span>
+                </div>
+              </div>
+              <div class="if-document-intel" data-if-claims>
+                <aside class="if-doc-outline" aria-label="DoDI structure">
+                  <div class="if-doc-outline__header">
+                    <span class="if-icon-slot" data-if-icon="policy"></span>
+                    <div><strong>Document Map</strong><span>Official issuance structure</span></div>
+                  </div>
+                  <ol class="if-doc-outline__list">
+                    <li><span>1</span><strong>General Issuance Info</strong><em>Applicability, policy, effective date</em></li>
+                    <li class="is-active"><span>2</span><strong>Responsibilities</strong><em>Actors, authority, assigned actions</em></li>
+                    <li><span>3</span><strong>Procedures</strong><em>Mandatory controls and implementation rules</em></li>
+                    <li><span>R</span><strong>References</strong><em>Cited authority and supersession links</em></li>
+                    <li><span>G</span><strong>Glossary</strong><em>Defined terms and extraction vocabulary</em></li>
+                  </ol>
+                </aside>
+
+                <div class="if-line-item-viewer">
+                  <div class="if-line-item-viewer__header">
+                    <div>
+                      <h3>Extracted Line Items</h3>
+                      <p>Line-level statements classified by actor, modality, claim type, obligation, and evidence target.</p>
+                    </div>
+                    <div class="if-chip-list">
+                      <span class="if-chip">shall / must</span>
+                      <span class="if-chip">will ensure</span>
+                      <span class="if-chip">responsibility</span>
+                      <span class="if-chip">procedure</span>
+                    </div>
+                  </div>
+                  <div class="if-line-item-list" role="listbox" aria-label="Extracted DoDI claims">
+                    <button class="if-line-item is-selected" type="button" data-claim-id="dodi-disr" aria-selected="true">
+                      <span class="if-line-item__ref">3.1.a</span>
+                      <span class="if-line-item__body"><strong>Information sharing enablers must comply with applicable standards.</strong><em>Procedure / compliance obligation / standards registry</em></span>
+                      <span class="if-badge if-badge--confidence-high">0.92</span>
+                    </button>
+                    <button class="if-line-item" type="button" data-claim-id="dodi-accessible" aria-selected="false">
+                      <span class="if-line-item__ref">1.2.e</span>
+                      <span class="if-line-item__body"><strong>Disabled users must receive comparable access unless undue burden applies.</strong><em>Accessibility obligation / exception path / Section 508</em></span>
+                      <span class="if-badge if-badge--confidence-high">0.89</span>
+                    </button>
+                    <button class="if-line-item" type="button" data-claim-id="dodi-disa" aria-selected="false">
+                      <span class="if-line-item__ref">2.2.a</span>
+                      <span class="if-line-item__body"><strong>DISA performs enterprise technical feasibility assessments.</strong><em>Responsibility / actor assignment / recommendation artifact</em></span>
+                      <span class="if-badge if-badge--confidence-medium">0.78</span>
+                    </button>
+                    <button class="if-line-item" type="button" data-claim-id="dodi-records" aria-selected="false">
+                      <span class="if-line-item__ref">3.3</span>
+                      <span class="if-line-item__body"><strong>Data and information records must be managed as official records.</strong><em>Records obligation / evidence package / retention control</em></span>
+                      <span class="if-badge if-badge--confidence-medium">0.81</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="if-claim-detail if-doc-claim-detail">
+                  <article class="if-claim-panel" data-claim-panel="dodi-disr">
+                    <div class="if-doc-claim-card__header"><div><h3>Standards Compliance Claim</h3><p>Procedure line converted into a measurable implementation obligation.</p></div><span class="if-badge if-badge--confidence-high">High confidence</span></div>
+                    <dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Actor</dt><dd>Information sharing enabler owner</dd></div><div class="if-kv"><dt>Modality</dt><dd>must comply</dd></div><div class="if-kv"><dt>Evidence target</dt><dd>DISR registration or waiver</dd></div><div class="if-kv"><dt>Relationship</dt><dd>implements DoDI 8330.01</dd></div></dl>
+                    <div class="if-status-timeline"><div class="if-status-step if-status-step--complete"><strong>Line parsed</strong><span>section 3.1.a</span></div><div class="if-status-step if-status-step--complete"><strong>Claim typed</strong><span>compliance</span></div><div class="if-status-step if-status-step--active"><strong>Evidence</strong><span>registry / waiver</span></div><div class="if-status-step if-status-step--pending"><strong>Close</strong><span>review task</span></div></div>
+                  </article>
+                  <article class="if-claim-panel" data-claim-panel="dodi-accessible" hidden>
+                    <div class="if-doc-claim-card__header"><div><h3>Accessibility Claim</h3><p>Policy line with an exception condition and external statutory reference.</p></div><span class="if-badge if-badge--confidence-high">High confidence</span></div>
+                    <dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Actor</dt><dd>DoD service owner</dd></div><div class="if-kv"><dt>Modality</dt><dd>must have access</dd></div><div class="if-kv"><dt>Exception</dt><dd>undue burden</dd></div><div class="if-kv"><dt>Evidence target</dt><dd>Section 508 compliance review</dd></div></dl>
+                  </article>
+                  <article class="if-claim-panel" data-claim-panel="dodi-disa" hidden>
+                    <div class="if-doc-claim-card__header"><div><h3>DISA Responsibility Assignment</h3><p>Actor-specific responsibility that should create an owner and artifact expectation.</p></div><span class="if-badge if-badge--confidence-medium">Medium confidence</span></div>
+                    <dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Actor</dt><dd>Director, DISA</dd></div><div class="if-kv"><dt>Action</dt><dd>performs assessment</dd></div><div class="if-kv"><dt>Artifact</dt><dd>technical feasibility recommendation</dd></div><div class="if-kv"><dt>Gate</dt><dd>DoD CIO direction</dd></div></dl>
+                  </article>
+                  <article class="if-claim-panel" data-claim-panel="dodi-records" hidden>
+                    <div class="if-doc-claim-card__header"><div><h3>Records Management Claim</h3><p>Procedure line that generates a downstream implementation evidence requirement.</p></div><span class="if-badge if-badge--confidence-medium">Medium confidence</span></div>
+                    <dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Actor</dt><dd>Data owner</dd></div><div class="if-kv"><dt>Modality</dt><dd>will be managed</dd></div><div class="if-kv"><dt>Evidence</dt><dd>records schedule / retention proof</dd></div><div class="if-kv"><dt>Status</dt><dd>gap candidate</dd></div></dl>
+                  </article>
+                </div>
+              </div>
+              <div class="if-doc-extraction-rules">
+                <div><strong>1. Segment</strong><span>Split by section, paragraph, list marker, figure, table, reference, and glossary term.</span></div>
+                <div><strong>2. Classify</strong><span>Detect actor, modality, claim type, condition, exception, artifact, and cited authority.</span></div>
+                <div><strong>3. Link</strong><span>Create edges to references, responsibilities, standards, records, systems, and source evidence.</span></div>
+                <div><strong>4. Track</strong><span>Convert actionable line items into obligations, review tasks, evidence packages, and implementation status.</span></div>
+              </div>
+            </section>
+
+            <section class="if-master-detail">
+              <article class="if-panel if-content-region" data-if-filter-scope>
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="table" aria-hidden="true"></span>
+                    <div>
+                    <h1 class="if-panel__title">Policy Records (246)</h1>
+                    <p class="if-panel__subtitle">Search, sort, and open linked intelligence records.</p>
+                    </div>
+                  </div>
+                  <div class="if-toolbar__group">
+                    <label class="if-search">
+                      <span class="if-search__icon" aria-hidden="true">Q</span>
+                      <span class="if-sr-only">Search table</span>
+                      <input class="if-input" data-if-filter data-if-filter-target="#policy-table-body" type="search" placeholder="Search table...">
+                    </label>
+                    <button class="if-btn" type="button">Columns</button>
+                    <button class="if-btn" type="button">Export</button>
+                  </div>
+                </div>
+                <div class="if-table-wrap">
+                  <table class="if-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Authority</th>
+                        <th>Source</th>
+                        <th>Updated</th>
+                        <th>Confidence</th>
+                        <th>Linked items</th>
+                      </tr>
+                    </thead>
+                    <tbody id="policy-table-body">
+                      <tr class="is-selected" data-if-filter-text="dow i 8320 data exchange modernization instruction dod high">
+                        <td><input type="radio" checked aria-label="Select row"></td>
+                        <td><span class="if-row-title"><strong>DoWI 8320.14 Data Exchange Modernization</strong><span>Data standards and API governance</span></span></td>
+                        <td>Instruction</td>
+                        <td>DoD</td>
+                        <td>DoD Issuances</td>
+                        <td>May 10, 2025</td>
+                        <td><span class="if-badge if-badge--confidence-high">High</span></td>
+                        <td>E: 5 | O: 8 | Ob: 12</td>
+                      </tr>
+                      <tr data-if-filter-text="secnav memo cloud transition guidance memo high">
+                        <td><input type="radio" aria-label="Select row"></td>
+                        <td><span class="if-row-title"><strong>SECNAV Memo 25-104 Cloud Transition Guidance</strong><span>Migration governance and deadlines</span></span></td>
+                        <td>Memo</td>
+                        <td>SECNAV</td>
+                        <td>SECNAV</td>
+                        <td>May 8, 2025</td>
+                        <td><span class="if-badge if-badge--confidence-high">High</span></td>
+                        <td>E: 4 | O: 6 | Ob: 9</td>
+                      </tr>
+                      <tr data-if-filter-text="opnavinst cyber readiness reporting medium">
+                        <td><input type="radio" aria-label="Select row"></td>
+                        <td><span class="if-row-title"><strong>OPNAVINST 5239.91 Cyber Readiness Reporting</strong><span>Readiness evidence and source mapping</span></span></td>
+                        <td>Instruction</td>
+                        <td>OPNAV</td>
+                        <td>Navy Issuances</td>
+                        <td>May 6, 2025</td>
+                        <td><span class="if-badge if-badge--confidence-medium">Medium</span></td>
+                        <td>E: 6 | O: 3 | Ob: 10</td>
+                      </tr>
+                      <tr data-if-filter-text="omb ai governance practices memorandum medium">
+                        <td><input type="radio" aria-label="Select row"></td>
+                        <td><span class="if-row-title"><strong>OMB M-25-77 AI Governance Practices</strong><span>Enterprise AI oversight guidance</span></span></td>
+                        <td>Memorandum</td>
+                        <td>OMB</td>
+                        <td>OMB</td>
+                        <td>May 5, 2025</td>
+                        <td><span class="if-badge if-badge--confidence-medium">Medium</span></td>
+                        <td>E: 3 | O: 7 | Ob: 8</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="if-panel__footer">
+                  <span class="if-text-sm">Showing 1 to 4 of 246 results</span>
+                  <nav class="if-pagination" aria-label="Pagination">
+                    <div class="if-pagination__pages">
+                      <button class="if-page-btn is-active" type="button" aria-current="page">1</button>
+                      <button class="if-page-btn" type="button">2</button>
+                      <button class="if-page-btn" type="button">3</button>
+                    </div>
+                    <select class="if-select" aria-label="Rows per page">
+                      <option>20 / page</option>
+                    </select>
+                  </nav>
+                </div>
+              </article>
+
+              <aside class="if-panel if-detail-region">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                    <div>
+                    <h2 class="if-panel__title">DoWI 8320.14 Data Exchange Modernization</h2>
+                    <div class="if-page-header__meta if-mt-2">
+                      <span class="if-chip">Instruction</span>
+                      <span class="if-chip">DoD</span>
+                      <span class="if-badge if-badge--confidence-high">High Confidence</span>
+                      <span class="if-chip">v2.1</span>
+                    </div>
+                    </div>
+                  </div>
+                  <button class="if-icon-btn" type="button" title="Close">x</button>
+                </div>
+                <div class="if-panel__body if-stack">
+                  <div class="if-toolbar">
+                    <button class="if-btn" type="button">Add to Watchlist</button>
+                    <button class="if-btn" type="button">Compare Versions</button>
+                    <a class="if-btn if-btn--primary" href="./graph-view.html">Open Graph</a>
+                  </div>
+                  <div data-if-tabs class="if-tabs">
+                    <div class="if-tab-list" role="tablist" aria-label="Policy detail sections">
+                      <button class="if-tab" id="summary-tab" role="tab" aria-selected="true" aria-controls="summary-panel">Summary</button>
+                      <button class="if-tab" role="tab" aria-selected="false" aria-controls="changes-panel">Changes</button>
+                      <button class="if-tab" role="tab" aria-selected="false" aria-controls="relations-panel">Relations</button>
+                    </div>
+                    <section class="if-tab-panel" id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
+                      <div class="if-stack">
+                        <p>Establishes policy and assigns responsibilities for modernizing data exchange capabilities across systems.</p>
+                        <div class="if-evidence-panel">
+                          <h3 class="if-card__title">Key points</h3>
+                          <ul class="if-m-0">
+                            <li>Mandates adoption of open data standards by FY26.</li>
+                            <li>Requires API-based data exchange for mission systems.</li>
+                            <li>Aligns with Zero Trust and data sharing constraints.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </section>
+                    <section class="if-tab-panel" id="changes-panel" role="tabpanel" hidden>
+                      <div class="if-diff">
+                        <div class="if-diff-line if-diff-line--removed"><span>2.</span><span>Legacy point-to-point exchange remains permitted.</span></div>
+                        <div class="if-diff-line if-diff-line--added"><span>2.</span><span>API gateway exchange is required for governed mission systems.</span></div>
+                      </div>
+                    </section>
+                    <section class="if-tab-panel" id="relations-panel" role="tabpanel" hidden>
+                      <div class="if-grid if-grid--3">
+                        <div class="if-card"><h3 class="if-card__title">Events</h3><p class="if-text-sm">5 linked events</p></div>
+                        <div class="if-card"><h3 class="if-card__title">Opportunities</h3><p class="if-text-sm">8 linked opportunities</p></div>
+                        <div class="if-card"><h3 class="if-card__title">Obligations</h3><p class="if-text-sm">12 linked obligations</p></div>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="if-grid if-grid--3">
+                    <div class="if-card"><h3 class="if-card__title">Linked events</h3><p class="if-text-sm">Cyber Sprint 25-3</p></div>
+                    <div class="if-card"><h3 class="if-card__title">Opportunities</h3><p class="if-text-sm">DXS platform expansion</p></div>
+                    <div class="if-card"><h3 class="if-card__title">Obligations</h3><p class="if-text-sm">Implement open standards</p></div>
+                  </div>
+                </div>
+              </aside>
+            </section>
+          </div>
+        </main>
+        <aside class="if-settings-region if-context-region" aria-label="Contextual summary and actions">
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                <div>
+                  <h2 class="if-panel__title">Selected Record</h2>
+                  <p class="if-panel__subtitle">DoWI 8320.14</p>
+                </div>
+              </div>
+              <span class="if-badge if-badge--confidence-high">High</span>
+            </div>
+            <div class="if-panel__body if-context-summary">
+              <p class="if-text-sm if-m-0">Data exchange modernization policy with linked obligations, open implementation gaps, and downstream opportunity signals.</p>
+              <dl class="if-meta-grid if-meta-grid--dense">
+                <div class="if-kv"><dt>Source</dt><dd>DoD Issuances</dd></div>
+                <div class="if-kv"><dt>Updated</dt><dd>May 10, 2025</dd></div>
+                <div class="if-kv"><dt>Review</dt><dd>In review</dd></div>
+                <div class="if-kv"><dt>Owner</dt><dd>Jane Doe</dd></div>
+              </dl>
+            </div>
+          </section>
+
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                <h2 class="if-panel__title">Actions</h2>
+              </div>
+            </div>
+            <div class="if-panel__body if-context-action-grid">
+              <button class="if-btn if-btn--primary if-btn--block" type="button">Create Review Task</button>
+              <button class="if-btn if-btn--secondary if-btn--block" type="button">Add to Watchlist</button>
+              <button class="if-btn if-btn--secondary if-btn--block" type="button">Compare Versions</button>
+              <a class="if-btn if-btn--block" href="./graph-view.html">Open Graph</a>
+            </div>
+          </section>
+
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="link" aria-hidden="true"></span>
+                <h2 class="if-panel__title">Linked Context</h2>
+              </div>
+            </div>
+            <div class="if-panel__body if-stack if-stack--sm">
+              <div class="if-cluster if-cluster--between"><span class="if-text-sm">Linked events</span><span class="if-sidebar__count">5</span></div>
+              <div class="if-cluster if-cluster--between"><span class="if-text-sm">Opportunities</span><span class="if-sidebar__count">8</span></div>
+              <div class="if-cluster if-cluster--between"><span class="if-text-sm">Obligations</span><span class="if-sidebar__count">12</span></div>
+              <div class="if-cluster if-cluster--between"><span class="if-text-sm">Open gaps</span><span class="if-badge if-badge--severity-high">3</span></div>
+            </div>
+          </section>
+
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                <h2 class="if-panel__title">Provenance</h2>
+              </div>
+            </div>
+            <div class="if-panel__body if-stack if-stack--sm">
+              <p class="if-text-sm if-m-0">Extracted by Metadata Agent v2.3, linked by Relationship Agent v1.7, and validated by Review Triage.</p>
+              <span class="if-badge if-badge--info">Record ID POL-00012345</span>
+            </div>
+          </section>
+        </aside>
+      </div>
+      <div class="if-backdrop" data-if-backdrop hidden></div>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>
+
+

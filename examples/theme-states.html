@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Theme States</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell if-shell--library" data-density="comfortable">
+      <header class="if-topbar">
+        <a class="if-brand" href="./index.html"><span class="if-brand__mark" aria-hidden="true">PI</span><span>Policy Intelligence</span></a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link is-active" href="./components.html" aria-current="page">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Search theme specimens</span>
+            <input class="if-input" type="search" placeholder="Search theme tokens...">
+          </label>
+          <button class="if-icon-btn if-notification-btn" type="button" title="Notifications"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span><span class="if-notification-btn__badge">3</span></button>
+          <button class="if-account-menu" type="button" aria-label="Account menu"><span class="if-avatar" aria-hidden="true">JD</span><span class="if-account-menu__name if-desktop-only">Jane Doe</span></button>
+        </div>
+      </header>
+      <main class="if-content">
+        <div class="if-page">
+          <header class="if-page-header">
+            <div>
+              <h1 class="if-page-header__title">Theme Semantic State Snapshots</h1>
+              <p class="if-panel__subtitle">Scoped built-in themes rendered against the same components, semantic states, and dense enterprise patterns used throughout the framework.</p>
+            </div>
+            <span class="if-badge if-badge--status-approved">AA contrast pass</span>
+          </header>
+
+          <section class="if-alert if-alert--info if-forced-colors-note">
+            <span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>
+            <span>Theme snapshots use scoped <code>data-theme</code> attributes. Forced-colors mode is tested as a system-color mapping contract in the compiler and documented for browser-level verification.</span>
+          </section>
+
+          <section class="if-theme-state-grid" aria-label="Built-in theme snapshots">
+            <article class="if-theme-state-card" id="theme-light" data-theme="light">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="light"</span><h2>Light</h2><p>Default enterprise surface with navy actions, crisp borders, and readable support copy.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Body</span><strong>17.75</strong></div><div><span>Subtle</span><strong>4.97</strong></div><div><span>Action</span><strong>8.25</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Primary</button><button class="if-btn if-btn--secondary">Secondary</button><button class="if-btn if-btn--danger">Reject</button></div><span class="if-theme-focus-sample">Focus ring</span></section>
+                <section class="if-theme-state-panel"><h3>Semantics</h3><div class="if-theme-state-strip"><span class="if-badge if-badge--info">Info</span><span class="if-badge if-badge--status-approved">Approved</span><span class="if-badge if-badge--warning">Warning</span><span class="if-badge if-badge--danger">Blocked</span><span class="if-badge if-badge--status-in-review">Review</span></div></section>
+                <section class="if-theme-state-panel"><h3>Form</h3><label class="if-field"><span class="if-field__label">Decision</span><select class="if-select"><option>Approve</option></select><span class="if-field__help">Scoped to this theme.</span></label></section>
+                <section class="if-theme-state-panel"><h3>Dense row</h3><table class="if-theme-state-table"><thead><tr><th>Item</th><th>State</th></tr></thead><tbody><tr><td>Claim</td><td><span class="if-badge if-badge--confidence-high">High</span></td></tr><tr><td>Gap</td><td><span class="if-badge if-badge--risk-medium">Med</span></td></tr></tbody></table></section>
+              </div>
+              <div class="if-theme-token-strip"><span class="if-theme-token if-theme-token--surface">surface</span><span class="if-theme-token if-theme-token--accent">accent</span><span class="if-theme-token if-theme-token--success">success</span><span class="if-theme-token if-theme-token--warning">warning</span><span class="if-theme-token if-theme-token--danger">danger</span></div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-system-light" data-theme="system">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="settings" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="system"</span><h2>System Light</h2><p>Explicit user preference that follows browser/OS color-scheme when the system is light.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Body</span><strong>17.75</strong></div><div><span>Link</span><strong>8.63</strong></div><div><span>Semantic</span><strong>AA</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Run check</button><button class="if-btn if-btn--secondary">Details</button></div></section>
+                <section class="if-theme-state-panel"><h3>Alert</h3><div class="if-alert if-alert--success">System light inherits the base contrast contract.</div></section>
+                <section class="if-theme-state-panel"><h3>Metric</h3><article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="check"></span><p class="if-metric__label">Validated</p></div><div class="if-metric__main"><p class="if-metric__value">31</p></div><span class="if-metric__change if-text-success">Ready</span></article></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-system-dark" data-theme="dark">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">system dark contract</span><h2>System Dark</h2><p>Matches the dark overlay used when <code>data-theme="system"</code> resolves under dark OS preference.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Body</span><strong>14.65</strong></div><div><span>Muted</span><strong>9.58</strong></div><div><span>Action</span><strong>7.96</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Primary</button><button class="if-btn if-btn--secondary">Open</button><button class="if-btn if-btn--danger">Escalate</button></div></section>
+                <section class="if-theme-state-panel"><h3>Semantics</h3><div class="if-theme-state-strip"><span class="if-badge if-badge--info">Info</span><span class="if-badge if-badge--status-healthy">Healthy</span><span class="if-badge if-badge--warning">Warning</span><span class="if-badge if-badge--danger">Failed</span></div></section>
+                <section class="if-theme-state-panel"><h3>Alert</h3><div class="if-alert if-alert--warning">Review queue remains readable in low-light mode.</div></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-dark" data-theme="dark">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="dark"</span><h2>Dark</h2><p>Operational dark surface for graph inspectors, late review work, and focused control panels.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Body</span><strong>14.65</strong></div><div><span>Subtle</span><strong>6.51</strong></div><div><span>Info</span><strong>8.07</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Metadata</h3><dl class="if-meta-grid if-meta-grid--dense"><div class="if-kv"><dt>Source</dt><dd>DoD Portal</dd></div><div class="if-kv"><dt>Trust</dt><dd>0.91</dd></div></dl></section>
+                <section class="if-theme-state-panel"><h3>Controls</h3><label class="if-search"><span class="if-search__icon if-icon-slot" data-if-icon="search"></span><input class="if-input" placeholder="Search dark surface"></label></section>
+                <section class="if-theme-state-panel"><h3>State</h3><div class="if-alert if-alert--info">Inference links are visible without relying on hue alone.</div></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-midnight" data-theme="midnight">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="midnight"</span><h2>Midnight</h2><p>Backward-compatible dark alias for existing integrations that already selected midnight.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Link</span><strong>8.53</strong></div><div><span>Selected</span><strong>5.73</strong></div><div><span>Danger</span><strong>7.82</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>States</h3><div class="if-theme-state-strip"><span class="if-badge if-badge--status-open">Open</span><span class="if-badge if-badge--status-in-review">In review</span><span class="if-badge if-badge--status-blocked">Blocked</span></div></section>
+                <section class="if-theme-state-panel"><h3>Table</h3><table class="if-theme-state-table"><thead><tr><th>Record</th><th>Risk</th></tr></thead><tbody><tr><td>DoDI</td><td>High</td></tr><tr><td>SECNAV</td><td>Med</td></tr></tbody></table></section>
+                <section class="if-theme-state-panel"><h3>Focus</h3><span class="if-theme-focus-sample">Keyboard visible</span></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-high-contrast" data-theme="high-contrast">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="high-contrast"</span><h2>High Contrast</h2><p>Maximum boundary clarity with thick borders, no decorative shadow, and yellow focus/action tokens.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Body</span><strong>19.37</strong></div><div><span>Focus</span><strong>3px</strong></div><div><span>Shadow</span><strong>None</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Confirm</button><button class="if-btn if-btn--secondary">Cancel</button></div><span class="if-theme-focus-sample">Focus ring</span></section>
+                <section class="if-theme-state-panel"><h3>Alerts</h3><div class="if-alert if-alert--danger">Error states use text, border, and icon affordances.</div></section>
+                <section class="if-theme-state-panel"><h3>Semantics</h3><div class="if-theme-state-strip"><span class="if-badge if-badge--info">Info</span><span class="if-badge if-badge--status-approved">Complete</span><span class="if-badge if-badge--danger">Critical</span></div></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-calm" data-theme="calm">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="source" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="calm"</span><h2>Calm</h2><p>Light theme with teal accent for advisory sites or lower-stress review surfaces.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Accent</span><strong>5.06</strong></div><div><span>Action</span><strong>5.49</strong></div><div><span>Link</span><strong>5.75</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Save view</button><button class="if-btn if-btn--secondary">Compare</button></div></section>
+                <section class="if-theme-state-panel"><h3>Badge set</h3><div class="if-theme-state-strip"><span class="if-badge if-badge--info">Source</span><span class="if-badge if-badge--status-healthy">Healthy</span><span class="if-badge if-badge--warning">Needs review</span></div></section>
+                <section class="if-theme-state-panel"><h3>Alert</h3><div class="if-alert if-alert--success">Accent can change without rewriting components.</div></section>
+              </div>
+            </article>
+
+            <article class="if-theme-state-card" id="theme-executive" data-theme="executive">
+              <header class="if-theme-state-card__header">
+                <span class="if-icon-slot" data-if-icon="briefcase" aria-hidden="true"></span>
+                <div><span class="if-theme-state-card__eyebrow">data-theme="executive"</span><h2>Executive</h2><p>Light theme with violet accent for briefing, leadership, and portfolio views.</p></div>
+                <span class="if-badge if-badge--status-approved">Pass</span>
+              </header>
+              <div class="if-theme-state-meta"><div><span>Accent</span><strong>7.57</strong></div><div><span>Action</span><strong>6.79</strong></div><div><span>Body</span><strong>17.75</strong></div></div>
+              <div class="if-theme-state-samples">
+                <section class="if-theme-state-panel"><h3>Actions</h3><div class="if-theme-state-strip"><button class="if-btn if-btn--primary">Brief</button><button class="if-btn if-btn--secondary">Open graph</button></div></section>
+                <section class="if-theme-state-panel"><h3>Metric</h3><article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="trend"></span><p class="if-metric__label">Impact items</p></div><div class="if-metric__main"><p class="if-metric__value">73</p></div><span class="if-metric__change">4% above baseline</span></article></section>
+                <section class="if-theme-state-panel"><h3>Alert</h3><div class="if-alert if-alert--info">Executive accent still uses semantic status tokens.</div></section>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>

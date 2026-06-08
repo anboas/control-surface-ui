@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Advanced Search</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="compact">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="search-filters" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link is-active" href="./search.html" aria-current="page">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search policies, sources, organizations...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+      <div class="if-main if-main--with-sidebar">
+        <aside class="if-sidebar" id="search-filters">
+          <div class="if-sidebar__section">
+            <h2 class="if-sidebar__title">Filters</h2>
+            <div class="if-filter-stack">
+              <div class="if-filter-group"><span class="if-filter-group__title">Authority Level</span><label class="if-checkbox"><input type="checkbox" checked> All Levels <span class="if-text-muted">4,812</span></label><label class="if-checkbox"><input type="checkbox"> Executive / Cabinet</label><label class="if-checkbox"><input type="checkbox"> Agency / Department</label></div>
+              <div class="if-filter-group"><span class="if-filter-group__title">Document Type</span><label class="if-checkbox"><input type="checkbox" checked> All Types</label><label class="if-checkbox"><input type="checkbox"> Policy / Guidance</label><label class="if-checkbox"><input type="checkbox"> Instruction / Directive</label></div>
+              <div class="if-range"><span class="if-field__label">Confidence Score</span><input type="range" min="0" max="100" value="70"></div>
+              <label class="if-switch"><input type="checkbox" checked><span class="if-switch__track"></span><span>Show inferred links</span></label>
+              <label class="if-switch"><input type="checkbox" checked><span class="if-switch__track"></span><span>Semantic expansion</span></label>
+              <button class="if-btn if-btn--primary if-btn--block">Apply Filters</button>
+            </div>
+          </div>
+        </aside>
+        <main class="if-content">
+          <div class="if-page">
+            <section class="if-panel">
+              <div class="if-panel__body if-grid if-grid--4">
+                <label class="if-field" style="grid-column: span 2;"><span class="if-field__label">Natural Language Search</span><input class="if-input" value="zero trust architecture AND cloud migration guides that implement NIST 800-207 but exclude dev/test"></label>
+                <label class="if-field"><span class="if-field__label">Saved Searches</span><select class="if-select"><option>Zero Trust Cloud Implementation</option></select></label>
+                <label class="if-field"><span class="if-field__label">Search Scope</span><select class="if-select"><option>All Content</option></select></label>
+                <button class="if-btn if-btn--primary" type="button" data-demo-action="run-search">Search</button>
+                <button class="if-btn" type="button">Save</button>
+              </div>
+            </section>
+            <section class="if-split if-split--admin">
+              <article class="if-panel">
+                <div class="if-panel__header"><h1 class="if-panel__title">Search Builder</h1><div class="if-toolbar"><button class="if-btn if-btn--tertiary" data-demo-action="add-clause">Add Clause</button><button class="if-btn if-btn--tertiary">Add Group</button></div></div>
+                <div class="if-panel__body if-stack" data-demo-clauses></div>
+              </article>
+              <aside class="if-region">
+                <article class="if-panel"><div class="if-panel__header"><h2 class="if-panel__title">Builder Summary</h2></div><div class="if-panel__body if-stack"><div class="if-kv"><span class="if-kv__label">Clauses</span><span class="if-kv__value">5 included, 1 excluded</span></div><label class="if-switch"><input type="checkbox" checked><span class="if-switch__track"></span><span>Semantic Expansion</span></label><div class="if-range"><span class="if-field__label">Similarity Threshold 0.70</span><input type="range" value="70"></div></div></article>
+                <article class="if-panel"><div class="if-panel__header"><h2 class="if-panel__title">Suggested Refinements</h2></div><div class="if-panel__body if-chip-list"><button class="if-chip">Add Authority: CISA</button><button class="if-chip">Narrow to Guidance</button><button class="if-chip">Increase Similarity</button><button class="if-chip">Exclude Tier 3</button></div></article>
+              </aside>
+            </section>
+            <section class="if-panel">
+              <div class="if-panel__header"><h2 class="if-panel__title" data-demo-result-count>5 Results</h2><div class="if-toolbar"><button class="if-btn">Columns</button><button class="if-btn">Export</button><button class="if-btn if-btn--secondary">Save Search</button></div></div>
+              <div class="if-table-wrap"><table class="if-table"><thead><tr><th></th><th>Title</th><th>Type</th><th>Authority</th><th>Updated</th><th>Confidence</th><th>Matched On</th><th>Quick Actions</th></tr></thead><tbody data-demo-search-results></tbody></table></div>
+            </section>
+          </div>
+        </main>
+      </div>
+      <div class="if-backdrop" data-if-backdrop hidden></div>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>
+
+

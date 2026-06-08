@@ -1,0 +1,93 @@
+name: Framework CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - "codex/**"
+
+permissions:
+  contents: read
+
+jobs:
+  package-and-contracts:
+    name: Package, contracts, and release smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile themes
+        run: npm run theme:compile
+
+      - name: Build distributable assets
+        run: npm run build
+
+      - name: Verify checksums
+        run: npm run checksums -- --check
+
+      - name: Validate framework contracts
+        run: npm run validate
+
+      - name: Smoke package consumers
+        run: npm run release:smoke
+
+      - name: Upload release smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-smoke-artifacts
+          path: |
+            release/*.tgz
+            docs/release-smoke.md
+            dist/interface-framework.checksums.json
+            dist/SHA256SUMS
+          if-no-files-found: warn
+
+  browser-baselines:
+    name: Browser visual, a11y, and component contracts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build distributable assets
+        run: npm run build
+
+      - name: Run browser suite
+        run: npm run test:browser
+
+      - name: Upload Playwright reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-reports
+          path: |
+            test-results/playwright
+            test-results/playwright-report
+          if-no-files-found: warn

@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Dashboard Workspace</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="workspace-nav" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link is-active" href="./dashboard.html" aria-current="page">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search policies, sources, organizations...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <div class="if-main if-main--with-sidebar if-main--with-detail" data-demo-page="workspace">
+        <aside class="if-sidebar" id="workspace-nav">
+          <div class="if-sidebar__section">
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Workspace</h2>
+              <span class="if-sidebar__count">5</span>
+            </div>
+            <nav class="if-sidebar__nav">
+              <a class="if-sidebar__link is-active" href="#"><span class="if-sidebar__link-label">Dashboard layout</span><span class="if-badge if-badge--info">Draft</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Saved views</span><span class="if-sidebar__count">9</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Templates and presets</span><span class="if-sidebar__count">6</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Personal settings</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Data defaults</span></a>
+            </nav>
+          </div>
+          <div class="if-sidebar__section">
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Saved views</h2>
+              <a class="if-text-xs" href="#">New view</a>
+            </div>
+            <label class="if-search if-w-full">
+              <span class="if-search__icon" aria-hidden="true">Q</span>
+              <span class="if-sr-only">Search saved views</span>
+              <input class="if-input" type="search" placeholder="Search saved views...">
+            </label>
+            <nav class="if-sidebar__subnav if-mt-3" aria-label="Saved workspace views">
+              <a class="if-sidebar__link is-active" href="#"><span class="if-sidebar__link-label">My Daily Overview</span><span class="if-badge if-badge--info">Default</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Review Queue - High Risk</span><span class="if-sidebar__link-meta">34</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Implementation Gaps</span><span class="if-sidebar__link-meta">22</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Source Health Monitor</span><span class="if-sidebar__link-meta">7</span></a>
+            </nav>
+          </div>
+          <div class="if-sidebar__section">
+            <div class="if-sidebar__group-header">
+              <h2 class="if-sidebar__title">Team Views</h2>
+              <span class="if-sidebar__count">3</span>
+            </div>
+            <nav class="if-sidebar__nav" aria-label="Team views">
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Data Governance Hub</span><span class="if-sidebar__link-meta">12</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Regulatory Watchlist</span><span class="if-sidebar__link-meta">41</span></a>
+              <a class="if-sidebar__link" href="#"><span class="if-sidebar__link-label">Executive Snapshot</span><span class="if-badge if-badge--low">New</span></a>
+            </nav>
+          </div>
+          <div class="if-sidebar__section">
+            <button class="if-btn if-btn--secondary if-btn--block" type="button">Manage Access</button>
+          </div>
+        </aside>
+
+        <main class="if-content">
+          <div class="if-page">
+            <div class="if-alert if-alert--warning">
+              <strong>Unsaved changes.</strong>
+              <span>Your dashboard layout has pending edits.</span>
+              <span class="if-cluster" style="margin-left: auto;">
+                <button class="if-btn if-btn--tertiary if-btn--sm" type="button">Discard</button>
+                <button class="if-btn if-btn--primary if-btn--sm" type="button">Save workspace</button>
+              </span>
+            </div>
+
+            <section class="if-panel">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="columns" aria-hidden="true"></span>
+                  <div class="if-section-heading__body">
+                    <h1 class="if-panel__title">Dashboard Layout</h1>
+                    <p class="if-panel__subtitle">Customize your workspace by adding, removing, and arranging widgets.</p>
+                  </div>
+                </div>
+                <div class="if-toolbar__group">
+                  <label class="if-field">
+                    <span class="if-sr-only">Display density</span>
+                    <select class="if-select">
+                      <option>Comfortable</option>
+                      <option>Compact</option>
+                      <option>Spacious</option>
+                    </select>
+                  </label>
+                  <button class="if-btn" type="button" data-demo-action="reset-layout">Reset layout</button>
+                  <button class="if-btn if-btn--primary" type="button" data-demo-action="add-widget">Add widget</button>
+                </div>
+              </div>
+              <div class="if-panel__body">
+                <div data-if-tabs class="if-tabs">
+                  <div class="if-tab-list" role="tablist" aria-label="Layout view">
+                    <button class="if-tab" role="tab" aria-selected="true" aria-controls="layout-editor">Layout editor</button>
+                    <button class="if-tab" role="tab" aria-selected="false" aria-controls="live-preview">Live preview</button>
+                  </div>
+                  <section id="layout-editor" role="tabpanel" class="if-tab-panel">
+                    <div class="if-split if-split--editor">
+                      <aside class="if-panel">
+                        <div class="if-panel__header"><div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="table" aria-hidden="true"></span><h2 class="if-panel__title">Available widgets</h2></div></div>
+                        <div class="if-panel__body if-list" data-demo-widgets-list></div>
+                      </aside>
+                      <div class="if-dashboard-grid if-dashboard-grid--canvas if-dashboard-grid--editor" data-demo-dashboard-canvas>
+                        <button class="if-btn if-btn--secondary if-btn--block" type="button">Add widget here</button>
+                      </div>
+                    </div>
+                  </section>
+                  <section id="live-preview" role="tabpanel" class="if-tab-panel" hidden>
+                    <div class="if-metric-grid">
+                      <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><p class="if-metric__label">Live queue</p></div><p class="if-metric__value">34</p><span class="if-metric__change">Needs review today</span><div class="if-metric__meta"><span>Review triage</span><span>Today</span></div></article>
+                      <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span><p class="if-metric__label">Blocking items</p></div><p class="if-metric__value">9</p><span class="if-metric__change">3 new blockers</span><div class="if-metric__meta"><span>Risk >= high</span><span>Open gates</span></div></article>
+                      <article class="if-card if-metric"><div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><p class="if-metric__label">False positive rate</p></div><p class="if-metric__value">7.6%</p><span class="if-metric__change">Down 1.2 pp</span><div class="if-metric__meta"><span>Agent QA</span><span>7-day average</span></div></article>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </section>
+
+            <section class="if-grid">
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><h2 class="if-panel__title">Review queue</h2></div>
+                  <div class="if-toolbar__group"><button class="if-btn if-btn--success" type="button">Approve</button><button class="if-btn if-btn--danger" type="button">Reject</button><button class="if-btn" type="button">Escalate</button></div>
+                </div>
+                <div class="if-table-wrap">
+                  <table class="if-table">
+                    <thead><tr><th></th><th>Finding</th><th>Type</th><th>Risk</th><th>Due</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr class="is-selected"><td><input type="checkbox" checked></td><td><span class="if-row-title"><strong>Supplier data residency obligation missing</strong><span>Global privacy policy v2.1</span></span></td><td><span class="if-badge if-badge--info">Gap</span></td><td><span class="if-badge if-badge--risk-high">High</span></td><td>May 12, 2025</td><td><span class="if-badge if-badge--status-needs-review">Needs review</span></td></tr>
+                      <tr><td><input type="checkbox"></td><td><span class="if-row-title"><strong>Acme Corp relationship candidate</strong><span>Third-party risk register</span></span></td><td><span class="if-badge if-badge--info">Relationship</span></td><td><span class="if-badge if-badge--risk-medium">Medium</span></td><td>May 13, 2025</td><td><span class="if-badge if-badge--status-open">Open</span></td></tr>
+                      <tr><td><input type="checkbox"></td><td><span class="if-row-title"><strong>CloudTrail logging requirement gap</strong><span>Cloud security standard 1.4</span></span></td><td><span class="if-badge if-badge--info">Gap</span></td><td><span class="if-badge if-badge--risk-high">High</span></td><td>May 11, 2025</td><td><span class="if-badge if-badge--status-needs-review">Needs review</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading"><span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><div><h2 class="if-panel__title">Policy line-change review</h2><p class="if-panel__subtitle">SECNAV Memo 25-104 v2.1 current vs v2.2 proposed.</p></div></div>
+                  <span class="if-badge if-badge--severity-high">3 conflicts</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-policy-diff" data-if-policy-diff>
+                    <div class="if-policy-diff__toolbar">
+                      <div class="if-toolbar__group">
+                        <button class="if-btn if-btn--sm" type="button" data-if-diff-prev>Previous</button>
+                        <span class="if-badge if-badge--info" data-if-diff-count>1 of 3</span>
+                        <button class="if-btn if-btn--sm" type="button" data-if-diff-next>Next</button>
+                      </div>
+                      <div class="if-toolbar__group">
+                        <button class="if-btn if-btn--success if-btn--sm" type="button" data-if-diff-decision="Approved">Approve</button>
+                        <button class="if-btn if-btn--danger if-btn--sm" type="button" data-if-diff-decision="Rejected">Reject</button>
+                        <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diff-decision="Needs evidence">Needs evidence</button>
+                      </div>
+                    </div>
+                    <div class="if-policy-diff__grid">
+                      <div class="if-change-list" role="listbox" aria-label="Policy changes">
+                        <button class="if-change-item is-selected" type="button" data-if-diff-change="residency" aria-selected="true">
+                          <span class="if-badge if-badge--medium">2</span>
+                          <span><span class="if-change-item__title">Cloud residency expansion</span><span class="if-change-item__meta">Section 4.2 - Modified - High impact</span></span>
+                          <span class="if-badge if-badge--status-open" data-if-diff-status>Open</span>
+                        </button>
+                        <button class="if-change-item" type="button" data-if-diff-change="retention" aria-selected="false">
+                          <span class="if-badge if-badge--medium">4</span>
+                          <span><span class="if-change-item__title">Retention period increased</span><span class="if-change-item__meta">Section 4.2 - Modified - Obligation</span></span>
+                          <span class="if-badge if-badge--status-open" data-if-diff-status>Open</span>
+                        </button>
+                        <button class="if-change-item" type="button" data-if-diff-change="access" aria-selected="false">
+                          <span class="if-badge if-badge--danger">7</span>
+                          <span><span class="if-change-item__title">Quarterly access review removed</span><span class="if-change-item__meta">Section 4.3 - Removed - Conflict</span></span>
+                          <span class="if-badge if-badge--status-open" data-if-diff-status>Open</span>
+                        </button>
+                      </div>
+                      <div class="if-stack">
+                        <div class="if-policy-diff__compare">
+                          <section class="if-policy-diff__pane" aria-label="Current policy text">
+                            <div class="if-policy-diff__pane-header"><span>Left: v2.1 Current</span><span class="if-badge if-badge--confidence-high">High</span></div>
+                            <div class="if-policy-diff__lines">
+                              <div class="if-policy-diff__line"><span class="if-policy-diff__line-number">1</span><span>Organizations must classify data based on sensitivity and criticality.</span></div>
+                              <div class="if-policy-diff__line if-policy-diff__line--removed"><span class="if-policy-diff__line-number">2</span><span>Restricted data must be stored in approved U.S. government facilities.</span></div>
+                              <div class="if-policy-diff__line"><span class="if-policy-diff__line-number">3</span><span>Confidential data requires role-based access controls.</span></div>
+                              <div class="if-policy-diff__line if-policy-diff__line--changed"><span class="if-policy-diff__line-number">4</span><span>Data must be retained for a minimum of <span class="if-policy-diff__mark">7 years</span>.</span></div>
+                            </div>
+                          </section>
+                          <section class="if-policy-diff__pane" aria-label="Proposed policy text">
+                            <div class="if-policy-diff__pane-header"><span>Right: v2.2 Proposed</span><span class="if-badge if-badge--severity-high">3 conflicts</span></div>
+                            <div class="if-policy-diff__lines">
+                              <div class="if-policy-diff__line"><span class="if-policy-diff__line-number">1</span><span>Organizations must classify data based on sensitivity and criticality.</span></div>
+                              <div class="if-policy-diff__line if-policy-diff__line--added"><span class="if-policy-diff__line-number">2</span><span>Restricted data must be stored in approved U.S. government or <span class="if-policy-diff__mark">FedRAMP High authorized cloud environments</span>.</span></div>
+                              <div class="if-policy-diff__line"><span class="if-policy-diff__line-number">3</span><span>Confidential data requires role-based access controls.</span></div>
+                              <div class="if-policy-diff__line if-policy-diff__line--changed"><span class="if-policy-diff__line-number">4</span><span>Data must be retained for a minimum of <span class="if-policy-diff__mark">10 years</span>.</span></div>
+                            </div>
+                          </section>
+                        </div>
+                        <section class="if-policy-diff__detail" data-if-diff-panel="residency">
+                          <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Cloud residency expansion</h3><span class="if-badge if-badge--severity-high">High impact</span></div>
+                          <p class="if-text-sm if-m-0">Change aligns approved storage locations with FedRAMP High cloud environments and broadens deployment options.</p>
+                          <label class="if-field"><span class="if-field__label">Decision reason</span><textarea class="if-textarea">Change aligns with federal cloud utilization policy and expands approved deployment options.</textarea></label>
+                        </section>
+                        <section class="if-policy-diff__detail" data-if-diff-panel="retention" hidden>
+                          <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Retention period increased</h3><span class="if-badge if-badge--medium">Obligation</span></div>
+                          <p class="if-text-sm if-m-0">Retention requirement increases from 7 to 10 years and affects records disposition obligations.</p>
+                          <label class="if-field"><span class="if-field__label">Decision reason</span><textarea class="if-textarea" placeholder="Explain decision..."></textarea></label>
+                        </section>
+                        <section class="if-policy-diff__detail" data-if-diff-panel="access" hidden>
+                          <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Quarterly access review removed</h3><span class="if-badge if-badge--severity-high">Conflict</span></div>
+                          <p class="if-text-sm if-m-0">Removed certification language conflicts with existing access governance obligations.</p>
+                          <label class="if-field"><span class="if-field__label">Decision reason</span><textarea class="if-textarea" placeholder="Explain decision..."></textarea></label>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="if-panel" data-if-history>
+              <div class="if-panel__header">
+                <div>
+                  <h2 class="if-panel__title">Item history and provenance</h2>
+                  <p class="if-panel__subtitle">Historical detail for SECNAV Memo 25-104, including source events, extracted claims, review decisions, and version movement.</p>
+                </div>
+                <div class="if-toolbar__group">
+                  <span class="if-badge if-badge--info" data-if-history-current>Version v2.2 proposed</span>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button">View full ledger</button>
+                </div>
+              </div>
+              <div class="if-panel__body">
+                <div class="if-history-viewer">
+                  <div class="if-history-list" role="listbox" aria-label="Item history events">
+                    <button class="if-history-event if-history-event--source" type="button" data-history-event="source-sync" data-history-label="Source sync completed" aria-selected="false">
+                      <span class="if-history-event__marker" aria-hidden="true"></span>
+                      <span><span class="if-history-event__title">Source sync completed</span><span class="if-history-event__meta">May 6, 2025 - DoD Issuances Portal - Source Monitor</span></span>
+                      <span class="if-badge if-badge--status-approved">Clean</span>
+                    </button>
+                    <button class="if-history-event" type="button" data-history-event="claim-extraction" data-history-label="Claims extracted" aria-selected="false">
+                      <span class="if-history-event__marker" aria-hidden="true"></span>
+                      <span><span class="if-history-event__title">Claims extracted</span><span class="if-history-event__meta">May 7, 2025 - 6 claims, 4 obligations, 2 events</span></span>
+                      <span class="if-badge if-badge--confidence-high">0.88</span>
+                    </button>
+                    <button class="if-history-event if-history-event--warning is-selected" type="button" data-history-event="version-change" data-history-label="Version v2.2 proposed" aria-selected="true">
+                      <span class="if-history-event__marker" aria-hidden="true"></span>
+                      <span><span class="if-history-event__title">Version v2.2 proposed</span><span class="if-history-event__meta">May 22, 2025 - Section 4.2 data handling changed</span></span>
+                      <span class="if-badge if-badge--medium">Modified</span>
+                    </button>
+                    <button class="if-history-event if-history-event--decision" type="button" data-history-event="review-decision" data-history-label="Review decision saved" aria-selected="false">
+                      <span class="if-history-event__marker" aria-hidden="true"></span>
+                      <span><span class="if-history-event__title">Review decision saved</span><span class="if-history-event__meta">May 23, 2025 - Approved by Jane Doe</span></span>
+                      <span class="if-badge if-badge--status-approved">Approved</span>
+                    </button>
+                    <button class="if-history-event if-history-event--blocked" type="button" data-history-event="evidence-gap" data-history-label="Evidence gap opened" aria-selected="false">
+                      <span class="if-history-event__marker" aria-hidden="true"></span>
+                      <span><span class="if-history-event__title">Evidence gap opened</span><span class="if-history-event__meta">May 24, 2025 - Records retention package missing</span></span>
+                      <span class="if-badge if-badge--status-blocked">Blocked</span>
+                    </button>
+                  </div>
+                  <div class="if-history-detail">
+                    <article class="if-history-panel" data-history-panel="source-sync" hidden>
+                      <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Source sync completed</h3><span class="if-badge if-badge--status-approved">Parsed</span></div>
+                      <dl class="if-meta-grid if-meta-grid--dense">
+                        <div class="if-kv"><dt>Adapter</dt><dd>DoD Issuances Portal</dd></div>
+                        <div class="if-kv"><dt>Run</dt><dd>SRC-RUN-02031</dd></div>
+                        <div class="if-kv"><dt>Documents</dt><dd>1 canonical, 3 attachments</dd></div>
+                        <div class="if-kv"><dt>Checksum</dt><dd>9e0f-4412-8ca1</dd></div>
+                      </dl>
+                      <div class="if-history-ledger"><strong>Result</strong><span>HTML, PDF, and metadata records matched the previous canonical record with no parser warnings.</span></div>
+                    </article>
+                    <article class="if-history-panel" data-history-panel="claim-extraction" hidden>
+                      <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Claims extracted</h3><span class="if-badge if-badge--confidence-high">High confidence</span></div>
+                      <div class="if-status-timeline">
+                        <div class="if-status-step if-status-step--complete"><strong>Parsed</strong><span>Source text</span></div>
+                        <div class="if-status-step if-status-step--complete"><strong>Extracted</strong><span>6 claims</span></div>
+                        <div class="if-status-step if-status-step--active"><strong>Linked</strong><span>12 records</span></div>
+                        <div class="if-status-step if-status-step--pending"><strong>Reviewed</strong><span>2 pending</span></div>
+                      </div>
+                      <div class="if-history-ledger"><strong>Representative claim</strong><span>Organizations must maintain API-based exchange paths for mission data and prove records retention coverage.</span></div>
+                    </article>
+                    <article class="if-history-panel" data-history-panel="version-change">
+                      <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Version v2.2 proposed</h3><span class="if-badge if-badge--medium">Field changes</span></div>
+                      <div class="if-history-version-strip" aria-label="Version trail">
+                        <span class="if-history-version">v1.0</span>
+                        <span class="if-path-card__arrow" aria-hidden="true"></span>
+                        <span class="if-history-version">v2.1 current</span>
+                        <span class="if-path-card__arrow" aria-hidden="true"></span>
+                        <span class="if-history-version is-active">v2.2 proposed</span>
+                      </div>
+                      <div class="if-history-field-grid">
+                        <div class="if-history-field if-history-field--before"><span>Before</span><strong>Restricted data must be stored in approved U.S. government facilities.</strong></div>
+                        <div class="if-history-field if-history-field--after"><span>After</span><strong>Restricted data may use approved U.S. government facilities or FedRAMP High authorized cloud environments.</strong></div>
+                        <div class="if-history-field if-history-field--before"><span>Retention</span><strong>Minimum 7 years unless otherwise authorized.</strong></div>
+                        <div class="if-history-field if-history-field--after"><span>Retention</span><strong>Minimum 10 years unless otherwise authorized by records disposition authority.</strong></div>
+                      </div>
+                      <div class="if-history-ledger"><strong>Impact</strong><span>3 findings, 24 obligations, 18 impacted organizations, and 2 evidence packages were recalculated from this version change.</span></div>
+                    </article>
+                    <article class="if-history-panel" data-history-panel="review-decision" hidden>
+                      <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Review decision saved</h3><span class="if-badge if-badge--status-approved">Approved</span></div>
+                      <dl class="if-meta-grid if-meta-grid--dense">
+                        <div class="if-kv"><dt>Reviewer</dt><dd>Jane Doe</dd></div>
+                        <div class="if-kv"><dt>Decision</dt><dd>Approve</dd></div>
+                        <div class="if-kv"><dt>Scope</dt><dd>3 selected findings</dd></div>
+                        <div class="if-kv"><dt>Work item</dt><dd>CF-2025-1187-002</dd></div>
+                      </dl>
+                      <div class="if-history-ledger"><strong>Reason</strong><span>Change aligns with federal cloud utilization policy and expands approved deployment options.</span></div>
+                    </article>
+                    <article class="if-history-panel" data-history-panel="evidence-gap" hidden>
+                      <div class="if-cluster if-cluster--between"><h3 class="if-card__title">Evidence gap opened</h3><span class="if-badge if-badge--status-blocked">Blocked</span></div>
+                      <div class="if-status-timeline">
+                        <div class="if-status-step if-status-step--complete"><strong>Detected</strong><span>May 24</span></div>
+                        <div class="if-status-step if-status-step--blocked"><strong>Evidence</strong><span>Missing</span></div>
+                        <div class="if-status-step if-status-step--pending"><strong>Assigned</strong><span>NAVWAR</span></div>
+                        <div class="if-status-step if-status-step--pending"><strong>Due</strong><span>May 31</span></div>
+                      </div>
+                      <div class="if-history-ledger"><strong>Needed</strong><span>Records retention control evidence from affected organizations before the claim can be marked complete.</span></div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="if-grid if-grid--3">
+              <article class="if-card if-stack">
+                <h2 class="if-card__title">Team templates</h2>
+                <div class="if-grid if-grid--3">
+                  <div class="if-card"><h3 class="if-card__title">Daily Operations</h3><p class="if-text-sm">6 widgets</p></div>
+                  <div class="if-card"><h3 class="if-card__title">Risk Review</h3><p class="if-text-sm">6 widgets</p></div>
+                  <div class="if-card"><h3 class="if-card__title">Executive Summary</h3><p class="if-text-sm">5 widgets</p></div>
+                </div>
+              </article>
+              <article class="if-card if-stack">
+                <h2 class="if-card__title">Role presets</h2>
+                <div class="if-grid if-grid--3">
+                  <button class="if-command" type="button"><span>Analyst mode</span><span>A</span></button>
+                  <button class="if-command" type="button"><span>Reviewer mode</span><span>R</span></button>
+                  <button class="if-command" type="button"><span>Executive mode</span><span>E</span></button>
+                </div>
+              </article>
+              <article class="if-card if-stack">
+                <h2 class="if-card__title">Publication rules</h2>
+                <label class="if-field"><span class="if-field__label">Auto-publish threshold</span><input class="if-input" type="number" value="0.80" step="0.01"></label>
+                <label class="if-checkbox"><input type="checkbox" checked> Require 2 independent sources</label>
+                <label class="if-checkbox"><input type="checkbox" checked> Block if source health is degraded</label>
+              </article>
+            </section>
+          </div>
+        </main>
+        <aside class="if-settings-region" aria-label="Workspace settings">
+          <div class="if-stack">
+            <div class="if-cluster if-cluster--between">
+              <h2 class="if-panel__title">Workspace Settings</h2>
+              <button class="if-icon-btn" type="button" title="Close settings">x</button>
+            </div>
+            <section class="if-sidebar__section">
+              <h3 class="if-sidebar__title">General</h3>
+              <label class="if-field">
+                <span class="if-field__label">Default Landing Page</span>
+                <select class="if-select"><option>My Daily Overview</option><option>Review Queue</option><option>Sources Control</option></select>
+              </label>
+              <label class="if-field">
+                <span class="if-field__label">Default Tab</span>
+                <select class="if-select"><option>Overview</option><option>Review</option><option>Sources</option></select>
+              </label>
+            </section>
+            <section class="if-sidebar__section">
+              <h3 class="if-sidebar__title">Widget Settings</h3>
+              <div class="if-stack if-stack--sm" data-demo-settings-list></div>
+            </section>
+            <section class="if-sidebar__section">
+              <h3 class="if-sidebar__title">Data & Display Defaults</h3>
+              <label class="if-field">
+                <span class="if-field__label">Display Density</span>
+                <select class="if-select" data-demo-density>
+                  <option value="comfortable">Comfortable</option>
+                  <option value="compact">Compact</option>
+                  <option value="spacious">Spacious</option>
+                </select>
+              </label>
+              <label class="if-field">
+                <span class="if-field__label">Default Graph Depth</span>
+                <select class="if-select"><option>2 levels</option><option>3 levels</option></select>
+              </label>
+              <div class="if-range">
+                <div class="if-cluster if-cluster--between if-text-xs"><span>Confidence Threshold Default</span><span data-demo-threshold-label>70%</span></div>
+                <input type="range" min="0" max="100" value="70" data-demo-threshold>
+              </div>
+            </section>
+            <section class="if-sidebar__section">
+              <h3 class="if-sidebar__title">Appearance</h3>
+              <label class="if-field">
+                <span class="if-field__label">Theme</span>
+                <select class="if-select" data-demo-theme>
+                  <option value="">Light</option>
+                  <option value="calm">Calm</option>
+                  <option value="executive">Executive</option>
+                  <option value="midnight">Midnight</option>
+                </select>
+              </label>
+              <div class="if-field">
+                <span class="if-field__label">Primary Color</span>
+                <div class="if-cluster">
+                  <span class="if-color-swatch is-active" style="--swatch: #0d47a1;"></span>
+                  <span class="if-color-swatch" style="--swatch: #087b7a;"></span>
+                  <span class="if-color-swatch" style="--swatch: #177a3d;"></span>
+                  <span class="if-color-swatch" style="--swatch: #6d28d9;"></span>
+                </div>
+              </div>
+            </section>
+            <div class="if-toolbar">
+              <button class="if-btn" type="button" data-demo-action="reset-layout">Restore Defaults</button>
+              <button class="if-btn if-btn--primary" type="button" data-demo-action="save-settings">Save Settings</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <div class="if-backdrop" data-if-backdrop hidden></div>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,9 @@
+:root {
+  --if-shadow-xs: 0 1px 0 rgb(15 23 42 / 0.03);
+  --if-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --if-shadow-md: 0 6px 16px rgb(15 23 42 / 0.08);
+  --if-shadow-lg: 0 16px 36px rgb(15 23 42 / 0.13);
+  --if-shadow-xl: 0 20px 46px rgb(15 23 42 / 0.16);
+  --if-shadow-focus: 0 0 0 var(--if-ring-width) rgb(37 111 255 / 0.22);
+  --if-focus-ring: 0 0 0 var(--if-ring-width) rgb(37 111 255 / 0.24);
+}

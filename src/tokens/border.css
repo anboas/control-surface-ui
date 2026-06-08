@@ -1,0 +1,7 @@
+:root {
+  --if-border-width: 1px;
+  --if-border-width-strong: 1px;
+  --if-ring-width: 2px;
+  --if-divider: var(--if-border-width) solid var(--if-border);
+  --if-outline: var(--if-border-width) solid var(--if-border);
+}

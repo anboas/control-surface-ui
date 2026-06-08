@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Diagrams</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="diagram-main" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link is-active" href="./diagrams.html" aria-current="page">Diagrams</a>
+          <a class="if-nav-link" href="./diagrams2.html">Diagrams2</a>
+          <a class="if-nav-link" href="./diagram3.html">Diagram3</a>
+          <a class="if-nav-link" href="./diagram4.html">Diagram4</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search policies, sources, organizations...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <main class="if-content" id="diagram-main">
+        <div class="if-page if-diagram-page">
+          <section class="if-architecture-diagram" id="azure-deployment-diagram" data-if-diagram data-if-diagram-layout-key="azure-deployment-architecture" data-if-diagram-layout-autosave="true" data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item], .if-arch-service, .if-platform-service" data-if-focus-exclude=".if-diagram-control-panel, .if-diagram-authoring-surface, .if-diagram-source-panel, [data-if-diagram-detail]" aria-labelledby="architecture-title">
+            <header class="if-diagram-component-head if-architecture-header">
+              <div class="if-diagram-title-block">
+                <h1 class="if-architecture-header__title" id="architecture-title">Policy Intelligence - Azure Deployment Architecture</h1>
+                <p class="if-architecture-header__subtitle">Container-first, source-aware, agent-enabled architecture for policy, events, and opportunities intelligence.</p>
+              </div>
+              <section class="if-diagram-control-panel if-diagram-control-panel--chrome" aria-label="Diagram controls">
+                <label class="if-search if-diagram-control-search">
+                  <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+                  <span class="if-sr-only">Search diagram nodes</span>
+                  <input class="if-input" type="search" data-if-diagram-search data-if-diagram-search-status="[data-if-diagram-search-status]" placeholder="Search diagram nodes..." autocomplete="off">
+                </label>
+                <div class="if-diagram-control-actions" role="group" aria-label="Diagram actions">
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-step="-1" aria-label="Previous search match" title="Previous search match"><span class="if-icon-slot" data-if-icon="arrowLeft" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-step="1" aria-label="Next search match" title="Next search match"><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-search-clear aria-label="Clear search" title="Clear search"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-reset aria-label="Clear diagram focus" title="Clear diagram focus"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-export="#azure-deployment-diagram" data-if-export-format="png" data-if-export-name="azure-deployment-architecture.png" aria-label="Export diagram as PNG" title="Export PNG"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span></button>
+                  <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-export="#azure-deployment-diagram" data-if-export-format="pdf" data-if-export-name="azure-deployment-architecture.pdf" aria-label="Export diagram as PDF" title="Export PDF"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span></button>
+                </div>
+                <div class="if-diagram-layer-controls" aria-label="Diagram layer toggles">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="sources">Sources</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="ingest">Ingest</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="agents">Agents</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="data">Data</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="experience">Experience</button>
+                </div>
+                <label class="if-field if-diagram-slider if-diagram-density-control">
+                  <span class="if-field__label">Stage gap <strong data-if-diagram-output-gap>0.75rem</strong></span>
+                  <input class="if-range" type="range" min="0.5" max="2" step="0.125" value="0.75" data-if-diagram-var="--diagram-gap" data-if-diagram-unit="rem" data-if-diagram-output="[data-if-diagram-output-gap]">
+                </label>
+                <label class="if-field if-diagram-slider if-diagram-density-control">
+                  <span class="if-field__label">Service spacing <strong data-if-diagram-output-service-gap>0.5rem</strong></span>
+                  <input class="if-range" type="range" min="0.35" max="1.25" step="0.05" value="0.5" data-if-diagram-var="--diagram-service-gap" data-if-diagram-unit="rem" data-if-diagram-output="[data-if-diagram-output-service-gap]">
+                </label>
+                <label class="if-field if-diagram-slider if-diagram-density-control">
+                  <span class="if-field__label">Card height <strong data-if-diagram-output-card-height>4.2rem</strong></span>
+                  <input class="if-range" type="range" min="3.4" max="6.2" step="0.1" value="4.2" data-if-diagram-var="--diagram-card-min-height" data-if-diagram-unit="rem" data-if-diagram-output="[data-if-diagram-output-card-height]">
+                </label>
+                <div class="if-diagram-control-status">
+                  <span class="if-diagram-search-status" data-if-diagram-search-status>Search diagram nodes, services, owners, and contracts</span>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready to export</span>
+                </div>
+              </section>
+            </header>
+
+            <section class="if-diagram-authoring-surface" aria-label="Diagram authoring controls">
+              <button class="if-diagram-edit-switch" type="button" aria-pressed="false" data-if-diagram-edit-toggle>
+                <span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>
+                <span><strong data-if-diagram-edit-toggle-label>Edit layout</strong><em data-if-diagram-edit-switch-copy>Turn on authoring tools</em></span>
+              </button>
+              <label class="if-field if-diagram-container-picker">
+                <span class="if-field__label">Target container</span>
+                <select class="if-select" data-if-diagram-container-select disabled></select>
+              </label>
+              <div class="if-diagram-tool-stack">
+                <span class="if-diagram-tool-stack__label">Tools</span>
+                <div class="if-diagram-tool-strip" role="toolbar" aria-label="Diagram editing tools">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="inspect"><span class="if-icon-slot" data-if-icon="eye" aria-hidden="true"></span>Inspect</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="text"><span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>Text</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="move"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span>Move</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="connect"><span class="if-icon-slot" data-if-icon="connector" aria-hidden="true"></span>Connect</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="style"><span class="if-icon-slot" data-if-icon="settings" aria-hidden="true"></span>Style</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="add"><span class="if-icon-slot" data-if-icon="plus" aria-hidden="true"></span>Add</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" aria-pressed="false" disabled data-if-diagram-edit-tool="delete"><span class="if-icon-slot" data-if-icon="trash" aria-hidden="true"></span>Delete</button>
+                </div>
+              </div>
+              <div class="if-diagram-tool-stack if-diagram-tool-stack--session">
+                <span class="if-diagram-tool-stack__label">Session</span>
+                <div class="if-diagram-session-actions" role="group" aria-label="Session layout actions">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-add-node><span class="if-icon-slot" data-if-icon="plus" aria-hidden="true"></span>Add node</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-add-from-source><span class="if-icon-slot" data-if-icon="artifact" aria-hidden="true"></span>Add from JSON</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-duplicate-node><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Duplicate</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-move-container><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span>Move selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reorder="up"><span class="if-icon-slot" data-if-icon="arrowUp" aria-hidden="true"></span>Move up</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reorder="down"><span class="if-icon-slot" data-if-icon="arrowDown" aria-hidden="true"></span>Move down</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-clear-selection><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span>Clear selection</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-copy-selected><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Copy selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-apply-selected><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Apply selected JSON</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-reset-selected><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Reset selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-delete-selected><span class="if-icon-slot" data-if-icon="trash" aria-hidden="true"></span>Delete selected</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" disabled data-if-diagram-undo-delete><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span>Undo delete</button>
+                  <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-layout-save><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Save JSON</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-layout-load><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span>Load</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-layout-reset><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Reset</button>
+                </div>
+              </div>
+              <span class="if-diagram-layout-status" data-if-diagram-layout-status>Session layout ready</span>
+              <span class="if-diagram-tool-status" data-if-diagram-tool-status>Turn on edit mode to modify diagram content or layout.</span>
+            </section>
+
+            <details class="if-diagram-source-panel" open>
+              <summary><span class="if-icon-slot" data-if-icon="artifact" aria-hidden="true"></span><strong>Diagram JSON</strong><span data-if-diagram-source-status>0 nodes, 0 edges</span></summary>
+              <div class="if-diagram-source-panel__actions" role="group" aria-label="Diagram source actions">
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-refresh><span class="if-icon-slot" data-if-icon="sync" aria-hidden="true"></span>Refresh from diagram</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-validate><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span>Validate</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-format><span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>Format</button>
+                <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-source-apply><span class="if-icon-slot" data-if-icon="task" aria-hidden="true"></span>Apply JSON</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-copy><span class="if-icon-slot" data-if-icon="copy" aria-hidden="true"></span>Copy JSON</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-source-download data-if-diagram-source-download-name="azure-deployment-architecture.diagram.json"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>Download JSON</button>
+                <label class="if-btn if-btn--secondary if-btn--sm"><span class="if-icon-slot" data-if-icon="upload" aria-hidden="true"></span>Import JSON<input class="if-sr-only" type="file" accept=".json,.md,.txt,application/json,text/markdown,text/plain" data-if-diagram-source-import></label>
+              </div>
+              <label class="if-field if-diagram-source-panel__editor">
+                <span class="if-field__label">DiagramDocument source</span>
+                <textarea class="if-input if-diagram-source-editor" rows="10" spellcheck="false" data-if-diagram-source></textarea>
+              </label>
+            </details>
+
+            <section class="if-diagram-status-bar" aria-label="Diagram interaction status" aria-live="polite">
+              <span><strong data-if-diagram-stat="visible">0</strong> visible nodes</span>
+              <span><strong data-if-diagram-stat="layers">5/5</strong> layers active</span>
+              <span><strong data-if-diagram-stat="matches">0</strong> matches</span>
+              <span class="if-diagram-status-bar__selected"><strong data-if-diagram-stat="selected">No selection</strong></span>
+              <span class="if-diagram-status-bar__hint">Select any node for details.</span>
+            </section>
+
+            <aside class="if-diagram-detail-panel" data-if-diagram-detail hidden aria-live="polite">
+              <div class="if-diagram-detail-panel__summary">
+                <div>
+                  <span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Architecture</span>
+                  <h2 data-if-diagram-detail-title>Selected service</h2>
+                  <p data-if-diagram-detail-body>Select any stage box to inspect its role, contract, dependencies, and operational state.</p>
+                </div>
+                <button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close diagram details" title="Close details">
+                  <span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="if-diagram-detail-panel__metrics">
+                <div><span>Status</span><strong data-if-diagram-detail-status>Active</strong></div>
+                <div><span>Owner</span><strong data-if-diagram-detail-owner>Policy Intelligence</strong></div>
+                <div><span>Throughput</span><strong data-if-diagram-detail-throughput>0 artifacts</strong></div>
+                <div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>0 edges</strong></div>
+              </div>
+              <section class="if-diagram-detail-panel__contract">
+                <span>Interface Contract</span>
+                <p data-if-diagram-detail-contract>Source-aware events, normalized metadata, provenance, and review-state updates.</p>
+              </section>
+              <section class="if-diagram-detail-panel__editor" data-if-diagram-editor aria-label="Selected node layout editor">
+                <div class="if-diagram-editor-head">
+                  <span>Live Editor</span>
+                  <strong data-if-diagram-editor-current-tool>Inspect tool</strong>
+                  <em data-if-diagram-editor-selection-state>Select a node or route to begin.</em>
+                </div>
+                <dl class="if-diagram-edit-readouts">
+                  <div><dt>Node id</dt><dd data-if-diagram-edit-readout="id">No selection</dd></div>
+                  <div><dt>Layer</dt><dd data-if-diagram-edit-readout="layer">-</dd></div>
+                  <div><dt>Type</dt><dd data-if-diagram-edit-readout="type">-</dd></div>
+                  <div><dt>X</dt><dd data-if-diagram-edit-readout="x">-</dd></div>
+                  <div><dt>Y</dt><dd data-if-diagram-edit-readout="y">-</dd></div>
+                </dl>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--help" data-if-diagram-editor-group="inspect">
+                  <strong>Inspect mode</strong>
+                  <p>Select a node or route to review metadata without changing the diagram.</p>
+                </div>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--help" data-if-diagram-editor-group="add">
+                  <strong>Add mode</strong>
+                  <p>Add a draft node to the selected container. It inherits that container's layer, card class, icon, and node style.</p>
+                </div>
+                <div class="if-diagram-editor-tool-group if-diagram-editor-tool-group--move" data-if-diagram-editor-group="move">
+                  <label class="if-field if-diagram-container-picker"><span class="if-field__label">Move into container</span><select class="if-select" data-if-diagram-container-select disabled></select></label>
+                  <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-diagram-move-container disabled><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span>Move to container</button>
+                  <div class="if-diagram-nudge-pad" aria-label="Move selected node">
+                    <span>Fine tune selected node</span>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="up" aria-label="Move selected node up"><span class="if-icon-slot" data-if-icon="arrowUp" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="left" aria-label="Move selected node left"><span class="if-icon-slot" data-if-icon="arrowLeft" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="down" aria-label="Move selected node down"><span class="if-icon-slot" data-if-icon="arrowDown" aria-hidden="true"></span></button>
+                    <button class="if-icon-btn if-icon-btn--sm" type="button" disabled data-if-diagram-nudge="right" aria-label="Move selected node right"><span class="if-icon-slot" data-if-icon="arrowRight" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="style">
+                  <label class="if-field"><span class="if-field__label">Node type</span><select class="if-select" data-if-diagram-node-type disabled><option value="source">Source</option><option value="workflow">Workflow</option><option value="agent">Agent</option><option value="search">Search</option><option value="graph">Graph</option><option value="storage">Storage</option><option value="governance">Governance</option><option value="outcome">Outcome</option><option value="review">Review</option><option value="service">Service</option><option value="custom">Custom</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Node layout</span><select class="if-select" data-if-diagram-node-layout disabled><option value="tile">Tile</option><option value="compact">Compact</option><option value="media">Media</option><option value="metric">Metric</option><option value="capability">Capability</option><option value="pipeline">Pipeline</option><option value="callout">Callout</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Background</span><select class="if-select" data-if-diagram-node-background disabled><option value="surface">Surface</option><option value="subtle">Subtle</option><option value="tint">Tint</option><option value="soft">Soft</option><option value="outline">Outline</option><option value="inverted">Inverted</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Icon</span><select class="if-select" data-if-diagram-node-icon disabled><option value="component">Component</option><option value="source">Source</option><option value="workflow">Workflow</option><option value="bot">Bot</option><option value="search">Search</option><option value="network">Network</option><option value="database">Database</option><option value="shield">Shield</option><option value="users">Users</option><option value="review">Review</option><option value="server">Server</option><option value="policy">Policy</option><option value="archive">Archive</option><option value="trend">Trend</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Node tone</span><select class="if-select" data-if-diagram-style-tone disabled><option value="default">Default</option><option value="accent">Accent</option><option value="primary">Primary</option><option value="success">Success</option><option value="warning">Warning</option><option value="danger">Danger</option><option value="purple">Purple</option><option value="green">Green</option><option value="neutral">Neutral</option></select></label>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="connect delete">
+                  <label class="if-field"><span class="if-field__label">Edge label</span><input class="if-input" type="text" value="Connects" data-if-diagram-route-label disabled></label>
+                  <label class="if-field"><span class="if-field__label">Edge route</span><select class="if-select" data-if-diagram-route-style disabled><option value="orthogonal">Smart orthogonal</option><option value="direct">Direct</option><option value="elbow">Elbow</option><option value="curved">Curved</option></select></label>
+                  <label class="if-field"><span class="if-field__label">Edge tone</span><select class="if-select" data-if-diagram-route-tone disabled><option value="async">Async</option><option value="primary">Primary</option><option value="guarded">Guarded</option><option value="success">Success</option><option value="danger">Danger</option></select></label>
+                  <label class="if-field"><span class="if-field__label">From anchor</span><select class="if-select" data-if-diagram-route-from-anchor disabled><option value="auto">Auto</option><option value="left">Left</option><option value="right">Right</option><option value="top">Top</option><option value="bottom">Bottom</option></select></label>
+                  <label class="if-field"><span class="if-field__label">To anchor</span><select class="if-select" data-if-diagram-route-to-anchor disabled><option value="auto">Auto</option><option value="left">Left</option><option value="right">Right</option><option value="top">Top</option><option value="bottom">Bottom</option></select></label>
+                  <label class="if-field if-field--inline"><input type="checkbox" checked data-if-diagram-route-avoid disabled><span>Route around nodes</span></label>
+                  <label class="if-field"><span class="if-field__label">Waypoint X <strong data-if-diagram-route-waypoint-output>Auto</strong></span><input class="if-range" type="range" min="0" max="100" step="1" value="50" data-if-diagram-route-waypoint-x disabled></label>
+                  <label class="if-field"><span class="if-field__label">Waypoint Y</span><input class="if-range" type="range" min="0" max="100" step="1" value="50" data-if-diagram-route-waypoint-y disabled></label>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-diagram-route-clear-waypoint disabled>Reset edge bend</button>
+                  <button class="if-btn if-btn--danger if-btn--sm" type="button" data-if-diagram-route-delete disabled>Delete edge</button>
+                </div>
+                <div class="if-diagram-editor-tool-group" data-if-diagram-editor-group="text">
+                  <label class="if-field"><span class="if-field__label">Title</span><input class="if-input" type="text" data-if-diagram-edit-field="title" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Status</span><input class="if-input" type="text" data-if-diagram-edit-field="status" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Owner</span><input class="if-input" type="text" data-if-diagram-edit-field="owner" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Throughput</span><input class="if-input" type="text" data-if-diagram-edit-field="throughput" disabled></label>
+                  <label class="if-field"><span class="if-field__label">Dependencies</span><input class="if-input" type="text" data-if-diagram-edit-field="dependencies" disabled></label>
+                  <label class="if-field if-diagram-editor__span"><span class="if-field__label">Description</span><textarea class="if-input" rows="2" data-if-diagram-edit-field="description" disabled></textarea></label>
+                  <label class="if-field if-diagram-editor__span"><span class="if-field__label">Interface contract</span><textarea class="if-input" rows="2" data-if-diagram-edit-field="contract" disabled></textarea></label>
+                </div>
+              </section>
+            </aside>
+
+            <div class="if-architecture-board" data-if-connector-routing data-if-connector-style="orthogonal" data-if-connector-obstacle-padding="10" aria-label="Policy intelligence architecture stages">
+              <section class="if-arch-stage if-arch-stage--external" data-diagram-layer="sources">
+                <header class="if-arch-stage__header"><span class="if-arch-stage__num">1</span><h2 class="if-arch-stage__title">External Sources</h2></header>
+                <div class="if-arch-service-list" data-if-diagram-container="external-sources" data-if-diagram-container-label="External Sources" data-if-diagram-container-class="if-arch-service if-arch-service--source" data-if-diagram-container-element="article" data-if-diagram-container-layer="sources" data-if-diagram-container-section="External Sources" data-if-diagram-container-node-type="source" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="policy" data-if-diagram-container-owner="Source operations" data-if-diagram-container-status="Source">
+                  <article class="if-arch-service if-arch-service--source" data-diagram-layer="sources"><span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><span><strong>Federal Register</strong><span>Executive orders and notices</span></span><em class="if-arch-service__badge">Public</em></article>
+                  <article class="if-arch-service if-arch-service--source" data-diagram-layer="sources"><span class="if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span><strong>GovInfo / Congress.gov</strong><span>Public laws, bills, and statutory references</span></span><em class="if-arch-service__badge">Law</em></article>
+                  <article class="if-arch-service if-arch-service--source" data-diagram-layer="sources"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>DoD Issuances</strong><span>Directives, instructions, manuals, memoranda</span></span><em class="if-arch-service__badge">Tier 1</em></article>
+                  <article class="if-arch-service if-arch-service--source" data-diagram-layer="sources"><span class="if-icon-slot" data-if-icon="anchor" aria-hidden="true"></span><span><strong>Navy / Service Portals</strong><span>Component-level guidance and implementation artifacts</span></span><em class="if-arch-service__badge">Service</em></article>
+                  <article class="if-arch-service if-arch-service--guarded" data-diagram-layer="sources"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span><strong>Restricted Repositories</strong><span>Access-gated evidence and source systems</span></span><em class="if-arch-service__badge">CUI</em></article>
+                </div>
+              </section>
+
+              <section class="if-arch-stage if-arch-stage--ingest" data-diagram-layer="ingest">
+                <header class="if-arch-stage__header"><span class="if-arch-stage__num">2</span><h2 class="if-arch-stage__title">Ingestion & Extraction</h2></header>
+                <div class="if-arch-service-list" data-if-diagram-container="ingestion-extraction" data-if-diagram-container-label="Ingestion &amp; Extraction" data-if-diagram-container-class="if-arch-service if-arch-service--compute" data-if-diagram-container-element="article" data-if-diagram-container-layer="ingest" data-if-diagram-container-section="Ingestion &amp; Extraction" data-if-diagram-container-node-type="workflow" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="archive" data-if-diagram-container-owner="Ingestion services" data-if-diagram-container-status="Ingest">
+                  <article class="if-arch-service if-arch-service--compute" data-diagram-layer="ingest"><span class="if-icon-slot" data-if-icon="archive" aria-hidden="true"></span><span><strong>Container Apps</strong><span>Source adapters, fetchers, and polling workers</span></span><em class="if-arch-service__badge">Fetch</em></article>
+                  <article class="if-arch-service if-arch-service--compute" data-diagram-layer="ingest"><span class="if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><span><strong>Durable Functions</strong><span>Run triggers, orchestration, and retry policy</span></span><em class="if-arch-service__badge">Async</em></article>
+                  <article class="if-arch-service if-arch-service--ai" data-diagram-layer="ingest"><span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><span><strong>Document Intelligence</strong><span>PDF, HTML, XML, and DOCX parsing</span></span><em class="if-arch-service__badge">Parse</em></article>
+                  <article class="if-arch-service if-arch-service--storage" data-diagram-layer="ingest data"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span><strong>Blob Storage</strong><span>Raw artifacts and extracted text snapshots</span></span><em class="if-arch-service__badge">Raw</em></article>
+                  <span class="if-arch-flow-note">Guarded CUI flow</span>
+                </div>
+              </section>
+
+              <section class="if-arch-stage if-arch-stage--agent" data-diagram-layer="agents">
+                <header class="if-arch-stage__header"><span class="if-arch-stage__num">3</span><h2 class="if-arch-stage__title">Core Processing & Agent Layer</h2></header>
+                <div class="if-arch-service-grid" data-if-diagram-container="core-processing-agents" data-if-diagram-container-label="Core Processing &amp; Agent Layer" data-if-diagram-container-class="if-arch-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="agents" data-if-diagram-container-section="Core Processing &amp; Agent Layer" data-if-diagram-container-node-type="agent" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="bot" data-if-diagram-container-owner="Policy intelligence services" data-if-diagram-container-status="Agent service">
+                  <article class="if-arch-service if-arch-service--wide"><span class="if-icon-slot" data-if-icon="archive" aria-hidden="true"></span><span><strong>Container Platform</strong><span>Policy Intelligence services and agents</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="search" aria-hidden="true"></span><span><strong>Source Monitor</strong><span>Health, freshness, and delta detection</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="external" aria-hidden="true"></span><span><strong>Source Discovery</strong><span>Candidate source detection</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><span><strong>Metadata Extractor</strong><span>Canonical record fields</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="message" aria-hidden="true"></span><span><strong>Citation Extractor</strong><span>References and authority links</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="link" aria-hidden="true"></span><span><strong>Relationship Linker</strong><span>Implements, derived, guides, related</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="graph" aria-hidden="true"></span><span><strong>Version Tracker</strong><span>Supersession and diff history</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="warning" aria-hidden="true"></span><span><strong>Obligation Extractor</strong><span>Shall/will/must claim candidates</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><span><strong>Impact Analyzer</strong><span>Events, orgs, opportunities</span></span></article>
+                  <article class="if-arch-service if-arch-service--wide if-arch-service--guarded"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>Rules, Models & Review Gates</strong><span>Human-in-the-loop validation before publish</span></span></article>
+                </div>
+              </section>
+
+              <section class="if-arch-stage if-arch-stage--data" data-diagram-layer="data">
+                <header class="if-arch-stage__header"><span class="if-arch-stage__num">4</span><h2 class="if-arch-stage__title">Data, Search & Knowledge</h2></header>
+                <div class="if-arch-service-list" data-if-diagram-container="data-search-knowledge" data-if-diagram-container-label="Data, Search &amp; Knowledge" data-if-diagram-container-class="if-arch-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="data" data-if-diagram-container-section="Data, Search &amp; Knowledge" data-if-diagram-container-node-type="storage" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="database" data-if-diagram-container-owner="Data platform" data-if-diagram-container-status="Data service">
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span><strong>PostgreSQL</strong><span>Canonical policy store</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="search" aria-hidden="true"></span><span><strong>AI Search</strong><span>Keyword and semantic index</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="archive" aria-hidden="true"></span><span><strong>Cosmos Cache</strong><span>Session and fast lookup state</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span><strong>Blob Storage</strong><span>Processed documents and exports</span></span></article>
+                  <article class="if-arch-service if-arch-service--guarded"><span class="if-icon-slot" data-if-icon="graph" aria-hidden="true"></span><span><strong>Graph Views</strong><span>Canonical relationship projections</span></span></article>
+                </div>
+              </section>
+
+              <section class="if-arch-stage if-arch-stage--experience" data-diagram-layer="experience">
+                <header class="if-arch-stage__header"><span class="if-arch-stage__num">5</span><h2 class="if-arch-stage__title">Experience & Integration Surfaces</h2></header>
+                <div class="if-arch-service-list" data-if-diagram-container="experience-integration" data-if-diagram-container-label="Experience &amp; Integration Surfaces" data-if-diagram-container-class="if-arch-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="experience" data-if-diagram-container-section="Experience &amp; Integration Surfaces" data-if-diagram-container-node-type="service" data-if-diagram-container-layout="media" data-if-diagram-container-background="surface" data-if-diagram-container-icon="external" data-if-diagram-container-owner="Experience team" data-if-diagram-container-status="Experience">
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="external" aria-hidden="true"></span><span><strong>Web App / Frontend</strong><span>Overview, policy, graph, review, sources, agents</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="policy" aria-hidden="true"></span><span><strong>Contract-driven APIs</strong><span>OpenAPI, REST, GraphQL, exports</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span><span><strong>Watchlists / Digests / Alerts</strong><span>Email, Teams, in-app notifications</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="calendar" aria-hidden="true"></span><span><strong>Events Intelligence</strong><span>Deadlines, source updates, policy events</span></span></article>
+                  <article class="if-arch-service"><span class="if-icon-slot" data-if-icon="star" aria-hidden="true"></span><span><strong>Opportunities Intelligence</strong><span>Modernization, gaps, candidate work</span></span></article>
+                  <article class="if-arch-service if-arch-service--guarded"><span class="if-icon-slot" data-if-icon="user" aria-hidden="true"></span><span><strong>Analyst Review Console</strong><span>Human-in-the-loop review and decisions</span></span></article>
+                </div>
+              </section>
+            </div>
+
+            <div class="if-diagram-footer">
+              <section class="if-platform-band" aria-labelledby="platform-title">
+                <div class="if-platform-band__header" id="platform-title">Cross-Cutting Platform Services</div>
+                <div class="if-platform-services" data-if-diagram-container="platform-services" data-if-diagram-container-label="Cross-Cutting Platform Services" data-if-diagram-container-class="if-platform-service" data-if-diagram-container-element="article" data-if-diagram-container-layer="data" data-if-diagram-container-section="Cross-Cutting Platform Services" data-if-diagram-container-node-type="governance" data-if-diagram-container-layout="compact" data-if-diagram-container-background="surface" data-if-diagram-container-icon="shield" data-if-diagram-container-owner="Platform operations" data-if-diagram-container-status="Platform service">
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>Key Vault</strong><span>Secrets and keys</span></span></article>
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><span><strong>Monitor + Logs</strong><span>Observability</span></span></article>
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="message" aria-hidden="true"></span><span><strong>Application Insights</strong><span>App telemetry</span></span></article>
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span><strong>Defender for Cloud</strong><span>Security posture</span></span></article>
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="graph" aria-hidden="true"></span><span><strong>CI/CD</strong><span>Build and release</span></span></article>
+                  <article class="if-platform-service"><span class="if-icon-slot" data-if-icon="archive" aria-hidden="true"></span><span><strong>Backup / DR</strong><span>Restore and redundancy</span></span></article>
+                </div>
+              </section>
+
+              <aside class="if-diagram-legend" aria-label="Diagram legend">
+                <h2>Legend</h2>
+                <div class="if-diagram-legend__item"><span class="if-diagram-legend__line"></span><span>Solid arrows: primary data flow</span></div>
+                <div class="if-diagram-legend__item"><span class="if-diagram-legend__line if-diagram-legend__line--dashed"></span><span>Dashed outlines: guarded or optional flow</span></div>
+                <div class="if-diagram-legend__item"><span class="if-diagram-legend__shield"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span></span><span>Shield icon: controlled / reviewed / secured flow</span></div>
+              </aside>
+            </div>
+          </section>
+
+          <section class="if-diagram-showcase" aria-labelledby="diagram-showcase-title">
+            <header class="if-diagram-showcase__header">
+              <div>
+                <span class="if-eyebrow">Diagram System</span>
+                <h2 id="diagram-showcase-title">Reusable Diagram Patterns</h2>
+                <p>Additional examples exercise the same diagram component contract: focus details, click-away reset, exports, layer toggles, density controls, route styles, and semantic service/node variants.</p>
+              </div>
+              <div class="if-diagram-showcase__badges" aria-label="Diagram capabilities">
+                <span class="if-badge if-badge--status-approved">Clickable nodes</span>
+                <span class="if-badge if-badge--info">Layer toggles</span>
+                <span class="if-badge if-badge--confidence-high">Exportable</span>
+                <span class="if-badge if-badge--warning">Guarded flows</span>
+              </div>
+            </header>
+
+            <article class="if-diagram-example if-diagram-mode--direct" id="authority-flow-diagram" data-if-diagram data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item]" data-if-focus-exclude=".if-diagram-example__toolbar, [data-if-diagram-detail]" aria-labelledby="authority-flow-title">
+              <header class="if-diagram-example__header">
+                <div>
+                  <span class="if-diagram-example__label">Example 1</span>
+                  <h3 id="authority-flow-title">Authority-To-Implementation Flow</h3>
+                  <p>Law, executive direction, policy, service guidance, organization ownership, and implementation evidence as a compact relationship diagram.</p>
+                </div>
+                <div class="if-diagram-example__toolbar">
+                  <div class="if-segmented" aria-label="Connector style">
+                    <button class="if-segmented__item is-active" type="button" aria-pressed="true" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="direct" data-if-demo-target="#authority-flow-diagram">Direct</button>
+                    <button class="if-segmented__item" type="button" aria-pressed="false" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="routed" data-if-demo-target="#authority-flow-diagram">Routed</button>
+                    <button class="if-segmented__item" type="button" aria-pressed="false" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="evidence" data-if-demo-target="#authority-flow-diagram">Evidence</button>
+                  </div>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#authority-flow-diagram" data-if-export-format="png" data-if-export-name="authority-flow-diagram.png"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>PNG</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#authority-flow-diagram" data-if-export-format="pdf" data-if-export-name="authority-flow-diagram.pdf"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span>PDF</button>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready</span>
+                </div>
+              </header>
+              <aside class="if-diagram-detail-panel if-diagram-detail-panel--compact" data-if-diagram-detail hidden aria-live="polite">
+                <div class="if-diagram-detail-panel__summary"><div><span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Authority flow</span><h2 data-if-diagram-detail-title>Selected node</h2><p data-if-diagram-detail-body>Select an authority or implementation item to inspect lineage and contracts.</p></div><button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close details"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button></div>
+                <div class="if-diagram-detail-panel__metrics"><div><span>Status</span><strong data-if-diagram-detail-status>Mapped</strong></div><div><span>Owner</span><strong data-if-diagram-detail-owner>Lineage service</strong></div><div><span>Throughput</span><strong data-if-diagram-detail-throughput>42 claims</strong></div><div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>6 edges</strong></div></div>
+                <section class="if-diagram-detail-panel__contract"><span>Contract</span><p data-if-diagram-detail-contract>Authority node emits references, obligations, claim spans, source provenance, and downstream implementation status.</p></section>
+              </aside>
+              <div class="if-diagram-control-strip" aria-label="Authority layers">
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="authority">Authority</button>
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="policy">Policy</button>
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="implementation">Implementation</button>
+                <label class="if-field if-diagram-slider"><span class="if-field__label">Node gap <strong data-authority-gap>1rem</strong></span><input class="if-range" type="range" min="0.5" max="2.25" step="0.125" value="1" data-if-diagram-var="--diagram-node-gap" data-if-diagram-unit="rem" data-if-diagram-output="[data-authority-gap]"></label>
+              </div>
+              <div class="if-diagram-flow-board" aria-label="Authority to implementation diagram">
+                <button class="if-diagram-node if-diagram-node--law" type="button" data-if-diagram-item data-diagram-layer="authority" data-connector-label="derived from" data-diagram-title="NDAA FY2025" data-diagram-description="Public law authority that creates modernization obligations and reporting expectations." data-diagram-status="Verified" data-diagram-owner="GovInfo adapter" data-diagram-throughput="14 duties" data-diagram-dependencies="5 descendants" data-diagram-contract="Law nodes preserve statutory citation, section span, amendments, and mapped policy duties."><span class="if-icon-slot" data-if-icon="law" aria-hidden="true"></span><span><strong>NDAA FY2025</strong><em>Public law authority</em></span></button>
+                <span class="if-diagram-connector" data-connector-label="derived from"></span>
+                <button class="if-diagram-node if-diagram-node--directive" type="button" data-if-diagram-item data-diagram-layer="authority" data-connector-label="implements" data-diagram-title="EO 14250" data-diagram-description="Executive direction for secure government data and downstream implementation pressure." data-diagram-status="Mapped" data-diagram-owner="Federal Register adapter" data-diagram-throughput="8 policy links" data-diagram-dependencies="3 derived edges"><span class="if-icon-slot" data-if-icon="directive" aria-hidden="true"></span><span><strong>EO 14250</strong><em>Secure Government Data</em></span></button>
+                <span class="if-diagram-connector" data-connector-label="implements"></span>
+                <button class="if-diagram-node if-diagram-node--policy" type="button" data-if-diagram-item data-diagram-layer="policy" data-connector-label="guides" data-diagram-title="DoDI 5200.01" data-diagram-description="Canonical policy record with extracted claims, obligations, source references, and confidence state." data-diagram-status="High confidence" data-diagram-owner="Policy store" data-diagram-throughput="42 claims" data-diagram-dependencies="73 relationships"><span class="if-icon-slot" data-if-icon="instruction" aria-hidden="true"></span><span><strong>DoDI 5200.01</strong><em>Information Governance</em></span></button>
+                <span class="if-diagram-connector" data-connector-label="guides"></span>
+                <button class="if-diagram-node if-diagram-node--service" type="button" data-if-diagram-item data-diagram-layer="policy" data-connector-label="assigned to" data-diagram-title="SECNAV 25-104" data-diagram-description="Service implementation guidance that translates the canonical policy into cloud transition actions." data-diagram-status="In review" data-diagram-owner="DON CIO" data-diagram-throughput="18 obligations" data-diagram-dependencies="9 linked items"><span class="if-icon-slot" data-if-icon="secnav" aria-hidden="true"></span><span><strong>SECNAV 25-104</strong><em>Cloud Transition</em></span></button>
+                <span class="if-diagram-connector" data-connector-label="assigned to"></span>
+                <button class="if-diagram-node if-diagram-node--org" type="button" data-if-diagram-item data-diagram-layer="implementation" data-connector-label="evidenced by" data-diagram-title="NAVWAR" data-diagram-description="Primary implementation owner for API gateway controls, data exchange artifacts, and evidence packages." data-diagram-status="Active" data-diagram-owner="Navy enterprise IT" data-diagram-throughput="6 artifacts" data-diagram-dependencies="4 owner edges"><span class="if-icon-slot" data-if-icon="navy" aria-hidden="true"></span><span><strong>NAVWAR</strong><em>Implementation owner</em></span></button>
+                <span class="if-diagram-connector" data-connector-label="evidenced by"></span>
+                <button class="if-diagram-node if-diagram-node--evidence" type="button" data-if-diagram-item data-diagram-layer="implementation" data-diagram-title="API Gateway Control Package" data-diagram-description="Lowest tracked implementation artifact with milestones, controls, review state, and linked evidence." data-diagram-status="On track" data-diagram-owner="Program office" data-diagram-throughput="17 artifacts" data-diagram-dependencies="5 evidence links"><span class="if-icon-slot" data-if-icon="implementation" aria-hidden="true"></span><span><strong>API Gateway Plan</strong><em>Lowest tracked artifact</em></span></button>
+              </div>
+            </article>
+
+            <article class="if-diagram-example if-diagram-mode--routed" id="agent-runtime-diagram" data-if-diagram data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item]" data-if-focus-exclude=".if-diagram-example__toolbar, [data-if-diagram-detail]" aria-labelledby="agent-runtime-title">
+              <header class="if-diagram-example__header">
+                <div>
+                  <span class="if-diagram-example__label">Example 2</span>
+                  <h3 id="agent-runtime-title">Agent Runtime Topology</h3>
+                  <p>Hub-and-spoke runtime map showing event bus, agents, review gates, source operations, and publication state.</p>
+                </div>
+                <div class="if-diagram-example__toolbar">
+                  <div class="if-segmented" aria-label="Runtime topology mode">
+                    <button class="if-segmented__item" type="button" aria-pressed="false" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="direct" data-if-demo-target="#agent-runtime-diagram">Direct</button>
+                    <button class="if-segmented__item is-active" type="button" aria-pressed="true" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="routed" data-if-demo-target="#agent-runtime-diagram">Routed</button>
+                    <button class="if-segmented__item" type="button" aria-pressed="false" data-if-demo-state-prefix="if-diagram-mode--" data-if-demo-state="live" data-if-demo-target="#agent-runtime-diagram">Live</button>
+                  </div>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#agent-runtime-diagram" data-if-export-format="png" data-if-export-name="agent-runtime-topology.png"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>PNG</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#agent-runtime-diagram" data-if-export-format="pdf" data-if-export-name="agent-runtime-topology.pdf"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span>PDF</button>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready</span>
+                </div>
+              </header>
+              <aside class="if-diagram-detail-panel if-diagram-detail-panel--compact" data-if-diagram-detail hidden aria-live="polite">
+                <div class="if-diagram-detail-panel__summary"><div><span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Runtime</span><h2 data-if-diagram-detail-title>Selected service</h2><p data-if-diagram-detail-body>Select a runtime node to inspect state, throughput, and dependencies.</p></div><button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close details"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button></div>
+                <div class="if-diagram-detail-panel__metrics"><div><span>Status</span><strong data-if-diagram-detail-status>Healthy</strong></div><div><span>Owner</span><strong data-if-diagram-detail-owner>Agent platform</strong></div><div><span>Throughput</span><strong data-if-diagram-detail-throughput>0 runs</strong></div><div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>0 queues</strong></div></div>
+                <section class="if-diagram-detail-panel__contract"><span>Contract</span><p data-if-diagram-detail-contract>Runtime nodes report health, prompt/model version, queue depth, output contract, and reviewer gate state.</p></section>
+              </aside>
+              <div class="if-diagram-control-strip" aria-label="Runtime layer toggles">
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="agent">Agents</button>
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="gate">Review gates</button>
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="publish">Publish</button>
+                <label class="if-field if-diagram-slider"><span class="if-field__label">Topology spread <strong data-runtime-spread>1rem</strong></span><input class="if-range" type="range" min="0.7" max="1.8" step="0.05" value="1" data-if-diagram-var="--diagram-topology-spread" data-if-diagram-unit="rem" data-if-diagram-output="[data-runtime-spread]"></label>
+              </div>
+              <div class="if-diagram-topology-board" aria-label="Agent runtime topology">
+                <span class="if-topology-edge if-topology-edge--north"></span><span class="if-topology-edge if-topology-edge--east"></span><span class="if-topology-edge if-topology-edge--south"></span><span class="if-topology-edge if-topology-edge--west"></span><span class="if-topology-edge if-topology-edge--diagonal-a"></span><span class="if-topology-edge if-topology-edge--diagonal-b"></span>
+                <button class="if-diagram-node if-diagram-node--hub" type="button" data-if-diagram-item data-diagram-title="Azure Service Bus" data-diagram-description="Central event bus coordinating source ingest, agent orchestration, durable retries, and publication workflows." data-diagram-status="Healthy" data-diagram-owner="Platform services" data-diagram-throughput="1,842 events/hr" data-diagram-dependencies="9 subscribers" data-diagram-contract="Messages carry source id, artifact hash, extraction state, review gate, and retry envelope."><span class="if-icon-slot" data-if-icon="workflow" aria-hidden="true"></span><span><strong>Service Bus</strong><em>Event backbone</em></span></button>
+                <button class="if-diagram-node if-diagram-node--agent if-topology-node--north" type="button" data-if-diagram-item data-diagram-layer="agent" data-diagram-title="Source Monitor" data-diagram-description="Tracks feed health, source freshness, delta windows, parser status, and publication candidates." data-diagram-status="Healthy" data-diagram-owner="Source ops" data-diagram-throughput="124 sources" data-diagram-dependencies="6 adapters"><span class="if-icon-slot" data-if-icon="source" aria-hidden="true"></span><span><strong>Source Monitor</strong><em>Freshness and deltas</em></span></button>
+                <button class="if-diagram-node if-diagram-node--agent if-topology-node--east" type="button" data-if-diagram-item data-diagram-layer="agent" data-diagram-title="Relationship Linker" data-diagram-description="Resolves citations, inferred edges, implementation links, evidence-of relationships, and conflicts." data-diagram-status="Running" data-diagram-owner="Graph agents" data-diagram-throughput="73 links/run" data-diagram-dependencies="4 indexes"><span class="if-icon-slot" data-if-icon="link" aria-hidden="true"></span><span><strong>Relationship Linker</strong><em>Edges and provenance</em></span></button>
+                <button class="if-diagram-node if-diagram-node--warning if-topology-node--south" type="button" data-if-diagram-item data-diagram-layer="gate" data-diagram-title="Human Review Gate" data-diagram-description="Holds high-impact items until reviewer approval, source trust checks, and contract validation pass." data-diagram-status="Needs review" data-diagram-owner="Review console" data-diagram-throughput="34 queued" data-diagram-dependencies="3 blockers"><span class="if-icon-slot" data-if-icon="review" aria-hidden="true"></span><span><strong>Review Gate</strong><em>Human-in-the-loop</em></span></button>
+                <button class="if-diagram-node if-diagram-node--agent if-topology-node--west" type="button" data-if-diagram-item data-diagram-layer="agent" data-diagram-title="Metadata Extractor" data-diagram-description="Normalizes title, authority, source, date, sections, detected organizations, and parser confidence." data-diagram-status="Healthy" data-diagram-owner="Extraction agents" data-diagram-throughput="812 docs/day" data-diagram-dependencies="2 OCR models"><span class="if-icon-slot" data-if-icon="parser" aria-hidden="true"></span><span><strong>Metadata Extractor</strong><em>Canonical fields</em></span></button>
+                <button class="if-diagram-node if-diagram-node--publish if-topology-node--north-east" type="button" data-if-diagram-item data-diagram-layer="publish" data-diagram-title="Canonical Store" data-diagram-description="Publishes accepted source records, claim objects, relationship edges, and evidence summaries." data-diagram-status="Publishing" data-diagram-owner="Data platform" data-diagram-throughput="4,812 records" data-diagram-dependencies="5 consumers"><span class="if-icon-slot" data-if-icon="database" aria-hidden="true"></span><span><strong>Canonical Store</strong><em>Accepted intelligence</em></span></button>
+                <button class="if-diagram-node if-diagram-node--guarded if-topology-node--south-west" type="button" data-if-diagram-item data-diagram-layer="gate" data-diagram-title="CUI Access Boundary" data-diagram-description="Guarded repository fetches require role-aware tokens, audit logging, and separate review flow." data-diagram-status="Guarded" data-diagram-owner="Identity and Access" data-diagram-throughput="Role gated" data-diagram-dependencies="2 approvals"><span class="if-icon-slot" data-if-icon="lock" aria-hidden="true"></span><span><strong>CUI Boundary</strong><em>Access-gated content</em></span></button>
+              </div>
+            </article>
+
+            <article class="if-diagram-example" id="ingest-swimlane-diagram" data-if-diagram data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item]" data-if-focus-exclude=".if-diagram-example__toolbar, [data-if-diagram-detail]" aria-labelledby="ingest-swimlane-title">
+              <header class="if-diagram-example__header">
+                <div>
+                  <span class="if-diagram-example__label">Example 3</span>
+                  <h3 id="ingest-swimlane-title">Source Ingest Swimlane</h3>
+                  <p>A lane-based operational diagram for source artifacts, queues, parsers, claim extraction, validation, and publication.</p>
+                </div>
+                <div class="if-diagram-example__toolbar">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="normal">Normal</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" aria-pressed="true" data-if-diagram-layer-toggle="exception">Exceptions</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#ingest-swimlane-diagram" data-if-export-format="png" data-if-export-name="source-ingest-swimlane.png"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>PNG</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#ingest-swimlane-diagram" data-if-export-format="pdf" data-if-export-name="source-ingest-swimlane.pdf"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span>PDF</button>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready</span>
+                </div>
+              </header>
+              <aside class="if-diagram-detail-panel if-diagram-detail-panel--compact" data-if-diagram-detail hidden aria-live="polite">
+                <div class="if-diagram-detail-panel__summary"><div><span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Ingest swimlane</span><h2 data-if-diagram-detail-title>Selected step</h2><p data-if-diagram-detail-body>Select an ingest step to inspect ownership and contracts.</p></div><button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close details"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button></div>
+                <div class="if-diagram-detail-panel__metrics"><div><span>Status</span><strong data-if-diagram-detail-status>Active</strong></div><div><span>Owner</span><strong data-if-diagram-detail-owner>Ingest pipeline</strong></div><div><span>Throughput</span><strong data-if-diagram-detail-throughput>0 docs</strong></div><div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>0 contracts</strong></div></div>
+                <section class="if-diagram-detail-panel__contract"><span>Contract</span><p data-if-diagram-detail-contract>Each step exposes source id, artifact id, state, validation results, exception reason, and downstream event keys.</p></section>
+              </aside>
+              <div class="if-diagram-swimlane-board" aria-label="Source ingest swimlane">
+                <div class="if-diagram-lane"><span class="if-diagram-lane__label">Source</span><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Fetch DoD Issuance" data-diagram-description="Adapter fetches source artifact, detects delta, records hash, and opens ingest event." data-diagram-status="Healthy" data-diagram-owner="Source Monitor" data-diagram-throughput="124 active sources"><strong>Fetch</strong><span>DoD issuance PDF</span></button><button class="if-diagram-step if-diagram-step--guarded" type="button" data-if-diagram-item data-diagram-layer="exception" data-diagram-title="Access-Gated Artifact" data-diagram-description="Restricted content requires guarded fetch, role validation, and separate audit event." data-diagram-status="Guarded" data-diagram-owner="IAM" data-diagram-throughput="3 gated sources"><strong>CUI fetch</strong><span>Role-aware access</span></button></div>
+                <div class="if-diagram-lane"><span class="if-diagram-lane__label">Queue</span><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Normalize Event" data-diagram-description="Durable function normalizes event payload and deduplicates artifact state." data-diagram-status="Running" data-diagram-owner="Durable Functions" data-diagram-throughput="1,842 events/hr"><strong>Normalize</strong><span>Deduplicate events</span></button><button class="if-diagram-step if-diagram-step--warning" type="button" data-if-diagram-item data-diagram-layer="exception" data-diagram-title="Retry Policy" data-diagram-description="Failed parser events enter retry queue with backoff and visible audit state." data-diagram-status="Retrying" data-diagram-owner="Queue worker" data-diagram-throughput="14 warnings"><strong>Retry</strong><span>Parser warning path</span></button></div>
+                <div class="if-diagram-lane"><span class="if-diagram-lane__label">Extract</span><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Parse Full Text" data-diagram-description="Document Intelligence extracts full text, sections, tables, metadata, references, and candidate claims." data-diagram-status="Healthy" data-diagram-owner="Extraction agents" data-diagram-throughput="812 docs/day"><strong>Parse</strong><span>Full text and sections</span></button><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Extract Claims" data-diagram-description="Claim engine detects shall, will, must, should, assignment, exception, and evidence language." data-diagram-status="High confidence" data-diagram-owner="Claim extractor" data-diagram-throughput="42 claims/doc"><strong>Claims</strong><span>Modal statements</span></button></div>
+                <div class="if-diagram-lane"><span class="if-diagram-lane__label">Validate</span><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Link Relationships" data-diagram-description="Relationship linker resolves references, implements, guides, enables, evidence-of, and conflict edges." data-diagram-status="Running" data-diagram-owner="Graph agents" data-diagram-throughput="73 relationships"><strong>Link</strong><span>References and edges</span></button><button class="if-diagram-step if-diagram-step--danger" type="button" data-if-diagram-item data-diagram-layer="exception" data-diagram-title="Review Hold" data-diagram-description="Review gate blocks publication until source trust and reviewer confirmation are complete." data-diagram-status="Blocked" data-diagram-owner="Review console" data-diagram-throughput="9 blocking items"><strong>Hold</strong><span>Human review gate</span></button></div>
+                <div class="if-diagram-lane"><span class="if-diagram-lane__label">Publish</span><button class="if-diagram-step if-diagram-step--success" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Publish Intelligence" data-diagram-description="Validated records are published to canonical store, search index, graph views, and alert subscriptions." data-diagram-status="Published" data-diagram-owner="Data platform" data-diagram-throughput="4,812 records"><strong>Publish</strong><span>Store, search, graph</span></button><button class="if-diagram-step" type="button" data-if-diagram-item data-diagram-layer="normal" data-diagram-title="Notify Watchlists" data-diagram-description="Watchlist and digest rules notify affected reviewers, owners, and source operators." data-diagram-status="Active" data-diagram-owner="Alert agent" data-diagram-throughput="25 max/day"><strong>Notify</strong><span>Digests and alerts</span></button></div>
+              </div>
+            </article>
+
+            <article class="if-diagram-example if-diagram-example--split" id="boundary-matrix-diagram" data-if-diagram data-if-focus-surface="diagram" data-if-focus-detail="[data-if-diagram-detail]" data-if-focus-item="[data-if-diagram-item]" data-if-focus-exclude=".if-diagram-example__toolbar, [data-if-diagram-detail]" aria-labelledby="boundary-matrix-title">
+              <header class="if-diagram-example__header">
+                <div>
+                  <span class="if-diagram-example__label">Example 4</span>
+                  <h3 id="boundary-matrix-title">Security Boundary & Dependency Matrix</h3>
+                  <p>Two compact diagram primitives for trust boundaries, contract surfaces, and dependency intensity.</p>
+                </div>
+                <div class="if-diagram-example__toolbar">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#boundary-matrix-diagram" data-if-export-format="png" data-if-export-name="security-boundary-matrix.png"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>PNG</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-export="#boundary-matrix-diagram" data-if-export-format="pdf" data-if-export-name="security-boundary-matrix.pdf"><span class="if-icon-slot" data-if-icon="filePdf" aria-hidden="true"></span>PDF</button>
+                  <span class="if-diagram-export-status" data-if-adapter-status="export">Ready</span>
+                </div>
+              </header>
+              <aside class="if-diagram-detail-panel if-diagram-detail-panel--compact" data-if-diagram-detail hidden aria-live="polite">
+                <div class="if-diagram-detail-panel__summary"><div><span class="if-diagram-detail-panel__eyebrow" data-if-diagram-detail-eyebrow>Boundary and matrix</span><h2 data-if-diagram-detail-title>Selected object</h2><p data-if-diagram-detail-body>Select a zone or matrix cell to inspect its contract.</p></div><button class="if-icon-btn if-icon-btn--sm" type="button" data-if-diagram-detail-close data-if-focus-clear aria-label="Close details"><span class="if-icon-slot" data-if-icon="close" aria-hidden="true"></span></button></div>
+                <div class="if-diagram-detail-panel__metrics"><div><span>Status</span><strong data-if-diagram-detail-status>Mapped</strong></div><div><span>Owner</span><strong data-if-diagram-detail-owner>Architecture</strong></div><div><span>Throughput</span><strong data-if-diagram-detail-throughput>0 contracts</strong></div><div><span>Dependencies</span><strong data-if-diagram-detail-dependencies>0 edges</strong></div></div>
+                <section class="if-diagram-detail-panel__contract"><span>Contract</span><p data-if-diagram-detail-contract>Boundary objects document trust zones, allowed flows, claims, export rules, and operational controls.</p></section>
+              </aside>
+              <div class="if-diagram-split-grid">
+                <div class="if-diagram-boundary-board" aria-label="Security boundary diagram">
+                  <section class="if-diagram-zone if-diagram-zone--public" data-if-diagram-item data-diagram-title="Public Source Zone" data-diagram-description="Public sources can enter source adapters after metadata and hash verification." data-diagram-status="Open" data-diagram-owner="Source operators" data-diagram-throughput="5 source families" data-diagram-dependencies="3 adapters" tabindex="0" role="button"><span class="if-icon-slot" data-if-icon="source" aria-hidden="true"></span><strong>Public Source Zone</strong><p>Federal Register, GovInfo, DoD Issuances, service portals.</p></section>
+                  <span class="if-boundary-link" data-connector-label="adapter contracts"></span>
+                  <section class="if-diagram-zone if-diagram-zone--controlled" data-if-diagram-item data-diagram-title="Controlled Processing Zone" data-diagram-description="Agent processing, extraction, review gates, source trust, and audit controls live inside this boundary." data-diagram-status="Controlled" data-diagram-owner="Platform services" data-diagram-throughput="9 agents" data-diagram-dependencies="12 controls" tabindex="0" role="button"><span class="if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><strong>Controlled Processing</strong><p>Agents, queues, review gates, and source-aware contracts.</p></section>
+                  <span class="if-boundary-link if-boundary-link--guarded" data-connector-label="reviewed publish"></span>
+                  <section class="if-diagram-zone if-diagram-zone--consumer" data-if-diagram-item data-diagram-title="Consumer Experience Zone" data-diagram-description="Approved intelligence is exposed through UI, APIs, exports, alerts, and analyst review surfaces." data-diagram-status="Published" data-diagram-owner="Experience team" data-diagram-throughput="6 surfaces" data-diagram-dependencies="4 APIs" tabindex="0" role="button"><span class="if-icon-slot" data-if-icon="dashboard" aria-hidden="true"></span><strong>Experience Zone</strong><p>Dashboards, graph, documents, review, alerts, and exports.</p></section>
+                </div>
+                <div class="if-diagram-matrix" role="grid" aria-label="Dependency intensity matrix">
+                  <div class="if-diagram-matrix__head"></div><div class="if-diagram-matrix__head">Sources</div><div class="if-diagram-matrix__head">Agents</div><div class="if-diagram-matrix__head">Store</div><div class="if-diagram-matrix__head">Review</div>
+                  <div class="if-diagram-matrix__rowhead">Adapters</div><button class="if-diagram-matrix__cell if-diagram-matrix__cell--high" type="button" data-if-diagram-item data-diagram-title="Adapters to sources" data-diagram-description="High dependency on source APIs, source freshness, and parser compatibility." data-diagram-status="High" data-diagram-owner="Source ops" data-diagram-throughput="124 sources" data-diagram-dependencies="6 feed contracts">High</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--medium" type="button" data-if-diagram-item data-diagram-title="Adapters to agents" data-diagram-description="Adapters emit normalized artifacts consumed by extraction and source monitor agents." data-diagram-status="Medium" data-diagram-owner="Ingest" data-diagram-throughput="812 docs/day">Med</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--low" type="button" data-if-diagram-item data-diagram-title="Adapters to store" data-diagram-description="Raw artifacts are stored before canonical publication." data-diagram-status="Low" data-diagram-owner="Storage">Low</button><button class="if-diagram-matrix__cell" type="button" data-if-diagram-item data-diagram-title="Adapters to review" data-diagram-description="Only exception and warning states route directly to review." data-diagram-status="Conditional" data-diagram-owner="Review">Cond</button>
+                  <div class="if-diagram-matrix__rowhead">Linker</div><button class="if-diagram-matrix__cell if-diagram-matrix__cell--medium" type="button" data-if-diagram-item data-diagram-title="Linker to sources" data-diagram-description="Linker reads source citation spans and normalized metadata." data-diagram-status="Medium" data-diagram-owner="Graph agents">Med</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--high" type="button" data-if-diagram-item data-diagram-title="Linker to agents" data-diagram-description="Relationship linker coordinates with citation extractor, metadata extractor, and confidence calibrator." data-diagram-status="High" data-diagram-owner="Graph agents">High</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--high" type="button" data-if-diagram-item data-diagram-title="Linker to canonical store" data-diagram-description="Accepted edges publish to graph views, search index, and policy record details." data-diagram-status="High" data-diagram-owner="Data platform">High</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--medium" type="button" data-if-diagram-item data-diagram-title="Linker to review" data-diagram-description="Low-confidence or conflicting links require analyst triage." data-diagram-status="Medium" data-diagram-owner="Review console">Med</button>
+                  <div class="if-diagram-matrix__rowhead">Alerts</div><button class="if-diagram-matrix__cell if-diagram-matrix__cell--low" type="button" data-if-diagram-item data-diagram-title="Alerts to sources" data-diagram-description="Alerts consume source freshness but do not mutate source records." data-diagram-status="Low" data-diagram-owner="Alert agent">Low</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--medium" type="button" data-if-diagram-item data-diagram-title="Alerts to agents" data-diagram-description="Alert rules depend on impact analyzer, source monitor, and review gate state." data-diagram-status="Medium" data-diagram-owner="Alert agent">Med</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--high" type="button" data-if-diagram-item data-diagram-title="Alerts to canonical store" data-diagram-description="Alert engine reads stored watchlists, source records, obligations, events, and review state." data-diagram-status="High" data-diagram-owner="Alert agent">High</button><button class="if-diagram-matrix__cell if-diagram-matrix__cell--high" type="button" data-if-diagram-item data-diagram-title="Alerts to review" data-diagram-description="High severity alerts route reviewers into work items and decision queues." data-diagram-status="High" data-diagram-owner="Review console">High</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>
+

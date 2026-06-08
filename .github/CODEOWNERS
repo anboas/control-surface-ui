@@ -1,0 +1,12 @@
+# Repository ownership for framework handoff.
+# Update these owners when the GitHub repository and teams are finalized.
+
+* @anboa
+
+/src/ @anboa
+/docs/ @anboa
+/examples/ @anboa
+/scripts/ @anboa
+/tests/ @anboa
+/package.json @anboa
+/CHANGELOG.md @anboa

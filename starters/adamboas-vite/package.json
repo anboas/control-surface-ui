@@ -1,0 +1,17 @@
+{
+  "name": "adamboas-site-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "control-surface-ui": "^0.1.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

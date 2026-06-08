@@ -1,0 +1,61 @@
+name: Release Artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Package version to verify before artifact handoff"
+        required: false
+        default: "0.1.0"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  package-release:
+    name: Build auditable release artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify requested package version
+        run: |
+          node -e "const pkg=require('./package.json'); const expected='${{ inputs.release_version }}'; if (pkg.version !== expected) { throw new Error(`package.json version ${pkg.version} does not match workflow input ${expected}`); }"
+
+      - name: Run release smoke
+        run: npm run release:smoke
+
+      - name: Verify checksum artifacts
+        run: npm run checksums -- --check
+
+      - name: Record provenance readiness
+        run: |
+          node --version
+          npm --version
+          echo "This workflow grants id-token: write so npm provenance or Sigstore signing can be enabled in the publish pipeline."
+
+      - name: Upload release package and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: control-surface-ui-${{ inputs.release_version }}-release
+          path: |
+            release/control-surface-ui-${{ inputs.release_version }}.tgz
+            dist/interface-framework.checksums.json
+            dist/SHA256SUMS
+            docs/release-smoke.md
+            docs/release-checklist.md
+            docs/release-governance.md
+            CHANGELOG.md
+          if-no-files-found: error

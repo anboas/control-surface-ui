@@ -1,0 +1,3504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Data Model</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+    <style>
+      .if-model-map {
+        display: grid;
+        gap: var(--if-space-4);
+      }
+
+      .if-model-map > *,
+      .if-model-map .if-panel,
+      .if-model-map .if-card {
+        min-width: 0;
+      }
+
+      .if-model-map .if-panel__header {
+        flex-wrap: wrap;
+        align-items: start;
+        min-width: 0;
+      }
+
+      .if-model-map .if-panel__header > *,
+      .if-model-map .if-section-heading,
+      .if-model-map .if-section-heading > div {
+        min-width: 0;
+      }
+
+      .if-model-map .if-panel__title,
+      .if-model-map .if-card__title,
+      .if-model-map h3,
+      .if-model-map strong {
+        overflow-wrap: anywhere;
+      }
+
+      .if-model-hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--if-space-4);
+        align-items: stretch;
+      }
+
+      .if-model-principles {
+        display: grid;
+        gap: var(--if-space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .if-model-principles li {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--if-space-2);
+        align-items: start;
+        padding: var(--if-space-2);
+        border: var(--if-outline);
+        border-radius: var(--if-radius-2);
+        background: var(--if-bg-subtle);
+      }
+
+      .if-model-principles li::before {
+        width: 0.55rem;
+        height: 0.55rem;
+        margin-top: 0.35rem;
+        border-radius: 999px;
+        background: var(--if-accent);
+        content: "";
+      }
+
+      .if-source-stack,
+      .if-entity-stack,
+      .if-pipeline-stack {
+        display: grid;
+        gap: var(--if-space-2);
+      }
+
+      .if-model-source-card,
+      .if-entity-card,
+      .if-pipeline-card,
+      .if-relation-card {
+        display: grid;
+        gap: var(--if-space-2);
+        width: 100%;
+        padding: var(--if-space-3);
+        border: var(--if-outline);
+        border-radius: var(--if-radius-2);
+        background: var(--if-bg-surface);
+        text-align: left;
+      }
+
+      .if-model-source-card > *,
+      .if-entity-card > *,
+      .if-pipeline-card > *,
+      .if-relation-card > * {
+        min-width: 0;
+      }
+
+      .if-model-source-card {
+        border-left: 4px solid var(--if-accent);
+      }
+
+      .if-model-source-card[aria-selected="true"],
+      .if-entity-card[aria-selected="true"] {
+        border-color: var(--if-border-selected);
+        box-shadow: var(--if-shadow-focus);
+      }
+
+      .if-model-source-card__top,
+      .if-entity-card__top,
+      .if-pipeline-card__top,
+      .if-relation-card__top {
+        display: flex;
+        min-width: 0;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--if-space-2);
+      }
+
+      .if-model-source-card strong,
+      .if-entity-card strong,
+      .if-pipeline-card strong,
+      .if-relation-card strong {
+        color: var(--if-text-strong);
+      }
+
+      .if-model-small {
+        color: var(--if-text-muted);
+        font-size: var(--if-font-size-xs);
+        line-height: var(--if-line-height-tight);
+      }
+
+      .if-model-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--if-space-1);
+        min-width: 0;
+      }
+
+      .if-model-chip-row .if-chip {
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        text-overflow: ellipsis;
+        white-space: normal;
+      }
+
+      .if-entity-group-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--if-space-3);
+      }
+
+      .if-model-inspector {
+        position: sticky;
+        top: calc(var(--if-topbar-height, 4rem) + var(--if-space-3));
+      }
+
+      .if-model-graph {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .if-model-definition-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+        gap: var(--if-space-4);
+      }
+
+      .if-model-list {
+        display: grid;
+        gap: var(--if-space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .if-model-list li {
+        padding: var(--if-space-2);
+        border: var(--if-outline);
+        border-radius: var(--if-radius-2);
+        background: var(--if-bg-subtle);
+      }
+
+      @media (max-width: 1100px) {
+        .if-model-hero,
+        .if-model-definition-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .if-model-inspector {
+          position: static;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .if-topbar__actions {
+          display: none;
+        }
+
+        .if-main,
+        .if-content,
+        .if-page {
+          min-width: 0;
+          max-width: 100vw;
+          overflow-x: hidden;
+        }
+
+        .if-page-header {
+          align-items: start;
+          flex-wrap: wrap;
+        }
+
+        .if-page-header__actions {
+          width: 100%;
+          flex-wrap: wrap;
+        }
+
+        .if-page-header__actions .if-badge,
+        .if-page-header__actions .if-btn {
+          max-width: 100%;
+        }
+
+        .if-model-map .if-text-muted,
+        .if-model-map .if-panel__subtitle {
+          overflow-wrap: anywhere;
+        }
+
+        .if-model-map .if-section-heading {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr);
+          width: 100%;
+          align-items: start;
+        }
+
+        .if-model-map .if-metric-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .if-model-map .if-metric__main {
+          grid-template-columns: 1fr;
+        }
+
+        .if-model-map .if-metric [data-if-sparkline] {
+          display: none;
+        }
+
+        .if-entity-group-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="model-filters" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html">
+          <span class="if-brand__mark" aria-hidden="true">PI</span>
+          <span>Policy Intelligence</span>
+        </a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link is-active" href="./policy-data-model.html" aria-current="page">Data Model</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+          <a class="if-nav-link" href="./consulting.html">Consulting</a>
+          <a class="if-nav-link" href="./adamboas.html">AdamBoas.com</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-model-search data-if-autocomplete-remote="policy-intelligence" data-if-autocomplete-delay="180" data-if-autocomplete-limit="6" placeholder="Search sources, entities, fields...">
+          </label>
+          <div class="if-popover if-notification-menu" data-if-popover>
+            <button class="if-icon-btn if-notification-btn" type="button" title="Notifications" aria-label="Notifications" aria-expanded="false" aria-controls="global-notifications" data-if-popover-toggle="global-notifications">
+              <span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span>
+              <span class="if-notification-btn__badge">3</span>
+            </button>
+            <section class="if-popover__panel if-notifications" id="global-notifications" role="dialog" aria-label="Notifications" hidden>
+              <header class="if-notifications__header">
+                <div>
+                  <h2>Notifications</h2>
+                  <p>3 unread intelligence events</p>
+                </div>
+                <button class="if-btn if-btn--sm" type="button" data-if-notification-read>Mark read</button>
+              </header>
+              <div class="if-notifications__body">
+                <span class="if-notifications__group-label">Needs attention</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--warning" href="./review.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Implementation gap escalated</strong><span class="if-notification-item__meta">Supplier data residency obligation requires reviewer action.</span></span>
+                  <span class="if-notification-item__time">8m</span>
+                </a>
+                <a class="if-notification-item if-notification-item--unread" href="./graph-view.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">New inferred relationship cluster</strong><span class="if-notification-item__meta">DoDI 5200.01 gained 3 evidence links and 2 guides edges.</span></span>
+                  <span class="if-notification-item__time">22m</span>
+                </a>
+                <span class="if-notifications__group-label">Source operations</span>
+                <a class="if-notification-item if-notification-item--unread if-notification-item--danger" href="./sources.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="alert" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Parser warning on OMB feed</strong><span class="if-notification-item__meta">14 documents need extraction review before publishing.</span></span>
+                  <span class="if-notification-item__time">1h</span>
+                </a>
+                <a class="if-notification-item" href="./dashboard.html">
+                  <span class="if-notification-item__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                  <span class="if-notification-item__content"><strong class="if-notification-item__title">Workspace saved</strong><span class="if-notification-item__meta">Daily overview layout synced for Jane Doe.</span></span>
+                  <span class="if-notification-item__time">2h</span>
+                </a>
+              </div>
+              <footer class="if-notifications__footer">
+                <a class="if-text-xs if-font-semibold" href="./sources.html">View notification center</a>
+                <span class="if-text-xs if-text-muted">Live mock data</span>
+              </footer>
+            </section>
+          </div>
+          <div class="if-popover if-account-popover" data-if-popover>
+            <button class="if-account-menu" type="button" aria-label="Account menu" aria-expanded="false" aria-controls="global-account-menu" data-if-popover-toggle="global-account-menu">
+              <span class="if-avatar" aria-hidden="true">JD</span>
+              <span class="if-account-menu__name if-desktop-only">Jane Doe</span>
+              <span class="if-icon-slot if-account-menu__chevron" data-if-icon="chevronDown" aria-hidden="true"></span>
+            </button>
+            <section class="if-popover__panel if-account-surface" id="global-account-menu" role="dialog" aria-label="Account controls" hidden>
+              <header class="if-account-surface__header"><span class="if-account-surface__avatar" aria-hidden="true">JD</span><span class="if-account-surface__identity"><strong>Jane Doe</strong><span>Policy Reviewer - Data Governance</span><span>jane.doe@example.mil</span></span></header>
+              <div class="if-account-surface__body"><section class="if-account-surface__section" aria-label="Workspace"><span class="if-account-surface__label">Workspace</span><a class="if-account-action" href="./dashboard.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="home" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">My Daily Overview</strong><span class="if-account-action__meta">Default landing page</span></span><span class="if-badge if-badge--info">Default</span></a><a class="if-account-action" href="./review.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Review Queue</strong><span class="if-account-action__meta">34 findings assigned</span></span><span class="if-account-action__aside">34</span></a></section><section class="if-account-surface__section" aria-label="Preferences"><span class="if-account-surface__label">Preferences</span><div class="if-account-surface__controls"><div class="if-account-surface__control"><span>Density</span><strong>Comfortable</strong></div><div class="if-account-theme-control" aria-label="Theme preference"><span class="if-account-theme-control__label">Theme</span><div class="if-account-theme-control__options" role="group" aria-label="Theme preference"><button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-theme="light" aria-pressed="true">Light</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="dark" aria-pressed="false">Dark</button><button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-theme="high-contrast" aria-pressed="false">High contrast</button></div><span class="if-account-theme-control__current">Current: <strong data-if-theme-label>Light</strong></span></div><div class="if-account-surface__control"><span>Graph depth</span><strong>2 levels</strong></div><div class="if-account-surface__control"><span>Confidence</span><strong>70% min</strong></div></div></section><section class="if-account-surface__section" aria-label="Account actions"><a class="if-account-action" href="./components.html"><span class="if-account-action__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Access & Roles</strong><span class="if-account-action__meta">Reviewer, source operator</span></span></a><button class="if-account-action" type="button"><span class="if-account-action__icon if-icon-slot" data-if-icon="download" aria-hidden="true"></span><span class="if-account-action__content"><strong class="if-account-action__title">Export preferences</strong><span class="if-account-action__meta">Download user settings JSON</span></span></button></section></div>
+              <footer class="if-account-surface__footer"><span class="if-text-xs if-text-muted">Last active 2m ago</span><button class="if-btn if-btn--sm" type="button">Sign out</button></footer>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <div class="if-main if-main--with-sidebar">
+        <aside class="if-sidebar" id="model-filters" aria-label="Data model filters">
+          <div class="if-sidebar__section">
+            <div class="if-cluster if-cluster--between">
+              <h2 class="if-sidebar__title">Model scope</h2>
+              <button class="if-btn if-btn--sm" type="button" data-reset-model>Reset</button>
+            </div>
+            <div class="if-filter-stack">
+              <label class="if-field">
+                <span class="if-field__label">Authority layer</span>
+                <select class="if-select" data-layer-filter>
+                  <option value="all">All layers</option>
+                </select>
+              </label>
+              <label class="if-field">
+                <span class="if-field__label">Trust tier</span>
+                <select class="if-select" data-tier-filter>
+                  <option value="all">All tiers</option>
+                  <option value="0">Tier 0 official record</option>
+                  <option value="1">Tier 1 official publisher</option>
+                  <option value="2">Tier 2 guarded / partial</option>
+                </select>
+              </label>
+              <label class="if-field">
+                <span class="if-field__label">Entity group</span>
+                <select class="if-select" data-entity-filter>
+                  <option value="all">All groups</option>
+                </select>
+              </label>
+              <label class="if-switch">
+                <input type="checkbox" checked data-show-downstream>
+                <span class="if-switch__track" aria-hidden="true"></span>
+                <span>Show downstream intelligence</span>
+              </label>
+              <label class="if-switch">
+                <input type="checkbox" checked data-show-guarded>
+                <span class="if-switch__track" aria-hidden="true"></span>
+                <span>Show guarded sources</span>
+              </label>
+              <a class="if-btn if-btn--secondary if-btn--block" href="./sources.html">Source Controls</a>
+              <a class="if-btn if-btn--block" href="./graph-view.html">Graph Explorer</a>
+            </div>
+          </div>
+        </aside>
+
+        <main class="if-content">
+          <div class="if-page if-model-map">
+            <header class="if-page-header">
+              <div class="if-section-heading">
+                <span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                <div class="if-section-heading__body">
+                  <h1 class="if-page-header__title">Policy Intelligence Data Model</h1>
+                  <p class="if-text-muted">Source hierarchy, entity model, and relationships.</p>
+                </div>
+              </div>
+              <div class="if-page-header__actions">
+                <span class="if-badge if-badge--info" data-schema-version>Loading schema</span>
+                <a class="if-btn if-btn--secondary" href="./data/policy-data-model.json">JSON</a>
+              </div>
+            </header>
+
+            <section class="if-metric-grid" aria-label="Data model metrics">
+              <article class="if-card if-metric">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="database"></span><p class="if-metric__label">Source Families</p></div>
+                <div class="if-metric__main"><p class="if-metric__value" data-source-count>0</p><span data-if-sparkline="4,7,10,12,15,17"></span></div>
+                <span class="if-metric__change">Official and guarded sources</span>
+                <div class="if-metric__meta"><span>Registry</span><span>Tiered</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="layers"></span><p class="if-metric__label">Authority Layers</p></div>
+                <div class="if-metric__main"><p class="if-metric__value" data-layer-count>0</p><span data-if-sparkline="1,2,3,4,5,6,7,8"></span></div>
+                <span class="if-metric__change">Policy to downstream signals</span>
+                <div class="if-metric__meta"><span>Hierarchy</span><span>Ranked</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="policy"></span><p class="if-metric__label">Canonical Entities</p></div>
+                <div class="if-metric__main"><p class="if-metric__value" data-entity-count>0</p><span data-if-sparkline="8,14,21,28,34,39"></span></div>
+                <span class="if-metric__change">PostgreSQL source of truth</span>
+                <div class="if-metric__meta"><span>ERD</span><span>Grouped</span></div>
+              </article>
+              <article class="if-card if-metric">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="graph"></span><p class="if-metric__label">Relationship Classes</p></div>
+                <div class="if-metric__main"><p class="if-metric__value" data-relation-count>0</p><span data-if-sparkline="2,3,4,4,5,6"></span></div>
+                <span class="if-metric__change">Evidence-bearing edge ontology</span>
+                <div class="if-metric__meta"><span>Graph</span><span>Reviewed</span></div>
+              </article>
+            </section>
+
+            <section class="if-model-hero">
+              <article class="if-panel" id="governance-authority-chain">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title" data-graph-title>Governance Artifact Authority Chain</h2>
+                      <p class="if-panel__subtitle" data-graph-description>Law and statute lineage down to echelon 4 governance items.</p>
+                    </div>
+                  </div>
+                  <button class="if-icon-btn" type="button" title="Export authority chain PNG" data-if-export="#governance-authority-chain" data-if-export-format="png" data-if-export-name="governance-artifact-authority-chain.png">
+                    <span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-model-graph" data-model-graph></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Canonical Query Playbooks</h2>
+                      <p class="if-panel__subtitle">The questions the storage model must answer, with the canonical joins and proof objects required for each answer.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Query contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-query-playbooks" data-query-playbooks></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="api" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Canonical Answer Contracts</h2>
+                      <p class="if-panel__subtitle">Read-model shapes for trace answers, evidence packages, conflict queues, alerts, and exports without making derived surfaces the system of record.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Read model</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-answer-contracts" data-answer-contracts></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="external" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Derived Surface Contracts</h2>
+                      <p class="if-panel__subtitle">What search, graph, API, export, alert, and evidence surfaces may derive from the canonical store, and what freshness/provenance each surface must carry.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Derived views</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-surface-contracts" data-surface-contracts></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Access, Classification, and Release Controls</h2>
+                      <p class="if-panel__subtitle">How guarded source material, CUI markings, visibility scopes, role checks, summaries, exports, alerts, and graph edges are allowed to move across surfaces.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Release contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-release-controls" data-release-controls></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="check" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Extraction Quality Gates</h2>
+                      <p class="if-panel__subtitle">What must be true before source-derived governance intelligence becomes canonical, graph-visible, searchable, exported, or published.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Review contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-quality-gates" data-quality-gates></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="hourglass" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Canonical Lifecycle State Model</h2>
+                      <p class="if-panel__subtitle">How source artifacts, claims, relationships, obligations, evidence, and derived surfaces move from candidate records to reviewed, publishable, stale, superseded, or blocked states.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">State contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-lifecycle-model" data-lifecycle-model></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="trend" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Change Impact and Reconciliation Model</h2>
+                      <p class="if-panel__subtitle">How upstream changes invalidate downstream governance records, trigger review tasks, regenerate derived surfaces, and preserve an audit trail.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Impact contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-change-impact" data-change-impact></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="review" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Confidence, Trust, and Review Routing</h2>
+                      <p class="if-panel__subtitle">Composite scoring dimensions, trust labels, and routing rules that decide whether a source-derived claim can publish, needs review, or must be held.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Trust contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-confidence-routing" data-confidence-routing></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="evidence" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Evidence Locator and Provenance Contract</h2>
+                      <p class="if-panel__subtitle">Field-level traceability rules for source quotes, tables, pages, sections, hashes, review decisions, and derived evidence packages.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Proof contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-provenance-contract" data-provenance-contract></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="quote" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Statement and Claim Extraction Taxonomy</h2>
+                      <p class="if-panel__subtitle">The policy-language layer: what each section, paragraph, table row, control statement, or evidence note can become in storage.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Semantic contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-claim-taxonomy" data-claim-taxonomy></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="link" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Authority Propagation Rules</h2>
+                      <p class="if-panel__subtitle">Relationship semantics for tracing down from statute to local execution, and tracing up from an echelon 4 statement to controlling authority.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Edge grammar</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-propagation-rules" data-propagation-rules></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="columns" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Governance Artifact Decomposition Spec</h2>
+                      <p class="if-panel__subtitle">Canonical object path for turning a law, issuance, instruction, SOP, control statement, or evidence package into durable records.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Field contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-artifact-spec" data-artifact-spec></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="layers" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Echelon 3/4 Governance Coverage</h2>
+                      <p class="if-panel__subtitle">Best candidate artifacts, canonical mapping targets, and the source surfaces where lower-echelon governance usually lives.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Coverage model</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-echelon-model" data-echelon-model></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="sourcePortal" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Echelon Source Acquisition Matrix</h2>
+                      <p class="if-panel__subtitle">How lower-echelon governance artifacts are discovered, proven, keyed, and queued for guarded ingestion.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review">Discovery contract</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-acquisition-matrix" data-acquisition-matrix></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="table" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Governance Artifact ERD</h2>
+                      <p class="if-panel__subtitle">Canonical tables and relationship paths for policy artifact decomposition, evidence, obligations, and review closure.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--info">Artifact-centric</span>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-erd-board" data-model-erd></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Storage Rules</h2>
+                      <p class="if-panel__subtitle">What can be canonical, derived, cached, or guarded.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="if-panel__body">
+                  <ul class="if-model-principles" data-principles></ul>
+                </div>
+              </article>
+            </section>
+
+            <section class="if-model-definition-grid">
+              <div class="if-stack">
+                <article class="if-panel">
+                  <div class="if-panel__header">
+                    <div class="if-section-heading">
+                      <span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                      <div>
+                        <h2 class="if-panel__title">Source Hierarchy</h2>
+                        <p class="if-panel__subtitle">Official source families, expected payloads, and canonical mapping targets.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="if-panel__body">
+                    <div class="if-source-stack" data-source-stack></div>
+                  </div>
+                </article>
+
+                <article class="if-panel">
+                  <div class="if-panel__header">
+                    <div class="if-section-heading">
+                      <span class="if-section-heading__icon if-icon-slot" data-if-icon="layers" aria-hidden="true"></span>
+                      <div>
+                        <h2 class="if-panel__title">Decomposition Pipeline</h2>
+                        <p class="if-panel__subtitle">From source monitoring to publication-ready records.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="if-panel__body">
+                    <div class="if-pipeline-stack" data-pipeline-stack></div>
+                  </div>
+                </article>
+              </div>
+
+              <aside class="if-panel if-model-inspector">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="policy" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title" data-inspector-title>Selected Definition</h2>
+                      <p class="if-panel__subtitle" data-inspector-subtitle>Select a source or entity to inspect fields and mappings.</p>
+                    </div>
+                  </div>
+                  <span class="if-badge if-badge--status-in-review" data-inspector-badge>Ready</span>
+                </div>
+                <div class="if-panel__body if-stack" data-inspector-body>
+                  <p class="if-text-muted">The inspector keeps provenance, fields, and mapping details next to the visual model.</p>
+                </div>
+              </aside>
+            </section>
+
+            <section class="if-panel">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="table" aria-hidden="true"></span>
+                  <div>
+                    <h2 class="if-panel__title">Canonical Entity Groups</h2>
+                    <p class="if-panel__subtitle">ERD groups from source ingestion through review, exports, and cross-surface intelligence.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="if-panel__body">
+                <div class="if-entity-group-grid" data-entity-groups></div>
+              </div>
+            </section>
+
+            <section class="if-grid if-grid--2">
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="graph" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Relationship Ontology</h2>
+                      <p class="if-panel__subtitle">Every graph edge has a class, evidence rule, and publish rule.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="if-panel__body">
+                  <div class="if-source-stack" data-relationship-stack></div>
+                </div>
+              </article>
+
+              <article class="if-panel">
+                <div class="if-panel__header">
+                  <div class="if-section-heading">
+                    <span class="if-section-heading__icon if-icon-slot" data-if-icon="archive" aria-hidden="true"></span>
+                    <div>
+                      <h2 class="if-panel__title">Store Mapping</h2>
+                      <p class="if-panel__subtitle">Canonical, derived, immutable, and cache storage boundaries.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="if-panel__body">
+                  <ul class="if-model-list" data-storage-list></ul>
+                </div>
+              </article>
+            </section>
+
+            <section class="if-panel">
+              <div class="if-panel__header">
+                <div class="if-section-heading">
+                  <span class="if-section-heading__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span>
+                  <div>
+                    <h2 class="if-panel__title">Source to Object Mapping</h2>
+                    <p class="if-panel__subtitle">What each source can populate in the canonical store.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="if-table-wrap">
+                <table class="if-table if-table--dense">
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Tier</th>
+                      <th>Role</th>
+                      <th>Layer</th>
+                      <th>Formats</th>
+                      <th>Maps to</th>
+                      <th>Primary keys</th>
+                    </tr>
+                  </thead>
+                  <tbody data-source-table></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="../dist/interface-framework.js"></script>
+    <script>
+      const state = {
+        model: null,
+        query: "",
+        layer: "all",
+        tier: "all",
+        entityGroup: "all",
+        showDownstream: true,
+        showGuarded: true,
+        selected: null
+      };
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function badgeClassForTier(tier) {
+        if (tier === 0) return "if-badge--confidence-high";
+        if (tier === 1) return "if-badge--info";
+        if (tier === 2) return "if-badge--status-paused";
+        return "if-badge";
+      }
+
+      function sourceRoleFor(source) {
+        if (source.sourceRole) return source.sourceRole;
+        const value = `${source.name} ${source.authorityLayer} ${source.contains?.join(" ") || ""} ${source.notes || ""}`.toLowerCase();
+        if (source.authorityLayer === "Downstream Intelligence" || value.includes("evidence") || value.includes("finding") || value.includes("poa&m")) return "Proof Source";
+        if (value.includes("budget") || value.includes("opportunity") || value.includes("digest") || value.includes("rulemaking")) return "Signal Source";
+        if (source.authorityLayer === "Program and Implementation" || value.includes("message") || value.includes("stig") || value.includes("sop") || value.includes("form")) return "Implementation Source";
+        return "Authority Source";
+      }
+
+      function badgeClassForSourceRole(role) {
+        if (role === "Authority Source") return "if-badge--confidence-high";
+        if (role === "Implementation Source") return "if-badge--info";
+        if (role === "Signal Source") return "if-badge--status-in-review";
+        if (role === "Proof Source") return "if-badge--status-paused";
+        return "if-badge";
+      }
+
+      function matchesQuery(values) {
+        if (!state.query) return true;
+        return values.join(" ").toLowerCase().includes(state.query);
+      }
+
+      function visibleSource(source) {
+        if (state.layer !== "all" && source.authorityLayer !== state.layer) return false;
+        if (state.tier !== "all" && String(source.tier) !== state.tier) return false;
+        if (!state.showDownstream && source.authorityLayer === "Downstream Intelligence") return false;
+        if (!state.showGuarded && source.tier >= 2) return false;
+        return matchesQuery([
+          source.name,
+          source.authorityLayer,
+          sourceRoleFor(source),
+          source.contains.join(" "),
+          source.mappedFields.join(" "),
+          source.mapsTo.join(" ")
+        ]);
+      }
+
+      function visibleEntityGroup(group) {
+        if (state.entityGroup !== "all" && group.name !== state.entityGroup) return false;
+        return matchesQuery([
+          group.name,
+          group.entities.map((entity) => `${entity.name} ${entity.purpose} ${entity.fields.join(" ")}`).join(" ")
+        ]);
+      }
+
+      function renderOptions() {
+        const layerFilter = $("[data-layer-filter]");
+        const entityFilter = $("[data-entity-filter]");
+        state.model.authorityLayers.forEach((layer) => {
+          const option = document.createElement("option");
+          option.value = layer.name;
+          option.textContent = `${layer.rank}. ${layer.name}`;
+          layerFilter.append(option);
+        });
+        state.model.entityGroups.forEach((group) => {
+          const option = document.createElement("option");
+          option.value = group.name;
+          option.textContent = group.name;
+          entityFilter.append(option);
+        });
+      }
+
+      function renderMetrics() {
+        $("[data-schema-version]").textContent = state.model.schemaVersion;
+        $("[data-source-count]").textContent = state.model.sourceFamilies.length;
+        $("[data-layer-count]").textContent = state.model.authorityLayers.length;
+        $("[data-entity-count]").textContent = state.model.entityGroups.reduce((sum, group) => sum + group.entities.length, 0);
+        $("[data-relation-count]").textContent = state.model.relationshipOntology.length;
+      }
+
+      function renderPrinciples() {
+        $("[data-principles]").innerHTML = state.model.principles
+          .map((principle) => `<li>${escapeHtml(principle)}</li>`)
+          .join("");
+      }
+
+      function renderSources() {
+        const sources = state.model.sourceFamilies.filter(visibleSource);
+        const stack = $("[data-source-stack]");
+        stack.innerHTML = sources.map((source) => `
+          <button class="if-model-source-card" type="button" data-select-kind="source" data-select-id="${escapeHtml(source.id)}" aria-selected="${state.selected?.kind === "source" && state.selected.id === source.id}">
+            <span class="if-model-source-card__top">
+              <span>
+                <strong>${escapeHtml(source.name)}</strong>
+                <span class="if-model-small">${escapeHtml(source.authorityLayer)} / ${escapeHtml(source.accessMode)}</span>
+              </span>
+              <span class="if-source-role-stack">
+                <span class="if-badge ${badgeClassForTier(source.tier)}">Tier ${source.tier}</span>
+                <span class="if-badge ${badgeClassForSourceRole(sourceRoleFor(source))}">${escapeHtml(sourceRoleFor(source))}</span>
+              </span>
+            </span>
+            <span class="if-model-chip-row">${source.formats.slice(0, 5).map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</span>
+            <span class="if-model-small">${escapeHtml(source.notes)}</span>
+          </button>
+        `).join("") || `<p class="if-text-muted">No sources match the current filters.</p>`;
+
+        $("[data-source-table]").innerHTML = sources.map((source) => `
+          <tr>
+            <td><span class="if-row-title"><strong>${escapeHtml(source.name)}</strong><span>${escapeHtml(source.accessMode)}</span></span></td>
+            <td><span class="if-badge ${badgeClassForTier(source.tier)}">Tier ${source.tier}</span></td>
+            <td><span class="if-badge ${badgeClassForSourceRole(sourceRoleFor(source))}">${escapeHtml(sourceRoleFor(source))}</span></td>
+            <td>${escapeHtml(source.authorityLayer)}</td>
+            <td>${escapeHtml(source.formats.join(", "))}</td>
+            <td>${escapeHtml(source.mapsTo.slice(0, 5).join(", "))}</td>
+            <td>${escapeHtml(source.primaryKeys.join(", "))}</td>
+          </tr>
+        `).join("");
+      }
+
+      function renderPipeline() {
+        $("[data-pipeline-stack]").innerHTML = state.model.decompositionPipeline.map((stage) => `
+          <article class="if-pipeline-card">
+            <div class="if-pipeline-card__top">
+              <strong>${stage.step}. ${escapeHtml(stage.stage)}</strong>
+              <span class="if-badge if-badge--info">${escapeHtml(stage.outputs.join(", "))}</span>
+            </div>
+            <p class="if-model-small">${escapeHtml(stage.extract.join(", "))}</p>
+            <p class="if-model-small"><strong>Gate:</strong> ${escapeHtml(stage.qualityGate)}</p>
+          </article>
+        `).join("");
+      }
+
+      function renderEntities() {
+        const groups = state.model.entityGroups.filter(visibleEntityGroup);
+        $("[data-entity-groups]").innerHTML = groups.map((group) => `
+          <article class="if-panel">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">${escapeHtml(group.name)}</h3>
+                <p class="if-panel__subtitle">${group.entities.length} canonical entities</p>
+              </div>
+              <span class="if-badge">${escapeHtml(group.color)}</span>
+            </div>
+            <div class="if-panel__body if-entity-stack">
+              ${group.entities.map((entity) => `
+                <button class="if-entity-card" type="button" data-select-kind="entity" data-select-id="${escapeHtml(group.name)}::${escapeHtml(entity.name)}" aria-selected="${state.selected?.kind === "entity" && state.selected.id === `${group.name}::${entity.name}`}">
+                  <span class="if-entity-card__top">
+                    <strong>${escapeHtml(entity.name)}</strong>
+                    <span class="if-badge if-badge--info">${entity.fields.length} fields</span>
+                  </span>
+                  <span class="if-model-small">${escapeHtml(entity.purpose)}</span>
+                </button>
+              `).join("")}
+            </div>
+          </article>
+        `).join("") || `<p class="if-text-muted">No entity groups match the current filters.</p>`;
+      }
+
+      function renderRelationships() {
+        $("[data-relationship-stack]").innerHTML = state.model.relationshipOntology.map((item) => `
+          <article class="if-relation-card">
+            <div class="if-relation-card__top">
+              <strong>${escapeHtml(item.class)}</strong>
+              <span class="if-badge if-badge--status-in-review">Evidence rule</span>
+            </div>
+            <div class="if-model-chip-row">${item.types.map((type) => `<span class="if-chip">${escapeHtml(type)}</span>`).join("")}</div>
+            <p class="if-model-small"><strong>Evidence:</strong> ${escapeHtml(item.evidenceRequirement)}</p>
+            <p class="if-model-small"><strong>Publish:</strong> ${escapeHtml(item.publishRule)}</p>
+          </article>
+        `).join("");
+      }
+
+      function renderStorage() {
+        $("[data-storage-list]").innerHTML = state.model.storageMapping.map((item) => `
+          <li>
+            <strong>${escapeHtml(item.store)}</strong>
+            <p class="if-model-small">${escapeHtml(item.rule)}</p>
+            <div class="if-model-chip-row">${item.owns.map((owned) => `<span class="if-chip">${escapeHtml(owned)}</span>`).join("")}</div>
+          </li>
+        `).join("");
+      }
+
+      function renderArtifactSpec() {
+        const stages = [
+          {
+            label: "Capture",
+            entities: ["SourceRegistry", "SourceRun", "RawArtifact", "ParsedArtifact"],
+            contract: "Preserve source identity, fetch run, immutable raw bytes, parsed text, locator map, hash, and parser provenance.",
+            decisions: ["official vs guarded", "delta vs full fetch", "content hash", "parser profile"]
+          },
+          {
+            label: "Canonical Artifact",
+            entities: ["IntelligenceObject", "GovernanceArtifact", "ArtifactVersion", "ArtifactSection", "ArtifactLifecycleEvent"],
+            contract: "Normalize the artifact as a versioned governance object with section hierarchy, lifecycle state, classification, applicability, and canonical IDs.",
+            decisions: ["artifact kind", "canonical parent", "version label", "section path", "effective status"]
+          },
+          {
+            label: "Claims and Authority",
+            entities: ["Citation", "CitationResolution", "RelationshipType", "EntityRelationship", "EvidenceLocator"],
+            contract: "Convert references, adoptions, supersessions, implements/implemented-by claims, and evidence-backed inferences into typed graph edges.",
+            decisions: ["claim text", "relationship type", "target resolution", "confidence score", "trust label"]
+          },
+          {
+            label: "Operational Effect",
+            entities: ["Organization", "PolicyRoleAssignment", "ArtifactApplicability", "Obligation", "Deadline"],
+            contract: "Extract who must do what, where it applies, which organizations own execution, and what deadlines or conditions control implementation.",
+            decisions: ["actor", "action", "scope", "deadline rule", "exception"]
+          },
+          {
+            label: "Evidence and Review",
+            entities: ["ImplementationEvidence", "Finding", "ReviewTask", "ReviewDecision"],
+            contract: "Attach implementation proof, surface gaps, create review work, and record human or agent decisions without losing the evidence trail.",
+            decisions: ["evidence type", "finding severity", "review reason", "decision", "rationale"]
+          }
+        ];
+        const entityLink = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          const id = `${entity.group}::${entity.name}`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(id)}">${escapeHtml(entity.name)}</button>`;
+        };
+        const fieldSummary = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return "";
+          const pk = entity.fields.find((field) => fieldKeyType(entity.name, field) === "pk");
+          const fks = entity.fields.filter((field) => fieldKeyType(entity.name, field) === "fk").slice(0, 3);
+          const attrs = entity.fields.filter((field) => fieldKeyType(entity.name, field) === "attr").slice(0, 4);
+          return `
+            <li>
+              <strong>${escapeHtml(entity.name)}</strong>
+              <span>${escapeHtml([pk ? `PK ${pk}` : "", fks.length ? `FK ${fks.join(", ")}` : "", attrs.length ? attrs.join(", ") : ""].filter(Boolean).join(" / "))}</span>
+            </li>
+          `;
+        };
+        $("[data-artifact-spec]").innerHTML = `
+          <div class="if-artifact-spec__rail">
+            ${stages.map((stage, index) => `
+              <article class="if-artifact-spec-card">
+                <div class="if-artifact-spec-card__top">
+                  <span class="if-badge">Step ${index + 1}</span>
+                  <h3>${escapeHtml(stage.label)}</h3>
+                </div>
+                <p>${escapeHtml(stage.contract)}</p>
+                <div class="if-model-chip-row">${stage.entities.map(entityLink).join("")}</div>
+                <dl class="if-artifact-spec-card__kv">
+                  <div><dt>Decisions</dt><dd>${escapeHtml(stage.decisions.join(" / "))}</dd></div>
+                </dl>
+                <ul class="if-artifact-field-list">${stage.entities.map(fieldSummary).join("")}</ul>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function renderClaimTaxonomy() {
+        const semantic = state.model.sampleGraph?.semanticModel;
+        if (!semantic) return;
+        const families = [
+          {
+            label: "Authority and Scope",
+            types: ["AuthorityClaim", "ApplicabilityClaim", "DelegationClaim", "DefinitionClaim"],
+            sink: "GovernanceArtifact / ArtifactApplicability / PolicyRoleAssignment",
+            test: "Can we identify who has authority, who is in scope, and what terms mean?"
+          },
+          {
+            label: "Duty and Timing",
+            types: ["ObligationClaim", "ProhibitionClaim", "PermissionClaim", "DeadlineClaim", "ReportingClaim"],
+            sink: "Obligation / Deadline / ReviewTask",
+            test: "Can we extract actor, modality, action, object, condition, and deadline?"
+          },
+          {
+            label: "Lifecycle and References",
+            types: ["LifecycleClaim", "DirectCitation", "AuthorityReference", "IncorporationReference", "LifecycleReference"],
+            sink: "Citation / CitationResolution / ArtifactLifecycleEvent / EntityRelationship",
+            test: "Can we resolve the cited object and prove the relationship from source text?"
+          },
+          {
+            label: "Implementation and Evidence",
+            types: ["ImplementationClaim", "EvidenceClaim", "ImpactClaim", "ControlReference", "EvidenceLocator"],
+            sink: "ImplementationEvidence / Finding / ReviewDecision / ImpactSignal",
+            test: "Can we connect policy intent to local implementation, proof, risk, or opportunity?"
+          }
+        ];
+        const claims = semantic.claimTypes || [];
+        const references = semantic.referenceTypes || [];
+        const primitives = semantic.relationshipPrimitives || [];
+        const allTypes = [...claims, ...references];
+        const typeByName = new Map(allTypes.map((item) => [item.type, item]));
+        const compactType = (type) => {
+          const item = typeByName.get(type);
+          return `
+            <li>
+              <strong>${escapeHtml(type)}</strong>
+              <span>${escapeHtml(item?.meaning || "Relationship primitive")}</span>
+            </li>
+          `;
+        };
+        $("[data-claim-taxonomy]").innerHTML = `
+          <div class="if-claim-taxonomy__summary">
+            <div class="if-graph-stat"><span>Claim types</span><strong>${claims.length}</strong></div>
+            <div class="if-graph-stat"><span>Reference types</span><strong>${references.length}</strong></div>
+            <div class="if-graph-stat"><span>Relationship primitives</span><strong>${primitives.length}</strong></div>
+            <div class="if-graph-stat"><span>Review rule</span><strong>Evidence locator required</strong></div>
+          </div>
+          <div class="if-claim-family-grid">
+            ${families.map((family) => `
+              <article class="if-claim-family-card">
+                <header>
+                  <h3>${escapeHtml(family.label)}</h3>
+                  <span class="if-badge">${family.types.length} types</span>
+                </header>
+                <p>${escapeHtml(family.test)}</p>
+                <dl class="if-artifact-spec-card__kv">
+                  <div><dt>Canonical sink</dt><dd>${escapeHtml(family.sink)}</dd></div>
+                </dl>
+                <ul class="if-claim-type-list">${family.types.map(compactType).join("")}</ul>
+              </article>
+            `).join("")}
+          </div>
+          <section class="if-claim-primitive-strip" aria-label="Relationship primitive examples">
+            <h3>Relationship Primitives</h3>
+            <div class="if-model-chip-row">
+              ${primitives.map((item) => `<span class="if-chip" title="${escapeHtml(`${item.source} to ${item.target}: ${item.meaning}`)}">${escapeHtml(item.type)}</span>`).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      function renderPropagationRules() {
+        const graph = state.model.sampleGraph || {};
+        const relationships = graph.relationshipTypes || [];
+        const stages = graph.propagationStages || [];
+        const entityChip = (entityName) => {
+          const cleanName = entityName.trim();
+          const entity = findEntityDefinition(cleanName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(cleanName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(cleanName)}</button>`;
+        };
+        const storageChips = (storage) => storage.split("+").map((item) => entityChip(item)).join("");
+        const flowRule = (type) => {
+          const rules = {
+            amends: {
+              carries: ["legal status", "changed text", "effective date"],
+              inherits: ["citation identity", "source authority"],
+              stop: "Do not propagate obligations until amended target text resolves."
+            },
+            authorizes: {
+              carries: ["authority basis", "scope", "enabling power"],
+              inherits: ["legal authority", "applicability frame"],
+              stop: "Stop if the link is only topical similarity."
+            },
+            delegates_task: {
+              carries: ["actor", "action", "object", "deadline"],
+              inherits: ["responsibility chain", "due date pressure"],
+              stop: "Stop when actor, condition, or due date is implied."
+            },
+            incorporates: {
+              carries: ["referenced standard", "control id", "normative status"],
+              inherits: ["control vocabulary", "external requirement"],
+              stop: "Stop if reference is informational rather than required."
+            },
+            implements: {
+              carries: ["requirement", "procedure", "responsibility"],
+              inherits: ["authority", "scope", "mandatory language"],
+              stop: "Stop if competing upstream authorities conflict."
+            },
+            service_adopts: {
+              carries: ["service owner", "branch applicability", "publication system"],
+              inherits: ["DoD authority", "service-specific execution"],
+              stop: "Stop if DON, DAF, or component applicability diverges."
+            },
+            echelon2_executes: {
+              carries: ["command owner", "operational scope", "execution path"],
+              inherits: ["service policy", "mission context"],
+              stop: "Stop if command guidance weakens service policy."
+            },
+            tailors: {
+              carries: ["local scope", "exception", "rationale"],
+              inherits: ["requirement intent", "approved variance"],
+              stop: "Stop if tailoring narrows a mandatory requirement without approval."
+            },
+            localizes: {
+              carries: ["local procedure", "system boundary", "control implementation"],
+              inherits: ["mapped authority", "control requirement"],
+              stop: "Stop if local text has no authority path."
+            },
+            verifies: {
+              carries: ["proof", "test result", "approval", "finding closure"],
+              inherits: ["evidence confidence", "review state"],
+              stop: "Stop if evidence proves existence but not implementation."
+            }
+          };
+          return rules[type] || {
+            carries: ["relationship label", "evidence locator", "review state"],
+            inherits: ["source context"],
+            stop: "Stop when evidence is missing or target resolution is ambiguous."
+          };
+        };
+        const coreTypes = relationships;
+        $("[data-propagation-rules]").innerHTML = `
+          <div class="if-propagation-summary">
+            <div class="if-graph-stat"><span>Typed edge classes</span><strong>${relationships.length}</strong></div>
+            <div class="if-graph-stat"><span>Propagation stages</span><strong>${stages.length}</strong></div>
+            <div class="if-graph-stat"><span>Bidirectional use</span><strong>Trace down / trace up</strong></div>
+            <div class="if-graph-stat"><span>Publish rule</span><strong>Evidence locator required</strong></div>
+          </div>
+          <div class="if-propagation-layout">
+            <section class="if-propagation-matrix" aria-label="Authority propagation relationship semantics">
+              ${coreTypes.map((item) => {
+                const rule = flowRule(item.type);
+                return `
+                  <article class="if-propagation-card">
+                    <header>
+                      <div>
+                        <h3>${escapeHtml(item.label)}</h3>
+                        <span>${escapeHtml(item.meaning)}</span>
+                      </div>
+                      <span class="if-badge">${escapeHtml(item.type)}</span>
+                    </header>
+                    <dl class="if-propagation-card__kv">
+                      <div><dt>Canonical storage</dt><dd><div class="if-model-chip-row">${storageChips(item.storage)}</div></dd></div>
+                      <div><dt>Downstream carries</dt><dd>${rule.carries.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</dd></div>
+                      <div><dt>Upstream proves</dt><dd>${rule.inherits.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</dd></div>
+                      <div><dt>Evidence rule</dt><dd>${escapeHtml(item.evidenceRule)}</dd></div>
+                      <div><dt>Review stop</dt><dd>${escapeHtml(rule.stop)}</dd></div>
+                    </dl>
+                  </article>
+                `;
+              }).join("")}
+            </section>
+            <section class="if-propagation-stage-ladder" aria-label="Extraction propagation stages">
+              <h3>Extraction-to-Propagation Ladder</h3>
+              ${stages.map((stage, index) => `
+                <article>
+                  <span class="if-badge">Gate ${index + 1}</span>
+                  <div>
+                    <strong>${escapeHtml(stage.stage)}</strong>
+                    <p>${escapeHtml(stage.failureMode)}</p>
+                    <div class="if-model-chip-row">${entityChip(stage.object.split("+")[0])}${stage.extract.slice(0, 4).map((field) => `<span class="if-chip">${escapeHtml(field)}</span>`).join("")}</div>
+                  </div>
+                </article>
+              `).join("")}
+            </section>
+          </div>
+        `;
+      }
+
+      function renderQualityGates() {
+        const pipeline = state.model.decompositionPipeline || [];
+        const relationships = state.model.relationshipOntology || [];
+        const gateGroups = [
+          {
+            label: "Source Integrity",
+            stages: ["Monitor", "Fetch"],
+            canonical: "SourceRun / RawArtifact / Blob hash",
+            blocks: "No source health, missing hash, failed blob write, stale endpoint, untracked access mode"
+          },
+          {
+            label: "Parse and Identity",
+            stages: ["Parse", "Normalize", "Resolve Identity"],
+            canonical: "ParsedArtifact / GovernanceArtifact / ArtifactVersion",
+            blocks: "Low parser confidence, missing canonical identifier, ambiguous alias/version, invalid dates"
+          },
+          {
+            label: "Relationship Evidence",
+            stages: ["Link", "Score"],
+            canonical: "Citation / CitationResolution / EntityRelationship / EvidenceLocator",
+            blocks: "No locator, unresolved citation, weak trust label, opaque confidence, inferred lifecycle edge"
+          },
+          {
+            label: "Review and Publication",
+            stages: ["Review Gate", "Index and Publish"],
+            canonical: "ReviewTask / ReviewDecision / GraphSnapshot / SearchDocument",
+            blocks: "High-impact change, restricted content, low confidence, unresolved finding, nondeterministic export"
+          }
+        ];
+        const stageByName = new Map(pipeline.map((stage) => [stage.stage, stage]));
+        const relationshipReview = relationships.map((item) => ({
+          label: item.class,
+          evidence: item.evidenceRequirement,
+          publish: item.publishRule
+        }));
+        const stageChip = (stageName) => {
+          const stage = stageByName.get(stageName);
+          return `<span class="if-chip" title="${escapeHtml(stage?.qualityGate || stageName)}">${escapeHtml(stageName)}</span>`;
+        };
+        $("[data-quality-gates]").innerHTML = `
+          <div class="if-quality-gates__summary">
+            <div class="if-graph-stat"><span>Pipeline gates</span><strong>${pipeline.length}</strong></div>
+            <div class="if-graph-stat"><span>Review-triggered edge classes</span><strong>${relationships.length}</strong></div>
+            <div class="if-graph-stat"><span>Publish default</span><strong>Hold inferred risk</strong></div>
+            <div class="if-graph-stat"><span>Audit requirement</span><strong>Locator + decision</strong></div>
+          </div>
+          <div class="if-quality-gate-grid">
+            ${gateGroups.map((group) => `
+              <article class="if-quality-gate-card">
+                <header>
+                  <h3>${escapeHtml(group.label)}</h3>
+                  <span class="if-badge">${group.stages.length} gates</span>
+                </header>
+                <div class="if-model-chip-row">${group.stages.map(stageChip).join("")}</div>
+                <dl class="if-artifact-spec-card__kv">
+                  <div><dt>Canonical evidence</dt><dd>${escapeHtml(group.canonical)}</dd></div>
+                  <div><dt>Blocks publication</dt><dd>${escapeHtml(group.blocks)}</dd></div>
+                </dl>
+                <ul class="if-quality-gate-list">
+                  ${group.stages.map((stageName) => {
+                    const stage = stageByName.get(stageName);
+                    return `<li><strong>${escapeHtml(stageName)}</strong><span>${escapeHtml(stage?.qualityGate || "Gate not defined.")}</span></li>`;
+                  }).join("")}
+                </ul>
+              </article>
+            `).join("")}
+          </div>
+          <section class="if-quality-review-strip">
+            <h3>Relationship Review Defaults</h3>
+            <div class="if-quality-review-grid">
+              ${relationshipReview.map((item) => `
+                <article>
+                  <strong>${escapeHtml(item.label)}</strong>
+                  <span>${escapeHtml(item.evidence)}</span>
+                  <em>${escapeHtml(item.publish)}</em>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      function renderLifecycleModel() {
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const tracks = [
+          {
+            name: "Source and Raw Artifact",
+            icon: "database",
+            entities: ["SourceRegistry", "SourceRun", "RawArtifact", "ParsedArtifact"],
+            states: ["candidate", "monitored", "fetched", "parsed", "quarantined"],
+            transitions: ["endpoint health changes", "hash changes", "parser confidence below threshold", "access label changes"],
+            publishRule: "Raw bytes and source metadata must be preserved before any derived record can become trusted."
+          },
+          {
+            name: "Canonical Artifact and Version",
+            icon: "policy",
+            entities: ["GovernanceArtifact", "ArtifactVersion", "ArtifactSection", "ArtifactLifecycleEvent"],
+            states: ["draft", "current", "amended", "superseded", "cancelled", "expired"],
+            transitions: ["new version detected", "cancellation notice", "amendatory text", "effective date reached"],
+            publishRule: "Only the resolved current version is default-visible; historical versions remain traceable."
+          },
+          {
+            name: "Claim and Relationship",
+            icon: "link",
+            entities: ["Citation", "CitationResolution", "EntityRelationship", "RelationshipType", "EvidenceLocator"],
+            states: ["extracted", "resolved", "inferred", "reviewed", "rejected", "stale"],
+            transitions: ["target ambiguity", "conflicting citation", "missing locator", "source version changed"],
+            publishRule: "Inferred or ambiguous edges stay reviewable until evidence and confidence clear the publish threshold."
+          },
+          {
+            name: "Obligation and Applicability",
+            icon: "task",
+            entities: ["Obligation", "Deadline", "PolicyRoleAssignment", "ArtifactApplicability"],
+            states: ["candidate", "assigned", "active", "overdue", "satisfied", "waived"],
+            transitions: ["actor extracted", "deadline resolved", "scope narrowed", "exception approved"],
+            publishRule: "Obligations need actor, modality, action, scope, and source locator before they can drive alerts."
+          },
+          {
+            name: "Evidence and Finding",
+            icon: "evidence",
+            entities: ["ImplementationEvidence", "Finding", "ReviewTask", "ReviewDecision"],
+            states: ["submitted", "linked", "validated", "insufficient", "accepted risk", "closed"],
+            transitions: ["proof attached", "test fails", "review decision recorded", "closure evidence added"],
+            publishRule: "Evidence can support, refute, or qualify a claim; absence becomes a finding only with indexed scope."
+          },
+          {
+            name: "Derived Surface",
+            icon: "external",
+            entities: ["SearchDocument", "GraphSnapshot", "APIContract", "ExportJob", "Notification"],
+            states: ["queued", "generated", "fresh", "stale", "held", "published"],
+            transitions: ["schema version changes", "canonical object changes", "review hold", "watchlist trigger"],
+            publishRule: "Derived outputs carry canonical IDs, source hashes, generated_at, freshness, and review state."
+          }
+        ];
+        const stateClasses = {
+          candidate: "if-status--status-pending",
+          monitored: "if-status--status-active",
+          fetched: "if-status--status-active",
+          parsed: "if-status--status-active",
+          quarantined: "if-status--status-blocked",
+          draft: "if-status--status-pending",
+          current: "if-status--status-active",
+          amended: "if-status--status-warnings",
+          superseded: "if-status--status-paused",
+          cancelled: "if-status--status-rejected",
+          expired: "if-status--status-degraded",
+          extracted: "if-status--status-pending",
+          resolved: "if-status--status-active",
+          inferred: "if-status--status-in-review",
+          reviewed: "if-status--status-approved",
+          rejected: "if-status--status-rejected",
+          stale: "if-status--status-degraded",
+          assigned: "if-status--status-active",
+          active: "if-status--status-active",
+          overdue: "if-status--status-blocked",
+          satisfied: "if-status--status-complete",
+          waived: "if-status--status-paused",
+          submitted: "if-status--status-pending",
+          linked: "if-status--status-active",
+          validated: "if-status--status-approved",
+          insufficient: "if-status--status-warnings",
+          "accepted risk": "if-status--status-paused",
+          closed: "if-status--status-complete",
+          queued: "if-status--status-pending",
+          generated: "if-status--status-active",
+          fresh: "if-status--status-healthy",
+          held: "if-status--status-blocked",
+          published: "if-status--status-approved"
+        };
+        const renderState = (value) => `<span class="if-status if-status--xs ${stateClasses[value] || "if-status--status-pending"}">${escapeHtml(value)}</span>`;
+        $("[data-lifecycle-model]").innerHTML = `
+          <div class="if-lifecycle-summary">
+            <div class="if-graph-stat"><span>Lifecycle tracks</span><strong>${tracks.length}</strong></div>
+            <div class="if-graph-stat"><span>Canonical event table</span><strong>ArtifactLifecycleEvent</strong></div>
+            <div class="if-graph-stat"><span>Review authority</span><strong>ReviewDecision</strong></div>
+            <div class="if-graph-stat"><span>Derived freshness</span><strong>generated_at + source hash</strong></div>
+          </div>
+          <div class="if-lifecycle-track-grid">
+            ${tracks.map((track) => `
+              <article class="if-lifecycle-track">
+                <header>
+                  <span class="if-lifecycle-track__icon if-icon-slot" data-if-icon="${escapeHtml(track.icon)}" aria-hidden="true"></span>
+                  <div>
+                    <h3>${escapeHtml(track.name)}</h3>
+                    <div class="if-model-chip-row">${track.entities.map(entityChip).join("")}</div>
+                  </div>
+                </header>
+                <section class="if-lifecycle-track__states" aria-label="${escapeHtml(track.name)} states">
+                  ${track.states.map(renderState).join("")}
+                </section>
+                <dl class="if-lifecycle-track__kv">
+                  <div><dt>State changes when</dt><dd>${track.transitions.map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</dd></div>
+                  <div><dt>Publishability rule</dt><dd>${escapeHtml(track.publishRule)}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </div>
+          <section class="if-lifecycle-review-rules">
+            <h3>Default Holds</h3>
+            <div class="if-lifecycle-review-rules__grid">
+              <article><strong>Lifecycle ambiguity</strong><span>Hold if cancellation, supersession, amendment, or effective date is unresolved.</span></article>
+              <article><strong>Authority uncertainty</strong><span>Hold if a relationship is inferred from topic similarity rather than a locator-backed citation.</span></article>
+              <article><strong>Guarded source</strong><span>Hold if access label, CUI marking, owner validation, or release boundary is missing.</span></article>
+              <article><strong>Derived drift</strong><span>Regenerate and mark stale when canonical IDs, hashes, schema version, or review state change.</span></article>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderChangeImpact() {
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const chip = (value) => `<span class="if-chip">${escapeHtml(value)}</span>`;
+        const triggers = [
+          {
+            event: "New or amended upstream authority",
+            icon: "policy",
+            detects: ["new public law", "U.S.C. source credit", "OMB/NIST/DoD revision"],
+            invalidates: ["CitationResolution", "EntityRelationship", "Obligation"],
+            actions: ["re-run trace", "mark downstream stale", "queue impact review"],
+            severity: "High"
+          },
+          {
+            event: "Superseded or cancelled issuance",
+            icon: "warning",
+            detects: ["cancellation notice", "supersedes clause", "rescission memo"],
+            invalidates: ["ArtifactVersion", "ArtifactLifecycleEvent", "SearchDocument"],
+            actions: ["set prior version historical", "flag dependent artifacts", "hold affected exports"],
+            severity: "Critical"
+          },
+          {
+            event: "Service or command implementation changes",
+            icon: "command",
+            detects: ["service adoption", "command supplement", "local procedure revision"],
+            invalidates: ["ArtifactApplicability", "PolicyRoleAssignment", "Obligation"],
+            actions: ["re-score applicability", "notify owners", "refresh graph neighborhood"],
+            severity: "Medium"
+          },
+          {
+            event: "Control, baseline, or evidence drift",
+            icon: "baseline",
+            detects: ["STIG release", "scan result", "SSP control update", "POA&M closure"],
+            invalidates: ["ImplementationEvidence", "Finding", "ReviewDecision"],
+            actions: ["rebuild evidence package", "close or reopen finding", "update readiness"],
+            severity: "High"
+          },
+          {
+            event: "Release boundary changes",
+            icon: "shield",
+            detects: ["classification update", "visibility change", "access owner decision"],
+            invalidates: ["ExportJob", "Notification", "GraphSnapshot"],
+            actions: ["mask excerpts", "regenerate exports", "audit downstream reads"],
+            severity: "High"
+          }
+        ];
+        const reconciliationQueues = [
+          {
+            queue: "Identity Merge / Split",
+            owner: "Source operator",
+            input: ["duplicate artifact", "alias drift", "version collision"],
+            output: ["canonical object repair", "redirected relationships", "audit log"],
+            entities: ["GovernanceArtifact", "ArtifactVersion", "ReviewTask"]
+          },
+          {
+            queue: "Relationship Revalidation",
+            owner: "Policy reviewer",
+            input: ["stale authority edge", "ambiguous citation", "conflicting implementation"],
+            output: ["accepted edge", "rejected edge", "new finding"],
+            entities: ["EntityRelationship", "EvidenceLocator", "ReviewDecision"]
+          },
+          {
+            queue: "Obligation Drift",
+            owner: "Compliance owner",
+            input: ["changed shall/must", "deadline change", "scope shift"],
+            output: ["updated obligation", "watchlist alert", "owner task"],
+            entities: ["Obligation", "Deadline", "PolicyRoleAssignment"]
+          },
+          {
+            queue: "Surface Regeneration",
+            owner: "Platform workflow",
+            input: ["schema version", "canonical hash change", "release decision"],
+            output: ["new graph snapshot", "search refresh", "export manifest"],
+            entities: ["GraphSnapshot", "SearchDocument", "ExportJob"]
+          }
+        ];
+        const impactPaths = [
+          "RawArtifact hash changes; ParsedArtifact stale; ArtifactVersion review",
+          "ArtifactLifecycleEvent supersedes; EntityRelationship stale; downstream obligations held",
+          "CitationResolution target changes; graph edge confidence drops; reviewer queue",
+          "Obligation scope changes; alerts re-deduped; owner watchlist refreshed",
+          "ReviewDecision masks source quote; exports regenerated; API etags updated"
+        ];
+        const severityClass = (severity) => {
+          if (severity === "Critical") return "if-badge--status-blocked";
+          if (severity === "High") return "if-badge--status-warnings";
+          return "if-badge--info";
+        };
+        $("[data-change-impact]").innerHTML = `
+          <div class="if-change-impact-summary">
+            <div class="if-graph-stat"><span>Change triggers</span><strong>${triggers.length}</strong></div>
+            <div class="if-graph-stat"><span>Reconciliation queues</span><strong>${reconciliationQueues.length}</strong></div>
+            <div class="if-graph-stat"><span>Primary event</span><strong>ArtifactLifecycleEvent</strong></div>
+            <div class="if-graph-stat"><span>Default action</span><strong>mark stale before publish</strong></div>
+          </div>
+          <section class="if-change-trigger-grid" aria-label="Change triggers">
+            ${triggers.map((trigger) => `
+              <article class="if-change-trigger">
+                <header>
+                  <span class="if-change-trigger__icon if-icon-slot" data-if-icon="${escapeHtml(trigger.icon)}" aria-hidden="true"></span>
+                  <div>
+                    <h3>${escapeHtml(trigger.event)}</h3>
+                    <span class="if-badge ${severityClass(trigger.severity)}">${escapeHtml(trigger.severity)}</span>
+                  </div>
+                </header>
+                <dl class="if-change-trigger__kv">
+                  <div><dt>Detected by</dt><dd>${trigger.detects.map(chip).join("")}</dd></div>
+                  <div><dt>Invalidates</dt><dd>${trigger.invalidates.map(entityChip).join("")}</dd></div>
+                  <div><dt>Actions</dt><dd>${trigger.actions.map(chip).join("")}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-reconciliation-grid" aria-label="Reconciliation queues">
+            ${reconciliationQueues.map((queue) => `
+              <article class="if-reconciliation-card">
+                <header>
+                  <strong>${escapeHtml(queue.queue)}</strong>
+                  <span class="if-badge">${escapeHtml(queue.owner)}</span>
+                </header>
+                <dl>
+                  <div><dt>Inputs</dt><dd>${queue.input.map(chip).join("")}</dd></div>
+                  <div><dt>Outputs</dt><dd>${queue.output.map(chip).join("")}</dd></div>
+                  <div><dt>Canonical records</dt><dd>${queue.entities.map(entityChip).join("")}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-impact-paths">
+            <h3>Invalidation Paths</h3>
+            <ol>
+              ${impactPaths.map((path) => `<li>${escapeHtml(path)}</li>`).join("")}
+            </ol>
+          </section>
+        `;
+      }
+
+      function renderConfidenceRouting() {
+        const pipeline = state.model.decompositionPipeline || [];
+        const relationships = state.model.relationshipOntology || [];
+        const scoreStage = pipeline.find((stage) => stage.stage === "Score") || {};
+        const reviewStage = pipeline.find((stage) => stage.stage === "Review Gate") || {};
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const dimensions = [
+          {
+            label: "Source Confidence",
+            field: "source_confidence",
+            weight: 18,
+            sample: 96,
+            checks: ["official registry", "endpoint health", "publisher identity", "access label"],
+            entities: ["SourceRegistry", "SourceRun"]
+          },
+          {
+            label: "Parser Confidence",
+            field: "parser_confidence",
+            weight: 12,
+            sample: 84,
+            checks: ["section hierarchy", "table extraction", "locator map", "format profile"],
+            entities: ["ParsedArtifact", "ParserProfile"]
+          },
+          {
+            label: "Identity Confidence",
+            field: "identity_confidence",
+            weight: 16,
+            sample: 88,
+            checks: ["canonical identifier", "version match", "alias resolution", "publisher/date"],
+            entities: ["GovernanceArtifact", "ArtifactVersion"]
+          },
+          {
+            label: "Evidence Locator",
+            field: "locator_confidence",
+            weight: 18,
+            sample: 91,
+            checks: ["quote hash", "page/paragraph", "target span", "raw artifact hash"],
+            entities: ["EvidenceLocator", "RawArtifact"]
+          },
+          {
+            label: "Relationship Confidence",
+            field: "relationship_confidence",
+            weight: 16,
+            sample: 78,
+            checks: ["typed edge", "resolved citation", "direction", "conflict scan"],
+            entities: ["CitationResolution", "EntityRelationship"]
+          },
+          {
+            label: "Freshness Confidence",
+            field: "freshness_confidence",
+            weight: 10,
+            sample: 72,
+            checks: ["source cadence", "last modified", "supersession check", "generated_at"],
+            entities: ["ArtifactLifecycleEvent", "SearchDocument"]
+          },
+          {
+            label: "Review Confidence",
+            field: "review_confidence",
+            weight: 10,
+            sample: 65,
+            checks: ["review task", "decision rationale", "assignee role", "publishability"],
+            entities: ["ReviewTask", "ReviewDecision"]
+          }
+        ];
+        const routes = [
+          {
+            route: "Auto-publish",
+            threshold: ">= 0.92",
+            status: "Approved",
+            badge: "if-badge--status-approved",
+            applies: "Direct official source, exact locator, no lifecycle ambiguity, no guarded release concern.",
+            outputs: ["SearchDocument", "GraphSnapshot", "APIContract"]
+          },
+          {
+            route: "Publish with trust label",
+            threshold: "0.80-0.91",
+            status: "Trusted with caveat",
+            badge: "if-badge--status-warnings",
+            applies: "Evidence-backed but affected by freshness, parser, identity, or relationship uncertainty.",
+            outputs: ["SearchDocument", "GraphSnapshot", "Notification"]
+          },
+          {
+            route: "Human review",
+            threshold: "0.60-0.79",
+            status: "Needs review",
+            badge: "if-badge--status-in-review",
+            applies: "Inferred authority, ambiguous citation, high-impact obligation, restricted source, or conflicting relationship.",
+            outputs: ["ReviewTask", "Finding", "ReviewDecision"]
+          },
+          {
+            route: "Hold or quarantine",
+            threshold: "< 0.60",
+            status: "Blocked",
+            badge: "if-badge--status-blocked",
+            applies: "Missing raw artifact hash, no locator, unresolved source owner, unsafe release boundary, or critical lifecycle conflict.",
+            outputs: ["ReviewTask", "AuditLog"]
+          }
+        ];
+        const trustLabels = [
+          { label: "Official direct", meaning: "Publisher and locator prove the statement directly.", publish: "Can publish after contract checks." },
+          { label: "Authoritative guarded", meaning: "Trusted source but access/release boundary must travel with the record.", publish: "Review or role-gate derived outputs." },
+          { label: "Evidence-backed inference", meaning: "The relationship is reasonable and locator-backed but not explicit.", publish: "Route to review before trusted graph publication." },
+          { label: "Implementation proof", meaning: "Evidence proves local execution, test result, closure, waiver, or accepted risk.", publish: "Use as proof only within its system/scope boundary." },
+          { label: "Conflicted or stale", meaning: "Lifecycle, citation, source, or downstream implementation conflicts exist.", publish: "Hold until review decision resolves state." }
+        ];
+        const reviewPackage = [
+          "target object id",
+          "raw artifact hash",
+          "bounded source quote",
+          "locator map",
+          "confidence vector",
+          "trust label",
+          "routing reason",
+          "recommended decision"
+        ];
+        const riskCount = relationships.filter((item) => /review|hold|inferred|ambiguous|conflict|low/i.test(`${item.publishRule} ${item.evidenceRequirement}`)).length;
+        $("[data-confidence-routing]").innerHTML = `
+          <div class="if-confidence-routing__summary">
+            <div class="if-graph-stat"><span>Score dimensions</span><strong>${dimensions.length}</strong></div>
+            <div class="if-graph-stat"><span>Score gate</span><strong>${escapeHtml(scoreStage.stage || "Score")}</strong></div>
+            <div class="if-graph-stat"><span>Review gate</span><strong>${escapeHtml(reviewStage.stage || "Review Gate")}</strong></div>
+            <div class="if-graph-stat"><span>Review-sensitive classes</span><strong>${riskCount}</strong></div>
+          </div>
+          <section class="if-confidence-dimension-grid" aria-label="Composite confidence dimensions">
+            ${dimensions.map((dimension) => `
+              <article class="if-confidence-dimension">
+                <header>
+                  <strong>${escapeHtml(dimension.label)}</strong>
+                  <span class="if-badge">${dimension.weight}% weight</span>
+                </header>
+                <div class="if-confidence">
+                  <div class="if-confidence__label"><span>${escapeHtml(dimension.field)}</span><strong>${dimension.sample}%</strong></div>
+                  <div class="if-confidence__bar" style="--value: ${dimension.sample}%"></div>
+                </div>
+                <div class="if-model-chip-row">${dimension.entities.map(entityChip).join("")}</div>
+                <p>${escapeHtml(dimension.checks.join(" / "))}</p>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-routing-grid" aria-label="Confidence routing thresholds">
+            ${routes.map((route) => `
+              <article class="if-routing-card">
+                <header>
+                  <strong>${escapeHtml(route.route)}</strong>
+                  <span class="if-badge ${route.badge}">${escapeHtml(route.threshold)}</span>
+                </header>
+                <span class="if-status if-status--xs ${route.badge.replace("if-badge", "if-status")}">${escapeHtml(route.status)}</span>
+                <p>${escapeHtml(route.applies)}</p>
+                <div class="if-model-chip-row">${route.outputs.map(entityChip).join("")}</div>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-trust-label-strip">
+            <h3>Trust Labels</h3>
+            <div class="if-trust-label-grid">
+              ${trustLabels.map((item) => `
+                <article>
+                  <strong>${escapeHtml(item.label)}</strong>
+                  <span>${escapeHtml(item.meaning)}</span>
+                  <em>${escapeHtml(item.publish)}</em>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+          <section class="if-review-package">
+            <div>
+              <h3>Review Package Minimum</h3>
+              <p>Every human-reviewable claim should carry enough context for a reviewer to accept, reject, correct, or hold it without re-running discovery.</p>
+            </div>
+            <div class="if-model-chip-row">${reviewPackage.map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</div>
+          </section>
+        `;
+      }
+
+      function renderProvenanceContract() {
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const fieldChip = (fieldName) => `<span class="if-chip">${escapeHtml(fieldName)}</span>`;
+        const locatorEntity = findEntityDefinition("EvidenceLocator");
+        const locatorFields = locatorEntity?.fields || [
+          "evidence_locator_id",
+          "object_id",
+          "version_id",
+          "section_id",
+          "raw_artifact_id",
+          "page",
+          "paragraph",
+          "line_start",
+          "line_end",
+          "xpath",
+          "quote_hash",
+          "source_url"
+        ];
+        const locatorLayers = [
+          {
+            label: "Source Identity",
+            icon: "database",
+            fields: ["source_id", "source_url", "raw_artifact_id", "content_hash"],
+            purpose: "Proves which source, endpoint, run, and raw bytes produced the extracted value.",
+            entities: ["SourceRegistry", "SourceRun", "RawArtifact"]
+          },
+          {
+            label: "Structural Address",
+            icon: "columns",
+            fields: ["object_id", "version_id", "section_id", "section_path", "xpath"],
+            purpose: "Places the proof inside a specific logical artifact version, section, table, or paragraph.",
+            entities: ["GovernanceArtifact", "ArtifactVersion", "ArtifactSection"]
+          },
+          {
+            label: "Text Span",
+            icon: "quote",
+            fields: ["page", "paragraph", "line_start", "line_end", "bounded_quote", "quote_hash"],
+            purpose: "Identifies the exact source span that supports or refutes a field, claim, or relationship.",
+            entities: ["EvidenceLocator", "ParsedArtifact"]
+          },
+          {
+            label: "Claim Attachment",
+            icon: "link",
+            fields: ["relationship_id", "obligation_id", "finding_id", "decision_id"],
+            purpose: "Attaches the locator to the object being trusted, questioned, reviewed, or exported.",
+            entities: ["EntityRelationship", "Obligation", "Finding", "ReviewDecision"]
+          },
+          {
+            label: "Review and Release",
+            icon: "review",
+            fields: ["trust_label", "confidence_score", "review_state", "classification", "visibility"],
+            purpose: "Controls whether the proof can be shown, summarized, exported, or used in alerts.",
+            entities: ["ReviewTask", "ReviewDecision", "APIContract"]
+          }
+        ];
+        const evidenceShapes = [
+          {
+            shape: "Direct Quote",
+            minimum: ["raw_artifact_id", "section_id", "bounded_quote", "quote_hash"],
+            applies: "shall/must obligation, definition, authority statement, lifecycle clause"
+          },
+          {
+            shape: "Table or Matrix Cell",
+            minimum: ["table_id", "row_key", "column_key", "cell_hash"],
+            applies: "control crosswalk, applicability matrix, deadline table, service adoption table"
+          },
+          {
+            shape: "File/Package Evidence",
+            minimum: ["artifact_hash", "package_id", "source_owner", "retrieved_at"],
+            applies: "SSP export, SAR, POA&M, scan result, authorization decision package"
+          },
+          {
+            shape: "Absence Claim",
+            minimum: ["indexed_scope", "query_terms", "source_set", "searched_at"],
+            applies: "missing implementation evidence, obsolete reference, no matching local authority"
+          },
+          {
+            shape: "Reviewer Decision",
+            minimum: ["review_task_id", "decision", "rationale", "decision_at"],
+            applies: "accepted inference, rejected edge, waived obligation, held guarded output"
+          }
+        ];
+        const propagationRules = [
+          "A derived search result may show excerpts only when quote visibility permits release.",
+          "A graph edge is trusted only when its relationship_id has at least one supporting EvidenceLocator.",
+          "An alert may summarize a claim, but it must carry trigger_object_id and locator-backed reason.",
+          "An export must include canonical IDs, source hashes, generated_at, filter scope, and review state.",
+          "A human correction creates a new ReviewDecision; it does not overwrite raw evidence."
+        ];
+        $("[data-provenance-contract]").innerHTML = `
+          <div class="if-provenance-summary">
+            <div class="if-graph-stat"><span>Locator fields</span><strong>${locatorFields.length}</strong></div>
+            <div class="if-graph-stat"><span>Proof layers</span><strong>${locatorLayers.length}</strong></div>
+            <div class="if-graph-stat"><span>Evidence shapes</span><strong>${evidenceShapes.length}</strong></div>
+            <div class="if-graph-stat"><span>Canonical anchor</span><strong>EvidenceLocator</strong></div>
+          </div>
+          <section class="if-provenance-anatomy" aria-label="Evidence locator anatomy">
+            <article class="if-provenance-anatomy__core">
+              <header>
+                <span class="if-provenance-anatomy__icon if-icon-slot" data-if-icon="evidence" aria-hidden="true"></span>
+                <div>
+                  <h3>Locator Anatomy</h3>
+                  <p>Every extracted value should be able to point back to immutable source bytes, a logical artifact section, and a bounded source span.</p>
+                </div>
+              </header>
+              <div class="if-model-chip-row">${locatorFields.map(fieldChip).join("")}</div>
+            </article>
+            <div class="if-provenance-layer-grid">
+              ${locatorLayers.map((layer) => `
+                <article class="if-provenance-layer">
+                  <header>
+                    <span class="if-icon-slot" data-if-icon="${escapeHtml(layer.icon)}" aria-hidden="true"></span>
+                    <strong>${escapeHtml(layer.label)}</strong>
+                  </header>
+                  <p>${escapeHtml(layer.purpose)}</p>
+                  <div class="if-model-chip-row">${layer.entities.map(entityChip).join("")}</div>
+                  <div class="if-model-chip-row">${layer.fields.map(fieldChip).join("")}</div>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+          <section class="if-evidence-shape-grid" aria-label="Evidence shape requirements">
+            ${evidenceShapes.map((shape) => `
+              <article class="if-evidence-shape">
+                <header>
+                  <strong>${escapeHtml(shape.shape)}</strong>
+                  <span class="if-badge">${shape.minimum.length} minimum fields</span>
+                </header>
+                <p>${escapeHtml(shape.applies)}</p>
+                <div class="if-model-chip-row">${shape.minimum.map(fieldChip).join("")}</div>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-provenance-rules">
+            <h3>Propagation Rules</h3>
+            <ul>
+              ${propagationRules.map((rule) => `<li>${escapeHtml(rule)}</li>`).join("")}
+            </ul>
+          </section>
+        `;
+      }
+
+      function renderQueryPlaybooks() {
+        const playbooks = [
+          {
+            title: "Trace Down From Law",
+            question: "Given an NDAA section, U.S.C. section, or public law provision, what DoD, service, echelon 2/3, and local artifacts implement it?",
+            start: "Citation",
+            joins: ["CitationResolution", "EntityRelationship", "GovernanceArtifact", "ArtifactVersion", "ArtifactSection", "Obligation"],
+            proof: ["EvidenceLocator", "confidence_score", "trust_label", "review_state"],
+            output: "Authority chain, implementing artifacts, extracted obligations, review gaps"
+          },
+          {
+            title: "Trace Up From Local Statement",
+            question: "Given an SOP, SSP control narrative, STIG baseline, POA&M, or evidence note, what authority path supports it?",
+            start: "ImplementationEvidence",
+            joins: ["Obligation", "ArtifactSection", "Citation", "CitationResolution", "EntityRelationship", "GovernanceArtifact"],
+            proof: ["raw_artifact_id", "section_path", "quote_hash", "review_decision_id"],
+            output: "Upstream authority ladder, weak/missing citation warnings, confidence by hop"
+          },
+          {
+            title: "Find Unresolved Obligations",
+            question: "Which requirements have an actor and deadline but no implementation evidence, finding closure, or review decision?",
+            start: "Obligation",
+            joins: ["Deadline", "PolicyRoleAssignment", "ImplementationEvidence", "Finding", "ReviewTask", "ReviewDecision"],
+            proof: ["actor", "action", "due_date", "review_state"],
+            output: "Review queue candidates, overdue obligations, missing proof packages"
+          },
+          {
+            title: "Detect Lifecycle Conflicts",
+            question: "Which local or service artifacts rely on expired, superseded, cancelled, or ambiguous authority?",
+            start: "ArtifactLifecycleEvent",
+            joins: ["GovernanceArtifact", "ArtifactVersion", "CitationResolution", "EntityRelationship", "ReviewTask"],
+            proof: ["event_type", "effective_date", "target_artifact_id", "confidence_score"],
+            output: "Conflict list, impacted downstream artifacts, required reviewer actions"
+          },
+          {
+            title: "Evidence Package Readiness",
+            question: "Can a policy obligation be defended with enough locator-backed evidence to publish or export?",
+            start: "EvidenceLocator",
+            joins: ["ImplementationEvidence", "Obligation", "Finding", "ReviewDecision", "RawArtifact", "ParsedArtifact"],
+            proof: ["artifact_hash", "locator_map_uri", "evidence_type", "decision_at"],
+            output: "Publishable package, held package, or evidence gap with reason"
+          },
+          {
+            title: "Opportunity and Impact Signal",
+            question: "Which new or changed governance artifacts create downstream market, program, compliance, or operational effects?",
+            start: "GovernanceArtifact",
+            joins: ["ArtifactSection", "Obligation", "EntityRelationship", "Finding", "ReviewTask"],
+            proof: ["bounded_claim_text", "impact_type", "rationale", "confidence_score"],
+            output: "Event intelligence, opportunity candidates, affected programs, watchlist alerts"
+          }
+        ];
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        $("[data-query-playbooks]").innerHTML = `
+          <div class="if-query-playbook-grid">
+            ${playbooks.map((playbook, index) => `
+              <article class="if-query-playbook-card">
+                <header>
+                  <span class="if-badge">Query ${index + 1}</span>
+                  <h3>${escapeHtml(playbook.title)}</h3>
+                </header>
+                <p>${escapeHtml(playbook.question)}</p>
+                <dl class="if-query-playbook-card__kv">
+                  <div><dt>Start object</dt><dd>${entityChip(playbook.start)}</dd></div>
+                  <div><dt>Canonical joins</dt><dd><div class="if-model-chip-row">${playbook.joins.map(entityChip).join("")}</div></dd></div>
+                  <div><dt>Proof fields</dt><dd><div class="if-model-chip-row">${playbook.proof.map((field) => `<span class="if-chip">${escapeHtml(field)}</span>`).join("")}</div></dd></div>
+                  <div><dt>Expected answer</dt><dd>${escapeHtml(playbook.output)}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function renderAnswerContracts() {
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const fieldChip = (fieldName) => `<span class="if-chip">${escapeHtml(fieldName)}</span>`;
+        const contracts = [
+          {
+            name: "AuthorityTraceAnswer",
+            icon: "graph",
+            purpose: "Trace down from law or trace up from local execution with every hop backed by a typed relationship and locator.",
+            root: "EntityRelationship",
+            canonical: ["GovernanceArtifact", "ArtifactVersion", "ArtifactSection", "CitationResolution", "EntityRelationship", "EvidenceLocator"],
+            required: ["trace_id", "root_object_id", "direction", "hop_count", "relationship_ids", "evidence_locator_ids", "confidence_vector", "review_state"],
+            surfaces: ["Graph Snapshot", "API Contract", "Evidence Package"],
+            hold: "Hold if any hop is inferred, stale, unresolved, or lacks source locator."
+          },
+          {
+            name: "ObligationAnswer",
+            icon: "task",
+            purpose: "Return who must do what, under what scope, by when, and what proof is missing or accepted.",
+            root: "Obligation",
+            canonical: ["Obligation", "Deadline", "PolicyRoleAssignment", "ArtifactApplicability", "ImplementationEvidence", "Finding"],
+            required: ["obligation_id", "actor", "action", "object", "modality", "scope", "deadline_id", "evidence_status", "review_state"],
+            surfaces: ["Search Index", "Watchlist Alert", "API Contract"],
+            hold: "Hold alerting if actor, action, deadline, or applicability scope is ambiguous."
+          },
+          {
+            name: "EvidencePackageAnswer",
+            icon: "evidence",
+            purpose: "Bundle source proof, implementation proof, review decisions, and gaps for export or reviewer defense.",
+            root: "EvidenceLocator",
+            canonical: ["RawArtifact", "ParsedArtifact", "EvidenceLocator", "ImplementationEvidence", "ReviewDecision", "ExportJob"],
+            required: ["package_id", "source_hashes", "locator_map_uri", "evidence_ids", "decision_ids", "generated_at", "filter_scope"],
+            surfaces: ["Evidence Package", "Export Package", "API Contract"],
+            hold: "Hold export if source hashes, release boundary, or review decision is missing."
+          },
+          {
+            name: "ConflictQueueAnswer",
+            icon: "warning",
+            purpose: "Return stale, conflicting, superseded, weakly supported, or locally weakened governance paths requiring review.",
+            root: "Finding",
+            canonical: ["ArtifactLifecycleEvent", "EntityRelationship", "Finding", "ReviewTask", "ReviewDecision"],
+            required: ["finding_id", "conflict_type", "affected_object_ids", "relationship_ids", "severity", "routing_reason", "review_task_id"],
+            surfaces: ["Watchlist Alert", "Graph Snapshot", "API Contract"],
+            hold: "Always review before publishing as trusted intelligence."
+          },
+          {
+            name: "SurfaceAlertAnswer",
+            icon: "bell",
+            purpose: "Notify users about changed authority, new obligation, missing evidence, lifecycle drift, or opportunity signal.",
+            root: "Notification",
+            canonical: ["ArtifactLifecycleEvent", "Obligation", "Finding", "Notification", "ReviewTask"],
+            required: ["notification_id", "trigger_object_id", "event_type", "recipient_scope", "dedupe_key", "generated_at", "action_target"],
+            surfaces: ["Watchlist Alert", "Search Index", "API Contract"],
+            hold: "Alerts summarize; they cannot change canonical review state."
+          },
+          {
+            name: "ExportManifestAnswer",
+            icon: "download",
+            purpose: "Deterministic export manifest for data extracts, evidence bundles, audit packages, and API snapshots.",
+            root: "ExportJob",
+            canonical: ["ExportJob", "APIContract", "RawArtifact", "EvidenceLocator", "ReviewDecision"],
+            required: ["export_job_id", "contract_version", "row_count", "source_hashes", "sort_key", "filters", "generated_at"],
+            surfaces: ["Export Package", "API Contract"],
+            hold: "Exports must include schema version, provenance, review state, and deterministic ordering."
+          }
+        ];
+        const contractFields = ["schema_version", "tenant_id", "visibility", "classification", "canonical_ids", "generated_at", "review_state", "provenance"];
+        const readRules = [
+          "Answers are read models derived from canonical tables; they are never write authorities.",
+          "Every returned object must include canonical IDs and enough provenance to refetch or review the source.",
+          "Derived summaries may be cached, but cache records must carry generated_at, source hashes, and schema version.",
+          "UI graph coordinates, ranking scores, excerpts, and alert copy are disposable presentation data.",
+          "Any action that changes trust, review state, lifecycle state, or evidence status writes back through canonical review entities."
+        ];
+        $("[data-answer-contracts]").innerHTML = `
+          <div class="if-answer-contract-summary">
+            <div class="if-graph-stat"><span>Answer shapes</span><strong>${contracts.length}</strong></div>
+            <div class="if-graph-stat"><span>Shared envelope</span><strong>${contractFields.length} fields</strong></div>
+            <div class="if-graph-stat"><span>Write authority</span><strong>Canonical tables only</strong></div>
+            <div class="if-graph-stat"><span>API stance</span><strong>DTO + provenance</strong></div>
+          </div>
+          <section class="if-answer-envelope">
+            <div>
+              <h3>Shared Response Envelope</h3>
+              <p>Every answer returned to the UI, API, export, graph, or alert layer carries the same trust, visibility, provenance, and freshness controls.</p>
+            </div>
+            <div class="if-model-chip-row">${contractFields.map(fieldChip).join("")}</div>
+          </section>
+          <section class="if-answer-contract-grid" aria-label="Canonical answer shapes">
+            ${contracts.map((contract) => `
+              <article class="if-answer-contract-card">
+                <header>
+                  <span class="if-answer-contract-card__icon if-icon-slot" data-if-icon="${escapeHtml(contract.icon)}" aria-hidden="true"></span>
+                  <div>
+                    <h3>${escapeHtml(contract.name)}</h3>
+                    <span>${escapeHtml(contract.purpose)}</span>
+                  </div>
+                </header>
+                <dl class="if-answer-contract-card__kv">
+                  <div><dt>Root object</dt><dd>${entityChip(contract.root)}</dd></div>
+                  <div><dt>Canonical joins</dt><dd><div class="if-model-chip-row">${contract.canonical.map(entityChip).join("")}</div></dd></div>
+                  <div><dt>Required fields</dt><dd><div class="if-model-chip-row">${contract.required.map(fieldChip).join("")}</div></dd></div>
+                  <div><dt>Allowed surfaces</dt><dd><div class="if-model-chip-row">${contract.surfaces.map(fieldChip).join("")}</div></dd></div>
+                  <div><dt>Hold condition</dt><dd>${escapeHtml(contract.hold)}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-answer-rules">
+            <h3>Read Model Rules</h3>
+            <ul>
+              ${readRules.map((rule) => `<li>${escapeHtml(rule)}</li>`).join("")}
+            </ul>
+          </section>
+        `;
+      }
+
+      function renderSurfaceContracts() {
+        const contracts = [
+          {
+            surface: "Search Index",
+            icon: "search",
+            derivesFrom: ["GovernanceArtifact", "ArtifactVersion", "ArtifactSection", "Citation", "Obligation", "Finding"],
+            mayContain: ["normalized text", "facets", "semantic chunks", "entity labels", "freshness", "classification"],
+            mustCarry: ["object_id", "version_id", "section_id", "source_uri", "content_hash", "generated_at"],
+            boundary: "Search ranking, embeddings, excerpts, and highlights are derived; canonical fields stay in PostgreSQL."
+          },
+          {
+            surface: "Graph Snapshot",
+            icon: "graph",
+            derivesFrom: ["IntelligenceObject", "EntityRelationship", "RelationshipType", "EvidenceLocator", "ReviewDecision"],
+            mayContain: ["nodes", "edges", "confidence", "trust labels", "review state", "relationship lens"],
+            mustCarry: ["snapshot_id", "relationship_id", "evidence_locator_id", "confidence_score", "review_state"],
+            boundary: "Graph layouts and filters are views; edges are canonical only when backed by EntityRelationship and evidence."
+          },
+          {
+            surface: "API Contract",
+            icon: "api",
+            derivesFrom: ["GovernanceArtifact", "Obligation", "ImplementationEvidence", "Finding", "ReviewTask"],
+            mayContain: ["typed DTOs", "pagination", "field masks", "schema version", "access policy"],
+            mustCarry: ["schema_version", "tenant_id", "visibility", "classification", "etag"],
+            boundary: "APIs expose canonical records and derived summaries, but never become the system of record."
+          },
+          {
+            surface: "Export Package",
+            icon: "download",
+            derivesFrom: ["RawArtifact", "ParsedArtifact", "EvidenceLocator", "ReviewDecision", "ExportJob"],
+            mayContain: ["CSV/JSON", "PDF bundle", "evidence manifest", "hash manifest", "review rationale"],
+            mustCarry: ["export_job_id", "generated_at", "source_hashes", "filter_scope", "review_state"],
+            boundary: "Exports are reproducible snapshots; exported rows must be traceable back to canonical IDs and source hashes."
+          },
+          {
+            surface: "Watchlist Alert",
+            icon: "bell",
+            derivesFrom: ["ArtifactLifecycleEvent", "Obligation", "Deadline", "Finding", "Notification"],
+            mayContain: ["change reason", "due date", "affected owner", "severity", "recommended review"],
+            mustCarry: ["trigger_object_id", "event_type", "generated_at", "recipient_scope", "dedupe_key"],
+            boundary: "Alerts are delivery surfaces; they cannot alter review state without a ReviewDecision."
+          },
+          {
+            surface: "Evidence Package",
+            icon: "evidence",
+            derivesFrom: ["ImplementationEvidence", "Finding", "Obligation", "EvidenceLocator", "RawArtifact"],
+            mayContain: ["proof chain", "artifact hashes", "locator map", "review decision", "gaps"],
+            mustCarry: ["evidence_id", "obligation_id", "artifact_hash", "locator", "decision_id"],
+            boundary: "Evidence packages prove or refute claims; missing proof creates Finding or ReviewTask, not silent confidence."
+          }
+        ];
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        $("[data-surface-contracts]").innerHTML = `
+          <div class="if-surface-contract-grid">
+            ${contracts.map((contract) => `
+              <article class="if-surface-contract-card">
+                <header>
+                  <span class="if-surface-contract-card__icon if-icon-slot" data-if-icon="${escapeHtml(contract.icon)}" aria-hidden="true"></span>
+                  <h3>${escapeHtml(contract.surface)}</h3>
+                </header>
+                <dl class="if-surface-contract-card__kv">
+                  <div><dt>Derives from</dt><dd><div class="if-model-chip-row">${contract.derivesFrom.map(entityChip).join("")}</div></dd></div>
+                  <div><dt>May contain</dt><dd><div class="if-model-chip-row">${contract.mayContain.map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</div></dd></div>
+                  <div><dt>Must carry</dt><dd><div class="if-model-chip-row">${contract.mustCarry.map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</div></dd></div>
+                </dl>
+                <p>${escapeHtml(contract.boundary)}</p>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function renderReleaseControls() {
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const fieldChip = (fieldName) => `<span class="if-chip">${escapeHtml(fieldName)}</span>`;
+        const guardedSources = (state.model.sourceFamilies || []).filter((source) => source.tier >= 2 || /guarded|restricted|portal|CUI|classified/i.test(`${source.accessMode} ${source.notes}`));
+        const accessLanes = [
+          {
+            lane: "Public",
+            icon: "external",
+            examples: ["official public source", "published issuance", "open API"],
+            defaultAction: "show source metadata, excerpts, links, and derived summaries",
+            requiredFields: ["source_url", "content_hash", "generated_at"],
+            entities: ["SourceRegistry", "RawArtifact", "SearchDocument"]
+          },
+          {
+            lane: "Public with Partial Coverage",
+            icon: "sourcePortal",
+            examples: ["public command site", "partial component library", "stale index"],
+            defaultAction: "show with freshness and coverage warning",
+            requiredFields: ["freshness_sla", "health_state", "review_state"],
+            entities: ["SourceRegistry", "SourceRun", "Finding"]
+          },
+          {
+            lane: "CAC / Tenant Gated",
+            icon: "shield",
+            examples: ["SharePoint", "Teams", "program portal", "RMF repository"],
+            defaultAction: "role-gate raw text; allow metadata and approved summaries",
+            requiredFields: ["tenant_id", "visibility", "owner_org_id", "access_label"],
+            entities: ["RawArtifact", "ImplementationEvidence", "ReviewTask"]
+          },
+          {
+            lane: "CUI / Restricted",
+            icon: "warning",
+            examples: ["CUI candidate document", "restricted evidence", "guarded connector"],
+            defaultAction: "metadata-only until classification and release review",
+            requiredFields: ["classification", "releasability", "decision_id", "audit_log_id"],
+            entities: ["ReviewDecision", "EvidenceLocator", "ExportJob"]
+          }
+        ];
+        const surfaceRules = [
+          {
+            surface: "Search",
+            mayShow: ["title", "public excerpt", "facets", "freshness"],
+            mustMask: ["guarded quote", "raw source URL", "CUI terms"],
+            hold: "No excerpt when quote visibility is not public."
+          },
+          {
+            surface: "Graph",
+            mayShow: ["node label", "edge type", "confidence", "review state"],
+            mustMask: ["guarded evidence text", "restricted target details"],
+            hold: "No trusted edge if evidence locator is hidden and relationship is inferred."
+          },
+          {
+            surface: "API",
+            mayShow: ["field masks", "schema version", "canonical IDs", "etag"],
+            mustMask: ["fields outside role scope", "restricted locators"],
+            hold: "Reject response shapes that omit tenant, visibility, or classification checks."
+          },
+          {
+            surface: "Export",
+            mayShow: ["approved manifest", "hashes", "review rationale"],
+            mustMask: ["unreleased raw artifacts", "unapproved quotes"],
+            hold: "Export requires deterministic scope, release decision, and audit trail."
+          },
+          {
+            surface: "Alert",
+            mayShow: ["trigger reason", "affected owner", "action target"],
+            mustMask: ["sensitive source text", "unauthorized program detail"],
+            hold: "Alert copy can summarize but cannot disclose guarded source content."
+          }
+        ];
+        const releaseActions = [
+          { action: "Show", meaning: "User can view full field or excerpt.", required: ["role match", "visibility allows", "classification clear"] },
+          { action: "Summarize", meaning: "User can see a non-sensitive derived summary.", required: ["reviewed summary", "no raw quote leak", "generated_at"] },
+          { action: "Mask", meaning: "Field exists but value is hidden or redacted.", required: ["mask reason", "field path", "policy rule"] },
+          { action: "Hold", meaning: "Object is not available to the surface.", required: ["review_task_id", "routing reason", "owner"] },
+          { action: "Audit", meaning: "Read or export is logged for accountability.", required: ["user_id", "object_id", "decision", "timestamp"] }
+        ];
+        $("[data-release-controls]").innerHTML = `
+          <div class="if-release-summary">
+            <div class="if-graph-stat"><span>Guarded source families</span><strong>${guardedSources.length}</strong></div>
+            <div class="if-graph-stat"><span>Access lanes</span><strong>${accessLanes.length}</strong></div>
+            <div class="if-graph-stat"><span>Surface rules</span><strong>${surfaceRules.length}</strong></div>
+            <div class="if-graph-stat"><span>Default posture</span><strong>metadata before raw text</strong></div>
+          </div>
+          <section class="if-release-lane-grid" aria-label="Access and classification lanes">
+            ${accessLanes.map((lane) => `
+              <article class="if-release-lane">
+                <header>
+                  <span class="if-release-lane__icon if-icon-slot" data-if-icon="${escapeHtml(lane.icon)}" aria-hidden="true"></span>
+                  <div>
+                    <h3>${escapeHtml(lane.lane)}</h3>
+                    <span>${escapeHtml(lane.defaultAction)}</span>
+                  </div>
+                </header>
+                <div class="if-model-chip-row">${lane.examples.map(fieldChip).join("")}</div>
+                <dl class="if-release-lane__kv">
+                  <div><dt>Required fields</dt><dd><div class="if-model-chip-row">${lane.requiredFields.map(fieldChip).join("")}</div></dd></div>
+                  <div><dt>Canonical entities</dt><dd><div class="if-model-chip-row">${lane.entities.map(entityChip).join("")}</div></dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-release-surface-grid" aria-label="Surface release rules">
+            ${surfaceRules.map((rule) => `
+              <article class="if-release-surface">
+                <header>
+                  <strong>${escapeHtml(rule.surface)}</strong>
+                  <span class="if-badge if-badge--status-in-review">release checked</span>
+                </header>
+                <dl>
+                  <div><dt>May show</dt><dd>${rule.mayShow.map(fieldChip).join("")}</dd></div>
+                  <div><dt>Must mask</dt><dd>${rule.mustMask.map(fieldChip).join("")}</dd></div>
+                  <div><dt>Hold rule</dt><dd>${escapeHtml(rule.hold)}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </section>
+          <section class="if-release-action-strip">
+            <h3>Release Actions</h3>
+            <div class="if-release-action-grid">
+              ${releaseActions.map((item) => `
+                <article>
+                  <strong>${escapeHtml(item.action)}</strong>
+                  <span>${escapeHtml(item.meaning)}</span>
+                  <div class="if-model-chip-row">${item.required.map(fieldChip).join("")}</div>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      function renderEchelonModel() {
+        const model = state.model.echelonGovernanceModel;
+        if (!model) return;
+        const chipList = (items) => (items || []).map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("");
+        const candidateIcon = (family) => {
+          const value = family.toLowerCase();
+          if (value.includes("control / authority")) return "controlMap";
+          if (value.includes("ssp")) return "rmf";
+          if (value.includes("baseline") || value.includes("stig")) return "baseline";
+          if (value.includes("authorization") || value.includes("assessment")) return "authorization";
+          if (value.includes("tasking") || value.includes("workflow")) return "task";
+          if (value.includes("sop") || value.includes("desktop")) return "sop";
+          if (value.includes("supplement") || value.includes("guide")) return "program";
+          return "command";
+        };
+        const surfaceIcon = (surface) => {
+          const value = surface.toLowerCase();
+          if (value.includes("central")) return "sourcePortal";
+          if (value.includes("agency") || value.includes("component")) return "organization";
+          if (value.includes("doctrine")) return "program";
+          if (value.includes("acquisition") || value.includes("budget")) return "opportunity";
+          if (value.includes("standards") || value.includes("forms") || value.includes("logistics")) return "controlMap";
+          if (value.includes("command")) return "command";
+          if (value.includes("cyber")) return "cyber";
+          if (value.includes("authenticated")) return "shield";
+          if (value.includes("authorization") || value.includes("evidence")) return "evidence";
+          return "database";
+        };
+        const candidateMarkup = model.artifactCandidates.map((item) => `
+          <article class="if-echelon-card" data-layer="${escapeHtml(item.layer)}">
+            <div class="if-echelon-card__top">
+              <span class="if-echelon-card__identity">
+                <span class="if-echelon-card__icon if-icon-slot" data-if-icon="${escapeHtml(candidateIcon(item.family))}" aria-hidden="true"></span>
+                <strong>${escapeHtml(item.family)}</strong>
+              </span>
+              <span class="if-badge ${item.layer === "Echelon 4" ? "if-badge--info" : ""}">${escapeHtml(item.layer)}</span>
+            </div>
+            <p class="if-model-small">${escapeHtml(item.bestUse)}</p>
+            <section>
+              <h3 class="if-card__title">Contains</h3>
+              <div class="if-model-chip-row">${chipList(item.contains.slice(0, 6))}</div>
+            </section>
+            <section>
+              <h3 class="if-card__title">Maps to</h3>
+              <div class="if-model-chip-row">${chipList(item.mapsTo.slice(0, 5))}</div>
+            </section>
+            <section>
+              <h3 class="if-card__title">Likely Names</h3>
+              <p class="if-model-small">${escapeHtml(item.examples.join(" / "))}</p>
+            </section>
+          </article>
+        `).join("");
+        const roleMarkup = (model.sourceRoleTaxonomy || []).map((role) => `
+          <article class="if-source-role-card">
+            <header>
+              <strong>${escapeHtml(role.role)}</strong>
+              <span class="if-badge ${badgeClassForSourceRole(role.role)}">${role.canonicalObjects.length} objects</span>
+            </header>
+            <p class="if-model-small">${escapeHtml(role.purpose)}</p>
+            <div class="if-source-role-card__grid">
+              <div>
+                <h3 class="if-card__title">Canonical Objects</h3>
+                <div class="if-model-chip-row">${chipList(role.canonicalObjects.slice(0, 6))}</div>
+              </div>
+              <div>
+                <h3 class="if-card__title">Examples</h3>
+                <div class="if-model-chip-row">${chipList(role.examples.slice(0, 6))}</div>
+              </div>
+            </div>
+          </article>
+        `).join("");
+        const surfaceMarkup = model.discoverySurfaces.map((surface) => `
+          <article class="if-source-map-lane">
+            <header class="if-source-map-lane__header">
+              <span class="if-source-map-lane__icon if-icon-slot" data-if-icon="${escapeHtml(surfaceIcon(surface.surface))}" aria-hidden="true"></span>
+              <div>
+                <strong>${escapeHtml(surface.surface)}</strong>
+                <div class="if-model-chip-row">
+                  <span class="if-badge">${escapeHtml(surface.access)}</span>
+                  <span class="if-badge if-badge--info">${escapeHtml(surface.trust)}</span>
+                </div>
+              </div>
+            </header>
+            <ul class="if-source-map-lane__links">
+              ${surface.locations.map((location) => `
+                <li>
+                  ${location.url
+                    ? `<a class="if-link" href="${escapeHtml(location.url)}" target="_blank" rel="noreferrer">${escapeHtml(location.label)}</a>`
+                    : `<span>${escapeHtml(location.label)}</span>`}
+                </li>
+              `).join("")}
+            </ul>
+            <section>
+              <h3 class="if-card__title">Usually Contains</h3>
+              <div class="if-model-chip-row">${chipList(surface.found.slice(0, 7))}</div>
+            </section>
+            <p class="if-source-map-lane__gap">${escapeHtml(surface.gap)}</p>
+          </article>
+        `).join("");
+        const objectMappingMarkup = (model.sourceObjectMappings || []).map((mapping) => `
+          <article class="if-source-object-card">
+            <header>
+              <div>
+                <strong>${escapeHtml(mapping.source)}</strong>
+                <span>${escapeHtml(mapping.caveat)}</span>
+              </div>
+              <span class="if-badge if-badge--info">${escapeHtml(mapping.artifactFamilies.slice(0, 2).join(" / "))}</span>
+            </header>
+            <dl class="if-source-object-card__grid">
+              <div>
+                <dt>Where to fetch</dt>
+                <dd>${chipList(mapping.endpoints)}</dd>
+              </div>
+              <div>
+                <dt>Canonical objects</dt>
+                <dd>${chipList(mapping.canonicalObjects)}</dd>
+              </div>
+              <div>
+                <dt>Source identity keys</dt>
+                <dd>${chipList(mapping.sourceKeys)}</dd>
+              </div>
+              <div>
+                <dt>Extract from source</dt>
+                <dd>${chipList(mapping.extract)}</dd>
+              </div>
+              <div>
+                <dt>Relationship hints</dt>
+                <dd>${chipList(mapping.relationshipHints)}</dd>
+              </div>
+            </dl>
+          </article>
+        `).join("");
+        const huntMarkup = model.sourceHuntFlow.map((step) => `
+          <article class="if-source-hunt-step">
+            <span>Step ${step.step}</span>
+            <strong>${escapeHtml(step.label)}</strong>
+            <p class="if-model-small">${escapeHtml(step.lookFor.join(" / "))}</p>
+            <span class="if-badge if-badge--info">${escapeHtml(step.output)}</span>
+          </article>
+        `).join("");
+        $("[data-echelon-model]").innerHTML = `
+          <section class="if-echelon-assessment">
+            <strong>${escapeHtml(model.assessment.headline)}</strong>
+            <ul class="if-model-list">
+              ${model.assessment.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+            </ul>
+          </section>
+          <section>
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Best Candidate Artifact Families</h3>
+                <p class="if-panel__subtitle">The coverage model treats formal directives, local procedures, cyber control statements, baselines, evidence, and workflow items as different records.</p>
+              </div>
+              <span class="if-badge">${model.artifactCandidates.length} families</span>
+            </div>
+            <div class="if-echelon-candidate-grid">${candidateMarkup}</div>
+          </section>
+          <section class="if-source-role-map">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Source Roles in the Canonical Model</h3>
+                <p class="if-panel__subtitle">Separate legal authority, implementation translation, early signal, and proof of adoption before linking artifacts together.</p>
+              </div>
+              <span class="if-badge">${(model.sourceRoleTaxonomy || []).length} source roles</span>
+            </div>
+            <div class="if-source-role-grid">${roleMarkup}</div>
+          </section>
+          <section class="if-source-map">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Where This Information Is Found</h3>
+                <p class="if-panel__subtitle">Start public and authoritative, then move toward command portals and implementation systems for actual echelon 4 proof.</p>
+              </div>
+            </div>
+            <div class="if-source-map__lanes">${surfaceMarkup}</div>
+          </section>
+          <section class="if-source-object-map">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Source to Object Mapping</h3>
+                <p class="if-panel__subtitle">Concrete source systems, identity keys, extractable fields, and the canonical objects they populate.</p>
+              </div>
+              <span class="if-badge">${(model.sourceObjectMappings || []).length} mapped sources</span>
+            </div>
+            <div class="if-source-object-grid">${objectMappingMarkup}</div>
+          </section>
+          <section>
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Source Hunt Flow</h3>
+                <p class="if-panel__subtitle">How an analyst or agent should move from a low-level artifact to canonical records.</p>
+              </div>
+            </div>
+            <div class="if-source-hunt-flow">${huntMarkup}</div>
+          </section>
+        `;
+      }
+
+      function renderAcquisitionMatrix() {
+        const model = state.model.echelonGovernanceModel;
+        if (!model) return;
+        const candidates = model.artifactCandidates || [];
+        const surfaces = model.discoverySurfaces || [];
+        const surfaceTrust = new Map(surfaces.map((surface) => [surface.surface, surface]));
+        const chipList = (items) => (items || []).map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("");
+        const entityChip = (entityName) => {
+          const entity = findEntityDefinition(entityName);
+          if (!entity) return `<span class="if-chip">${escapeHtml(entityName)}</span>`;
+          return `<button class="if-chip if-chip--button" type="button" data-select-kind="entity" data-select-id="${escapeHtml(`${entity.group}::${entity.name}`)}">${escapeHtml(entityName)}</button>`;
+        };
+        const accessFor = (surfaceNames) => {
+          const joined = surfaceNames.join(" ").toLowerCase();
+          if (joined.includes("emass") || joined.includes("rmf") || joined.includes("authorization") || joined.includes("scanner") || joined.includes("sharepoint") || joined.includes("cac") || joined.includes("portal") || joined.includes("file share")) return "Guarded connector";
+          if (joined.includes("cyber exchange") || joined.includes("publishing") || joined.includes("official") || joined.includes("public")) return "Public monitor";
+          return "Candidate source";
+        };
+        const locatorFor = (item) => {
+          const value = item.family.toLowerCase();
+          if (value.includes("command instruction")) return ["publication number", "command owner", "effective date", "parent reference"];
+          if (value.includes("supplement")) return ["parent issuance", "supplement title", "proponent", "tailoring clause"];
+          if (value.includes("crosswalk")) return ["authority citation", "control id", "system boundary", "mapping row"];
+          if (value.includes("sop") || value.includes("desktop")) return ["local owner", "procedure title", "approval date", "records retained"];
+          if (value.includes("ssp")) return ["control id", "system id", "inheritance provider", "implementation status"];
+          if (value.includes("baseline") || value.includes("stig")) return ["rule id", "asset scope", "finding status", "scan date"];
+          if (value.includes("authorization") || value.includes("assessment")) return ["package id", "assessment date", "authorizing official", "risk decision"];
+          return ["assignee", "due date", "source finding", "closure evidence"];
+        };
+        const riskFor = (item) => {
+          const value = item.sourceSurfaces.join(" ").toLowerCase();
+          if (value.includes("email") || value.includes("tracker")) return "Weak canonical identity; needs dedupe and closure evidence.";
+          if (value.includes("sharepoint") || value.includes("portal") || value.includes("file share")) return "Access, CUI marking, and source owner validation must be captured.";
+          if (value.includes("emass") || value.includes("authorization")) return "Evidence is system-specific; must be tied back to authority through controls.";
+          if (value.includes("scanner") || value.includes("baseline")) return "Technical proof can drift quickly; freshness and asset scope are mandatory.";
+          return "Coverage may be uneven across services and commands.";
+        };
+        const surfaceRows = surfaces.map((surface) => {
+          const matched = candidates.filter((candidate) => candidate.sourceSurfaces.some((name) => {
+            const lowName = name.toLowerCase();
+            const lowSurface = surface.surface.toLowerCase();
+            return lowSurface.includes("central") && (lowName.includes("official") || lowName.includes("publishing"))
+              || lowSurface.includes("command") && (lowName.includes("command") || lowName.includes("program") || lowName.includes("knowledge"))
+              || lowSurface.includes("cyber") && (lowName.includes("cyber") || lowName.includes("stig") || lowName.includes("scanner"))
+              || lowSurface.includes("authenticated") && (lowName.includes("sharepoint") || lowName.includes("portal") || lowName.includes("file share"))
+              || lowSurface.includes("authorization") && (lowName.includes("emass") || lowName.includes("authorization") || lowName.includes("evidence") || lowName.includes("rmf"));
+          }));
+          return { surface, matched };
+        });
+        $("[data-acquisition-matrix]").innerHTML = `
+          <div class="if-acquisition-summary">
+            <div class="if-graph-stat"><span>Artifact families</span><strong>${candidates.length}</strong></div>
+            <div class="if-graph-stat"><span>Discovery surfaces</span><strong>${surfaces.length}</strong></div>
+            <div class="if-graph-stat"><span>Primary guarded lanes</span><strong>${surfaceRows.filter((row) => row.surface.access !== "Public").length}</strong></div>
+            <div class="if-graph-stat"><span>Canonical start</span><strong>SourceRegistry to RawArtifact</strong></div>
+          </div>
+          <section class="if-acquisition-surface-strip" aria-label="Discovery surface coverage">
+            ${surfaceRows.map(({ surface, matched }) => `
+              <article>
+                <strong>${escapeHtml(surface.surface)}</strong>
+                <span>${escapeHtml(surface.access)} / ${escapeHtml(surface.trust)}</span>
+                <div class="if-model-chip-row">${matched.slice(0, 4).map((item) => `<span class="if-chip">${escapeHtml(item.family)}</span>`).join("")}</div>
+              </article>
+            `).join("")}
+          </section>
+          <div class="if-acquisition-row-grid">
+            ${candidates.map((item) => `
+              <article class="if-acquisition-row" data-layer="${escapeHtml(item.layer)}">
+                <header>
+                  <div>
+                    <strong>${escapeHtml(item.family)}</strong>
+                    <span>${escapeHtml(item.layer)} / ${escapeHtml(accessFor(item.sourceSurfaces))}</span>
+                  </div>
+                  <span class="if-badge ${item.confidence === "Primary" ? "if-badge--info" : "if-badge--status-in-review"}">${escapeHtml(item.confidence)}</span>
+                </header>
+                <dl class="if-acquisition-row__kv">
+                  <div><dt>Likely sources</dt><dd>${chipList(item.sourceSurfaces)}</dd></div>
+                  <div><dt>Locator keys</dt><dd>${chipList(locatorFor(item))}</dd></div>
+                  <div><dt>Canonical records</dt><dd>${item.mapsTo.slice(0, 5).map(entityChip).join("")}</dd></div>
+                  <div><dt>Discovery terms</dt><dd>${chipList(item.examples.slice(0, 3))}</dd></div>
+                  <div><dt>Guardrail</dt><dd>${escapeHtml(riskFor(item))}</dd></div>
+                </dl>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function findEntityDefinition(entityName) {
+        for (const group of state.model.entityGroups) {
+          const entity = group.entities.find((item) => item.name === entityName);
+          if (entity) return { ...entity, group: group.name };
+        }
+        return null;
+      }
+
+      function fieldKeyType(entityName, field) {
+        const primaryKeys = {
+          SourceRegistry: "source_id",
+          SourceRun: "source_run_id",
+          RawArtifact: "raw_artifact_id",
+          ParsedArtifact: "parsed_artifact_id",
+          IntelligenceObject: "object_id",
+          GovernanceArtifact: "artifact_id",
+          ArtifactVersion: "version_id",
+          ArtifactSection: "section_id",
+          ArtifactLifecycleEvent: "lifecycle_event_id",
+          Organization: "org_id",
+          PolicyRoleAssignment: "role_assignment_id",
+          ArtifactApplicability: "applicability_id",
+          Citation: "citation_id",
+          CitationResolution: "resolution_id",
+          EntityRelationship: "relationship_id",
+          RelationshipType: "relationship_type_id",
+          EvidenceLocator: "evidence_locator_id",
+          Obligation: "obligation_id",
+          Deadline: "deadline_id",
+          ImplementationEvidence: "implementation_evidence_id",
+          Finding: "finding_id",
+          ReviewTask: "review_task_id",
+          ReviewDecision: "decision_id"
+        };
+        if (primaryKeys[entityName] === field) return "pk";
+        if (field.endsWith("_id") || field.endsWith("_object_id") || field === "source_object_id" || field === "target_object_id") return "fk";
+        return "attr";
+      }
+
+      function routeErdEdge(edge, nodes) {
+        const from = nodes.get(edge.from);
+        const to = nodes.get(edge.to);
+        if (!from || !to) return "";
+        const dx = to.x - from.x;
+        const side = dx >= 0 ? 1 : -1;
+        const sourceX = from.x + side * 6.7;
+        const targetX = to.x - side * 6.7;
+        if (Math.abs(dx) > 10) {
+          const midX = (sourceX + targetX) / 2;
+          return `M ${sourceX.toFixed(2)} ${from.y.toFixed(2)} C ${midX.toFixed(2)} ${from.y.toFixed(2)}, ${midX.toFixed(2)} ${to.y.toFixed(2)}, ${targetX.toFixed(2)} ${to.y.toFixed(2)}`;
+        }
+        const railX = from.x + (from.x < 50 ? 9 : -9);
+        return `M ${sourceX.toFixed(2)} ${from.y.toFixed(2)} C ${railX.toFixed(2)} ${from.y.toFixed(2)}, ${railX.toFixed(2)} ${to.y.toFixed(2)}, ${targetX.toFixed(2)} ${to.y.toFixed(2)}`;
+      }
+
+      function renderErd() {
+        const erdLanes = [
+          { label: "Source Intake", x: 0, w: 18 },
+          { label: "Artifact Spine", x: 18, w: 27 },
+          { label: "Claims and Edges", x: 45, w: 24 },
+          { label: "Scope and Obligation", x: 69, w: 15 },
+          { label: "Evidence and Review", x: 84, w: 16 }
+        ];
+        const erdNodes = [
+          { entity: "SourceRegistry", x: 9, y: 14 },
+          { entity: "SourceRun", x: 9, y: 35 },
+          { entity: "RawArtifact", x: 9, y: 58 },
+          { entity: "ParsedArtifact", x: 9, y: 82 },
+          { entity: "IntelligenceObject", x: 28, y: 12, core: true },
+          { entity: "GovernanceArtifact", x: 37, y: 27, core: true },
+          { entity: "ArtifactVersion", x: 37, y: 47, core: true },
+          { entity: "ArtifactSection", x: 37, y: 69, core: true },
+          { entity: "ArtifactLifecycleEvent", x: 28, y: 89 },
+          { entity: "Citation", x: 53, y: 14 },
+          { entity: "CitationResolution", x: 53, y: 35 },
+          { entity: "EntityRelationship", x: 64, y: 56, core: true },
+          { entity: "RelationshipType", x: 53, y: 76 },
+          { entity: "EvidenceLocator", x: 64, y: 91 },
+          { entity: "Organization", x: 77, y: 13 },
+          { entity: "PolicyRoleAssignment", x: 77, y: 32 },
+          { entity: "ArtifactApplicability", x: 77, y: 52 },
+          { entity: "Obligation", x: 77, y: 72, core: true },
+          { entity: "Deadline", x: 77, y: 91 },
+          { entity: "ImplementationEvidence", x: 92, y: 23 },
+          { entity: "Finding", x: 92, y: 47 },
+          { entity: "ReviewTask", x: 92, y: 70 },
+          { entity: "ReviewDecision", x: 92, y: 91 }
+        ].map((node) => ({ ...node, definition: findEntityDefinition(node.entity) })).filter((node) => node.definition);
+        const erdEdges = [
+          { from: "SourceRegistry", to: "SourceRun", label: "runs" },
+          { from: "SourceRun", to: "RawArtifact", label: "captures" },
+          { from: "RawArtifact", to: "ParsedArtifact", label: "parses" },
+          { from: "ParsedArtifact", to: "ArtifactVersion", label: "materializes" },
+          { from: "IntelligenceObject", to: "GovernanceArtifact", label: "graph base" },
+          { from: "GovernanceArtifact", to: "ArtifactVersion", label: "has versions" },
+          { from: "ArtifactVersion", to: "ArtifactSection", label: "has sections" },
+          { from: "GovernanceArtifact", to: "ArtifactLifecycleEvent", label: "status events" },
+          { from: "ArtifactSection", to: "Citation", label: "contains citations", class: "evidence" },
+          { from: "Citation", to: "CitationResolution", label: "resolves to", class: "evidence" },
+          { from: "CitationResolution", to: "EntityRelationship", label: "creates edge", class: "evidence" },
+          { from: "RelationshipType", to: "EntityRelationship", label: "classifies" },
+          { from: "EvidenceLocator", to: "EntityRelationship", label: "supports", class: "evidence" },
+          { from: "Organization", to: "GovernanceArtifact", label: "publishes" },
+          { from: "GovernanceArtifact", to: "PolicyRoleAssignment", label: "assigns roles" },
+          { from: "Organization", to: "PolicyRoleAssignment", label: "is party" },
+          { from: "GovernanceArtifact", to: "ArtifactApplicability", label: "scopes" },
+          { from: "ArtifactSection", to: "Obligation", label: "extracts requirement" },
+          { from: "EvidenceLocator", to: "Obligation", label: "supports", class: "evidence" },
+          { from: "Obligation", to: "Deadline", label: "sets timing", class: "review" },
+          { from: "Obligation", to: "ImplementationEvidence", label: "requires proof", class: "review" },
+          { from: "ImplementationEvidence", to: "Finding", label: "reveals gap", class: "review" },
+          { from: "Finding", to: "ReviewTask", label: "queues review", class: "review" },
+          { from: "ReviewTask", to: "ReviewDecision", label: "decides", class: "review" },
+          { from: "EvidenceLocator", to: "ReviewDecision", label: "grounds decision", class: "evidence" }
+        ];
+        const nodeMap = new Map(erdNodes.map((node) => [node.entity, node]));
+        const laneMarkup = erdLanes.map((lane) => `
+          <div class="if-erd-lane" style="--x: ${lane.x}%; --w: ${lane.w}%;">${escapeHtml(lane.label)}</div>
+        `).join("");
+        const edgeMarkup = erdEdges.map((edge) => `
+          <path d="${escapeHtml(routeErdEdge(edge, nodeMap))}"
+            data-edge-class="${escapeHtml(edge.class || "canonical")}"
+            data-erd-edge-from="${escapeHtml(edge.from)}"
+            data-erd-edge-to="${escapeHtml(edge.to)}"
+            aria-label="${escapeHtml(`${edge.from} ${edge.label} ${edge.to}`)}"
+            marker-end="url(#if-erd-arrow)"></path>
+        `).join("");
+        const tableMarkup = erdNodes.map((node) => {
+          const entity = node.definition;
+          const id = `${entity.group}::${entity.name}`;
+          const isSelected = state.selected?.kind === "entity" && state.selected.id === id;
+          const fields = entity.fields.slice(0, 6).map((field) => {
+            const type = fieldKeyType(entity.name, field);
+            return `
+              <li class="if-erd-field">
+                <span class="if-erd-key${type === "fk" ? " if-erd-key--fk" : ""}">${type === "attr" ? "" : type}</span>
+                <span>${escapeHtml(field)}</span>
+              </li>
+            `;
+          }).join("");
+          return `
+            <button class="if-erd-table" type="button"
+              style="--x: ${node.x}%; --y: ${node.y}%;"
+              data-core="${node.core ? "true" : "false"}"
+              data-erd-node="${escapeHtml(entity.name)}"
+              data-erd-initial-x="${node.x}"
+              data-erd-initial-y="${node.y}"
+              data-select-kind="entity"
+              data-select-id="${escapeHtml(id)}"
+              aria-selected="${isSelected}">
+              <span class="if-erd-table__header">
+                <strong title="${escapeHtml(entity.name)}">${escapeHtml(entity.name)}</strong>
+                <span class="if-erd-table__meta">
+                  <span class="if-badge">${escapeHtml(entity.group.split(",")[0])}</span>
+                  <span class="if-badge if-badge--info">${entity.fields.length} fields</span>
+                </span>
+              </span>
+              <ul class="if-erd-field-list">${fields}</ul>
+              <span class="if-erd-table__footer">${escapeHtml(entity.relationships.slice(0, 1).join(""))}</span>
+            </button>
+          `;
+        }).join("");
+        const minimapMarkup = erdNodes.map((node) => `
+          <span class="if-erd-minimap__node"
+            data-erd-minimap-node="${escapeHtml(node.entity)}"
+            data-core="${node.core ? "true" : "false"}"
+            style="--x: ${node.x}%; --y: ${node.y}%;"></span>
+        `).join("");
+        $("[data-model-erd]").innerHTML = `
+          <section class="if-erd-shell"
+            data-if-erd
+            data-erd-mode="explore"
+            data-erd-storage-key="governance-artifact-erd-v5"
+            aria-label="Interactive governance artifact entity relationship diagram">
+            <div class="if-erd-toolbar">
+              <div class="if-erd-modebar" role="toolbar" aria-label="ERD interaction mode">
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-mode="explore" aria-pressed="true">Explore</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-mode="pan" aria-pressed="false">Pan</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-mode="arrange" aria-pressed="false">Arrange</button>
+              </div>
+              <div class="if-erd-zonebar" role="toolbar" aria-label="ERD quick navigation">
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-zone="all" aria-pressed="true">All</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-zone="source" data-x1="0" data-y1="0" data-x2="19" data-y2="100" data-zoom-limit="1.05" aria-pressed="false">Sources</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-zone="spine" data-x1="18" data-y1="0" data-x2="45" data-y2="100" data-zoom-limit="1.05" aria-pressed="false">Spine</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-zone="claims" data-x1="45" data-y1="0" data-x2="69" data-y2="100" data-zoom-limit="1.05" aria-pressed="false">Claims</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-zone="effect" data-x1="69" data-y1="0" data-x2="84" data-y2="100" data-zoom-limit="1.1" aria-pressed="false">Effect</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-erd-zone="review" data-x1="84" data-y1="0" data-x2="100" data-y2="100" data-zoom-limit="1.1" aria-pressed="false">Review</button>
+              </div>
+              <div class="if-toolbar__group if-toolbar__group--tight" aria-label="ERD viewport controls">
+                <button class="if-icon-btn" type="button" title="Zoom out ERD" data-if-erd-viewport="out"><span class="if-icon-slot" data-if-icon="minus" aria-hidden="true"></span></button>
+                <span class="if-badge" data-if-erd-zoom-label>100%</span>
+                <button class="if-icon-btn" type="button" title="Zoom in ERD" data-if-erd-viewport="in"><span class="if-icon-slot" data-if-icon="plus" aria-hidden="true"></span></button>
+                <button class="if-icon-btn" type="button" title="Fit ERD" data-if-erd-viewport="fit"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span></button>
+                <button class="if-icon-btn" type="button" title="Reset ERD layout" data-if-erd-reset><span class="if-icon-slot" data-if-icon="baseline" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div class="if-erd-organizer">
+              <div class="if-erd-organizer__note">
+                <span class="if-icon-slot" data-if-icon="edit" aria-hidden="true"></span>
+                <span>Drag empty space or use the minimap to pan. The scroll wheel keeps normal page scrolling; Ctrl/Command + wheel zooms. Arrange mode supports dragging nodes, arrow-key nudging, deconfliction, and saved layout.</span>
+              </div>
+              <div class="if-erd-control-group" aria-label="ERD display density controls">
+                <span class="if-erd-control-group__label">Display</span>
+                <div class="if-erd-control-group__buttons">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-density="auto" aria-pressed="true">Auto</button>
+                  <button class="if-btn if-btn--sm" type="button" data-if-erd-density="compact" aria-pressed="false">Compact</button>
+                  <button class="if-btn if-btn--sm" type="button" data-if-erd-density="map" aria-pressed="false">Map</button>
+                </div>
+              </div>
+              <div class="if-erd-control-group" aria-label="ERD focus controls">
+                <span class="if-erd-control-group__label">Focus</span>
+                <div class="if-erd-control-group__buttons">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-focus="neighborhood" aria-pressed="false" disabled>Neighbors</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-focus="upstream" aria-pressed="false" disabled>Upstream</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-focus="downstream" aria-pressed="false" disabled>Downstream</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-focus="clear" disabled>Show All</button>
+                </div>
+              </div>
+              <div class="if-erd-control-group" aria-label="ERD relationship filter controls">
+                <span class="if-erd-control-group__label">Relationships</span>
+                <div class="if-erd-control-group__buttons">
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-edge-filter="canonical" aria-pressed="true">Structure</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-edge-filter="evidence" aria-pressed="true">Claims</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-erd-edge-filter="review" aria-pressed="true">Review</button>
+                </div>
+              </div>
+              <div class="if-erd-control-group" aria-label="ERD layout controls">
+                <span class="if-erd-control-group__label">Layout</span>
+                <div class="if-erd-control-group__buttons">
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-organize="nudge">Gentle Nudge</button>
+                  <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-erd-organize="tidy">Deconflict</button>
+                </div>
+              </div>
+            </div>
+            <div class="if-graph-organizer__summary" aria-label="ERD state summary">
+              <div class="if-graph-stat"><span>Mode</span><strong data-if-erd-status="mode">Explore</strong></div>
+              <div class="if-graph-stat"><span>Entities</span><strong data-if-erd-status="nodes">${erdNodes.length}</strong></div>
+              <div class="if-graph-stat"><span>Relationships</span><strong data-if-erd-status="edges">${erdEdges.length}</strong></div>
+              <div class="if-graph-stat"><span>Lens</span><strong data-if-erd-status="edgeFilters">All relationships</strong></div>
+              <div class="if-graph-stat"><span>Focus</span><strong data-if-erd-status="selected">Full ERD</strong></div>
+            </div>
+            <div class="if-erd-legend" aria-label="ERD edge legend">
+              <span class="if-erd-legend__item"><span class="if-erd-legend__line"></span>Canonical parent or classifier</span>
+              <span class="if-erd-legend__item"><span class="if-erd-legend__line if-erd-legend__line--evidence"></span>Evidence-backed claim</span>
+              <span class="if-erd-legend__item"><span class="if-erd-legend__line if-erd-legend__line--review"></span>Implementation or review workflow</span>
+              <span class="if-badge">${erdNodes.length} entities / ${erdEdges.length} relationships</span>
+            </div>
+            <div class="if-erd-summary" aria-label="ERD interpretation summary">
+              <div class="if-erd-summary__item"><span>Artifact spine</span><strong>GovernanceArtifact to Version to Section</strong></div>
+              <div class="if-erd-summary__item"><span>Traceable claims</span><strong>Citation + EvidenceLocator create typed relationships</strong></div>
+              <div class="if-erd-summary__item"><span>Operational effect</span><strong>Section text yields obligations, deadlines, and evidence needs</strong></div>
+              <div class="if-erd-summary__item"><span>Control loop</span><strong>Findings become review tasks and decisions</strong></div>
+            </div>
+            <div class="if-erd-scroll">
+              <div class="if-erd-canvas" data-erd-pan-x="0" data-erd-pan-y="0" data-erd-zoom="1">
+                <div class="if-erd-minimap" tabindex="0" role="slider" aria-label="ERD minimap viewport">
+                  ${minimapMarkup}
+                  <span class="if-minimap-window"></span>
+                </div>
+                <div class="if-erd-viewport" data-if-erd-surface>
+                  <div class="if-erd-stage" role="group" aria-label="Entity relationship diagram for governance artifact decomposition">
+                    ${laneMarkup}
+                    <svg class="if-erd-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <marker id="if-erd-arrow" viewBox="0 0 10 10" refX="8.2" refY="5" markerWidth="4.5" markerHeight="4.5" markerUnits="strokeWidth" orient="auto">
+                          <path d="M 0 1.25 L 8.5 5 L 0 8.75 z" fill="#1e5aa8"></path>
+                        </marker>
+                      </defs>
+                      ${edgeMarkup}
+                    </svg>
+                    ${tableMarkup}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderGraph() {
+        const graph = state.model.sampleGraph;
+        $("[data-graph-title]").textContent = graph.title || "Canonical Flow Snapshot";
+        $("[data-graph-description]").textContent = graph.description || "Sources decompose into records, obligations, opportunities, and review work.";
+        const nodes = new Map(graph.nodes.map((node) => [node.id, node]));
+        const laneCenters = new Map((graph.lanes || []).map((lane, index, lanes) => [lane.label, ((index + 0.5) / lanes.length) * 100]));
+        const nodePosition = (node) => ({
+          x: laneCenters.get(node.lane) ?? (Number(node.x) || 50),
+          y: Number(node.y) || 50
+        });
+        const relationshipTypes = new Map((graph.relationshipTypes || []).map((item) => [item.type, item]));
+        const typeClass = (type) => String(type || "policy").toLowerCase();
+        const edgeLabelPosition = (edge) => {
+          const from = nodes.get(edge.from);
+          const to = nodes.get(edge.to);
+          if (!from || !to) return { x: 50, y: 50 };
+          const fromPosition = nodePosition(from);
+          const toPosition = nodePosition(to);
+          return {
+            x: (fromPosition.x + toPosition.x) / 2,
+            y: (fromPosition.y + toPosition.y) / 2 - 3
+          };
+        };
+        const lanes = (graph.lanes || []).map((lane) => `
+          <section class="if-graph-lane" style="--lane-color: ${escapeHtml(lane.color || "#1e5aa8")};">
+            <span class="if-graph-lane__label">${escapeHtml(lane.label)}</span>
+            <span class="if-graph-lane__meta">${escapeHtml(lane.meta)}</span>
+          </section>
+        `).join("");
+        const edgeMarkup = graph.edges.map((edge) => `<path data-edge-from="${escapeHtml(edge.from)}" data-edge-to="${escapeHtml(edge.to)}" data-edge-type="${escapeHtml(edge.type || edge.label)}"></path>`).join("");
+        const edgeLabels = graph.edges.map((edge) => {
+          const pos = edgeLabelPosition(edge);
+          const relationship = relationshipTypes.get(edge.type || edge.label) || {};
+          return `
+            <button class="if-edge-label" type="button"
+              data-if-graph-edge
+              data-edge-label-from="${escapeHtml(edge.from)}"
+              data-edge-label-to="${escapeHtml(edge.to)}"
+              data-edge-type="${escapeHtml(edge.type || edge.label)}"
+              data-edge-confidence="${escapeHtml(edge.confidence || "0.80")}"
+              data-edge-evidence="${escapeHtml(edge.evidence || "Relationship evidence is derived from canonical artifact lineage and source metadata.")}"
+              data-edge-rule="${escapeHtml(edge.evidenceRule || relationship.evidenceRule || "")}"
+              data-edge-review="${escapeHtml(edge.reviewRule || relationship.reviewRule || "")}"
+              data-edge-storage="${escapeHtml(edge.storage || relationship.storage || "")}"
+              style="--x: ${pos.x.toFixed(2)}%; --y: ${pos.y.toFixed(2)}%;">
+              ${escapeHtml(edge.label)}
+            </button>
+          `;
+        }).join("");
+        const nodeMarkup = graph.nodes.map((node, index) => {
+          const position = nodePosition(node);
+          return `
+          <button class="if-graph-node if-graph-node--${escapeHtml(typeClass(node.type))}${index === 0 ? " if-graph-node--primary" : ""}"
+            style="--x: ${position.x.toFixed(2)}%; --y: ${position.y.toFixed(2)}%;"
+            type="button"
+            data-node-id="${escapeHtml(node.id)}"
+            data-node-type="${escapeHtml(node.type)}"
+            data-node-label="${escapeHtml(node.label)}"
+            data-node-relation="${escapeHtml(node.lane || node.type)}"
+            ${node.serviceImplementations?.length ? `data-node-peek="${escapeHtml(node.serviceImplementations.map((item) => item.artifacts?.[0]).filter(Boolean).join(" / "))}"` : ""}
+            aria-selected="false">
+            <span class="if-graph-node__icon if-icon-slot" data-if-icon="${escapeHtml(node.icon || "policy")}" aria-hidden="true"></span>
+            <span class="if-graph-node__title">${escapeHtml(node.label)}</span>
+            <span class="if-graph-node__meta">${escapeHtml(node.subtitle || node.type)}</span>
+          </button>
+        `;
+        }).join("");
+        const chipList = (items) => (items || []).map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("");
+        const edgeButton = (edge, direction) => {
+          const peer = nodes.get(direction === "upstream" ? edge.from : edge.to);
+          if (!peer) return "";
+          return `
+            <li>
+              <button class="if-list-button" type="button" data-if-graph-traverse="${escapeHtml(peer.id)}">
+                <span>
+                  <strong>${escapeHtml(peer.label)}</strong>
+                  <em>${escapeHtml(edge.label)} / ${escapeHtml(peer.lane || peer.type)}</em>
+                </span>
+                <span class="if-badge">${escapeHtml(edge.confidence || "0.80")}</span>
+              </button>
+            </li>
+          `;
+        };
+        const nodePanels = graph.nodes.map((node, index) => {
+          const upstream = graph.edges.filter((edge) => edge.to === node.id);
+          const downstream = graph.edges.filter((edge) => edge.from === node.id);
+          return `
+          <section class="if-panel" data-node-panel="${escapeHtml(node.id)}" hidden>
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">${escapeHtml(node.label)}</h3>
+                <p class="if-panel__subtitle">${escapeHtml(node.subtitle || node.type)}</p>
+              </div>
+              <span class="if-badge if-badge--info">${escapeHtml(node.lane || node.type)}</span>
+            </div>
+            <div class="if-panel__body if-stack">
+              <p>${escapeHtml(node.summary || "Governance artifact in the authority chain.")}</p>
+              <div class="if-toolbar">
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-graph-trace="upstream" data-if-graph-trace-node="${escapeHtml(node.id)}">Trace Upstream</button>
+                <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-graph-trace="downstream" data-if-graph-trace-node="${escapeHtml(node.id)}">Trace Downstream</button>
+                <button class="if-btn if-btn--primary if-btn--sm" type="button" data-if-graph-trace="both" data-if-graph-trace-node="${escapeHtml(node.id)}">Trace Full Path</button>
+              </div>
+              <dl class="if-meta-grid if-meta-grid--dense">
+                <div class="if-kv"><dt>Object type</dt><dd>${escapeHtml(node.type)}</dd></div>
+                <div class="if-kv"><dt>Authority layer</dt><dd>${escapeHtml(node.lane || "Unassigned")}</dd></div>
+                <div class="if-kv"><dt>Upstream links</dt><dd>${upstream.length}</dd></div>
+                <div class="if-kv"><dt>Downstream links</dt><dd>${downstream.length}</dd></div>
+              </dl>
+              ${node.fields?.length ? `<section><h4 class="if-card__title">Fields to Capture</h4><div class="if-model-chip-row">${chipList(node.fields)}</div></section>` : ""}
+              ${node.signals?.length ? `<section><h4 class="if-card__title">Extraction Signals</h4><div class="if-model-chip-row">${chipList(node.signals)}</div></section>` : ""}
+              ${node.questions?.length ? `<section><h4 class="if-card__title">Analyst Questions</h4><ul class="if-model-list">${node.questions.map((question) => `<li>${escapeHtml(question)}</li>`).join("")}</ul></section>` : ""}
+              ${node.serviceImplementations?.length ? `
+                <section>
+                  <h4 class="if-card__title">Service Implementation Pattern</h4>
+                  <div class="if-service-implementation-grid">
+                    ${node.serviceImplementations.map((item) => `
+                      <article class="if-service-implementation">
+                        <span class="if-badge">${escapeHtml(item.family)}</span>
+                        <div class="if-model-chip-row">${(item.artifacts || []).map((artifact) => `<span class="if-chip">${escapeHtml(artifact)}</span>`).join("")}</div>
+                        <p>${escapeHtml(item.downstream)}</p>
+                      </article>
+                    `).join("")}
+                  </div>
+                </section>
+              ` : ""}
+              <div class="if-grid if-grid--2">
+                <section>
+                  <h4 class="if-card__title">Upstream Provenance</h4>
+                  ${upstream.length ? `<ul class="if-model-list">${upstream.map((edge) => edgeButton(edge, "upstream")).join("")}</ul>` : `<p class="if-text-muted">No higher authority is linked yet.</p>`}
+                </section>
+                <section>
+                  <h4 class="if-card__title">Downstream Propagation</h4>
+                  ${downstream.length ? `<ul class="if-model-list">${downstream.map((edge) => edgeButton(edge, "downstream")).join("")}</ul>` : `<p class="if-text-muted">No lower artifact is linked yet.</p>`}
+                </section>
+              </div>
+            </div>
+          </section>
+        `;
+        }).join("");
+        const legend = (graph.lanes || []).map((lane) => `<span class="if-legend-item"><span class="if-legend-dot" style="--legend-color: ${escapeHtml(lane.color || "#1e5aa8")};"></span>${escapeHtml(lane.label)}</span>`).join("");
+        const traceGuidance = (graph.traceGuidance || []).length ? `
+          <section class="if-panel if-panel--subtle">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Trace Semantics</h3>
+                <p class="if-panel__subtitle">How to read propagation downward and provenance upward.</p>
+              </div>
+            </div>
+            <div class="if-panel__body">
+              <ul class="if-model-list">${graph.traceGuidance.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </div>
+          </section>
+        ` : "";
+        const traceScenarios = (graph.traceScenarios || []).length ? `
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Trace Playbooks</h3>
+                <p class="if-panel__subtitle">Common investigation starts for downward propagation and upward provenance.</p>
+              </div>
+              <span class="if-badge if-badge--info">${graph.traceScenarios.length} playbooks</span>
+            </div>
+            <div class="if-panel__body">
+              <div class="if-trace-playbook-grid">
+                ${graph.traceScenarios.map((scenario) => `
+                  <article class="if-trace-playbook">
+                    <div>
+                      <h4>${escapeHtml(scenario.title)}</h4>
+                      <p>${escapeHtml(scenario.useCase)}</p>
+                    </div>
+                    <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-graph-trace="${escapeHtml(scenario.direction)}" data-if-graph-trace-node="${escapeHtml(scenario.start)}">
+                      ${scenario.direction === "upstream" ? "Run Upstream" : scenario.direction === "downstream" ? "Run Downstream" : "Run Trace"}: ${escapeHtml(scenario.title)}
+                    </button>
+                    <ol class="if-trace-path">${(scenario.expectedPath || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
+                  </article>
+                `).join("")}
+              </div>
+            </div>
+          </section>
+        ` : "";
+        const relationshipSemantics = (graph.relationshipTypes || []).length ? `
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Relationship Semantics</h3>
+                <p class="if-panel__subtitle">What graph edges mean and when they require review.</p>
+              </div>
+            </div>
+            <div class="if-panel__body">
+              <div class="if-relation-matrix">
+                ${graph.relationshipTypes.map((item) => `
+                  <article class="if-relation-card">
+                    <span class="if-badge">${escapeHtml(item.type)}</span>
+                    <h4>${escapeHtml(item.label)}</h4>
+                    <p>${escapeHtml(item.meaning)}</p>
+                    <dl class="if-meta-grid if-meta-grid--dense">
+                      <div class="if-kv"><dt>Evidence</dt><dd>${escapeHtml(item.evidenceRule)}</dd></div>
+                      <div class="if-kv"><dt>Review</dt><dd>${escapeHtml(item.reviewRule)}</dd></div>
+                      <div class="if-kv"><dt>Canonical storage</dt><dd>${escapeHtml(item.storage)}</dd></div>
+                    </dl>
+                  </article>
+                `).join("")}
+              </div>
+            </div>
+          </section>
+        ` : "";
+        const propagationStages = (graph.propagationStages || []).length ? `
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Decomposition Contract</h3>
+                <p class="if-panel__subtitle">What must be stored as authority moves from text to traceable governance intelligence.</p>
+              </div>
+              <span class="if-badge">${graph.propagationStages.length} stages</span>
+            </div>
+            <div class="if-panel__body">
+              <div class="if-propagation-stage-grid">
+                ${graph.propagationStages.map((stage) => `
+                  <article class="if-propagation-stage">
+                    <header>
+                      <span>${escapeHtml(stage.stage)}</span>
+                      <strong>${escapeHtml(stage.object)}</strong>
+                    </header>
+                    <div class="if-model-chip-row">${(stage.extract || []).map((item) => `<span class="if-chip">${escapeHtml(item)}</span>`).join("")}</div>
+                    <p>${escapeHtml(stage.failureMode)}</p>
+                  </article>
+                `).join("")}
+              </div>
+            </div>
+          </section>
+        ` : "";
+        const semanticModel = graph.semanticModel ? `
+          <section class="if-panel">
+            <div class="if-panel__header">
+              <div>
+                <h3 class="if-panel__title">Semantic Entity Model</h3>
+                <p class="if-panel__subtitle">${escapeHtml(graph.semanticModel.intent)}</p>
+              </div>
+            </div>
+            <div class="if-panel__body if-stack">
+              <section>
+                <h4 class="if-card__title">Claim Types</h4>
+                <div class="if-semantic-grid">
+                  ${(graph.semanticModel.claimTypes || []).map((item) => `
+                    <article class="if-semantic-card">
+                      <span class="if-badge">${escapeHtml(item.type)}</span>
+                      <p>${escapeHtml(item.meaning)}</p>
+                      <div class="if-model-chip-row">${(item.fields || []).map((field) => `<span class="if-chip">${escapeHtml(field)}</span>`).join("")}</div>
+                      <small>${(item.examples || []).map(escapeHtml).join(" / ")}</small>
+                    </article>
+                  `).join("")}
+                </div>
+              </section>
+              <section>
+                <h4 class="if-card__title">Reference Types</h4>
+                <div class="if-semantic-grid">
+                  ${(graph.semanticModel.referenceTypes || []).map((item) => `
+                    <article class="if-semantic-card">
+                      <span class="if-badge">${escapeHtml(item.type)}</span>
+                      <p>${escapeHtml(item.meaning)}</p>
+                      <div class="if-model-chip-row">${(item.fields || []).map((field) => `<span class="if-chip">${escapeHtml(field)}</span>`).join("")}</div>
+                    </article>
+                  `).join("")}
+                </div>
+              </section>
+              <section>
+                <h4 class="if-card__title">Relationship Primitives</h4>
+                <div class="if-semantic-grid">
+                  ${(graph.semanticModel.relationshipPrimitives || []).map((item) => `
+                    <article class="if-semantic-card">
+                      <span class="if-badge">${escapeHtml(item.type)}</span>
+                      <p>${escapeHtml(item.meaning)}</p>
+                      <dl class="if-meta-grid if-meta-grid--dense">
+                        <div class="if-kv"><dt>Source</dt><dd>${escapeHtml(item.source)}</dd></div>
+                        <div class="if-kv"><dt>Target</dt><dd>${escapeHtml(item.target)}</dd></div>
+                      </dl>
+                    </article>
+                  `).join("")}
+                </div>
+              </section>
+            </div>
+          </section>
+        ` : "";
+        $("[data-model-graph]").innerHTML = `
+          <section class="if-graph-shell if-graph-shell--authority-chain"
+            data-if-graph
+            data-graph-direction="directed"
+            data-graph-edge-style="routed"
+            data-graph-label-density="compact"
+            data-graph-node-density="compact"
+            data-graph-mode="explore"
+            data-graph-layout="authority-chain"
+            data-if-graph-initial-selection="none"
+            data-if-graph-empty-label="Full chain"
+            aria-label="${escapeHtml(graph.title || "Governance artifact authority chain")}">
+            <div class="if-graph-toolbar">
+              <div class="if-graph-modebar" role="toolbar" aria-label="Graph interaction mode">
+                <button class="if-btn if-btn--secondary if-btn--sm is-active" type="button" data-if-graph-mode="explore" aria-pressed="true">Explore</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-graph-mode="pan" aria-pressed="false">Pan</button>
+                <button class="if-btn if-btn--sm" type="button" data-if-graph-mode="arrange" aria-pressed="false">Arrange</button>
+              </div>
+              <div class="if-toolbar__group">
+                <button class="if-icon-btn" type="button" title="Zoom out" data-if-graph-viewport="out"><span aria-hidden="true">-</span></button>
+                <span class="if-badge" data-if-graph-zoom-label>100%</span>
+                <button class="if-icon-btn" type="button" title="Zoom in" data-if-graph-viewport="in"><span aria-hidden="true">+</span></button>
+                <button class="if-icon-btn" type="button" title="Fit view" data-if-graph-viewport="fit"><span class="if-icon-slot" data-if-icon="focus" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div class="if-graph-organizer__summary" aria-label="Graph state summary">
+              <div class="if-graph-stat"><span>Mode</span><strong data-if-graph-status="mode">Explore</strong></div>
+              <div class="if-graph-stat"><span>Layout</span><strong data-if-graph-status="layout">Authority</strong></div>
+              <div class="if-graph-stat"><span>Visible nodes</span><strong data-if-graph-status="nodes">${graph.nodes.length}</strong></div>
+              <div class="if-graph-stat"><span>Visible edges</span><strong data-if-graph-status="edges">${graph.edges.length}</strong></div>
+              <div class="if-graph-stat"><span>Focus</span><strong data-if-graph-status="selected">Full chain</strong></div>
+            </div>
+            <div class="if-graph-canvas if-graph-canvas--authority-chain">
+              <div class="if-graph-hud" aria-label="Graph interaction guide">
+                <div class="if-graph-hud__title"><span>Authority Chain</span><span class="if-badge" data-if-graph-mode-label>Explore</span></div>
+                <ul class="if-graph-hud__list">
+                  <li><span>Explore</span><strong>Select nodes or edges</strong></li>
+                  <li><span>Pan</span><strong>Drag canvas</strong></li>
+                  <li><span>Arrange</span><strong>Drag artifacts</strong></li>
+                </ul>
+              </div>
+              <div class="if-graph-viewport" data-if-graph-viewport>
+                <div class="if-graph-lanes" style="--lane-count: ${(graph.lanes || []).length || 7};" aria-hidden="true">${lanes}</div>
+                <svg class="if-graph-lines" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <defs>
+                    <marker id="if-graph-arrow" viewBox="0 0 10 10" refX="8.2" refY="5" markerWidth="5" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+                      <path d="M 0 1.25 L 8.5 5 L 0 8.75 z"></path>
+                    </marker>
+                  </defs>
+                  ${edgeMarkup}
+                </svg>
+                ${edgeLabels}
+                ${nodeMarkup}
+              </div>
+            </div>
+            <div class="if-graph-legend">
+              ${legend}
+              <span class="if-legend-item">Click labels to inspect confidence and evidence</span>
+            </div>
+            ${traceGuidance}
+            ${traceScenarios}
+            <div class="if-grid if-grid--2">
+              ${nodePanels}
+              <section class="if-panel" data-edge-panel hidden></section>
+            </div>
+            ${propagationStages}
+            ${relationshipSemantics}
+            ${semanticModel}
+          </section>
+        `;
+      }
+
+      function selectItem(kind, id) {
+        state.selected = { kind, id };
+        renderInspector();
+        renderSources();
+        renderEntities();
+        renderErd();
+        bindSelection();
+        window.InterfaceFramework?.init?.(document);
+      }
+
+      function findSelected() {
+        if (!state.selected) return null;
+        if (state.selected.kind === "source") {
+          return state.model.sourceFamilies.find((source) => source.id === state.selected.id);
+        }
+        const [groupName, entityName] = state.selected.id.split("::");
+        const group = state.model.entityGroups.find((item) => item.name === groupName);
+        const entity = group?.entities.find((item) => item.name === entityName);
+        return entity ? { ...entity, group: groupName } : null;
+      }
+
+      function renderInspector() {
+        const item = findSelected();
+        const title = $("[data-inspector-title]");
+        const subtitle = $("[data-inspector-subtitle]");
+        const badge = $("[data-inspector-badge]");
+        const body = $("[data-inspector-body]");
+        if (!item) {
+          title.textContent = "Selected Definition";
+          subtitle.textContent = "Select a source or entity to inspect fields and mappings.";
+          badge.textContent = "Ready";
+          body.innerHTML = `<p class="if-text-muted">The inspector keeps provenance, fields, and mapping details next to the visual model.</p>`;
+          return;
+        }
+
+        if (state.selected.kind === "source") {
+          title.textContent = item.name;
+          subtitle.textContent = `${item.authorityLayer} / ${item.accessMode}`;
+          badge.textContent = `Tier ${item.tier}`;
+          badge.className = `if-badge ${badgeClassForTier(item.tier)}`;
+          body.innerHTML = `
+            <dl class="if-meta-grid if-meta-grid--dense">
+              <div class="if-kv"><dt>Authority layer</dt><dd>${escapeHtml(item.authorityLayer)}</dd></div>
+              <div class="if-kv"><dt>Trust tier</dt><dd>Tier ${escapeHtml(item.tier)}</dd></div>
+              <div class="if-kv"><dt>Access</dt><dd>${escapeHtml(item.accessMode)}</dd></div>
+              <div class="if-kv"><dt>Formats</dt><dd>${escapeHtml(item.formats.join(", "))}</dd></div>
+            </dl>
+            <section>
+              <h3 class="if-card__title">Contains</h3>
+              <div class="if-model-chip-row">${item.contains.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</div>
+            </section>
+            <section>
+              <h3 class="if-card__title">Mapped fields</h3>
+              <div class="if-model-chip-row">${item.mappedFields.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</div>
+            </section>
+            <section>
+              <h3 class="if-card__title">Maps to</h3>
+              <div class="if-model-chip-row">${item.mapsTo.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</div>
+            </section>
+            <p class="if-alert if-alert--info">${escapeHtml(item.notes)}</p>
+            ${item.sourceUrl ? `<a class="if-btn if-btn--secondary" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">Open Source</a>` : ""}
+          `;
+          window.InterfaceFramework?.hydrateIcons?.(body);
+          return;
+        }
+
+        title.textContent = item.name;
+        subtitle.textContent = item.group;
+        badge.textContent = `${item.fields.length} fields`;
+        badge.className = "if-badge if-badge--info";
+        body.innerHTML = `
+          <p>${escapeHtml(item.purpose)}</p>
+          <section>
+            <h3 class="if-card__title">Fields</h3>
+            <div class="if-model-chip-row">${item.fields.map((value) => `<span class="if-chip">${escapeHtml(value)}</span>`).join("")}</div>
+          </section>
+          <section>
+            <h3 class="if-card__title">Relationships</h3>
+            <ul class="if-model-list">${item.relationships.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>
+          </section>
+        `;
+      }
+
+      function bindSelection() {
+        $$("[data-select-kind]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const erd = button.closest("[data-if-erd]");
+            if (erd?.dataset.erdSuppressClick === "true") return;
+            selectItem(button.dataset.selectKind, button.dataset.selectId);
+          });
+        });
+      }
+
+      function renderAll() {
+        renderMetrics();
+        renderPrinciples();
+        renderSources();
+        renderPipeline();
+        renderEntities();
+        renderRelationships();
+        renderStorage();
+        renderGraph();
+        renderEchelonModel();
+        renderErd();
+        renderArtifactSpec();
+        renderClaimTaxonomy();
+        renderPropagationRules();
+        renderQualityGates();
+        renderLifecycleModel();
+        renderChangeImpact();
+        renderConfidenceRouting();
+        renderProvenanceContract();
+        renderQueryPlaybooks();
+        renderAnswerContracts();
+        renderSurfaceContracts();
+        renderReleaseControls();
+        renderAcquisitionMatrix();
+        renderInspector();
+        bindSelection();
+        window.InterfaceFramework?.init?.(document);
+      }
+
+      function bindControls() {
+        const modelSearch = $("[data-model-search]");
+        if (modelSearch) {
+          modelSearch.addEventListener("input", (event) => {
+            state.query = event.target.value.trim().toLowerCase();
+            renderSources();
+            renderEntities();
+            bindSelection();
+          });
+        }
+        $("[data-layer-filter]").addEventListener("change", (event) => {
+          state.layer = event.target.value;
+          renderSources();
+          bindSelection();
+        });
+        $("[data-tier-filter]").addEventListener("change", (event) => {
+          state.tier = event.target.value;
+          renderSources();
+          bindSelection();
+        });
+        $("[data-entity-filter]").addEventListener("change", (event) => {
+          state.entityGroup = event.target.value;
+          renderEntities();
+          bindSelection();
+        });
+        $("[data-show-downstream]").addEventListener("change", (event) => {
+          state.showDownstream = event.target.checked;
+          renderSources();
+          bindSelection();
+        });
+        $("[data-show-guarded]").addEventListener("change", (event) => {
+          state.showGuarded = event.target.checked;
+          renderSources();
+          bindSelection();
+        });
+        $("[data-reset-model]").addEventListener("click", () => {
+          state.query = "";
+          state.layer = "all";
+          state.tier = "all";
+          state.entityGroup = "all";
+          state.showDownstream = true;
+          state.showGuarded = true;
+          state.selected = null;
+          if (modelSearch) modelSearch.value = "";
+          $("[data-layer-filter]").value = "all";
+          $("[data-tier-filter]").value = "all";
+          $("[data-entity-filter]").value = "all";
+          $("[data-show-downstream]").checked = true;
+          $("[data-show-guarded]").checked = true;
+          renderAll();
+        });
+      }
+
+      async function initModel() {
+        const response = await fetch("./data/policy-data-model.json", { cache: "no-store" });
+        state.model = await response.json();
+        renderOptions();
+        bindControls();
+        renderAll();
+      }
+
+      initModel().catch((error) => {
+        console.error(error);
+        $("[data-inspector-body]").innerHTML = `<p class="if-alert if-alert--danger">The data model example could not initialize: ${escapeHtml(error.message || String(error))}</p>`;
+      });
+    </script>
+  </body>
+</html>
+
