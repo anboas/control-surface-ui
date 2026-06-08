@@ -829,6 +829,8 @@ The JavaScript API exposes `hydrateOperationsWorkspaces`, `setOperationsSignal`,
 
 Secondary operations pages use the same family when a support surface should remain visually aligned with the main workspace without adding app-local CSS. Compose `.if-operations-page`, `.if-operations-page__topbar`, `.if-breadcrumbs`, `.if-operations-page__hero`, `.if-operations-metric-grid`, `.if-operations-section-grid`, `.if-operations-section`, `.if-operations-list`, `.if-source-feed-grid`, `.if-table-shell`, `.if-empty-state`, `.if-pagination`, and `.if-danger-zone` for data quality, audit, source analytics, storage, admin, and diagnostic routes.
 
+Schedule-heavy operations pages can compose `.if-schedule-gantt`, `.if-schedule-gantt__panel`, `.if-schedule-gantt__summary-grid`, `.if-schedule-gantt__controls`, `.if-schedule-gantt__scroller`, `.if-schedule-gantt__axis-row`, `.if-schedule-gantt__row`, `.if-schedule-gantt__period-row`, `.if-schedule-gantt__bar`, and `.if-schedule-gantt__period-bar` for period-of-performance, roadmap, renewal, deadline, or milestone planning views. Host apps should only set dynamic positions and widths inline; static layout, color, status, legend, and density belong to the framework classes.
+
 ## Semantic Badges And Chips
 
 Use explicit semantic classes when the label carries operational meaning. Reserve the older tone aliases for backwards compatibility or decorative category tags.

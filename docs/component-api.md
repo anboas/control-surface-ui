@@ -1027,6 +1027,7 @@ Listen for `if:kpi-metric-update` on a metric card or containing dashboard regio
 | Operations section | `.if-operations-section` | header, title, summary, meta, body | Reusable panel section for quality lists, audit logs, storage state, and source diagnostics. |
 | Source feed card | `.if-source-feed-card` | `is-success`, `is-warning`, `is-error` | Connector/feed health cards with status, detail, and compact stat cells. |
 | Table shell | `.if-table-shell` | `.if-table--fit`, pagination, empty state | Framework-owned table chrome for support routes, including striping and empty states. |
+| Schedule Gantt | `.if-schedule-gantt` | panel, header, controls, scroller, rows, bars, period rows, legend | Framework-owned schedule/period planning surface. Apps provide row data and dynamic bar positions only. |
 
 ### Variant Matrix
 
