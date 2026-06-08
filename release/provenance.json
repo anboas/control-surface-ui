@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-06-08T16:41:24.247Z",
+  "generatedAt": "2026-06-08T16:46:25.634Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
@@ -168,8 +168,8 @@
     {
       "path": "release/control-surface-ui-0.1.0.tgz",
       "file": "control-surface-ui-0.1.0.tgz",
-      "bytes": 3942836,
-      "sha256": "206a1bbe0e181f33bb14a3ab9a97b525906d1b3f75f984cd64a2615bc7229cad"
+      "bytes": 3942881,
+      "sha256": "8dd154b5052ab56f5f9e7907d9ad8e154cdcf3cdf8cdea3b3e3a37fcf8eec004"
     }
   ],
   "verification": {
