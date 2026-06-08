@@ -35659,10 +35659,36 @@ img.if-official-mark {
 }
 
 .if-schedule-gantt__toggle {
-  width: 1rem;
-  flex: 0 0 1rem;
+  display: inline-flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 1.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--if-radius-1);
+  background: transparent;
   color: var(--if-text-muted);
   font-size: var(--if-font-size-xs);
+  font-family: inherit;
+  line-height: 1;
+}
+
+button.if-schedule-gantt__toggle {
+  cursor: pointer;
+}
+
+button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
+  border-color: var(--if-border-selected);
+  background: var(--if-bg-selected);
+  color: var(--if-accent);
+  outline: none;
+}
+
+.if-schedule-gantt__toggle--empty {
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .if-schedule-gantt__row-title,
@@ -36105,6 +36131,10 @@ img.if-official-mark {
 }
 
 .if-product-header--masthead .if-product-header__brand {
+  width: min(100%, 82.5rem);
+  max-width: none;
+  justify-content: flex-start;
+  margin-inline: auto;
   color: inherit;
 }
 
