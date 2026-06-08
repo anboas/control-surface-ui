@@ -28,6 +28,7 @@ A reusable front-end interface framework for dense enterprise control surfaces, 
 - Adapter fixture contracts in `docs/adapter-fixture-contracts.md`
 - MVP acceptance checklist in `docs/mvp-acceptance-checklist.md`
 - AdamBoas.com public-site handoff in `docs/public-site-handoff.md`
+- Contract operations conversion task plan in `docs/contract-operations-conversion-tasks.md`
 - GitHub shipping work items in `docs/github-shipping-work-items.md`
 - Starter kits in `starters/` for Policy Intelligence and AdamBoas.com plain HTML and Vite consumers
 - Release governance in `docs/release-governance.md`
