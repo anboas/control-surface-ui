@@ -144,6 +144,15 @@ Adapter detail includes `signal`, `page`, `pageSize`, `sort`, `filters`, `query`
 
 KPI metric updates fire when a metric sparkline renders, steps, resets, or streams. Hosts should listen on a containing dashboard region and use `detail.label`, `detail.value`, `detail.deltaText`, and `detail.metadata` for telemetry or external summaries.
 
+## Operations Workspace Events
+
+| Event | Target | Detail | Use |
+| --- | --- | --- | --- |
+| `if:operations-signal-change` | operations workspace | `{ workspace, signal, label, control, panel, state }` | Persist the active signal, synchronize table filters or detail panels, route a URL fragment, or audit drilldown selection. |
+| `if:operations-signal-reset` | operations workspace | `{ workspace, previous, state }` | Clear route state, reset linked filters, or return secondary surfaces to the default workspace posture. |
+
+Operations workspace detail includes `state.activeSignal`, `state.activeLabel`, `state.signals`, and `state.panels`. Use the event detail instead of parsing KPI text or hidden panel state.
+
 ## Performance Events
 
 | Event | Target | Detail | Use |

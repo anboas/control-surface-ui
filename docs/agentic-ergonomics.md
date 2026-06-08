@@ -72,6 +72,7 @@ Controller methods are stable across component families: `open`, `close`, `toggl
 | Semantic markup tools | `annotation-toolbar` | Covers CLM/REF/ORG/EVD tool selection for document and claim workflows. |
 | Adapter/state feedback | `state-variants` | Covers reusable success, no-results, skeleton/loading, cancelled, and retryable error states. |
 | Record-heavy data | `data-table` | Covers sort, filter, pagination, selection, expand, resize, pin, virtualize, and adapters. |
+| Dense operational workspace | `operations-workspace` | Coordinates selectable signal cards, drilldown panels, table command bands, record detail, provenance, and action queues. |
 | Dashboard numbers | `kpi-metrics` | Dense KPI scan units with icon, value, delta, sparkline, and metadata. |
 | Analytical visuals | `charts-analytics` | Dependency-free charts, sparklines, and animated demos. |
 | Entity provenance | `metadata-panel` | Best for source, confidence, owner, date, review state, and linked facts. |

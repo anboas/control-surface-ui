@@ -1705,6 +1705,110 @@
       }
     },
     {
+      "id": "operations-workspace",
+      "name": "Operations Workspace",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "A dense analytics or operations page needs selectable signal cards that drive drilldown panels, tables, provenance, and record detail.",
+        "A workspace needs to combine KPI cards, table command bands, field-level provenance, source health, action queues, and right-side decision support."
+      ],
+      "avoidWhen": [
+        "The page only needs a static dashboard with no selected signal, record detail, or cross-surface behavior.",
+        "A strict entity graph or tree is the primary interaction model; choose graph-explorer or hierarchy-explorer instead."
+      ],
+      "primaryClasses": [
+        "if-operations-workspace",
+        "if-operations-signal-grid",
+        "if-operations-signal",
+        "if-operations-panel",
+        "if-table-command-band",
+        "if-table-preferences",
+        "if-record-detail",
+        "if-provenance-grid",
+        "if-provenance-field",
+        "if-source-badge",
+        "if-source-console",
+        "if-action-queue"
+      ],
+      "dataAttributes": [
+        "data-if-operations-workspace",
+        "data-if-operations-current",
+        "data-if-operations-current-label",
+        "data-if-operations-signal",
+        "data-if-operations-label",
+        "data-if-operations-focus-panel",
+        "data-if-operations-panel",
+        "data-if-operations-reset"
+      ],
+      "jsApis": [
+        "hydrateOperationsWorkspaces",
+        "setOperationsSignal",
+        "resetOperationsSignal",
+        "getOperationsWorkspaceState",
+        "getComponentController"
+      ],
+      "events": [
+        "if:operations-signal-change",
+        "if:operations-signal-reset"
+      ],
+      "recipes": [
+        "operations-workspace",
+        "enterprise-data-table",
+        "analytics-dashboard"
+      ],
+      "docs": [
+        "docs/component-api.md#operations-workspace",
+        "docs/recipes.md#operations-workspace",
+        "docs/event-catalog.md#operations-workspace-events"
+      ],
+      "examples": [
+        "examples/operations-workspace.html",
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Signal controls must be keyboard-focusable buttons with synchronized selected state.",
+        "Use visible labels and panel headings so a selected signal does not rely on color alone.",
+        "Escape should reset the active signal when focus is inside the operations workspace."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "interactive",
+        "variantCoverage": "docs/component-api.md#operations-workspace",
+        "copyPasteCoverage": "docs/component-api.md#operations-workspace",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "emits if:operations-signal-change and if:operations-signal-reset for pointer, keyboard, and JavaScript state changes",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      },
+      "stateAndMotion": {
+        "capabilityLens": "workspace drilldown state",
+        "states": [
+          "idle",
+          "selected",
+          "panel-visible",
+          "reset"
+        ],
+        "hooks": [
+          "data-if-operations-workspace",
+          "data-if-operations-signal",
+          "data-if-operations-panel",
+          "if:operations-signal-change",
+          "if:operations-signal-reset"
+        ],
+        "transitions": [
+          "signal selected state",
+          "panel visibility",
+          "focus ring",
+          "summary label update"
+        ],
+        "reducedMotion": "Selection and panel state must update immediately; transitions are visual polish only.",
+        "agentInstruction": "Choose this family for dense operational workspaces that need synchronized signal cards, panels, provenance, actions, and table command areas."
+      }
+    },
+    {
       "id": "charts-analytics",
       "name": "Charts, Analytics, And Sparklines",
       "category": "data-display",

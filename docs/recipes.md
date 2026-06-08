@@ -316,6 +316,60 @@ Use `if:kpi-metric-update` when dashboard summaries, telemetry, or saved workspa
 
 Use `if:chart-point-select` when larger analytics should drive a detail panel, synchronized table filter, route state, or persisted user exploration state from the selected datum.
 
+## Operations Workspace
+
+Choose this when:
+
+- A page needs selectable signal cards, a table or record set, contextual detail, provenance, and action queues to behave like one coherent control surface.
+- A downstream app needs a generic operations/inventory/review workspace without product-specific component primitives.
+
+Do not choose this when:
+
+- The page is only a static dashboard. Use [Analytics Dashboard](#analytics-dashboard).
+- The primary interaction is graph traversal. Use [Graph Explorer](#graph-explorer).
+
+Use components:
+
+- `operations-workspace`
+- `kpi-metrics`
+- `data-table`
+- `metadata-panel`
+- `governance-patterns`
+- `search-autocomplete`
+- `buttons-actions`
+
+Required wiring:
+
+- Add `[data-if-operations-workspace]` around the synchronized region.
+- Add `[data-if-operations-signal]` to each selectable signal card.
+- Add matching `[data-if-operations-panel]` values for drilldown panels.
+- Add `[data-if-operations-current-label]` where the active signal label should render.
+- Add `[data-if-operations-reset]` where the user can clear the selected signal.
+- Use `.if-table-command-band` for dense table filters, saved views, export, and column controls.
+- Use `.if-record-detail` and `.if-provenance-grid` for selected record context.
+
+Listen when needed:
+
+- `if:operations-signal-change`
+- `if:operations-signal-reset`
+- `if:table-filter`
+- `if:table-select`
+- `if:adapter-state`
+- `if:kpi-metric-update`
+
+Public APIs:
+
+- `hydrateOperationsWorkspaces(root)`
+- `setOperationsSignal(target, value, options)`
+- `resetOperationsSignal(target, options)`
+- `getOperationsWorkspaceState(workspace)`
+- `getComponentController(target)`
+
+Example:
+
+- `examples/operations-workspace.html`
+- `examples/components.html#operations-workspace`
+
 ## Graph Explorer
 
 Choose this when:

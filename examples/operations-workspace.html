@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Surface UI - Operations Workspace</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/interface-framework.css">
+  </head>
+  <body>
+    <div class="if-shell" data-density="comfortable">
+      <header class="if-topbar">
+        <button class="if-icon-btn if-mobile-only" type="button" data-if-nav-toggle aria-expanded="false" aria-controls="operations-nav" title="Open navigation">
+          <span class="if-icon-slot" data-if-icon="menu" aria-hidden="true"></span>
+        </button>
+        <a class="if-brand" href="./index.html"><span class="if-brand__mark" aria-hidden="true">CS</span><span>Control Surface UI</span></a>
+        <nav class="if-topbar__nav" aria-label="Primary">
+          <a class="if-nav-link" href="./index.html">Overview</a>
+          <a class="if-nav-link" href="./dashboard.html">Workspace</a>
+          <a class="if-nav-link" href="./graph-view.html">Graph</a>
+          <a class="if-nav-link" href="./review.html">Review</a>
+          <a class="if-nav-link" href="./sources.html">Sources</a>
+          <a class="if-nav-link" href="./search.html">Search</a>
+          <a class="if-nav-link" href="./document-viewer.html">Documents</a>
+          <a class="if-nav-link" href="./diagrams.html">Diagrams</a>
+          <a class="if-nav-link" href="./policy-data-model.html">Data Model</a>
+          <a class="if-nav-link is-active" href="./operations-workspace.html" aria-current="page">Operations</a>
+          <a class="if-nav-link" href="./components.html">Design System</a>
+        </nav>
+        <div class="if-topbar__actions if-utility-cluster">
+          <label class="if-search if-autocomplete if-utility-search if-desktop-only">
+            <span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span>
+            <span class="if-sr-only">Global search</span>
+            <input class="if-input" type="search" data-if-autocomplete-mock data-if-autocomplete-limit="6" placeholder="Search records, sources, owners...">
+          </label>
+          <button class="if-icon-btn if-notification-btn" type="button" title="Notifications"><span class="if-icon-slot" data-if-icon="bell" aria-hidden="true"></span><span class="if-notification-btn__badge">3</span></button>
+          <button class="if-account-menu" type="button" aria-label="Account menu"><span class="if-avatar" aria-hidden="true">JD</span><span class="if-account-menu__name if-desktop-only">Jane Doe</span></button>
+        </div>
+      </header>
+      <div class="if-main if-main--with-sidebar">
+        <aside class="if-sidebar" id="operations-nav">
+          <div class="if-sidebar__section">
+            <h2 class="if-sidebar__title">Workspace views</h2>
+            <nav class="if-sidebar__nav">
+              <a class="if-sidebar__link is-active" href="#signals">Portfolio Signals <span class="if-sidebar__count">5</span></a>
+              <a class="if-sidebar__link" href="#records">Record Table <span class="if-sidebar__count">246</span></a>
+              <a class="if-sidebar__link" href="#detail">Detail Panel</a>
+              <a class="if-sidebar__link" href="#sources">Source Ops <span class="if-sidebar__count">4</span></a>
+            </nav>
+          </div>
+          <div class="if-sidebar__section">
+            <h2 class="if-sidebar__title">Saved views</h2>
+            <label class="if-search"><span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span><input class="if-input" type="search" placeholder="Filter views..."></label>
+            <nav class="if-sidebar__nav">
+              <a class="if-sidebar__link" href="#records">At-risk records</a>
+              <a class="if-sidebar__link" href="#records">Action due soon</a>
+              <a class="if-sidebar__link" href="#sources">Low-trust sources</a>
+            </nav>
+          </div>
+        </aside>
+        <main class="if-content">
+          <div class="if-page if-operations-workspace" data-if-operations-workspace data-if-operations-current="risk">
+            <header class="if-page-header">
+              <div>
+                <h1 class="if-page-header__title">Operations Workspace Pattern</h1>
+                <p class="if-panel__subtitle">A generic control-surface composition for signal drilldowns, dense record tables, source provenance, action queues, and detail panels.</p>
+              </div>
+              <div class="if-page-header__actions">
+                <button class="if-btn if-btn--secondary" type="button" data-if-operations-reset><span class="if-icon-slot" data-if-icon="refresh" aria-hidden="true"></span> Reset signal</button>
+                <button class="if-btn if-btn--primary" type="button"><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span> Save view</button>
+              </div>
+            </header>
+
+            <section id="signals" class="if-operations-signal-grid" aria-label="Portfolio signals">
+              <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="active" data-if-operations-label="Active records">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="database" aria-hidden="true"></span><p class="if-metric__label">Active records</p></div>
+                <div class="if-metric__main"><p class="if-metric__value">246</p><span data-if-sparkline="198,205,211,224,232,241,246"></span></div>
+                <span class="if-metric__change if-text-success">+18% this quarter</span>
+                <div class="if-metric__meta"><span>All sources</span><span>Updated 10:22 AM</span></div>
+              </button>
+              <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="capacity" data-if-operations-label="Capacity remaining">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="trend" aria-hidden="true"></span><p class="if-metric__label">Capacity remaining</p></div>
+                <div class="if-metric__main"><p class="if-metric__value">42%</p><span data-if-sparkline="68,64,61,55,51,47,42"></span></div>
+                <span class="if-metric__change">7 items below floor</span>
+                <div class="if-metric__meta"><span>Budget / ceiling</span><span>Forecast</span></div>
+              </button>
+              <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="actions" data-if-operations-label="Action window">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="calendar" aria-hidden="true"></span><p class="if-metric__label">Action window</p></div>
+                <div class="if-metric__main"><p class="if-metric__value">31</p><span data-if-sparkline="9,12,18,22,25,28,31"></span></div>
+                <span class="if-metric__change if-text-warning">Due within 90 days</span>
+                <div class="if-metric__meta"><span>Milestones</span><span>Owner review</span></div>
+              </button>
+              <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="trust" data-if-operations-label="Source trust">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span><p class="if-metric__label">Source trust</p></div>
+                <div class="if-metric__main"><p class="if-metric__value">0.91</p><span data-if-sparkline="80,83,86,84,88,90,91"></span></div>
+                <span class="if-metric__change">4 stale fields</span>
+                <div class="if-metric__meta"><span>Provenance</span><span>Confidence weighted</span></div>
+              </button>
+              <button class="if-card if-metric if-operations-signal is-selected" type="button" data-if-operations-signal="risk" data-if-operations-label="Critical risk" aria-pressed="true">
+                <div class="if-metric__top"><span class="if-metric__icon if-icon-slot" data-if-icon="warning" aria-hidden="true"></span><p class="if-metric__label">Critical risk</p></div>
+                <div class="if-metric__main"><p class="if-metric__value">14</p><span data-if-sparkline="7,8,8,10,12,13,14"></span></div>
+                <span class="if-metric__change if-text-danger">4 blocking decisions</span>
+                <div class="if-metric__meta"><span>Risk gates</span><span>Needs triage</span></div>
+              </button>
+            </section>
+
+            <section class="if-operations-panel-shell" aria-label="Signal drilldown panels">
+              <article class="if-operations-panel" id="operations-panel-active" data-if-operations-panel="active" hidden>
+                <div class="if-operations-panel__header"><div><h2>Active record summary</h2><p class="if-panel__subtitle">Current total, growth drivers, and table reset context.</p></div><span class="if-badge if-badge--info">Base view</span></div>
+                <div class="if-operations-summary-grid"><div class="if-operations-insight"><span>New this period</span><strong>37</strong></div><div class="if-operations-insight"><span>Reviewed</span><strong>82%</strong></div><div class="if-operations-insight"><span>Primary source</span><strong>Source registry</strong></div></div>
+              </article>
+              <article class="if-operations-panel" id="operations-panel-capacity" data-if-operations-panel="capacity" hidden>
+                <div class="if-operations-panel__header"><div><h2>Capacity posture</h2><p class="if-panel__subtitle">Budget, ceiling, or throughput signals for any operational domain.</p></div><span class="if-badge if-badge--severity-medium">Watch</span></div>
+                <div class="if-operations-summary-grid"><div class="if-operations-insight"><span>Below threshold</span><strong>7 records</strong></div><div class="if-operations-insight"><span>Projected burn</span><strong>18 weeks</strong></div><div class="if-operations-insight"><span>Action</span><strong>Refresh forecasts</strong></div></div>
+              </article>
+              <article class="if-operations-panel" id="operations-panel-actions" data-if-operations-panel="actions" hidden>
+                <div class="if-operations-panel__header"><div><h2>Action window</h2><p class="if-panel__subtitle">Upcoming milestones grouped by owner and due date.</p></div><span class="if-badge if-badge--status-in-review">31 open</span></div>
+                <div class="if-action-queue"><div class="if-action-queue__item"><span class="if-icon-slot" data-if-icon="calendar" aria-hidden="true"></span><span><strong>Review renewal package</strong><br><span class="if-text-muted">Due Jun 15, owner: Alex Kim</span></span><span class="if-badge if-badge--severity-high">High</span></div><div class="if-action-queue__item"><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span><span><strong>Validate source alignment</strong><br><span class="if-text-muted">Due Jun 21, source registry</span></span><span class="if-badge if-badge--severity-medium">Medium</span></div></div>
+              </article>
+              <article class="if-operations-panel" id="operations-panel-trust" data-if-operations-panel="trust" hidden>
+                <div class="if-operations-panel__header"><div><h2>Source trust posture</h2><p class="if-panel__subtitle">Field-level provenance, stale values, and conflict states.</p></div><span class="if-badge if-badge--confidence-high">0.91</span></div>
+                <div class="if-provenance-grid">
+                  <div class="if-provenance-field"><span class="if-provenance-field__label">Owner</span><strong class="if-provenance-field__value">Jane Doe</strong><span class="if-source-badge if-source-badge--system">Registry</span><div class="if-provenance-field__status"><span class="if-badge if-badge--confidence-high">High</span></div></div>
+                  <div class="if-provenance-field"><span class="if-provenance-field__label">Threshold</span><strong class="if-provenance-field__value">70%</strong><span class="if-source-badge if-source-badge--derived">Derived</span><div class="if-provenance-field__status"><span class="if-badge if-badge--severity-medium">Needs review</span></div></div>
+                  <div class="if-provenance-field"><span class="if-provenance-field__label">External id</span><strong class="if-provenance-field__value">REC-2025-1187</strong><span class="if-source-badge if-source-badge--manual">Manual</span><div class="if-provenance-field__status"><span class="if-source-badge if-source-badge--stale">Stale</span></div></div>
+                </div>
+              </article>
+              <article class="if-operations-panel" id="operations-panel-risk" data-if-operations-panel="risk">
+                <div class="if-operations-panel__header"><div><h2>Critical risk drilldown</h2><p class="if-panel__subtitle">Current selected signal: <strong data-if-operations-current-label>Critical risk</strong>.</p></div><span class="if-badge if-badge--risk-high">Risk High</span></div>
+                <div class="if-operations-summary-grid"><div class="if-operations-insight"><span>Blocking decisions</span><strong>4</strong></div><div class="if-operations-insight"><span>Missing evidence</span><strong>9 records</strong></div><div class="if-operations-insight"><span>Next action</span><strong>Create owner task</strong></div></div>
+              </article>
+            </section>
+
+            <section id="records" class="if-panel">
+              <div class="if-table-command-band" aria-label="Table command band">
+                <div class="if-table-command-band__leading">
+                  <label class="if-search"><span class="if-search__icon if-icon-slot" data-if-icon="search" aria-hidden="true"></span><input class="if-input" type="search" data-if-table-search placeholder="Search records, owners, sources..."></label>
+                  <span class="if-badge if-badge--info">246 records</span>
+                </div>
+                <div class="if-table-command-band__filters">
+                  <select class="if-select" aria-label="Status filter" data-if-table-filter="status"><option value="">All status</option><option>Needs Review</option><option>On Track</option><option>Blocked</option></select>
+                  <select class="if-select" aria-label="Risk filter" data-if-table-filter="risk"><option value="">All risk</option><option>High</option><option>Medium</option><option>Low</option></select>
+                </div>
+                <div class="if-table-command-band__actions">
+                  <div class="if-table-preferences" aria-label="Table preferences">
+                    <button class="if-btn if-btn--secondary if-btn--sm" type="button"><span class="if-icon-slot" data-if-icon="columns" aria-hidden="true"></span> Columns</button>
+                    <button class="if-btn if-btn--secondary if-btn--sm" type="button"><span class="if-icon-slot" data-if-icon="settings" aria-hidden="true"></span> Compact</button>
+                    <button class="if-btn if-btn--secondary if-btn--sm" type="button"><span class="if-icon-slot" data-if-icon="check" aria-hidden="true"></span> View</button>
+                  </div>
+                  <button class="if-btn if-btn--primary if-btn--sm" type="button"><span class="if-icon-slot" data-if-icon="download" aria-hidden="true"></span> Export</button>
+                </div>
+              </div>
+              <div class="if-data-table" data-if-data-table data-if-table-page-size="5">
+                <div class="if-table-wrap">
+                  <table class="if-table if-table--sticky">
+                    <thead><tr><th><input type="checkbox" aria-label="Select all"></th><th data-if-table-sort="record">Record</th><th data-if-table-sort="owner">Owner</th><th data-if-table-sort="source">Source</th><th data-if-table-sort="risk">Risk</th><th data-if-table-sort="status">Status</th><th>Next action</th></tr></thead>
+                    <tbody>
+                      <tr><td><input type="checkbox" aria-label="Select REC-2025-1187"></td><td><a href="#detail">REC-2025-1187</a><br><span class="if-text-muted">Renewal package delta</span></td><td>Priya Shah</td><td><span class="if-source-badge if-source-badge--system">Registry</span></td><td>High</td><td><span class="if-badge if-badge--status-in-review">Needs Review</span></td><td>Create task</td></tr>
+                      <tr><td><input type="checkbox" aria-label="Select REC-2025-1172"></td><td>REC-2025-1172<br><span class="if-text-muted">Source mismatch</span></td><td>Michael Lee</td><td><span class="if-source-badge if-source-badge--conflict">Conflict</span></td><td>High</td><td><span class="if-badge if-badge--status-blocked">Blocked</span></td><td>Resolve source</td></tr>
+                      <tr><td><input type="checkbox" aria-label="Select REC-2025-1139"></td><td>REC-2025-1139<br><span class="if-text-muted">Capacity forecast</span></td><td>Alex Kim</td><td><span class="if-source-badge if-source-badge--derived">Derived</span></td><td>Medium</td><td><span class="if-badge if-badge--status-approved">On Track</span></td><td>Monitor</td></tr>
+                      <tr><td><input type="checkbox" aria-label="Select REC-2025-1124"></td><td>REC-2025-1124<br><span class="if-text-muted">Owner assignment</span></td><td>Jane Doe</td><td><span class="if-source-badge if-source-badge--manual">Manual</span></td><td>Low</td><td><span class="if-badge if-badge--status-in-review">Needs Review</span></td><td>Assign owner</td></tr>
+                      <tr><td><input type="checkbox" aria-label="Select REC-2025-1097"></td><td>REC-2025-1097<br><span class="if-text-muted">Evidence packet</span></td><td>Olivia Chen</td><td><span class="if-source-badge if-source-badge--stale">Stale</span></td><td>Medium</td><td><span class="if-badge if-badge--status-in-review">Needs Review</span></td><td>Refresh source</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section id="detail" class="if-record-detail">
+              <div class="if-record-detail__header">
+                <div><span class="if-record-detail__eyebrow">Selected record</span><h2>REC-2025-1187 Renewal Package Delta</h2><p class="if-panel__subtitle">Reusable record-detail composition for posture, facts, provenance, evidence, and recommended action.</p></div>
+                <div class="if-record-detail__actions"><button class="if-btn if-btn--secondary" type="button">Compare</button><button class="if-btn if-btn--primary" type="button">Create task</button></div>
+              </div>
+              <div class="if-record-detail__summary">
+                <article class="if-record-detail__snapshot"><strong>Recommended next action</strong><p>Validate source mismatch, confirm owner route, and create a blocker task before publication.</p><div class="if-chip-list"><span class="if-badge if-badge--risk-high">High risk</span><span class="if-badge if-badge--confidence-high">0.88 confidence</span><span class="if-badge if-badge--status-in-review">In review</span></div></article>
+                <aside class="if-panel"><h3>Attention snapshot</h3><div class="if-kv"><span>Due</span><strong>Jun 15, 2026</strong><span>Owner</span><strong>Priya Shah</strong><span>Evidence</span><strong>3 packets</strong></div></aside>
+              </div>
+              <div class="if-record-detail__facts">
+                <div class="if-operations-insight"><span>Primary source</span><strong>Source Registry</strong></div>
+                <div class="if-operations-insight"><span>Data trust</span><strong>0.88</strong></div>
+                <div class="if-operations-insight"><span>Open actions</span><strong>4</strong></div>
+                <div class="if-operations-insight"><span>Last sync</span><strong>10:22 AM</strong></div>
+              </div>
+              <div class="if-provenance-grid" aria-label="Field provenance">
+                <div class="if-provenance-field"><span class="if-provenance-field__label">Record title</span><strong class="if-provenance-field__value">Renewal package delta</strong><span class="if-source-badge if-source-badge--system">Registry</span><div class="if-provenance-field__status"><span class="if-badge if-badge--confidence-high">High</span></div></div>
+                <div class="if-provenance-field"><span class="if-provenance-field__label">Owner</span><strong class="if-provenance-field__value">Priya Shah</strong><span class="if-source-badge if-source-badge--manual">Manual</span><div class="if-provenance-field__status"><span class="if-source-badge if-source-badge--stale">Stale 9d</span></div></div>
+                <div class="if-provenance-field"><span class="if-provenance-field__label">Risk score</span><strong class="if-provenance-field__value">0.79</strong><span class="if-source-badge if-source-badge--derived">Derived</span><div class="if-provenance-field__status"><span class="if-badge if-badge--risk-high">High</span></div></div>
+                <div class="if-provenance-field"><span class="if-provenance-field__label">External status</span><strong class="if-provenance-field__value">Needs source review</strong><span class="if-source-badge if-source-badge--conflict">Conflict</span><div class="if-provenance-field__status"><span class="if-badge if-badge--status-blocked">Blocked</span></div></div>
+              </div>
+            </section>
+
+            <section id="sources" class="if-source-console">
+              <div class="if-source-console__header"><div><h3>Source Operations And Adapter States</h3><p class="if-panel__subtitle">Generic source registry cards with loading, stale, warning, and error-friendly data slots.</p></div><div class="if-source-console__actions"><button class="if-btn if-btn--secondary" type="button">Retry failed</button><button class="if-btn if-btn--primary" type="button">Run sync</button></div></div>
+              <div class="if-source-console-grid">
+                <article class="if-source-console-card"><div class="if-source-console-card__top"><strong>Source Registry</strong><span class="if-badge if-badge--status-approved">Healthy</span></div><p class="if-source-console__meta">Last sync 10:22 AM</p><div class="if-source-console-card__metrics"><span><strong>12,846</strong> rows</span><span><strong>0</strong> errors</span><span><strong>99%</strong> trust</span></div></article>
+                <article class="if-source-console-card"><div class="if-source-console-card__top"><strong>External API</strong><span class="if-badge if-badge--severity-medium">Warnings</span></div><p class="if-source-console__meta">Partial sync 9:41 AM</p><div class="if-source-console-card__metrics"><span><strong>3,214</strong> rows</span><span><strong>4</strong> stale</span><span><strong>82%</strong> trust</span></div></article>
+                <article class="if-source-console-card"><div class="if-source-console-card__top"><strong>Manual Upload</strong><span class="if-badge if-badge--status-in-review">Review</span></div><p class="if-source-console__meta">Awaiting steward</p><div class="if-source-console-card__metrics"><span><strong>418</strong> rows</span><span><strong>6</strong> conflicts</span><span><strong>68%</strong> trust</span></div></article>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="../dist/interface-framework.js"></script>
+  </body>
+</html>

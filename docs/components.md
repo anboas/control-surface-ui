@@ -801,6 +801,32 @@ InterfaceFramework.resizeDataTableColumn("#policy-table", 2, 180);
 InterfaceFramework.pinDataTableColumn("#policy-table", 1, "left");
 ```
 
+## Operations Workspace
+
+Use the operations workspace pattern when a record-heavy analytics page needs signal cards, a dense table command band, selected-record detail, provenance, source health, and action queues to behave as one surface. The pattern is intentionally generic: it can represent policy records, source registries, compliance findings, grants, assets, procurements, or any operational dataset.
+
+```html
+<section class="if-operations-workspace" data-if-operations-workspace data-if-operations-current="risk">
+  <div class="if-operations-signal-grid">
+    <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="risk">
+      <div class="if-metric__top">
+        <span class="if-metric__icon if-icon-slot" data-if-icon="warning"></span>
+        <p class="if-metric__label">Critical risk</p>
+      </div>
+      <p class="if-metric__value">14</p>
+    </button>
+  </div>
+  <article class="if-operations-panel" data-if-operations-panel="risk">
+    <div class="if-operations-panel__header">
+      <h3>Risk drilldown</h3>
+      <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-operations-reset>Clear</button>
+    </div>
+  </article>
+</section>
+```
+
+The JavaScript API exposes `hydrateOperationsWorkspaces`, `setOperationsSignal`, `resetOperationsSignal`, and `getOperationsWorkspaceState`. It emits `if:operations-signal-change` and `if:operations-signal-reset`, so host apps can synchronize URL state, table filters, detail panels, or telemetry without parsing visible text.
+
 ## Semantic Badges And Chips
 
 Use explicit semantic classes when the label carries operational meaning. Reserve the older tone aliases for backwards compatibility or decorative category tags.

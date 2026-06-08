@@ -1009,6 +1009,98 @@ Listen for `if:kpi-metric-update` on a metric card or containing dashboard regio
 </article>
 ```
 
+## Operations Workspace
+
+### API
+
+| Contract | Required | Optional | Notes |
+| --- | --- | --- | --- |
+| Workspace root | `.if-operations-workspace[data-if-operations-workspace]` | `data-if-operations-current` | Scopes synchronized signals and panels; stores the active signal id. |
+| Signal controls | `.if-operations-signal[data-if-operations-signal]` | `data-if-operations-label`, `data-if-operations-focus-panel` | Selectable KPI/card controls that drive drilldown panels. |
+| Drilldown panel | `.if-operations-panel[data-if-operations-panel]` | hidden initial state | Panel id should match a signal value or focus-panel override. |
+| Current label | `[data-if-operations-current-label]` | `data-if-operations-empty` | Receives the active signal label. |
+| Reset control | `[data-if-operations-reset]` | none | Clears selected state and restores default panels. |
+| Command band | `.if-table-command-band` | leading, filters, actions, preferences | Dense table command region for filters, saved views, export, and column controls. |
+| Record detail | `.if-record-detail` | header, body, summary, actions | Right-pane or row-expansion detail composition. |
+| Provenance grid | `.if-provenance-grid`, `.if-provenance-field` | `.if-source-badge` variants | Field source, trust, stale, conflict, and system/manual/derived status. |
+
+### Variant Matrix
+
+| Variant | Use |
+| --- | --- |
+| Signal drilldown | KPI cards select panels and update summary labels. |
+| Record detail | Selected row, source, or event drives a right-side decision panel. |
+| Source console | Connector/feed health, parser state, retry/pause actions, and audit notes. |
+| Table command band | Dense table controls with filters, saved views, density, columns, export, and selected counts. |
+| Provenance fields | Field-level source, freshness, confidence, conflict, and review state. |
+| Action queue | Prioritized work items with owner, due date, status, and next action. |
+
+### Behavior
+
+The behavior layer exposes `hydrateOperationsWorkspaces(root)`, `setOperationsSignal(target, value, options)`, `resetOperationsSignal(target, options)`, and `getOperationsWorkspaceState(workspace)`.
+
+Signal controls dispatch `if:operations-signal-change` with `{ workspace, signal, label, control, panel, state }`. Reset controls dispatch `if:operations-signal-reset` with `{ workspace, previous, state }`.
+
+Keyboard support:
+
+- Arrow Left/Right/Up/Down moves between signal controls.
+- Home and End jump to the first or last signal.
+- Escape resets the active signal.
+
+### Copy-Paste
+
+```html
+<section class="if-operations-workspace" data-if-operations-workspace data-if-operations-current="trust">
+  <div class="if-operations-signal-grid">
+    <button class="if-card if-metric if-operations-signal is-selected"
+      type="button"
+      data-if-operations-signal="trust"
+      data-if-operations-label="Source trust"
+      aria-pressed="true">
+      <div class="if-metric__top">
+        <span class="if-metric__icon if-icon-slot" data-if-icon="shield" aria-hidden="true"></span>
+        <p class="if-metric__label">Source trust</p>
+      </div>
+      <div class="if-metric__main">
+        <p class="if-metric__value">0.91</p>
+        <span data-if-sparkline="76,80,83,86,88,90,91"></span>
+      </div>
+      <span class="if-metric__change if-text-success">Weighted high</span>
+      <div class="if-metric__meta"><span>Provenance</span><span>Current source set</span></div>
+    </button>
+  </div>
+
+  <article class="if-operations-panel" data-if-operations-panel="trust">
+    <div class="if-operations-panel__header">
+      <div>
+        <h3>Source trust panel</h3>
+        <p class="if-panel__subtitle">Current signal: <strong data-if-operations-current-label>Source trust</strong>.</p>
+      </div>
+      <button class="if-btn if-btn--secondary if-btn--sm" type="button" data-if-operations-reset>Clear signal</button>
+    </div>
+    <div class="if-provenance-grid">
+      <div class="if-provenance-field">
+        <span class="if-provenance-field__label">Owner</span>
+        <strong class="if-provenance-field__value">Source registry</strong>
+        <span class="if-source-badge if-source-badge--system">System</span>
+        <div class="if-provenance-field__status"><span class="if-badge if-badge--confidence-high">High</span></div>
+      </div>
+    </div>
+  </article>
+</section>
+```
+
+```js
+const workspace = document.querySelector("[data-if-operations-workspace]");
+
+workspace.addEventListener("if:operations-signal-change", ({ detail }) => {
+  console.log(detail.signal, detail.state.activeSignal);
+});
+
+InterfaceFramework.setOperationsSignal(workspace, "trust");
+const state = InterfaceFramework.getOperationsWorkspaceState(workspace);
+```
+
 ## Graph View
 
 ### API

@@ -28,7 +28,7 @@ A reusable front-end interface framework for dense enterprise control surfaces, 
 - Adapter fixture contracts in `docs/adapter-fixture-contracts.md`
 - MVP acceptance checklist in `docs/mvp-acceptance-checklist.md`
 - AdamBoas.com public-site handoff in `docs/public-site-handoff.md`
-- Contract operations conversion task plan in `docs/contract-operations-conversion-tasks.md`
+- Operations workspace conversion task plan in `docs/operations-workspace-conversion-tasks.md`
 - GitHub shipping work items in `docs/github-shipping-work-items.md`
 - Starter kits in `starters/` for Policy Intelligence and AdamBoas.com plain HTML and Vite consumers
 - Release governance in `docs/release-governance.md`
@@ -216,6 +216,7 @@ Production package signing should happen in the publish pipeline through npm pro
 
 - `examples/index.html`: policy overview, filters, records table, detail panel
 - `examples/components.html`: component and pattern library
+- `examples/operations-workspace.html`: generic operations workspace, selectable signals, provenance, source health, action queues, and dense table controls
 - `examples/dashboard.html`: saved workspace, review queue, compare/diff patterns
 - `examples/graph-view.html`: graph explorer, node selection, hierarchy explorer, entity detail panel
 - `examples/sources.html`: source registry, agent controls, publication rules, audit log

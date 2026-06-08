@@ -17648,6 +17648,172 @@ function destroyCoverageComponents(root) {
   qsa("[data-if-command-palette]", root).forEach((palette) => closeCommandPalette(palette));
 }
 
+function getOperationsWorkspace(target) {
+  if (!target) return null;
+  if (target.matches?.("[data-if-operations-workspace]")) return target;
+  return target.closest?.("[data-if-operations-workspace]") || null;
+}
+
+function getOperationsSignals(workspace) {
+  if (!workspace) return [];
+  return qsa("[data-if-operations-signal]", workspace).filter((control) => getOperationsWorkspace(control) === workspace);
+}
+
+function getOperationsPanels(workspace) {
+  if (!workspace) return [];
+  return qsa("[data-if-operations-panel]", workspace).filter((panel) => getOperationsWorkspace(panel) === workspace);
+}
+
+function getOperationsSignalValue(control) {
+  return control?.dataset?.ifOperationsSignal || control?.getAttribute?.("aria-controls") || "";
+}
+
+function getOperationsPanelValue(panel) {
+  return panel?.dataset?.ifOperationsPanel || panel?.id || "";
+}
+
+function getOperationsWorkspaceState(workspace) {
+  if (!workspace) return { selected: "", activeSignal: "", activeLabel: "", signals: [], panels: [] };
+  const selected = workspace.dataset.ifOperationsCurrent || "";
+  const selectedControl = getOperationsSignals(workspace).find((control) => getOperationsSignalValue(control) === selected) || null;
+  const activeLabel = selectedControl?.dataset.ifOperationsLabel
+    || selectedControl?.querySelector?.(".if-metric__label")?.textContent?.trim()
+    || selectedControl?.textContent?.trim()?.replace(/\s+/g, " ")
+    || "";
+  return {
+    selected,
+    activeSignal: selected,
+    activeLabel,
+    signals: getOperationsSignals(workspace).map((control) => ({
+      value: getOperationsSignalValue(control),
+      label: control.textContent.trim().replace(/\s+/g, " "),
+      selected: control.classList.contains("is-selected") || control.getAttribute("aria-pressed") === "true"
+    })),
+    panels: getOperationsPanels(workspace).map((panel) => ({
+      value: getOperationsPanelValue(panel),
+      id: panel.id || "",
+      hidden: panel.hidden
+    }))
+  };
+}
+
+function setOperationsSignal(target, value, options = {}) {
+  const workspace = getOperationsWorkspace(target);
+  if (!workspace) return null;
+  const signals = getOperationsSignals(workspace);
+  const selectedValue = String(value || "");
+  const control = signals.find((candidate) => getOperationsSignalValue(candidate) === selectedValue) || null;
+  const panels = getOperationsPanels(workspace);
+  let activePanel = null;
+
+  signals.forEach((candidate) => {
+    const active = Boolean(selectedValue) && getOperationsSignalValue(candidate) === selectedValue;
+    candidate.classList.toggle("is-selected", active);
+    candidate.setAttribute("aria-pressed", String(active));
+    if (!candidate.hasAttribute("type") && candidate.tagName === "BUTTON") candidate.setAttribute("type", "button");
+  });
+
+  panels.forEach((panel) => {
+    const active = Boolean(selectedValue) && getOperationsPanelValue(panel) === selectedValue;
+    panel.hidden = !active;
+    panel.classList.toggle("is-active", active);
+    if (active) activePanel = panel;
+  });
+
+  workspace.dataset.ifOperationsCurrent = selectedValue;
+  const label = control?.dataset.ifOperationsLabel || control?.querySelector?.(".if-metric__label")?.textContent?.trim() || selectedValue || "";
+  qsa("[data-if-operations-current-label]", workspace).forEach((slot) => {
+    slot.textContent = label || slot.dataset.ifOperationsEmpty || "None";
+  });
+
+  if (activePanel && options.focusPanel) {
+    if (!activePanel.hasAttribute("tabindex")) activePanel.setAttribute("tabindex", "-1");
+    activePanel.focus({ preventScroll: true });
+  }
+
+  if (options.emit !== false) {
+    dispatchFrameworkEvent(workspace, "if:operations-signal-change", {
+      workspace,
+      value: selectedValue,
+      signal: selectedValue,
+      label,
+      control,
+      panel: activePanel,
+      state: getOperationsWorkspaceState(workspace)
+    });
+  }
+
+  return activePanel;
+}
+
+function resetOperationsSignal(target, options = {}) {
+  const workspace = getOperationsWorkspace(target);
+  if (!workspace) return false;
+  const previous = workspace.dataset.ifOperationsCurrent || "";
+  setOperationsSignal(workspace, "", { emit: false });
+  if (options.focus && workspace.focus) {
+    if (!workspace.hasAttribute("tabindex")) workspace.setAttribute("tabindex", "-1");
+    workspace.focus({ preventScroll: true });
+  }
+  if (options.emit !== false) {
+    dispatchFrameworkEvent(workspace, "if:operations-signal-reset", {
+      workspace,
+      previous,
+      state: getOperationsWorkspaceState(workspace)
+    });
+  }
+  return true;
+}
+
+function hydrateOperationsWorkspaces(root = document) {
+  qsa("[data-if-operations-workspace]", root).forEach((workspace) => {
+    const signals = getOperationsSignals(workspace);
+    const panels = getOperationsPanels(workspace);
+    signals.forEach((control) => {
+      if (control.tagName === "BUTTON" && !control.hasAttribute("type")) control.setAttribute("type", "button");
+      if (!control.hasAttribute("aria-pressed")) control.setAttribute("aria-pressed", "false");
+      const value = getOperationsSignalValue(control);
+      const panel = panels.find((candidate) => getOperationsPanelValue(candidate) === value);
+      if (panel?.id && !control.hasAttribute("aria-controls")) control.setAttribute("aria-controls", panel.id);
+    });
+
+    const current = workspace.dataset.ifOperationsCurrent
+      || signals.find((control) => control.classList.contains("is-selected") || control.getAttribute("aria-pressed") === "true")?.dataset.ifOperationsSignal
+      || panels.find((panel) => !panel.hidden)?.dataset.ifOperationsPanel
+      || "";
+    if (current) {
+      setOperationsSignal(workspace, current, { emit: false });
+    } else {
+      resetOperationsSignal(workspace, { emit: false });
+    }
+  });
+}
+
+function handleOperationsSignalKeydown(event, control) {
+  const workspace = getOperationsWorkspace(control);
+  if (!workspace) return false;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    resetOperationsSignal(workspace);
+    control.focus({ preventScroll: true });
+    return true;
+  }
+  if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return false;
+  const signals = getOperationsSignals(workspace).filter((candidate) => !candidate.disabled && candidate.getAttribute("aria-disabled") !== "true");
+  if (!signals.length) return false;
+  const index = Math.max(0, signals.indexOf(control));
+  let nextIndex = index;
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % signals.length;
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + signals.length) % signals.length;
+  if (event.key === "Home") nextIndex = 0;
+  if (event.key === "End") nextIndex = signals.length - 1;
+  event.preventDefault();
+  const next = signals[nextIndex];
+  setOperationsSignal(next, getOperationsSignalValue(next));
+  next.focus({ preventScroll: true });
+  return true;
+}
+
 function handleClick(event) {
   const themeButton = event.target.closest("[data-if-theme]");
   if (themeButton) {
@@ -17721,6 +17887,20 @@ function handleClick(event) {
       updateRouteCurrentTargets(routeDemoLink.closest(".if-mobile-frame, .if-specimen") || nav, getRouteLabel(activeLink, route));
       return;
     }
+  }
+
+  const operationsSignal = event.target.closest("[data-if-operations-signal]");
+  if (operationsSignal) {
+    event.preventDefault();
+    setOperationsSignal(operationsSignal, getOperationsSignalValue(operationsSignal), { focusPanel: operationsSignal.dataset.ifOperationsFocusPanel === "true" });
+    return;
+  }
+
+  const operationsReset = event.target.closest("[data-if-operations-reset]");
+  if (operationsReset) {
+    event.preventDefault();
+    resetOperationsSignal(operationsReset);
+    return;
   }
 
   const graphMinimap = event.target.closest(".if-graph-minimap");
@@ -19355,6 +19535,9 @@ function handleKeydown(event) {
   const componentInventoryCard = event.target.closest("[data-if-inventory-id]");
   if (componentInventoryCard && handleComponentInventoryKeydown(event, componentInventoryCard)) return;
 
+  const operationsSignal = event.target.closest("[data-if-operations-signal]");
+  if (operationsSignal && handleOperationsSignalKeydown(event, operationsSignal)) return;
+
   const chartPoint = event.target.closest("[data-if-chart-point]");
   if (chartPoint && chartPoint.closest("[data-if-chart]") && ["Enter", " "].includes(event.key)) {
     event.preventDefault();
@@ -19724,6 +19907,13 @@ function registerCoreBehaviorModules() {
   });
 
   registerBehaviorModule({
+    name: "operations-workspace",
+    description: "Generic analytics workspace signals, drilldown panels, record detail posture, and table preference clusters.",
+    selectors: ["[data-if-operations-workspace]", "[data-if-operations-signal]", "[data-if-operations-panel]"],
+    init: (root) => hydrateOperationsWorkspaces(root)
+  });
+
+  registerBehaviorModule({
     name: "performance",
     description: "Synthetic scale labs, performance budgets, and overflow checks for large table, graph, diagram, document, and chart surfaces.",
     selectors: ["[data-if-performance-lab]", "[data-if-overflow-check]"],
@@ -20011,6 +20201,8 @@ function getComponentKind(element) {
   if (element.matches("[data-hierarchy-node]")) return "hierarchy-node";
   if (element.matches("[data-if-date-picker]")) return "date-picker";
   if (element.matches("[data-if-wizard]")) return "wizard";
+  if (element.matches("[data-if-operations-workspace]")) return "operations-workspace";
+  if (element.matches("[data-if-operations-signal]")) return "operations-signal";
   if (element.matches("[data-if-annotation-toolbar]")) return "annotation-toolbar";
   if (element.matches("[data-if-command-palette]")) return "command-palette";
   if (element.matches("[data-if-state-preview]")) return "state-preview";
@@ -20133,6 +20325,14 @@ function getComponentController(target) {
         setWizardStep(element, value);
         return true;
       }
+      if (kind === "operations-workspace") {
+        setOperationsSignal(element, value, options);
+        return true;
+      }
+      if (kind === "operations-signal") {
+        setOperationsSignal(element, value || getOperationsSignalValue(element), options);
+        return true;
+      }
       if (kind === "annotation-toolbar") {
         const tool = qsa("[data-if-annotation-tool]", element).find((button) => button.dataset.ifAnnotationTool === String(value));
         if (!tool) return false;
@@ -20188,6 +20388,9 @@ function getComponentController(target) {
       if (kind === "date-picker") {
         setDatePickerValue(element, options.value || getTodayIsoDate());
         return true;
+      }
+      if (kind === "operations-workspace" || kind === "operations-signal") {
+        return resetOperationsSignal(element, options);
       }
       return false;
     },
@@ -20281,6 +20484,7 @@ export {
   getComponentInventoryState,
   getComponentInventoryViewState,
   getConfigurationState,
+  getOperationsWorkspaceState,
   evaluatePerformanceBudgets,
   getPerformanceProfile,
   getPolicyDiff,
@@ -20309,6 +20513,7 @@ export {
   hydrateDocumentViewers,
   hydrateIcons,
   hydrateKeyboardModel,
+  hydrateOperationsWorkspaces,
   hydratePerformanceLabs,
   hydrateReviewWorkflows,
   hydrateAnnotationToolbars,
@@ -20387,6 +20592,7 @@ export {
   runAdapterTask,
   runPerformanceLab,
   saveDiagramLayout,
+  setOperationsSignal,
   selectGraphEdge,
   selectComponentInventoryCard,
   selectDiagramConnectorRoute,
@@ -20412,6 +20618,7 @@ export {
   selectDatePickerDate,
   setDatePickerValue,
   selectClaim,
+  resetOperationsSignal,
   selectDocumentAnnotation,
   selectDocumentArtifact,
   selectHistoryEvent,
