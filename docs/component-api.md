@@ -101,6 +101,8 @@ This keeps programmatic state changes, pointer interactions, keyboard interactio
 | Variant | Class or attribute | Use |
 | --- | --- | --- |
 | Standard app | `.if-shell` | Product pages. |
+| Operations app | `.if-operations-app` | Dense record and analytics applications. |
+| Wide operations app | `.if-operations-app--wide` | Data-heavy layouts that should use more desktop width. |
 | Library | `.if-shell--library` | Design-system and documentation surfaces. |
 | Sidebar | `.if-main--with-sidebar` | Filters, saved views, library nav. |
 | Tri-pane | `.if-main--tri-pane` | Sidebar, primary work area, contextual detail panel. |
@@ -127,6 +129,8 @@ This keeps programmatic state changes, pointer interactions, keyboard interactio
 | Contract | Required | Optional | Notes |
 | --- | --- | --- | --- |
 | Topbar | `.if-topbar` | `.if-topbar__nav`, `.if-topbar__actions` | Global nav and utility area. |
+| Product header | `.if-product-header` | `.if-product-header--sticky`, `.if-product-header--compact`, `.if-product-header__inner` | Product masthead or compact app header. |
+| Operations top nav | `.if-operations-topnav` | `.if-operations-topnav__link`, `.if-operations-topnav__secondary-button`, `.if-operations-topnav__menu` | Header-level primary and secondary operations navigation. |
 | Brand | `.if-brand` | `.if-brand__mark` | Use as first topbar item. |
 | Navigation | `.if-nav-link` | `.is-active`, `aria-current="page"` | Active state is underline/bar style. |
 | Utility cluster | `.if-utility-cluster` | `.if-utility-search`, `.if-notification-btn`, `.if-account-menu` | Search, notifications, account. |
