@@ -1023,6 +1023,10 @@ Listen for `if:kpi-metric-update` on a metric card or containing dashboard regio
 | Command band | `.if-table-command-band` | leading, filters, actions, preferences | Dense table command region for filters, saved views, export, and column controls. |
 | Record detail | `.if-record-detail` | header, body, summary, actions | Right-pane or row-expansion detail composition. |
 | Provenance grid | `.if-provenance-grid`, `.if-provenance-field` | `.if-source-badge` variants | Field source, trust, stale, conflict, and system/manual/derived status. |
+| Support page | `.if-operations-page` | topbar, breadcrumbs, hero, metric grid, section grid | Secondary/admin/diagnostic pages that should inherit the operations shell without app-local CSS. |
+| Operations section | `.if-operations-section` | header, title, summary, meta, body | Reusable panel section for quality lists, audit logs, storage state, and source diagnostics. |
+| Source feed card | `.if-source-feed-card` | `is-success`, `is-warning`, `is-error` | Connector/feed health cards with status, detail, and compact stat cells. |
+| Table shell | `.if-table-shell` | `.if-table--fit`, pagination, empty state | Framework-owned table chrome for support routes, including striping and empty states. |
 
 ### Variant Matrix
 
@@ -1031,6 +1035,7 @@ Listen for `if:kpi-metric-update` on a metric card or containing dashboard regio
 | Signal drilldown | KPI cards select panels and update summary labels. |
 | Record detail | Selected row, source, or event drives a right-side decision panel. |
 | Source console | Connector/feed health, parser state, retry/pause actions, and audit notes. |
+| Support page | Secondary operations pages for data quality, audit trail, API/source analytics, local storage, admin, or diagnostics. |
 | Table command band | Dense table controls with filters, saved views, density, columns, export, and selected counts. |
 | Provenance fields | Field-level source, freshness, confidence, conflict, and review state. |
 | Action queue | Prioritized work items with owner, due date, status, and next action. |

@@ -827,6 +827,8 @@ Use the operations workspace pattern when a record-heavy analytics page needs si
 
 The JavaScript API exposes `hydrateOperationsWorkspaces`, `setOperationsSignal`, `resetOperationsSignal`, and `getOperationsWorkspaceState`. It emits `if:operations-signal-change` and `if:operations-signal-reset`, so host apps can synchronize URL state, table filters, detail panels, or telemetry without parsing visible text.
 
+Secondary operations pages use the same family when a support surface should remain visually aligned with the main workspace without adding app-local CSS. Compose `.if-operations-page`, `.if-operations-page__topbar`, `.if-breadcrumbs`, `.if-operations-page__hero`, `.if-operations-metric-grid`, `.if-operations-section-grid`, `.if-operations-section`, `.if-operations-list`, `.if-source-feed-grid`, `.if-table-shell`, `.if-empty-state`, `.if-pagination`, and `.if-danger-zone` for data quality, audit, source analytics, storage, admin, and diagnostic routes.
+
 ## Semantic Badges And Chips
 
 Use explicit semantic classes when the label carries operational meaning. Reserve the older tone aliases for backwards compatibility or decorative category tags.
