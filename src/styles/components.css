@@ -37592,6 +37592,11 @@ button.if-analytics-list-item:focus-visible {
   background: var(--if-bg-surface);
 }
 
+.if-source-feed-card--balanced {
+  grid-template-rows: auto minmax(2.125rem, 1fr) auto;
+  align-items: stretch;
+}
+
 .if-source-feed-card.is-success {
   --if-feed-accent: var(--if-success);
 }
@@ -37625,11 +37630,28 @@ button.if-analytics-list-item:focus-visible {
   font-size: var(--if-font-size-2xs);
 }
 
+.if-source-feed-card--balanced .if-source-feed-card__meta {
+  min-height: 2rem;
+}
+
 .if-source-feed-card__description {
   min-height: 3rem;
   color: var(--if-text-muted);
   font-size: var(--if-font-size-xs);
   line-height: var(--if-line-height-normal);
+}
+
+.if-source-feed-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--if-space-2);
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.if-source-feed-card--balanced .if-source-feed-card__footer {
+  min-height: 1.875rem;
 }
 
 .if-source-feed-card__stats {
