@@ -882,6 +882,19 @@
   gap: var(--if-gap-density);
 }
 
+.if-balanced-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--if-balanced-grid-columns, auto-fit), minmax(min(100%, var(--if-balanced-grid-min, 10.5rem)), 1fr));
+  gap: var(--if-balanced-grid-gap, var(--if-gap-density));
+  align-items: stretch;
+}
+
+.if-balanced-grid > * {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
 .if-dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));

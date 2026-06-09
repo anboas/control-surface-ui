@@ -36515,6 +36515,12 @@ button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
   gap: var(--if-space-2);
 }
 
+.if-operations-signal-grid--balanced.if-metric-grid,
+.if-operations-signal-grid--balanced.if-balanced-grid {
+  --if-balanced-grid-min: 10.5rem;
+  grid-template-columns: repeat(var(--if-balanced-grid-columns, auto-fit), minmax(min(100%, var(--if-balanced-grid-min, 10.5rem)), 1fr));
+}
+
 .if-operations-signal--compact {
   --if-signal-accent: var(--if-accent);
   min-height: 5.25rem;

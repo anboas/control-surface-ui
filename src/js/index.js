@@ -3223,8 +3223,96 @@ function hydrateConnectorRoutes(root = document) {
   });
 }
 
+const balancedGridObservers = new WeakMap();
+
+function getBalancedGridItems(grid) {
+  const selector = (grid?.dataset?.ifBalancedGridItems || "").trim();
+  const items = selector ? qsa(selector, grid) : Array.from(grid?.children || []);
+  return items.filter((item) => !item.hidden && item.getAttribute?.("aria-hidden") !== "true");
+}
+
+function readPixelValue(value, fallback) {
+  const parsed = Number.parseFloat(String(value || "").replace("px", ""));
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function getBalancedGridMinWidth(grid) {
+  const explicit = readPixelValue(grid?.dataset?.ifBalancedGridMin, 0);
+  if (explicit) return explicit;
+  const styles = window.getComputedStyle(grid);
+  return readPixelValue(styles.getPropertyValue("--if-balanced-grid-min"), 168);
+}
+
+function chooseBalancedGridColumns(count, maxColumns) {
+  if (count <= 1) return Math.max(1, count);
+  const cappedMax = Math.max(1, Math.min(count, maxColumns));
+  if (count <= cappedMax) return count;
+  let best = 1;
+  let bestScore = Number.POSITIVE_INFINITY;
+  for (let columns = cappedMax; columns >= 1; columns -= 1) {
+    const rows = Math.ceil(count / columns);
+    const lastRow = count % columns || columns;
+    const ragged = columns - lastRow;
+    const orphanPenalty = rows > 1 && lastRow < Math.ceil(columns / 2) ? 1000 : 0;
+    const score = orphanPenalty + ragged * 10 + rows;
+    if (score < bestScore) {
+      best = columns;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+function balanceGrid(grid) {
+  if (!grid) return null;
+  const items = getBalancedGridItems(grid);
+  const count = items.length;
+  const styles = window.getComputedStyle(grid);
+  const width = grid.getBoundingClientRect().width || grid.clientWidth || 0;
+  const gap = readPixelValue(styles.columnGap || styles.gap, 0);
+  const minWidth = getBalancedGridMinWidth(grid);
+  const explicitMax = Number.parseInt(grid.dataset.ifBalancedGridMax || "", 10);
+  const widthMax = width > 0 ? Math.max(1, Math.floor((width + gap) / (minWidth + gap))) : count || 1;
+  const maxColumns = Number.isFinite(explicitMax) && explicitMax > 0 ? Math.min(widthMax, explicitMax) : widthMax;
+  const columns = chooseBalancedGridColumns(count, maxColumns);
+  grid.style.setProperty("--if-balanced-grid-columns", String(columns));
+  grid.dataset.ifBalancedGridColumns = String(columns);
+  grid.dataset.ifBalancedGridCount = String(count);
+  grid.dispatchEvent(new CustomEvent("if:balanced-grid", {
+    bubbles: true,
+    detail: { grid, count, columns, maxColumns, minWidth }
+  }));
+  return { grid, count, columns, maxColumns, minWidth };
+}
+
+function refreshBalancedGrids(root = document) {
+  const grids = root?.matches?.("[data-if-balanced-grid]") ? [root] : qsa("[data-if-balanced-grid]", root);
+  return grids.map(balanceGrid);
+}
+
+function hydrateBalancedGrids(root = document) {
+  const grids = root?.matches?.("[data-if-balanced-grid]") ? [root] : qsa("[data-if-balanced-grid]", root);
+  grids.forEach((grid) => {
+    grid.classList.add("if-balanced-grid");
+    balanceGrid(grid);
+    if (balancedGridObservers.has(grid) || typeof MutationObserver === "undefined") return;
+    const observer = new MutationObserver(() => balanceGrid(grid));
+    observer.observe(grid, { childList: true, subtree: false, attributes: true, attributeFilter: ["hidden", "aria-hidden"] });
+    balancedGridObservers.set(grid, observer);
+  });
+}
+
+function destroyBalancedGrids(root = document) {
+  const grids = root?.matches?.("[data-if-balanced-grid]") ? [root] : qsa("[data-if-balanced-grid]", root);
+  grids.forEach((grid) => {
+    balancedGridObservers.get(grid)?.disconnect();
+    balancedGridObservers.delete(grid);
+  });
+}
+
 function handleResize() {
   refreshConnectorRoutes(document);
+  refreshBalancedGrids(document);
 }
 
 function getFocusSurface(target) {
@@ -10034,6 +10122,32 @@ function getAutocompleteMenu(input) {
   return menu;
 }
 
+function isAutocompleteEventTarget(input, target) {
+  if (!input || !target) return false;
+  const wrapper = input.closest(".if-autocomplete") || input.closest(".if-search") || input.parentElement;
+  const menu = getAutocompleteMenu(input);
+  return input === target || input.contains?.(target) || wrapper?.contains?.(target) || menu?.contains?.(target);
+}
+
+function closeAutocompletesOutsideTarget(target) {
+  qsa("[data-if-autocomplete], [data-if-autocomplete-remote], [data-if-autocomplete-mock]").forEach((input) => {
+    const menu = getAutocompleteMenu(input);
+    if (!menu || menu.hidden || isAutocompleteEventTarget(input, target)) return;
+    closeAutocomplete(input);
+  });
+}
+
+function handleAutocompleteCaptureClick(event) {
+  const autocompleteOption = event.target.closest?.("[data-if-autocomplete-option]");
+  if (autocompleteOption) {
+    event.preventDefault();
+    event.__ifAutocompleteHandled = true;
+    selectAutocompleteOption(autocompleteOption);
+    return;
+  }
+  closeAutocompletesOutsideTarget(event.target);
+}
+
 function cancelAutocomplete(input, reason = "cancelled", options = {}) {
   const request = autocompleteRequests.get(input);
   if (!request) return false;
@@ -10325,9 +10439,9 @@ function selectAutocompleteOption(option) {
       `;
     }
   }
-  input.dataset.ifAutocompleteSelecting = "true";
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-  delete input.dataset.ifAutocompleteSelecting;
+  const selectionInputEvent = new Event("input", { bubbles: true });
+  selectionInputEvent.__ifAutocompleteSelection = true;
+  input.dispatchEvent(selectionInputEvent);
   input.dispatchEvent(new CustomEvent("if:autocomplete-select", {
     bubbles: true,
     detail: {
@@ -17958,6 +18072,7 @@ function handleClick(event) {
 
   const autocompleteOption = event.target.closest("[data-if-autocomplete-option]");
   if (autocompleteOption) {
+    if (event.__ifAutocompleteHandled) return;
     event.preventDefault();
     selectAutocompleteOption(autocompleteOption);
     return;
@@ -18964,6 +19079,8 @@ function handleMouseout(event) {
 }
 
 function handleFocusIn(event) {
+  closeAutocompletesOutsideTarget(event.target);
+
   const tooltipControl = event.target.closest("[data-if-tooltip]");
   if (tooltipControl) showTooltip(tooltipControl);
 
@@ -19024,8 +19141,8 @@ function handleInput(event) {
 
   const autocomplete = isAutocompleteInput(event.target) ? event.target : event.target.closest("[data-if-autocomplete], [data-if-autocomplete-remote], [data-if-autocomplete-mock]");
   if (autocomplete) {
-    if (autocomplete.dataset.ifAutocompleteSelecting === "true") {
-      delete autocomplete.dataset.ifAutocompleteSelecting;
+    if (event.__ifAutocompleteSelection) {
+      closeAutocomplete(autocomplete, { cancel: false });
     } else {
       renderAutocomplete(autocomplete);
     }
@@ -19908,9 +20025,13 @@ function registerCoreBehaviorModules() {
 
   registerBehaviorModule({
     name: "operations-workspace",
-    description: "Generic analytics workspace signals, drilldown panels, record detail posture, and table preference clusters.",
-    selectors: ["[data-if-operations-workspace]", "[data-if-operations-signal]", "[data-if-operations-panel]"],
-    init: (root) => hydrateOperationsWorkspaces(root)
+    description: "Generic analytics workspace signals, balanced widget grids, drilldown panels, record detail posture, and table preference clusters.",
+    selectors: ["[data-if-operations-workspace]", "[data-if-operations-signal]", "[data-if-operations-panel]", "[data-if-balanced-grid]"],
+    init: (root) => {
+      hydrateOperationsWorkspaces(root);
+      hydrateBalancedGrids(root);
+    },
+    destroy: (root) => destroyBalancedGrids(root)
   });
 
   registerBehaviorModule({
@@ -20110,6 +20231,7 @@ function registerCoreBehaviorModules() {
     selectors: ["document"],
     init: (root) => {
       if (!isDocumentBehaviorRoot(root) || initialized) return;
+      document.addEventListener("click", handleAutocompleteCaptureClick, true);
       document.addEventListener("click", handleClick);
       document.addEventListener("input", handleInput);
       document.addEventListener("change", handleChange);
@@ -20132,6 +20254,7 @@ function registerCoreBehaviorModules() {
     },
     destroy: (root) => {
       if (!isDocumentBehaviorRoot(root)) return;
+      document.removeEventListener("click", handleAutocompleteCaptureClick, true);
       document.removeEventListener("click", handleClick);
       document.removeEventListener("input", handleInput);
       document.removeEventListener("change", handleChange);
@@ -20430,6 +20553,7 @@ export {
   cancelAdapterTask,
   cancelAutocomplete,
   cancelSurfaceExport,
+  balanceGrid,
   applyConnectorRoutes,
   applyDiagramContainerFormat,
   applyDiagramLayoutSnapshot,
@@ -20507,6 +20631,7 @@ export {
   hydrateConfigurationControls,
   hydrateComponentInventories,
   hydrateComponentInventoryManifest,
+  hydrateBalancedGrids,
   hydrateConnectorRoutes,
   hydrateClaimTrackers,
   hydrateCommandPalettes,
@@ -20583,6 +20708,7 @@ export {
   renderTabs,
   renderWizard,
   reorderDiagramItem,
+  refreshBalancedGrids,
   refreshDiagramSourceEditor,
   refreshConnectorRoutes,
   refreshDataTable,

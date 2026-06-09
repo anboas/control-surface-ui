@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-06-08T18:22:33.442Z",
+  "generatedAt": "2026-06-09T20:09:18.022Z",
   "packageName": "control-surface-ui",
   "packageVersion": "0.1.0",
   "algorithm": "sha256",
@@ -34,38 +34,38 @@
     {
       "path": "dist/interface-framework.css",
       "file": "interface-framework.css",
-      "bytes": 933259,
-      "sha256": "37bd7b9c2990c147f5e8e339ea96c91133cfbb0c6807bf9e38d6a9c1681ba827"
+      "bytes": 933882,
+      "sha256": "17abf27bc2a0c5deb8a90ab8bc65c073a718eae094117c89fcf037cc0a1877cb"
     },
     {
       "path": "dist/interface-framework.min.css",
       "file": "interface-framework.min.css",
-      "bytes": 805739,
-      "sha256": "1fc2463948a077d52fece6a9fe6b83c60a8eb22f21358c7c47d613ea78bbe995"
+      "bytes": 806297,
+      "sha256": "0dc5486a24e71da2cdfb248cd234034f672f0b57159db18af3bd647a77044c96"
     },
     {
       "path": "dist/interface-framework.js",
       "file": "interface-framework.js",
-      "bytes": 973437,
-      "sha256": "e2f1bc29cbe4ccb3549dca9bf065daa046a431c66d62c34e1d4a03839222aa36"
+      "bytes": 978708,
+      "sha256": "3a26eeb1a252874f41e92e52da6131f42f2c3dbeae905f09bed9199a75f2d8e6"
     },
     {
       "path": "dist/interface-framework.min.js",
       "file": "interface-framework.min.js",
-      "bytes": 864660,
-      "sha256": "6e48dd68d91322666ea7a957eb1827b7d88c9ec971d2988ec2344ce4079367cd"
+      "bytes": 869409,
+      "sha256": "6927c3302dc08862967dfc1aba35690ec41d13f15d42da8f986572bd27c7f0b2"
     },
     {
       "path": "dist/interface-framework.esm.js",
       "file": "interface-framework.esm.js",
-      "bytes": 967877,
-      "sha256": "e2862f40d5ed69f9b6c839cc86cc85ce9c4bc76bac695b5e15d1c051f2b2221d"
+      "bytes": 973097,
+      "sha256": "538608ce8ddd071735216c1b0b3b48ec6a79c197c82f77ad07a5fe967d37baca"
     },
     {
       "path": "dist/interface-framework.esm.min.js",
       "file": "interface-framework.esm.min.js",
-      "bytes": 858835,
-      "sha256": "8dd848cfaef6a3b4ba60e9cafc697632d7dbc3b67f2ab003f7d005c826c7fbf1"
+      "bytes": 863530,
+      "sha256": "222487bf5ae463a0beade55d2e1dc90bc3878665db4969b0decd5f56cffbd475"
     },
     {
       "path": "docs/release-governance.md",

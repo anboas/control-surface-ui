@@ -294,7 +294,9 @@ function testSearchAutocompleteCompletenessContracts() {
     "data-if-autocomplete-cancel",
     "closeAutocomplete(input, { cancel: false })",
     "data-if-autocomplete-demo",
-    "ifAutocompleteSelecting",
+    "__ifAutocompleteSelection",
+    "handleAutocompleteCaptureClick",
+    "closeAutocompletesOutsideTarget",
     "autocomplete: getAutocompleteState",
     "if:autocomplete-state",
     "if:autocomplete-select"
@@ -2672,6 +2674,41 @@ function testActionPatternPageContracts() {
   assert(notificationPage.includes('href="./action-patterns.html"'), "Notification patterns nav should link to action patterns.");
 }
 
+function testBalancedGridContracts() {
+  const docs = `${readFileSync(resolve(root, "docs/components.md"), "utf8")}\n${readFileSync(resolve(root, "docs/component-api.md"), "utf8")}\n${readFileSync(resolve(root, "docs/component-manifest.json"), "utf8")}`;
+  const styles = `${readFileSync(resolve(root, "src/styles/layout.css"), "utf8")}\n${readFileSync(resolve(root, "src/styles/components.css"), "utf8")}`;
+  const js = readFileSync(resolve(root, "src/js/index.js"), "utf8");
+
+  [
+    "if-balanced-grid",
+    "data-if-balanced-grid",
+    "data-if-balanced-grid-min",
+    "if-operations-signal-grid--balanced",
+    "balanceGrid",
+    "refreshBalancedGrids",
+    "if:balanced-grid"
+  ].forEach((token) => {
+    assert(docs.includes(token), `Balanced grid docs/manifest missing ${token}.`);
+  });
+
+  [
+    ".if-balanced-grid",
+    "--if-balanced-grid-columns",
+    ".if-operations-signal-grid--balanced"
+  ].forEach((token) => {
+    assert(styles.includes(token), `Balanced grid CSS missing ${token}.`);
+  });
+
+  [
+    "chooseBalancedGridColumns",
+    "hydrateBalancedGrids",
+    "MutationObserver",
+    "refreshBalancedGrids(document)"
+  ].forEach((token) => {
+    assert(js.includes(token), `Balanced grid behavior missing ${token}.`);
+  });
+}
+
 testTooltipPositioning();
 testEscapeStackContracts();
 testBehaviorLifecycleContracts();
@@ -2707,6 +2744,7 @@ testDocumentViewerStateContracts();
 testProfilePatternPageContracts();
 testNotificationPatternPageContracts();
 testActionPatternPageContracts();
+testBalancedGridContracts();
 
 if (failures.length) {
   console.error("\nBehavior contract tests failed:");

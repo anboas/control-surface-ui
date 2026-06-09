@@ -145,7 +145,7 @@ The JavaScript layer keeps controls synchronized and exposes `setTheme`, `getThe
 
 ## Autocomplete Search
 
-Use `data-if-autocomplete` for local suggestions in a plain HTML search box. Suggestions can be a pipe-delimited string or JSON objects with `label`, `value`, `type`, `meta`, and `id`. The component supports highlighted query matches, mouse selection, arrow-key navigation, Enter, Escape, ARIA combobox attributes, and dispatches an `input` event after selection so it can pair with `data-if-filter`.
+Use `data-if-autocomplete` for local suggestions in a plain HTML search box. Suggestions can be a pipe-delimited string or JSON objects with `label`, `value`, `type`, `meta`, and `id`. The component supports highlighted query matches, mouse selection, outside-click dismissal, arrow-key navigation, Enter, Escape, ARIA combobox attributes, and dispatches an `input` event after selection so it can pair with `data-if-filter`. Option selection and outside dismissal run in the framework capture layer, so autocomplete menus still close correctly inside modals, popovers, and other control surfaces that stop click propagation.
 
 ```html
 <label class="if-search if-autocomplete">
@@ -807,7 +807,7 @@ Use the operations workspace pattern when a record-heavy analytics page needs si
 
 ```html
 <section class="if-operations-workspace" data-if-operations-workspace data-if-operations-current="risk">
-  <div class="if-operations-signal-grid">
+  <div class="if-operations-signal-grid if-operations-signal-grid--balanced if-balanced-grid" data-if-balanced-grid data-if-balanced-grid-min="168">
     <button class="if-card if-metric if-operations-signal" type="button" data-if-operations-signal="risk">
       <div class="if-metric__top">
         <span class="if-metric__icon if-icon-slot" data-if-icon="warning"></span>
@@ -824,6 +824,8 @@ Use the operations workspace pattern when a record-heavy analytics page needs si
   </article>
 </section>
 ```
+
+Add `.if-balanced-grid` with `data-if-balanced-grid` when a configurable signal or widget strip can wrap. The framework sets `--if-balanced-grid-columns` from the visible item count and container width so rows stay horizontally balanced instead of leaving orphan cards on the final line.
 
 The JavaScript API exposes `hydrateOperationsWorkspaces`, `setOperationsSignal`, `resetOperationsSignal`, and `getOperationsWorkspaceState`. It emits `if:operations-signal-change` and `if:operations-signal-reset`, so host apps can synchronize URL state, table filters, detail panels, or telemetry without parsing visible text.
 

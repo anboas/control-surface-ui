@@ -126,6 +126,46 @@ test.describe("component and behavior contracts", () => {
     await expect(table.locator("[data-if-table-status='selected']").first()).toHaveText("1");
   });
 
+  test("autocomplete closes inside stopped-propagation control surfaces", async ({ page }) => {
+    await gotoExample(page, "components.html");
+
+    await page.evaluate(() => {
+      const host = document.createElement("section");
+      host.id = "stopped-propagation-autocomplete";
+      host.innerHTML = `
+        <div class="if-search if-autocomplete">
+          <input
+            id="stopped-autocomplete-input"
+            class="if-input"
+            type="search"
+            data-if-autocomplete='[{"label":"Department of the Navy","value":"NAVY","type":"Organization","meta":"Navy / DON"}]'
+            data-if-autocomplete-limit="8"
+            placeholder="Search organizations"
+          >
+        </div>
+        <button id="outside-autocomplete-control" type="button" style="margin-top: 16rem;">Outside control</button>
+      `;
+      host.addEventListener("click", (event) => event.stopPropagation());
+      document.body.append(host);
+      window.InterfaceFramework.hydrateAutocompleteInputs(host);
+    });
+
+    const host = page.locator("#stopped-propagation-autocomplete");
+    const input = page.locator("#stopped-autocomplete-input");
+    const menu = host.locator("[data-if-autocomplete-menu]");
+
+    await input.fill("nav");
+    await expect(menu).toBeVisible();
+    await host.locator("[data-if-autocomplete-option]").first().click();
+    await expect(input).toHaveValue("NAVY");
+    await expect(menu).toBeHidden();
+
+    await input.fill("nav");
+    await expect(menu).toBeVisible();
+    await page.locator("#outside-autocomplete-control").click();
+    await expect(menu).toBeHidden();
+  });
+
   test("diagram details follow click, close, and click-away contracts", async ({ page }) => {
     await gotoExample(page, "diagrams.html");
 

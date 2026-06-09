@@ -410,6 +410,7 @@ Contrast reports live at `docs/theme-contrast-report.md` and `docs/theme-contras
 | Output | `[data-if-autocomplete-output]` | selector | Writes selected suggestion summary. |
 | Cancel | `[data-if-autocomplete-cancel]` | selector | Aborts pending remote request and can render cancelled state. |
 | Demo state | `[data-if-autocomplete-demo]` | query/state fixtures | Drives result, empty, and error scenarios in docs and examples. |
+| Dismissal | document capture click / focus | none | Selects options and closes open menus even inside host surfaces that stop click bubbling. |
 | API | `hydrateAutocompleteInputs`, `getAutocompleteState`, `registerAutocompleteAdapter`, `unregisterAutocompleteAdapter`, `cancelAutocomplete`, `renderAutocomplete` | none | Production integration and editor state inspection. |
 | Events | `if:autocomplete-request`, `if:autocomplete-results`, `if:autocomplete-cancel`, `if:autocomplete-error`, `if:autocomplete-state`, `if:autocomplete-select` | autocomplete detail | Emits query, provider, request id, items, state, and selected metadata. |
 
@@ -1061,7 +1062,7 @@ Keyboard support:
 
 ```html
 <section class="if-operations-workspace" data-if-operations-workspace data-if-operations-current="trust">
-  <div class="if-operations-signal-grid">
+  <div class="if-operations-signal-grid if-operations-signal-grid--balanced if-balanced-grid" data-if-balanced-grid data-if-balanced-grid-min="168">
     <button class="if-card if-metric if-operations-signal is-selected"
       type="button"
       data-if-operations-signal="trust"
@@ -1099,6 +1100,8 @@ Keyboard support:
   </article>
 </section>
 ```
+
+Balanced signal grids use `data-if-balanced-grid` to keep configurable widget strips evenly distributed across wrapped rows. The framework writes `data-if-balanced-grid-columns`, `data-if-balanced-grid-count`, and `--if-balanced-grid-columns`; call `balanceGrid(grid)` or `refreshBalancedGrids(root)` after non-DOM-visible changes.
 
 ```js
 const workspace = document.querySelector("[data-if-operations-workspace]");

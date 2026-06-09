@@ -930,7 +930,8 @@
       ],
       "accessibility": [
         "Input behaves as a combobox with active-descendant management.",
-        "Escape closes suggestions without clearing the query."
+        "Escape closes suggestions without clearing the query.",
+        "Option selection and outside focus/click dismissal work inside stopped-propagation host surfaces."
       ],
       "stability": "stable",
       "contract": {
@@ -1721,6 +1722,8 @@
         "if-operations-workspace",
         "if-operations-page",
         "if-operations-signal-grid",
+        "if-operations-signal-grid--balanced",
+        "if-balanced-grid",
         "if-operations-signal",
         "if-operations-panel",
         "if-operations-section",
@@ -1747,10 +1750,17 @@
         "data-if-operations-label",
         "data-if-operations-focus-panel",
         "data-if-operations-panel",
-        "data-if-operations-reset"
+        "data-if-operations-reset",
+        "data-if-balanced-grid",
+        "data-if-balanced-grid-min",
+        "data-if-balanced-grid-max",
+        "data-if-balanced-grid-columns"
       ],
       "jsApis": [
         "hydrateOperationsWorkspaces",
+        "hydrateBalancedGrids",
+        "balanceGrid",
+        "refreshBalancedGrids",
         "setOperationsSignal",
         "resetOperationsSignal",
         "getOperationsWorkspaceState",
@@ -1758,7 +1768,8 @@
       ],
       "events": [
         "if:operations-signal-change",
-        "if:operations-signal-reset"
+        "if:operations-signal-reset",
+        "if:balanced-grid"
       ],
       "recipes": [
         "operations-workspace",
