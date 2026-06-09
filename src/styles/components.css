@@ -35081,6 +35081,40 @@ img.if-official-mark {
   min-width: 0;
 }
 
+.if-operations-widget-picker {
+  min-width: 0;
+}
+
+.if-operations-widget-picker__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--if-space-2);
+  align-items: start;
+  min-width: 0;
+}
+
+.if-operations-widget-picker__pane {
+  display: grid;
+  min-width: 0;
+  gap: var(--if-space-2);
+  align-content: start;
+}
+
+.if-operations-widget-picker__pane-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--if-space-2);
+  min-width: 0;
+}
+
+.if-operations-widget-picker__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--if-space-2);
+  min-width: 0;
+}
+
 .if-operations-summary-grid,
 .if-record-detail__facts,
 .if-source-console-grid,
@@ -37866,6 +37900,15 @@ button.if-analytics-list-item:focus-visible {
 
   .if-operations-signal-grid--compact.if-metric-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .if-operations-widget-picker__layout,
+  .if-operations-widget-picker__options {
+    grid-template-columns: 1fr;
+  }
+
+  .if-operations-widget-picker__pane-header {
+    display: grid;
   }
 
   .if-operations-signal-grid--compact .if-operations-signal--critical-risk {

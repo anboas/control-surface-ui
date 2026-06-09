@@ -827,6 +827,8 @@ Use the operations workspace pattern when a record-heavy analytics page needs si
 
 Add `.if-balanced-grid` with `data-if-balanced-grid` when a configurable signal or widget strip can wrap. The framework sets `--if-balanced-grid-columns` from the visible item count and container width so rows stay horizontally balanced instead of leaving orphan cards on the final line.
 
+For configurable operations dashboards, compose `.if-operations-widget-picker`, `.if-operations-widget-picker__layout`, `.if-operations-widget-picker__pane`, `.if-operations-widget-picker__pane-header`, and `.if-operations-widget-picker__options` for two-pane selected/available widget controls. The layout collapses to one column on narrow screens and keeps widget option grids shrink-safe without app-local CSS.
+
 The JavaScript API exposes `hydrateOperationsWorkspaces`, `setOperationsSignal`, `resetOperationsSignal`, and `getOperationsWorkspaceState`. It emits `if:operations-signal-change` and `if:operations-signal-reset`, so host apps can synchronize URL state, table filters, detail panels, or telemetry without parsing visible text.
 
 For full application shells, use `.if-operations-app` with `.if-operations-app--wide` when dense data surfaces need more desktop width. Compose a compact sticky masthead with `.if-product-header--sticky`, `.if-product-header--compact`, `.if-product-header__inner`, and `.if-operations-topnav` so primary surfaces can live in the top-right header while secondary surfaces sit in a compact menu.
