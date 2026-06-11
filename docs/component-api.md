@@ -1364,6 +1364,59 @@ InterfaceFramework.applyHierarchyNodeTypes(document.querySelector("[data-if-hier
 </ol>
 ```
 
+## Threaded Comments
+
+### API
+
+| Contract | Required | Optional | Notes |
+| --- | --- | --- | --- |
+| Root | `.if-comment-thread` | `data-if-comment-thread` | Wraps composer and nested thread list. |
+| Composer | `.if-comment-thread__composer` | `data-if-comment-composer`, `data-if-comment-parent-id` | Host app owns submit and persistence. |
+| Textarea | `.if-comment-thread__textarea` | none | Native text input for notes or replies. |
+| List | `.if-comment-thread__list` | none | Contains root comments. |
+| Comment | `.if-comment` | `.if-comment--reply`, `data-if-comment-id`, `data-if-comment-parent-id` | Repeated comment item. |
+| Replies | `.if-comment__replies` | none | Nested reply container. |
+| Reply action | `.if-comment__actions .if-btn` | none | Use a normal button for host-owned reply toggles. |
+
+### Variant Matrix
+
+| Variant | Use |
+| --- | --- |
+| Root comment | New decision note or review comment. |
+| Reply comment | Direct response to a prior comment. |
+| Empty thread | No comments yet. |
+| Inline reply composer | Focused response beneath a selected comment. |
+
+### Copy-Paste
+
+```html
+<section class="if-comment-thread" data-if-comment-thread>
+  <form class="if-comment-thread__composer" data-if-comment-composer>
+    <div class="if-comment-thread__composer-header">
+      <div class="if-comment-thread__composer-context">
+        <span class="if-comment-thread__composer-label">Comment as Alex Rivera</span>
+        <span class="if-comment-thread__composer-meta">Capture Lead · Tech Ops</span>
+      </div>
+      <button class="if-btn if-btn--primary if-btn--sm" type="submit">Add Comment</button>
+    </div>
+    <textarea class="if-comment-thread__textarea" rows="3"></textarea>
+  </form>
+  <div class="if-comment-thread__list">
+    <article class="if-comment" data-if-comment-id="c1">
+      <div class="if-comment__rail"><span class="if-comment__avatar">AR</span><span class="if-comment__score">1</span></div>
+      <div class="if-comment__body">
+        <header class="if-comment__header"><strong class="if-comment__author">Alex Rivera</strong><span class="if-comment__role">Tech Ops</span><time class="if-comment__timestamp">Just now</time></header>
+        <div class="if-comment__content">Need pricing check before bid/no-bid.</div>
+        <div class="if-comment__actions"><button class="if-btn if-btn--tertiary if-btn--sm" type="button">Reply</button></div>
+        <div class="if-comment__replies">
+          <article class="if-comment if-comment--reply" data-if-comment-id="c2" data-if-comment-parent-id="c1"></article>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+```
+
 ## Document Viewer And Reconstituted Text
 
 ### API

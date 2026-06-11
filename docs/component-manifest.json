@@ -3417,6 +3417,70 @@
       }
     },
     {
+      "id": "threaded-comments",
+      "name": "Threaded Comments",
+      "category": "data-display",
+      "status": "production-ready",
+      "whenToUse": [
+        "Adding review notes, operator comments, or decision discussion to a record detail surface.",
+        "Users need direct replies that remain visually nested under the comment they answer."
+      ],
+      "avoidWhen": [
+        "The discussion requires real-time chat presence, moderation queues, or websocket behavior owned by a product service.",
+        "A simple audit timeline with no replies is sufficient; use item-history-viewer instead."
+      ],
+      "primaryClasses": [
+        "if-comment-thread",
+        "if-comment-thread__composer",
+        "if-comment-thread__textarea",
+        "if-comment-thread__list",
+        "if-comment",
+        "if-comment--reply",
+        "if-comment__rail",
+        "if-comment__avatar",
+        "if-comment__body",
+        "if-comment__header",
+        "if-comment__content",
+        "if-comment__actions",
+        "if-comment__replies"
+      ],
+      "dataAttributes": [
+        "data-if-comment-thread",
+        "data-if-comment-composer",
+        "data-if-comment-id",
+        "data-if-comment-parent-id"
+      ],
+      "jsApis": [],
+      "events": [],
+      "recipes": [
+        "threaded-comments"
+      ],
+      "docs": [
+        "docs/component-api.md#threaded-comments",
+        "docs/recipes.md#threaded-comments"
+      ],
+      "examples": [
+        "examples/components.html"
+      ],
+      "accessibility": [
+        "Use native buttons for reply actions and submit controls.",
+        "Keep the reply composer adjacent to the comment being answered so focus order matches the visual thread.",
+        "Use semantic article elements and preserve readable author, role, timestamp, and body text."
+      ],
+      "stability": "stable",
+      "contract": {
+        "stability": "stable",
+        "releaseTier": "P0 handoff stable",
+        "behavior": "static-display",
+        "variantCoverage": "docs/component-api.md#threaded-comments",
+        "copyPasteCoverage": "docs/component-api.md#threaded-comments",
+        "examplesBacked": true,
+        "accessibilityBacked": true,
+        "eventPolicy": "static display component; host application owns submit, reply toggle, persistence, and telemetry events",
+        "validation": "scripts/validate.mjs validateAgenticDocs"
+      }
+    },
+    {
       "id": "public-site-patterns",
       "name": "Public Website Patterns",
       "category": "public-site",
@@ -3668,6 +3732,17 @@
       ],
       "docs": [
         "docs/recipes.md#state-variants"
+      ]
+    },
+    {
+      "id": "threaded-comments",
+      "title": "Nested review comments with direct reply composers",
+      "components": [
+        "threaded-comments",
+        "buttons-actions"
+      ],
+      "docs": [
+        "docs/recipes.md#threaded-comments"
       ]
     }
   ],

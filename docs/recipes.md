@@ -1202,6 +1202,46 @@ Use programmatic APIs:
 
 Use `docs/performance-budgets.md` when wiring this into a release or CI gate.
 
+## Threaded Comments
+
+Choose this when a review, record detail, source evidence, or decision surface needs direct replies without leaving the current context. Use `.if-comment-thread`, `.if-comment-thread__composer`, `.if-comment`, `.if-comment__actions`, and `.if-comment__replies`; host applications own author identity, storage, moderation, and submit behavior.
+
+```html
+<section class="if-comment-thread" data-if-comment-thread>
+  <form class="if-comment-thread__composer" data-if-comment-composer>
+    <div class="if-comment-thread__composer-header">
+      <div class="if-comment-thread__composer-context">
+        <span class="if-comment-thread__composer-label">Comment as Alex Rivera</span>
+        <span class="if-comment-thread__composer-meta">Capture Lead · Tech Ops</span>
+      </div>
+      <button class="if-btn if-btn--primary if-btn--sm" type="submit">Add Comment</button>
+    </div>
+    <textarea class="if-comment-thread__textarea" rows="3" placeholder="Add a note, next step, or review comment..."></textarea>
+  </form>
+  <div class="if-comment-thread__list">
+    <article class="if-comment" data-if-comment-id="comment-1">
+      <div class="if-comment__rail">
+        <span class="if-comment__avatar">AR</span>
+        <span class="if-comment__score">1</span>
+      </div>
+      <div class="if-comment__body">
+        <header class="if-comment__header">
+          <strong class="if-comment__author">Alex Rivera</strong>
+          <span class="if-comment__role">Tech Ops</span>
+          <time class="if-comment__timestamp">Just now</time>
+        </header>
+        <div class="if-comment__content">Need pricing check before bid/no-bid.</div>
+        <div class="if-comment__actions">
+          <button class="if-btn if-btn--tertiary if-btn--sm" type="button">Reply</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+```
+
+Keep reply depth visually modest. If business data allows unlimited parent chains, cap indentation in the renderer and preserve the actual `parentId` in storage.
+
 ## Supporting Recipes
 
 ### Toolbar Actions
