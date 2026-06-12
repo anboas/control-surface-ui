@@ -2714,6 +2714,11 @@
       "primaryClasses": [
         "if-doc-workspace",
         "if-doc-main",
+        "if-doc-fulltext-shell",
+        "if-doc-fulltext-toolbar",
+        "if-doc-window-controls",
+        "if-doc-extraction-meta",
+        "if-doc-load-state",
         "if-doc-reconstitution",
         "if-doc-line",
         "if-doc-line__number",

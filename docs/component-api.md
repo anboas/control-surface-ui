@@ -1436,6 +1436,7 @@ InterfaceFramework.applyHierarchyNodeTypes(document.querySelector("[data-if-hier
 | Filter | `[data-if-doc-filter]` | all/matches/category | Restricts visible lines by category or query hits. |
 | Counts | `[data-if-doc-match-count]`, `[data-if-doc-visible-count]`, `[data-if-doc-query-count]`, `[data-if-doc-total-count]`, `[data-if-doc-active-filter]` | none | Mirrors visible line count, query hits, total lines, and active filter. |
 | Lines | `[data-if-doc-lines]` | `.if-doc-line` rows | Reconstituted text. |
+| Full extraction shell | `.if-doc-fulltext-shell` | `.if-doc-fulltext-toolbar`, `.if-doc-window-controls`, `.if-doc-extraction-meta`, `.if-doc-load-state` | Complete extracted text loaded by the host with a bounded rendered line window for large documents. |
 | Mark | `.if-doc-mark` | `data-doc-mark`, `data-if-doc-annotation-*` metadata | Click/hover annotations and emits normalized annotation schema. |
 | Jump | `[data-if-doc-jump]` | search string | Jumps to source line. |
 | API | `getDocumentViewer`, `getDocumentViewerState`, `getDocumentWorkspaceState`, `hydrateDocumentViewers`, `hydrateDocumentCorpus`, `hydrateDocumentAnnotations`, `updateDocumentSearch`, `selectDocumentArtifact`, `selectDocumentAnnotation`, `setDocumentArtifactMode` | none | Production integration and editor state inspection. |
@@ -1447,6 +1448,7 @@ InterfaceFramework.applyHierarchyNodeTypes(document.querySelector("[data-if-hier
 | --- | --- |
 | Embedded artifact | PDF/object preview. |
 | Reconstituted text | Parsed lines with annotations. |
+| Full extraction window | Full source text loaded by the host, rendered as a searchable line-numbered window. |
 | Semantic highlights | CLM/ORG/REF/IMP/ENB/REL marks. |
 | Authority drilldown | Upstream/downstream context. |
 | Parser output | Claims, references, orgs, graph preview. |

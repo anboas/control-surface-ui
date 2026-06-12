@@ -28213,6 +28213,88 @@ img.if-official-mark {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.75);
 }
 
+.if-doc-fulltext-shell {
+  display: grid;
+  gap: var(--if-space-3);
+}
+
+.if-doc-fulltext-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--if-space-2);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--if-space-2);
+  border: var(--if-outline);
+  border-radius: var(--if-radius-2);
+  background: var(--if-bg-surface);
+}
+
+.if-doc-window-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--if-space-2);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.if-doc-window-controls .if-input,
+.if-doc-window-controls .if-select {
+  width: auto;
+  min-width: 7.5rem;
+}
+
+.if-doc-extraction-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--if-space-2);
+}
+
+.if-doc-extraction-meta__item {
+  min-width: 0;
+  padding: var(--if-space-2);
+  border: var(--if-outline);
+  border-radius: var(--if-radius-2);
+  background: var(--if-bg-subtle);
+}
+
+.if-doc-extraction-meta__item span {
+  display: block;
+  color: var(--if-text-muted);
+  font-size: var(--if-font-size-2xs);
+  font-weight: var(--if-font-weight-bold);
+  text-transform: uppercase;
+}
+
+.if-doc-extraction-meta__item strong {
+  display: block;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+  color: var(--if-text-strong);
+  font-size: var(--if-font-size-xs);
+  line-height: var(--if-line-height-snug);
+}
+
+.if-doc-load-state {
+  display: grid;
+  gap: var(--if-space-2);
+  place-items: center;
+  min-height: 14rem;
+  padding: var(--if-space-5);
+  border: var(--if-outline);
+  border-radius: var(--if-radius-2);
+  background:
+    linear-gradient(90deg, var(--if-bg-subtle) 0 7.35rem, transparent 7.35rem),
+    var(--if-bg-surface);
+  color: var(--if-text-muted);
+  text-align: center;
+}
+
+.if-doc-load-state strong {
+  color: var(--if-text-strong);
+  font-size: var(--if-font-size-sm);
+}
+
 .if-doc-line {
   display: grid;
   grid-template-columns: 7.05rem minmax(0, 1fr);
@@ -28564,6 +28646,19 @@ img.if-official-mark {
   .if-doc-line {
     grid-template-columns: 5.85rem minmax(0, 1fr);
     font-size: 0.6875rem;
+  }
+
+  .if-doc-fulltext-toolbar,
+  .if-doc-window-controls {
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .if-doc-fulltext-toolbar > *,
+  .if-doc-window-controls > *,
+  .if-doc-window-controls .if-input,
+  .if-doc-window-controls .if-select {
+    width: 100%;
   }
 
   .if-doc-embed {
