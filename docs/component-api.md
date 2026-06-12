@@ -1376,6 +1376,7 @@ InterfaceFramework.applyHierarchyNodeTypes(document.querySelector("[data-if-hier
 | List | `.if-comment-thread__list` | none | Contains root comments. |
 | Comment | `.if-comment` | `.if-comment--reply`, `data-if-comment-id`, `data-if-comment-parent-id` | Repeated comment item. |
 | Replies | `.if-comment__replies` | none | Nested reply container. |
+| Collapse action | `.if-comment__collapse` | `aria-expanded` | Compact host-owned expand/collapse toggle for reply branches. |
 | Reply action | `.if-comment__actions .if-btn` | none | Use a normal button for host-owned reply toggles. |
 
 ### Variant Matrix
@@ -1407,7 +1408,10 @@ InterfaceFramework.applyHierarchyNodeTypes(document.querySelector("[data-if-hier
       <div class="if-comment__body">
         <header class="if-comment__header"><strong class="if-comment__author">Alex Rivera</strong><span class="if-comment__role">Tech Ops</span><time class="if-comment__timestamp">Just now</time></header>
         <div class="if-comment__content">Need pricing check before bid/no-bid.</div>
-        <div class="if-comment__actions"><button class="if-btn if-btn--tertiary if-btn--sm" type="button">Reply</button></div>
+        <div class="if-comment__actions">
+          <button class="if-comment__collapse" type="button" aria-expanded="true">[-]</button>
+          <button class="if-btn if-btn--tertiary if-btn--sm" type="button">Reply</button>
+        </div>
         <div class="if-comment__replies">
           <article class="if-comment if-comment--reply" data-if-comment-id="c2" data-if-comment-parent-id="c1"></article>
         </div>

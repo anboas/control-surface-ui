@@ -1204,7 +1204,7 @@ Use `docs/performance-budgets.md` when wiring this into a release or CI gate.
 
 ## Threaded Comments
 
-Choose this when a review, record detail, source evidence, or decision surface needs direct replies without leaving the current context. Use `.if-comment-thread`, `.if-comment-thread__composer`, `.if-comment`, `.if-comment__actions`, and `.if-comment__replies`; host applications own author identity, storage, moderation, and submit behavior.
+Choose this when a review, record detail, source evidence, or decision surface needs direct replies without leaving the current context. Use `.if-comment-thread`, `.if-comment-thread__composer`, `.if-comment`, `.if-comment__actions`, `.if-comment__collapse`, and `.if-comment__replies`; host applications own author identity, storage, moderation, collapse state, and submit behavior.
 
 ```html
 <section class="if-comment-thread" data-if-comment-thread>
@@ -1232,6 +1232,7 @@ Choose this when a review, record detail, source evidence, or decision surface n
         </header>
         <div class="if-comment__content">Need pricing check before bid/no-bid.</div>
         <div class="if-comment__actions">
+          <button class="if-comment__collapse" type="button" aria-expanded="true">[-]</button>
           <button class="if-btn if-btn--tertiary if-btn--sm" type="button">Reply</button>
         </div>
       </div>
@@ -1240,7 +1241,7 @@ Choose this when a review, record detail, source evidence, or decision surface n
 </section>
 ```
 
-Keep reply depth visually modest. If business data allows unlimited parent chains, cap indentation in the renderer and preserve the actual `parentId` in storage.
+Keep reply depth visually modest. If business data allows unlimited parent chains, cap indentation in the renderer and preserve the actual `parentId` in storage. On narrow viewports, keep the rail above the body so nested replies do not crush the text column.
 
 ## Supporting Recipes
 

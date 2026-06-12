@@ -3442,6 +3442,7 @@
         "if-comment__header",
         "if-comment__content",
         "if-comment__actions",
+        "if-comment__collapse",
         "if-comment__replies"
       ],
       "dataAttributes": [
@@ -3464,6 +3465,7 @@
       ],
       "accessibility": [
         "Use native buttons for reply actions and submit controls.",
+        "Use a native button with aria-expanded for branch collapse controls.",
         "Keep the reply composer adjacent to the comment being answered so focus order matches the visual thread.",
         "Use semantic article elements and preserve readable author, role, timestamp, and body text."
       ],

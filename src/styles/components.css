@@ -88,7 +88,7 @@
 .if-comment {
   display: grid;
   min-width: 0;
-  grid-template-columns: 2.375rem minmax(0, 1fr);
+  grid-template-columns: 2rem minmax(0, 1fr);
   gap: var(--if-space-2);
   padding: var(--if-space-2);
   border: 1px solid var(--if-border);
@@ -110,8 +110,8 @@
 
 .if-comment__avatar {
   display: inline-grid;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.625rem;
+  height: 1.625rem;
   place-items: center;
   border: 1px solid var(--if-border-selected);
   border-radius: 50%;
@@ -183,6 +183,19 @@
   flex-wrap: wrap;
 }
 
+.if-comment__collapse {
+  min-height: 1.5rem;
+  padding: 0 var(--if-space-1);
+  border: 1px solid var(--if-border);
+  border-radius: var(--if-control-radius);
+  background: var(--if-bg-surface);
+  color: var(--if-accent);
+  font-family: var(--if-font-mono);
+  font-size: var(--if-font-size-xs);
+  font-weight: var(--if-font-weight-bold);
+  line-height: 1;
+}
+
 .if-comment__reply-composer {
   margin-block-start: var(--if-space-1);
   padding-block-start: var(--if-space-2);
@@ -194,20 +207,51 @@
   gap: var(--if-space-2);
   min-width: 0;
   margin-block-start: var(--if-space-2);
-  margin-inline-start: clamp(0.75rem, 5vw, 1.75rem);
+  margin-inline-start: var(--if-space-2);
   padding-inline-start: var(--if-space-2);
   border-inline-start: 2px solid var(--if-border-selected);
 }
 
+.if-comment__replies .if-comment__replies {
+  margin-inline-start: var(--if-space-1);
+  padding-inline-start: var(--if-space-1);
+}
+
 @media (max-width: 640px) {
   .if-comment {
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--if-space-1);
+    padding: var(--if-space-1);
+  }
+
+  .if-comment__rail {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: var(--if-space-1);
   }
 
+  .if-comment__avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .if-comment__score {
+    font-size: var(--if-font-size-2xs);
+  }
+
+  .if-comment__header {
+    gap: 0.1875rem var(--if-space-1);
+  }
+
   .if-comment__replies {
-    margin-inline-start: 0.25rem;
-    padding-inline-start: var(--if-space-2);
+    margin-inline-start: 0;
+    padding-inline-start: var(--if-space-1);
+  }
+
+  .if-comment__replies .if-comment__replies {
+    margin-inline-start: 0;
+    padding-inline-start: var(--if-space-1);
   }
 }
 
