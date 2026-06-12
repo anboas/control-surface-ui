@@ -14410,6 +14410,89 @@ img.if-official-mark {
   padding-inline: 0;
 }
 
+.if-segmented-control {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  min-height: var(--if-control-height-sm);
+  overflow: hidden;
+  border: 1px solid var(--if-border);
+  border-radius: var(--if-control-radius);
+  background: var(--if-bg-surface);
+}
+
+.if-segmented-control__item {
+  display: inline-flex;
+  min-width: 0;
+  min-height: calc(var(--if-control-height-sm) - 2px);
+  align-items: center;
+  justify-content: center;
+  gap: var(--if-space-1);
+  padding: 0 var(--if-space-3);
+  border: 0;
+  border-right: 1px solid var(--if-border);
+  background: transparent;
+  color: var(--if-text-muted);
+  font: inherit;
+  font-size: var(--if-font-size-xs);
+  font-weight: var(--if-font-weight-bold);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--if-duration-fast) var(--if-ease-standard),
+    color var(--if-duration-fast) var(--if-ease-standard),
+    box-shadow var(--if-duration-fast) var(--if-ease-standard);
+}
+
+.if-segmented-control__item:last-child {
+  border-right: 0;
+}
+
+.if-segmented-control__item:hover,
+.if-segmented-control__item:focus-visible {
+  background: var(--if-bg-selected);
+  color: var(--if-primary);
+  outline: 0;
+}
+
+.if-segmented-control__item:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--if-primary) 34%, transparent);
+}
+
+.if-segmented-control__item.is-active,
+.if-segmented-control__item[aria-pressed="true"] {
+  background: var(--if-primary);
+  color: var(--if-on-primary);
+}
+
+.if-segmented-control__item.is-active:focus-visible,
+.if-segmented-control__item[aria-pressed="true"]:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--if-on-primary) 70%, transparent);
+}
+
+.if-segmented-control--stretch {
+  display: flex;
+  width: 100%;
+}
+
+.if-segmented-control--stretch .if-segmented-control__item {
+  flex: 1 1 0;
+}
+
+@media (max-width: 36rem) {
+  .if-segmented-control {
+    width: 100%;
+  }
+
+  .if-segmented-control__item {
+    flex: 1 1 0;
+    padding-inline: var(--if-space-2);
+  }
+}
+
 .if-menu {
   position: absolute;
   top: calc(100% + var(--if-space-1));
