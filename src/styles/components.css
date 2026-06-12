@@ -37142,13 +37142,39 @@ button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
   --if-list-accent: var(--if-color-amber-600, #c77700);
 }
 
+.if-detail-card--purple,
+.if-distribution-card--purple,
+.if-management-card.if-tone-purple,
+.if-operations-metric-card.if-tone-purple,
+.if-analytics-list-item.if-tone-purple,
+.if-distribution-row.if-tone-purple,
+.if-field-source-card.if-tone-purple,
+.if-field-source-card__field.if-tone-purple {
+  --if-card-accent: var(--if-purple);
+  --if-metric-accent: var(--if-purple);
+  --if-list-accent: var(--if-purple);
+}
+
+.if-detail-card--neutral,
+.if-distribution-card--neutral,
+.if-management-card.if-tone-neutral,
+.if-operations-metric-card.if-tone-neutral,
+.if-analytics-list-item.if-tone-neutral,
+.if-distribution-row.if-tone-neutral,
+.if-field-source-card.if-tone-neutral,
+.if-field-source-card__field.if-tone-neutral {
+  --if-card-accent: var(--if-color-neutral-600, #64748b);
+  --if-metric-accent: var(--if-color-neutral-600, #64748b);
+  --if-list-accent: var(--if-color-neutral-600, #64748b);
+}
+
 .if-distribution-card__rows,
 .if-analytics-list,
 .if-source-coverage,
 .if-period-card__grid,
 .if-field-source-card__grid {
   display: grid;
-  gap: var(--if-space-2);
+  gap: var(--if-space-1);
   min-width: 0;
 }
 
@@ -37158,7 +37184,7 @@ button.if-schedule-gantt__toggle:is(:hover, :focus-visible) {
   gap: var(--if-space-1);
   min-width: 0;
   width: 100%;
-  padding: var(--if-space-2);
+  padding: var(--if-space-1) var(--if-space-2);
   border: var(--if-divider);
   border-left: 4px solid var(--if-list-accent, var(--if-border-selected));
   border-radius: var(--if-radius-1);
@@ -37187,7 +37213,7 @@ button.if-analytics-list-item:focus-visible {
 .if-period-card__header,
 .if-field-source-card__header {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--if-space-2);
   min-width: 0;
@@ -37201,7 +37227,7 @@ button.if-analytics-list-item:focus-visible {
   color: var(--if-text-strong);
   font-size: var(--if-font-size-xs);
   font-weight: var(--if-font-weight-black);
-  line-height: var(--if-line-height-snug);
+  line-height: var(--if-line-height-tight);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37214,7 +37240,7 @@ button.if-analytics-list-item:focus-visible {
   min-width: 0;
   color: var(--if-text-muted);
   font-size: var(--if-font-size-2xs);
-  line-height: var(--if-line-height-snug);
+  line-height: 1.22;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37224,7 +37250,7 @@ button.if-analytics-list-item:focus-visible {
 .if-analytics-list-item__metrics {
   display: inline-flex;
   align-items: baseline;
-  gap: var(--if-space-2);
+  gap: var(--if-space-1);
   color: var(--if-text-muted);
   font-family: var(--if-font-family-mono);
   font-size: var(--if-font-size-2xs);
@@ -37240,7 +37266,7 @@ button.if-analytics-list-item:focus-visible {
 }
 
 .if-progress-bar {
-  height: 0.5rem;
+  height: 0.25rem;
   overflow: hidden;
   border-radius: var(--if-radius-pill);
   background: var(--if-bg-muted);
@@ -37438,16 +37464,18 @@ button.if-analytics-list-item:focus-visible {
 
 .if-field-source-card__grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
-  gap: 0;
+  gap: var(--if-space-1);
 }
 
 .if-field-source-card__field {
   display: grid;
-  gap: 0.2rem;
+  gap: var(--if-space-1);
   min-width: 0;
-  padding: var(--if-space-2);
-  border-right: var(--if-divider);
-  border-bottom: var(--if-divider);
+  padding: var(--if-space-1) var(--if-space-2);
+  border: var(--if-divider);
+  border-left: 4px solid var(--if-list-accent, var(--if-card-accent, var(--if-border-selected)));
+  border-radius: var(--if-radius-1);
+  background: var(--if-bg-subtle);
 }
 
 .if-fact-row {
