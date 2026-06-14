@@ -258,6 +258,18 @@ test.describe("component and behavior contracts", () => {
     expect(result.events.map((event) => event.name)).toContain("if:source-registry-result");
   });
 
+  test("state variants expose the reusable loading dots contract", async ({ page }) => {
+    await gotoExample(page, "components.html#coverage-components");
+
+    await page.locator("[data-if-state-variant='loading'][data-if-state-target='#coverage-state-preview']").click();
+
+    const loadingPanel = page.locator("[data-if-state-panel='loading']");
+    await expect(loadingPanel).toBeVisible();
+    await expect(loadingPanel.locator(".if-loading-dots")).toBeVisible();
+    await expect(loadingPanel.locator(".if-loading-dots > span")).toHaveCount(3);
+    await expect(loadingPanel).toContainText("Loading source results");
+  });
+
   test("performance scale lab contains large demos at desktop and mobile widths", async ({ page }) => {
     for (const viewport of [
       { width: 1440, height: 1000 },

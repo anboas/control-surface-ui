@@ -33,6 +33,8 @@ export async function gotoExample(page, route) {
       }
 
       .if-loading-dot,
+      .if-loading-dots,
+      .if-loading-dots > span,
       .if-skeleton,
       [data-if-visual-test-stable] {
         animation: none !important;

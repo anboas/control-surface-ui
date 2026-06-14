@@ -1162,7 +1162,7 @@ Listen for `if:annotation-tool-change` with `{ toolbar, control, tool, label, st
 
 ## State Variants
 
-Choose this when a component needs no-results, loading, recoverable error, or skeleton feedback. Use `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, and optional `data-if-state-preview` controls. Listen for `if:state-variant-change` in demos or host orchestration.
+Choose this when a component needs no-results, loading, recoverable error, or skeleton feedback. Use `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `.if-loading-inline`, `.if-loading-dots`, and optional `data-if-state-preview` controls. Pair animated dots with visible text, and keep the dots `aria-hidden` unless they are the only status label. Listen for `if:state-variant-change` in demos or host orchestration.
 
 Use `runAdapterTask(target, adapter, context, { channel })` when a new analytics surface needs production-style loading, empty, error, cancel, and success states but does not yet have a specialized registry. The helper creates an `AbortSignal`, cancels stale work in the same channel, writes `data-if-adapter-state`, updates `[data-if-adapter-status]`, and emits both generic `if:adapter-*` events and scoped `if:{channel}-*` events.
 

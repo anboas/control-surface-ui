@@ -530,6 +530,42 @@ async function validatePerformanceScaleContracts() {
   ok("performance and scale contracts are present");
 }
 
+async function validateLoadingStateContracts() {
+  const componentsCss = await read("src/styles/components.css");
+  const source = await read("src/js/index.js");
+  const components = await read("examples/components.html");
+  const actionPatterns = await read("examples/action-patterns.html");
+  const notificationPatterns = await read("examples/notification-patterns.html");
+  const docs = `${await read("docs/components.md")}\n${await read("docs/component-api.md")}\n${await read("docs/recipes.md")}`;
+  const manifest = JSON.parse(await read("docs/component-manifest.json"));
+  const stateVariants = manifest.components.find((component) => component.id === "state-variants");
+
+  [
+    ".if-loading-dots",
+    ".if-loading-dots--sm",
+    ".if-loading-dots--lg",
+    ".if-loading-dots--orbit",
+    ".if-loading-inline",
+    "@keyframes if-loading-dot-bounce",
+    "@keyframes if-loading-dot-fade",
+    "prefers-reduced-motion: reduce"
+  ].forEach((token) => assert(componentsCss.includes(token), `loading state CSS missing: ${token}`));
+  assert(source.includes("if-loading-dots if-loading-dots--sm"), "autocomplete loading state should use the shared loading dots");
+  [components, actionPatterns, notificationPatterns].forEach((example, index) => {
+    assert(example.includes("if-loading-dots"), `loading dots missing from example ${index + 1}`);
+  });
+  [
+    ".if-loading-dots",
+    ".if-loading-inline",
+    "Animated dots are decorative"
+  ].forEach((token) => assert(docs.includes(token), `loading state docs missing: ${token}`));
+  [
+    "if-loading-dots",
+    "if-loading-inline"
+  ].forEach((token) => assert(stateVariants?.primaryClasses?.includes(token), `state-variants manifest missing primary class: ${token}`));
+  ok("loading state contracts are present");
+}
+
 async function validateDemoContracts() {
   const htmlFiles = await listFiles("examples", ".html");
   for (const file of htmlFiles) {
@@ -2075,6 +2111,7 @@ await validateChartContracts();
 await validateDataSchemaDocs();
 await validateLayoutGuardContracts();
 await validatePerformanceScaleContracts();
+await validateLoadingStateContracts();
 await validateDemoContracts();
 await validateJsonData();
 await validateAgenticDocs();

@@ -10246,7 +10246,7 @@ function renderAutocompleteItems(input, items, query, state = "", options = {}) 
     const copy = getAutocompleteStateCopy(state, options);
     const role = state === "error" ? "alert" : "status";
     const media = state === "loading"
-      ? `<span class="if-loading-dot" aria-hidden="true"></span>`
+      ? `<span class="if-loading-dots if-loading-dots--sm" aria-hidden="true"><span></span><span></span><span></span></span>`
       : `<span class="if-autocomplete__state-icon if-icon-slot" data-if-icon="${escapeHtml(copy.icon)}" aria-hidden="true"></span>`;
     menu.innerHTML = `
       <div class="if-autocomplete__state if-autocomplete__state--${escapeHtml(state)}" role="${role}">

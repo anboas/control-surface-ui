@@ -1383,6 +1383,8 @@
       "primaryClasses": [
         "if-empty",
         "if-loading",
+        "if-loading-inline",
+        "if-loading-dots",
         "if-error-state",
         "if-skeleton",
         "if-state-preview"
@@ -1426,7 +1428,8 @@
       ],
       "accessibility": [
         "State panels must use text and actions, not icons alone.",
-        "Loading states should avoid trapping keyboard focus."
+        "Loading states should avoid trapping keyboard focus.",
+        "Animated loading dots are decorative by default and must be paired with visible progress text."
       ],
       "stability": "stable",
       "contract": {

@@ -4422,12 +4422,94 @@ hr {
 }
 
 .if-loading-dot {
+  display: inline-block;
+  flex: 0 0 auto;
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 999px;
   background: var(--if-accent);
   box-shadow: 0 0 0 0 color-mix(in srgb, var(--if-accent) 38%, transparent);
   animation: if-pulse 1s infinite;
+}
+
+.if-loading-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--if-space-2);
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.if-loading-dots {
+  --if-loading-dot-size: 0.42rem;
+  --if-loading-dot-gap: 0.22rem;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: var(--if-loading-dot-gap);
+  min-width: calc((var(--if-loading-dot-size) * 3) + (var(--if-loading-dot-gap) * 2));
+  color: var(--if-loading-dot-color, var(--if-accent));
+  vertical-align: middle;
+}
+
+.if-loading-dots > span {
+  display: block;
+  width: var(--if-loading-dot-size);
+  height: var(--if-loading-dot-size);
+  border-radius: 999px;
+  background: currentColor;
+  animation: if-loading-dot-bounce 0.9s var(--if-ease-standard) infinite;
+}
+
+.if-loading-dots > span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.if-loading-dots > span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.if-loading-dots--sm {
+  --if-loading-dot-size: 0.32rem;
+  --if-loading-dot-gap: 0.18rem;
+}
+
+.if-loading-dots--lg {
+  --if-loading-dot-size: 0.55rem;
+  --if-loading-dot-gap: 0.3rem;
+}
+
+.if-loading-dots--orbit {
+  position: relative;
+  width: 1.3rem;
+  height: 1.3rem;
+  min-width: 1.3rem;
+  gap: 0;
+  animation: if-spin 1s linear infinite;
+}
+
+.if-loading-dots--orbit > span {
+  position: absolute;
+  inset: auto;
+  animation: if-loading-dot-fade 0.9s ease-in-out infinite;
+}
+
+.if-loading-dots--orbit > span:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.if-loading-dots--orbit > span:nth-child(2) {
+  right: 0.08rem;
+  bottom: 0.12rem;
+}
+
+.if-loading-dots--orbit > span:nth-child(3) {
+  bottom: 0.12rem;
+  left: 0.08rem;
 }
 
 @keyframes if-pulse {
@@ -4437,6 +4519,28 @@ hr {
 
   100% {
     box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes if-loading-dot-bounce {
+  0%, 80%, 100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(0.82);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-0.18rem) scale(1);
+  }
+}
+
+@keyframes if-loading-dot-fade {
+  0%, 100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
 
@@ -15168,6 +15272,16 @@ img.if-official-mark {
 
 @keyframes if-spin {
   to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .if-loading-dot,
+  .if-loading-dots,
+  .if-loading-dots > span,
+  .if-btn__spinner,
+  .if-skeleton__line {
+    animation: none;
+  }
 }
 
 .if-icon-toolbar {

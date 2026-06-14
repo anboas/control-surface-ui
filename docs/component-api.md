@@ -705,7 +705,7 @@ Contrast reports live at `docs/theme-contrast-report.md` and `docs/theme-contras
 | --- | --- | --- | --- |
 | Alert | `.if-alert` | semantic modifier | Inline feedback. |
 | Empty | `.if-empty` | icon/action | No data or no results. |
-| Loading | `.if-skeleton`, `.if-loading-dot` | none | Non-blocking loading. |
+| Loading | `.if-skeleton`, `.if-loading-dots`, `.if-loading-inline` | `.if-loading-dot` legacy single-dot pulse | Non-blocking loading with visible progress text. |
 | Success | `.if-empty`, `.if-alert--success` | action | Successful adapter or workflow. |
 | Cancelled | `.if-empty` | retry action | Cancelled async adapter request. |
 | Error | `.if-error-state` | retry action | Recoverable error. |
@@ -1959,7 +1959,7 @@ Public APIs: `hydrateAnnotationToolbars(root)`, `getAnnotationToolbar(target)`, 
 | Contract | Required | Optional | Notes |
 | --- | --- | --- | --- |
 | Empty | `.if-empty` | action button | No results or no data. |
-| Loading | `.if-loading`, `.if-skeleton` | progress text | Non-blocking loading. |
+| Loading | `.if-loading`, `.if-skeleton`, `.if-loading-dots`, `.if-loading-inline` | progress text | Non-blocking loading. Animated dots are decorative and need visible text. |
 | Success | `.if-empty` with success icon/copy | status text | Completed adapter or workflow. |
 | Cancelled | `.if-empty` with paused/cancelled copy | retry action | Aborted adapter request. |
 | Error | `.if-error-state` | retry action | Recoverable failure. |

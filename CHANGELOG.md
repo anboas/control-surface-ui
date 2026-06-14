@@ -2,6 +2,12 @@
 
 All notable framework releases are documented here. Dates use ISO format.
 
+## Unreleased
+
+### Added
+
+- Reusable `.if-loading-dots` and `.if-loading-inline` loading contracts with small, large, and orbit variants, reduced-motion handling, and examples for state panels, action buttons, notification loading, and autocomplete.
+
 ## 0.1.0 - 2026-05-17
 
 Initial distributable framework release.

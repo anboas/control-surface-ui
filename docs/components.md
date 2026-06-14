@@ -1776,7 +1776,7 @@ Public functions: `renderReviewWorkflow(root, config)`, `getReviewWorkflow(root)
 
 ## States
 
-Use `.if-empty`, `.if-loading`, `.if-error-state`, and `.if-skeleton` for non-data states. Use `.if-alert` variants for feedback.
+Use `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `.if-loading-inline`, and `.if-loading-dots` for non-data states. Loading dots are decorative and should sit beside visible progress text.
 
 ## Public Website Patterns
 
@@ -2042,7 +2042,7 @@ Use these primitives when a screen needs production-shaped interaction states th
 - Date/calendar picker: `.if-calendar-grid`, `data-if-date-picker`, generated month grid, previous/next/today controls, native fallback, output/status slots, and arrow/PageUp/PageDown keyboard movement.
 - Wizard/stepper: `.if-stepper--interactive`, `.if-stepper--semantic`, `.if-stepper--boxed`, `.if-stepper--unboxed`, `.if-stepper--compact`, `.if-stepper--vertical`, `data-if-wizard`, structured JSON via `data-if-wizard-source`, panels, progress bars, status output, next/previous controls, roving keyboard navigation, and `getWizardState`. Semantic steppers use green completed steps, blue active steps, red future/blocked steps, optional warning states, and configurable boxed, rail-only, or compact node treatment.
 - Annotation toolbar: `.if-annotation-toolbar`, `data-if-annotation-toolbar`, `data-if-annotation-tool`, label/short/description metadata, semantic preview states, status slots, roving keyboard controls, `getAnnotationToolbarState`, and `if:annotation-tool-change`.
-- Empty/loading/error variants: `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `data-if-state-preview`.
+- Empty/loading/error variants: `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `.if-loading-inline`, `.if-loading-dots`, `data-if-state-preview`.
 
 Each emits a named event documented in `docs/event-catalog.md`, and each is included in `examples/components.html#coverage-components`.
 
