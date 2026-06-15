@@ -10534,9 +10534,16 @@ function selectGraphNode(node) {
   });
 
   updateGraphSvgEdgeLabels(graph);
+  const panel = qs(`[data-node-panel="${escapeCssIdentifier(id)}"]`, graph);
   graph.dispatchEvent(new CustomEvent("if:graph-node-select", {
     bubbles: true,
-    detail: { id, node }
+    detail: {
+      href: node.dataset.nodeHref || "",
+      id,
+      node,
+      nodeId: id,
+      panel
+    }
   }));
   updateGraphStatus(graph);
   updateGraphMinimap(graph);
@@ -10788,12 +10795,19 @@ function normalizeGraphDocument(config = {}) {
     layout: config.layout || "custom",
     mode: config.mode || "unified",
     nodes: nodes.map((node, index) => ({
+      actionLabel: node.actionLabel || node.action || "",
+      description: node.description || node.detail || "",
+      href: node.href || node.url || "",
       id: node.id || `node-${index + 1}`,
       kind: node.kind || node.type || "policy",
       label: node.label || node.title || `Node ${index + 1}`,
       meta: node.meta || node.description || formatGraphLabel(node.kind || node.type || "node"),
+      panelRows: Array.isArray(node.panelRows) ? node.panelRows : Array.isArray(node.rows) ? node.rows : [],
+      panelSubtitle: node.panelSubtitle || node.meta || node.description || "",
+      panelTitle: node.panelTitle || node.label || node.title || `Node ${index + 1}`,
       primary: Boolean(node.primary),
       relation: node.relation || "",
+      tags: Array.isArray(node.tags) ? node.tags : [],
       x: Number.isFinite(Number(node.x)) ? Number(node.x) : 50,
       y: Number.isFinite(Number(node.y)) ? Number(node.y) : 50
     })),
@@ -10819,6 +10833,8 @@ function renderGraphNode(node) {
       data-node-type="${escapeHtml(node.kind)}"
       data-node-kind="${escapeHtml(node.kind)}"
       data-node-label="${escapeHtml(node.label)}"
+      ${node.href ? `data-node-href="${escapeHtml(node.href)}"` : ""}
+      ${node.actionLabel ? `data-node-action-label="${escapeHtml(node.actionLabel)}"` : ""}
       ${node.relation ? `data-node-relation="${escapeHtml(node.relation)}"` : ""}
       style="--x:${escapeHtml(node.x)}%; --y:${escapeHtml(node.y)}%;">
       <span class="if-graph-node__icon if-icon-slot" data-if-icon="${escapeHtml(getGraphNodeTypeConfig(node.kind)?.icon || "graph")}" aria-hidden="true"></span>
@@ -10848,14 +10864,44 @@ function renderGraphEdgeLabel(edge) {
   `;
 }
 
+function normalizeGraphPanelRow(row) {
+  if (Array.isArray(row)) return { label: row[0] || "", value: row[1] || "" };
+  if (row && typeof row === "object") return { label: row.label || row.key || "", value: row.value || row.text || "" };
+  return { label: "", value: row || "" };
+}
+
+function renderGraphPanelRows(rows = []) {
+  const normalized = rows.map(normalizeGraphPanelRow).filter((row) => row.label || row.value);
+  if (!normalized.length) return "";
+  return `
+    <dl class="if-meta-grid if-meta-grid--dense">
+      ${normalized.map((row) => `<div class="if-kv"><dt>${escapeHtml(row.label)}</dt><dd>${escapeHtml(row.value)}</dd></div>`).join("")}
+    </dl>
+  `;
+}
+
+function renderGraphPanelTags(tags = []) {
+  const normalized = tags.map((tag) => String(tag || "").trim()).filter(Boolean);
+  if (!normalized.length) return "";
+  return `<div class="if-chip-list">${normalized.map((tag) => `<span class="if-chip">${escapeHtml(tag)}</span>`).join("")}</div>`;
+}
+
 function renderGraphPanel(node) {
+  const typeLabel = getGraphNodeTypeConfig(node.kind)?.label || formatGraphLabel(node.kind);
+  const actionLabel = node.actionLabel || (node.href ? `Open ${typeLabel}` : "");
   return `
     <section class="if-panel" data-node-panel="${escapeHtml(node.id)}" hidden>
       <div class="if-panel__header">
-        <div><h3 class="if-panel__title">${escapeHtml(node.label)}</h3><p class="if-panel__subtitle">${escapeHtml(node.meta)}</p></div>
-        <span class="if-badge">${escapeHtml(formatGraphLabel(node.kind))}</span>
+        <div><h3 class="if-panel__title">${escapeHtml(node.panelTitle || node.label)}</h3><p class="if-panel__subtitle">${escapeHtml(node.panelSubtitle || node.meta)}</p></div>
+        <span class="if-badge">${escapeHtml(typeLabel)}</span>
       </div>
-      <div class="if-panel__body"><p class="if-text-sm if-m-0">Node id: <code>${escapeHtml(node.id)}</code></p></div>
+      <div class="if-panel__body if-stack">
+        ${node.description ? `<p class="if-text-sm if-m-0">${escapeHtml(node.description)}</p>` : ""}
+        ${renderGraphPanelRows(node.panelRows)}
+        ${renderGraphPanelTags(node.tags)}
+        <p class="if-text-xs if-text-muted if-m-0">Node id: <code>${escapeHtml(node.id)}</code></p>
+        ${node.href ? `<a class="if-btn if-btn--secondary if-btn--sm" href="${escapeHtml(node.href)}" data-node-action="${escapeHtml(node.id)}">${escapeHtml(actionLabel)}</a>` : ""}
+      </div>
     </section>
   `;
 }

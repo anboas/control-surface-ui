@@ -166,7 +166,7 @@ Performance detail includes section timings for `table`, `graph`, `diagram`, `do
 
 | Event | Target | Detail | Use |
 | --- | --- | --- | --- |
-| `if:graph-node-select` | graph root | `{ node, nodeId, panel }` | Sync details, route, or breadcrumbs. |
+| `if:graph-node-select` | graph root | `{ node, nodeId, id, panel, href }` | Sync details, route, or breadcrumbs. |
 | `if:graph-edge-select` | graph root | `{ edge, from, to, type }` | Show relationship detail. |
 | `if:graph-focus-reset` | graph root | `{ graph }` | Reset side panel to seed context. |
 | `if:graph-mode` | graph root | `{ mode }` | Persist explore, pan, or arrange mode. |
