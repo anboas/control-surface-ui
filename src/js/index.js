@@ -2069,6 +2069,13 @@ function formatSparklineDelta(delta) {
   return `${sign}${delta.toFixed(1)}%`;
 }
 
+function parseSparklineLabels(value) {
+  return String(value || "")
+    .split("|")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 function getKpiMetricLabel(metric) {
   return qs(".if-metric__label", metric)?.textContent?.trim() || metric?.getAttribute?.("aria-label") || "";
 }
@@ -2123,15 +2130,21 @@ function renderSparkline(slot, values) {
   if (values.length < 2) return;
   const width = Number(slot.dataset.ifSparklineWidth || 120);
   const height = Number(slot.dataset.ifSparklineHeight || 36);
+  const sampleLabels = parseSparklineLabels(slot.dataset.ifSparklinePointLabels || slot.dataset.ifSparklineLabels);
   const min = Math.min(...values);
   const max = Math.max(...values);
   const range = max - min || 1;
-  const points = values.map((value, index) => {
+  const pointData = values.map((value, index) => {
     const x = (index / (values.length - 1)) * width;
     const y = height - ((value - min) / range) * (height - 4) - 2;
-    return `${x.toFixed(2)},${y.toFixed(2)}`;
-  }).join(" ");
-  const [lastX, lastY] = points.split(" ").at(-1).split(",");
+    return {
+      x,
+      y,
+      value,
+      label: sampleLabels[index] || `Sample ${index + 1}: ${value.toLocaleString()}`
+    };
+  });
+  const points = pointData.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(" ");
   const area = `0,${height} ${points} ${width},${height}`;
   const trend = values[values.length - 1] >= values[0] ? "up" : "down";
   slot.classList.remove("if-sparkline--up", "if-sparkline--down", "is-updating");
@@ -2141,7 +2154,7 @@ function renderSparkline(slot, values) {
     <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="if-sparkline__area" points="${area}"></polygon>
       <polyline class="if-sparkline__line" points="${points}"></polyline>
-      <circle class="if-sparkline__point" cx="${lastX}" cy="${lastY}" r="2.6"></circle>
+      ${pointData.map((point, index) => `<g class="if-sparkline__sample" data-if-sparkline-sample data-if-sparkline-sample-index="${index}" data-if-sparkline-sample-value="${escapeHtml(String(point.value))}" data-if-sparkline-sample-label="${escapeHtml(point.label)}" transform="translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})"><circle class="if-sparkline__point${index === pointData.length - 1 ? " if-sparkline__point--latest" : ""}" r="${index === pointData.length - 1 ? "2.8" : "2.35"}"></circle><title>${escapeHtml(point.label)}</title></g>`).join("")}
     </svg>
   `;
   const sparklineState = syncSparklineOutputs(slot, values, trend);

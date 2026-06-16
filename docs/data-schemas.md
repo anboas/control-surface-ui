@@ -995,6 +995,7 @@ Optional attributes:
 | Attribute | Type | Purpose |
 | --- | --- | --- |
 | `data-if-sparkline-label` | string | Accessible label. |
+| `data-if-sparkline-point-labels` | pipe-delimited strings | Optional per-sample labels used on rendered point nodes and SVG titles. |
 | `data-if-sparkline-width` | number | SVG viewBox width. Defaults to `120`. |
 | `data-if-sparkline-height` | number | SVG viewBox height. Defaults to `36`. |
 | `data-if-sparkline-output` | selector | Receives percentage delta text. |

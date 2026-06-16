@@ -5467,11 +5467,20 @@ hr {
   vector-effect: non-scaling-stroke;
 }
 
+.if-sparkline__sample {
+  pointer-events: auto;
+}
+
 .if-sparkline__point {
   fill: var(--if-bg-surface);
   stroke: currentColor;
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
+}
+
+.if-sparkline__point--latest {
+  fill: currentColor;
+  stroke: var(--if-bg-surface);
 }
 
 .if-sparkline.is-streaming::after {
