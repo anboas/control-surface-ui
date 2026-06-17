@@ -22,6 +22,7 @@ A reusable front-end interface framework for dense enterprise control surfaces, 
 - Keyboard behavior specification in `docs/keyboard.md`
 - Testing workflow in `docs/testing.md`
 - Release smoke report in `docs/release-smoke.md`
+- Exemplar screenshot gallery in `docs/screenshot-gallery.md`
 - Agent handoff brief in `docs/agent-handoff.md`
 - Policy MVP route contracts in `docs/mvp-route-contracts.md`
 - Route-to-component implementation map in `docs/route-component-map.md`
@@ -213,6 +214,8 @@ Release governance artifacts:
 Production package signing should happen in the publish pipeline through npm provenance/Sigstore where available, or by signing the generated checksum artifacts.
 
 ## Examples
+
+For a quick visual tour of the strongest control-surface examples, see `docs/screenshot-gallery.md`.
 
 - `examples/index.html`: policy overview, filters, records table, detail panel
 - `examples/components.html`: component and pattern library

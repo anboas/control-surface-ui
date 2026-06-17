@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-06-16T21:52:19.983Z",
+  "generatedAt": "2026-06-17T12:22:56.856Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
@@ -83,8 +83,8 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "35b36c2ac22ffab98dddac70d2a4f92e7fce0a20f467c88b78626cfa7e1fc8a1",
-    "sha256SumsSha256": "6f6aa5297b471b97c11624a74fa52ec90471e58eed077aa65b8cae7adbb56f54",
+    "manifestComparableSha256": "bcdc44348e8aed142bdfb403c6a63d07498c782cdce1162663e01c879e75aaa0",
+    "sha256SumsSha256": "f0cfc3a4e5521ab5daf3929d7082c402a2bebc40da0f16d72e27f3cefaedcb95",
     "artifactCount": 15,
     "artifacts": [
       {
@@ -94,18 +94,18 @@
       },
       {
         "path": "README.md",
-        "bytes": 15044,
-        "sha256": "4e12cf04bf15d96caf098f716004bf7ca65b140f71e8ef0cee99997c7757af55"
+        "bytes": 15469,
+        "sha256": "eb3f72b7ffada49dc1a9a70860fd967fab4982aa075b9b1c3d329c838b04e9a6"
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 5254,
-        "sha256": "67f8b09d0d2ff3fef0b019db43f4da091971df9f823a517f237198f4a191f080"
+        "bytes": 5339,
+        "sha256": "bb7f90a10c84ad55ab8e5b8092019e129094d0ec9d35dd6ce01f0be0a1083f0b"
       },
       {
         "path": "dist/interface-framework.css",
-        "bytes": 948365,
-        "sha256": "e4a3390a82acbcbc1c2e2688e0094633f696da403ccf3bf087227f715e632bd9"
+        "bytes": 989685,
+        "sha256": "42e5a1c9f786f5fc37812f584be76e8c2e4a8e1d7022c090ede87762cf787493"
       },
       {
         "path": "dist/interface-framework.min.css",
@@ -114,8 +114,8 @@
       },
       {
         "path": "dist/interface-framework.js",
-        "bytes": 982018,
-        "sha256": "b8f9b0a9206b28dbc106658279ddbc062b94bcf2cf7b3123dff7d891ac1282a8"
+        "bytes": 1003159,
+        "sha256": "3e5703a765c3d2b88a0c6a9a69c6c67782fc4962155a10dd28fc24b7227f0f49"
       },
       {
         "path": "dist/interface-framework.min.js",
@@ -124,8 +124,8 @@
       },
       {
         "path": "dist/interface-framework.esm.js",
-        "bytes": 976407,
-        "sha256": "b63687f7081aaea9aa2e442e550a84f73445007e8badb4d01daaa9325fc32c12"
+        "bytes": 997821,
+        "sha256": "ed1c72fcdcd4d9038dd6e8ad09a9e00e5fbe13db1ec80faafeb948e1c7c20e57"
       },
       {
         "path": "dist/interface-framework.esm.min.js",
