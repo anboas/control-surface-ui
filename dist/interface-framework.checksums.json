@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-06-17T12:22:56.793Z",
+  "generatedAt": "2026-06-25T05:31:56.225Z",
   "packageName": "control-surface-ui",
   "packageVersion": "0.1.0",
   "algorithm": "sha256",
@@ -22,32 +22,32 @@
     {
       "path": "README.md",
       "file": "README.md",
-      "bytes": 15469,
-      "sha256": "eb3f72b7ffada49dc1a9a70860fd967fab4982aa075b9b1c3d329c838b04e9a6"
+      "bytes": 15208,
+      "sha256": "45786af7643508d90a3a9f0e6f961c15f6f329436f42ac31d8654741857df6db"
     },
     {
       "path": "CHANGELOG.md",
       "file": "CHANGELOG.md",
-      "bytes": 5339,
-      "sha256": "bb7f90a10c84ad55ab8e5b8092019e129094d0ec9d35dd6ce01f0be0a1083f0b"
+      "bytes": 5254,
+      "sha256": "67f8b09d0d2ff3fef0b019db43f4da091971df9f823a517f237198f4a191f080"
     },
     {
       "path": "dist/interface-framework.css",
       "file": "interface-framework.css",
-      "bytes": 989685,
-      "sha256": "42e5a1c9f786f5fc37812f584be76e8c2e4a8e1d7022c090ede87762cf787493"
+      "bytes": 961257,
+      "sha256": "b0780aac5f6dc640576d1eb7c29cdfeab856890d3a61c428f58e82e54adcb67a"
     },
     {
       "path": "dist/interface-framework.min.css",
       "file": "interface-framework.min.css",
-      "bytes": 818687,
-      "sha256": "775bcaace8f8eb70ec6823d710310f926f7c533e06e9831d9a0171e1abfe20ff"
+      "bytes": 829864,
+      "sha256": "c29a0a5565d37975d67d139c596835bc99940d2ac4ba87ae48bb46ed7d86bce7"
     },
     {
       "path": "dist/interface-framework.js",
       "file": "interface-framework.js",
-      "bytes": 1003159,
-      "sha256": "3e5703a765c3d2b88a0c6a9a69c6c67782fc4962155a10dd28fc24b7227f0f49"
+      "bytes": 982018,
+      "sha256": "b8f9b0a9206b28dbc106658279ddbc062b94bcf2cf7b3123dff7d891ac1282a8"
     },
     {
       "path": "dist/interface-framework.min.js",
@@ -58,8 +58,8 @@
     {
       "path": "dist/interface-framework.esm.js",
       "file": "interface-framework.esm.js",
-      "bytes": 997821,
-      "sha256": "ed1c72fcdcd4d9038dd6e8ad09a9e00e5fbe13db1ec80faafeb948e1c7c20e57"
+      "bytes": 976407,
+      "sha256": "b63687f7081aaea9aa2e442e550a84f73445007e8badb4d01daaa9325fc32c12"
     },
     {
       "path": "dist/interface-framework.esm.min.js",
