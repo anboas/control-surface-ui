@@ -1549,6 +1549,23 @@ Structured renderers may also provide JSON:
 | Source editor | `[data-if-diagram-source]`, `[data-if-diagram-source-refresh]`, `[data-if-diagram-source-validate]`, `[data-if-diagram-source-format]`, `[data-if-diagram-source-apply]`, `[data-if-diagram-source-copy]`, `[data-if-diagram-source-download]`, `[data-if-diagram-source-import]` | optional source target/download filename | Round-trips `DiagramDocument` JSON, accepts fenced Markdown JSON, validates without applying, formats source, applies in place, copies source text, downloads JSON, or imports source from a file input. |
 | Export | `data-if-export-target` or export API | png/pdf helpers | Export surfaces. |
 
+### Native SVG Intelligence Viewport
+
+Use this companion component when a source-controlled analytical SVG already contains the authoritative layout. It imports the same-origin SVG into the document, sanitizes executable content, discovers Graphviz nodes by default, and preserves the original geometry while adding the framework interaction model.
+
+| Contract | Required | Optional | Notes |
+| --- | --- | --- | --- |
+| Viewer | `[data-if-native-svg][data-if-native-svg-src]` | `data-if-native-svg-node-selector`, fit padding | Lifecycle and same-origin source boundary. |
+| Stage | `[data-if-native-svg-stage]` | accessible label | Pointer and keyboard pan/zoom surface. |
+| Viewport | `[data-if-native-svg-viewport]` | none | Receives the imported inline SVG and view transform. |
+| Controls | `[data-if-native-svg-action="in|out|fit|reset"]` | zoom label | Uses the same action vocabulary as graph viewports. |
+| Search | `[data-if-native-svg-search]` | results, previous/next, clear, status | Highlights and steps through native SVG nodes. |
+| Detail | `[data-if-native-svg-detail]` | title, body, id slots | Shows the selected SVG group without changing source geometry. |
+
+Public APIs: `hydrateNativeSvgViewer`, `hydrateNativeSvgViewers`, `destroyNativeSvgViewer`, `getNativeSvgState`, `setNativeSvgViewport`, `updateNativeSvgSearch`, `selectNativeSvgNode`, and `resetNativeSvgSelection`.
+
+The local-storage workspace key pattern used by downstream apps is not part of this visual component and must not be treated as durable authentication.
+
 ### Variant Matrix
 
 | Variant | Use |

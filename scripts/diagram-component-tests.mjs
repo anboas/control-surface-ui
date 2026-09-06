@@ -328,12 +328,50 @@ function testDiagramExampleUsesContracts() {
   ]);
 }
 
+function testNativeSvgViewportContracts() {
+  const source = read("src/js/index.js");
+  const exportBlock = (source.match(/export\s*\{([\s\S]*?)\};/) || [null, ""])[1];
+  [
+    "hydrateNativeSvgViewer",
+    "hydrateNativeSvgViewers",
+    "destroyNativeSvgViewer",
+    "getNativeSvgState",
+    "setNativeSvgViewport",
+    "updateNativeSvgSearch",
+    "selectNativeSvgNode",
+    "resetNativeSvgSelection"
+  ].forEach((name) => {
+    assert(source.includes(`function ${name}`), `Missing native SVG viewport function ${name}.`);
+    assert(exportBlock.includes(name), `Native SVG viewport API ${name} should be exported.`);
+  });
+  assertIncludes("src/js/index.js", [
+    "Native SVG sources must use the current origin.",
+    "if:native-svg-load",
+    "if:native-svg-viewport",
+    "if:native-svg-search",
+    "if:native-svg-select",
+    "data-if-native-svg-node"
+  ]);
+  assertIncludes("src/styles/components.css", [
+    ".if-native-svg__stage",
+    ".if-native-svg__viewport",
+    "[data-if-native-svg-node].is-selected",
+    ".if-native-svg-search-result"
+  ]);
+  assertIncludes("docs/component-api.md", [
+    "Native SVG Intelligence Viewport",
+    "hydrateNativeSvgViewer",
+    "data-if-native-svg-src"
+  ]);
+}
+
 testRequirementsScope();
 testPackageAndValidationHooks();
 testDiagramSchemaApi();
 testEditorModeContracts();
 testOverflowAndNestedNodeContracts();
 testDiagramExampleUsesContracts();
+testNativeSvgViewportContracts();
 
 if (failures.length) {
   console.error("\nDiagram component contract tests failed:");

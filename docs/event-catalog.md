@@ -197,6 +197,13 @@ Performance detail includes section timings for `table`, `graph`, `diagram`, `do
 | `if:diagram-select` | diagram root | `{ diagram, item, summary }` | Sync external inspectors, breadcrumbs, telemetry, or editing panels when a node is selected. |
 | `if:diagram-clear` | diagram root | `{ diagram }` | Clear details on click-off or close. |
 | `if:diagram-search` | diagram root | `{ diagram, input, query, matches }` | Persist diagram search query, sync result count, or drive external inspectors. |
+| `if:native-svg-load` | native SVG viewer | `{ nodes, source, svg, viewer }` | Sync application state after a same-origin SVG is imported and its nodes are prepared. |
+| `if:native-svg-viewport` | native SVG viewer | `{ panX, panY, zoom, ... }` | Persist or observe fit, reset, pan, and zoom state. |
+| `if:native-svg-pan` | native SVG viewer | `{ panX, panY, zoom, ... }` | Observe completion of a pointer pan gesture. |
+| `if:native-svg-search` | native SVG viewer | `{ query, matches, viewer }` | Sync search results and highlighted SVG groups. |
+| `if:native-svg-select` | native SVG viewer | `{ id, label, node, viewer }` | Link a selected native SVG group to external details or records. |
+| `if:native-svg-clear` | native SVG viewer | `{ viewer }` | Clear linked details when native SVG selection is reset. |
+| `if:native-svg-error` | native SVG viewer | `{ error, source, viewer }` | Surface same-origin load or SVG parse failures. |
 | `if:diagram-layer` | diagram root | `{ layer, active }` | Persist layer toggles. |
 | `if:diagram-var` | diagram root or target | `{ property, value, unit, target }` | Persist diagram spacing/sizing sliders. |
 | `if:diagram-edit-mode` | diagram root | `{ active, diagram, tool }` | Persist or audit diagram edit mode. |

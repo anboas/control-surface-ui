@@ -12,6 +12,27 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.2.0
+
+### Summary
+
+Adds the native SVG intelligence viewport and its public JavaScript lifecycle APIs. Existing contracts remain compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Upgrade the package and compiled CSS/JavaScript together.
+2. Replace static diagram images with the documented native SVG viewport markup where interactive navigation is needed.
+3. Run pointer, keyboard, search, selection, and same-origin SVG loading checks in the consuming application.
+
+### Verification
+
+- Run `npm run release:verify` in this repository.
+- Run the consuming application's production build and browser regression suite.
+
 ## 0.1.0
 
 Initial release. There is no prior framework version to migrate from.

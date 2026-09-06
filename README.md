@@ -97,6 +97,7 @@ The system favors:
 - Clear selection states and confidence/status visualization
 - Reusable shell, sidebar, topbar, panel, table, dashboard, and graph primitives
 - Graph node type registry for production-owned semantic nodes, icons, colors, labels, and per-type render hooks
+- Native SVG intelligence viewports for source-controlled analytical diagrams that need pan, zoom, search, highlighting, and selection without layout reconstruction
 - Dependency-free outline icon slots for common controls, entities, and graph nodes
 - First-party policy, defense-domain, artifact, and source glyphs with guidance for open-source icon pack extension
 - Light-default, dark, high-contrast, explicit system, calm, and executive theme tokens with reusable theme-switching controls

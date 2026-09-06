@@ -30,6 +30,7 @@ A downstream agent can build a new diagram by providing a schema, selecting fram
 | R-DIAG-013 | Edit tools | Edit mode supports inspect, text, move, connect, style, add, delete, undo delete, and keyboard nudging. |
 | R-DIAG-014 | Connector collision avoidance | Orthogonal routing can navigate around node bounds and accept explicit waypoints when the default route is poor. |
 | R-DIAG-015 | Agentic ergonomics | Requirements, schema docs, API tables, recipe examples, and tests are discoverable from package metadata. |
+| R-DIAG-019 | Native SVG intelligence viewport | Existing same-origin SVG artifacts can be embedded as live DOM, fitted, panned, zoomed, searched, highlighted, keyboard navigated, and selected without reconstructing them as framework schema nodes. |
 
 ## P2 Requirements
 

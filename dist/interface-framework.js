@@ -41,6 +41,7 @@ const graphLayoutRequests = new WeakMap();
 const componentInventoryManifestRequests = new WeakMap();
 const componentInventoryMotionTimers = new WeakMap();
 const componentInventorySelectionTimers = new WeakMap();
+const nativeSvgViewerStates = new WeakMap();
 const adapterStates = new Set(["idle", "loading", "success", "empty", "error", "cancelled"]);
 const adapterTaskEvents = {
   request: "if:adapter-request",
@@ -12822,6 +12823,544 @@ function refreshGraphGeometry(graph) {
   }
 }
 
+function getNativeSvgViewer(target) {
+  if (!target) return null;
+  return target.matches?.("[data-if-native-svg]") ? target : target.closest?.("[data-if-native-svg]");
+}
+
+function getNativeSvgElements(viewerOrControl) {
+  const viewer = getNativeSvgViewer(viewerOrControl);
+  return {
+    stage: viewer ? qs("[data-if-native-svg-stage]", viewer) : null,
+    viewport: viewer ? qs("[data-if-native-svg-viewport]", viewer) : null,
+    viewer
+  };
+}
+
+function getNativeSvgState(viewerOrControl) {
+  const { viewer } = getNativeSvgElements(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !state) return null;
+  return {
+    fitScale: state.fitScale,
+    matches: state.matches.length,
+    nodes: state.nodes.length,
+    panX: state.panX,
+    panY: state.panY,
+    query: state.query,
+    selectedId: state.selected?.dataset.ifNativeSvgNodeId || "",
+    source: state.source,
+    zoom: state.zoom
+  };
+}
+
+function clampNativeSvgZoom(value) {
+  return Math.max(0.04, Math.min(6, Number(value) || 1));
+}
+
+function setNativeSvgStatus(viewer, message, state = "ready") {
+  if (!viewer) return;
+  viewer.dataset.ifNativeSvgState = state;
+  qsa("[data-if-native-svg-status]", viewer).forEach((output) => {
+    output.textContent = message;
+  });
+}
+
+function applyNativeSvgView(viewerOrControl, view = {}, options = {}) {
+  const { viewer, viewport } = getNativeSvgElements(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !viewport || !state) return null;
+  state.panX = Math.round(Number.isFinite(Number(view.panX)) ? Number(view.panX) : state.panX);
+  state.panY = Math.round(Number.isFinite(Number(view.panY)) ? Number(view.panY) : state.panY);
+  state.zoom = clampNativeSvgZoom(view.zoom ?? state.zoom);
+  state.lastViewAction = options.action || "custom";
+  viewport.style.setProperty("--if-native-svg-pan-x", `${state.panX}px`);
+  viewport.style.setProperty("--if-native-svg-pan-y", `${state.panY}px`);
+  viewport.style.setProperty("--if-native-svg-zoom", state.zoom.toFixed(4));
+  qsa("[data-if-native-svg-zoom-label]", viewer).forEach((output) => {
+    output.textContent = `${Math.round(state.zoom * 100)}%`;
+  });
+  if (options.emit !== false) {
+    viewer.dispatchEvent(new CustomEvent("if:native-svg-viewport", {
+      bubbles: true,
+      detail: getNativeSvgState(viewer)
+    }));
+  }
+  return getNativeSvgState(viewer);
+}
+
+function getNativeSvgFitView(viewerOrControl) {
+  const { viewer, stage } = getNativeSvgElements(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !stage || !state) return null;
+  const rect = stage.getBoundingClientRect();
+  const padding = Math.max(8, Number(viewer.dataset.ifNativeSvgFitPadding || 24));
+  const availableWidth = Math.max(1, rect.width - padding * 2);
+  const availableHeight = Math.max(1, rect.height - padding * 2);
+  const zoom = clampNativeSvgZoom(Math.min(availableWidth / state.contentWidth, availableHeight / state.contentHeight));
+  state.fitScale = zoom;
+  return {
+    panX: Math.round((rect.width - state.contentWidth * zoom) / 2),
+    panY: Math.round((rect.height - state.contentHeight * zoom) / 2),
+    zoom
+  };
+}
+
+function zoomNativeSvgViewer(viewerOrControl, factor, origin = null) {
+  const { viewer, stage } = getNativeSvgElements(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !stage || !state) return null;
+  const nextZoom = clampNativeSvgZoom(state.zoom * factor);
+  if (nextZoom === state.zoom) return getNativeSvgState(viewer);
+  const rect = stage.getBoundingClientRect();
+  const ox = origin ? origin.x - rect.left : rect.width / 2;
+  const oy = origin ? origin.y - rect.top : rect.height / 2;
+  const ratio = nextZoom / state.zoom;
+  return applyNativeSvgView(viewer, {
+    panX: ox - (ox - state.panX) * ratio,
+    panY: oy - (oy - state.panY) * ratio,
+    zoom: nextZoom
+  }, { action: "zoom" });
+}
+
+function setNativeSvgViewport(viewerOrControl, actionOrView = "fit") {
+  const { viewer } = getNativeSvgElements(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !state) return null;
+  if (typeof actionOrView === "object") return applyNativeSvgView(viewer, actionOrView, { action: "custom" });
+  const action = String(actionOrView || "fit");
+  if (action === "in") return zoomNativeSvgViewer(viewer, 1.2);
+  if (action === "out") return zoomNativeSvgViewer(viewer, 1 / 1.2);
+  if (action === "reset") return applyNativeSvgView(viewer, { panX: 16, panY: 16, zoom: 1 }, { action });
+  const fit = getNativeSvgFitView(viewer);
+  return fit ? applyNativeSvgView(viewer, fit, { action: "fit" }) : null;
+}
+
+function getNativeSvgNodeLabel(node) {
+  if (!node) return "";
+  const title = qs(":scope > title", node)?.textContent?.trim();
+  const lines = qsa("text", node).map((textNode) => textNode.textContent?.trim()).filter(Boolean);
+  return Array.from(new Set([title, ...lines].filter(Boolean))).join(" / ").replace(/\s+/g, " ").trim();
+}
+
+function getNativeSvgNodes(svg, viewer) {
+  const selector = viewer.dataset.ifNativeSvgNodeSelector || ".node, [data-node-id], g[id^='node']";
+  let nodes = qsa(selector, svg).filter((node) => !node.matches(".edge") && getNativeSvgNodeLabel(node));
+  if (!nodes.length) {
+    nodes = qsa("g", svg).filter((node) => {
+      if (node === svg.firstElementChild || node.matches(".edge, [id^='edge']")) return false;
+      const hasLabel = qsa("text", node).some((textNode) => textNode.textContent?.trim());
+      const hasShape = Array.from(node.children).some((child) => child.matches?.("rect, path, polygon, circle, ellipse"));
+      return hasLabel && hasShape;
+    });
+  }
+  return nodes.filter((node, index, all) => !all.some((other) => other !== node && other.contains(node)));
+}
+
+function prepareNativeSvgNodes(viewer, svg) {
+  const state = nativeSvgViewerStates.get(viewer);
+  if (!state) return [];
+  const usedIds = new Set();
+  state.nodes = getNativeSvgNodes(svg, viewer).map((node, index) => {
+    const label = getNativeSvgNodeLabel(node) || `Diagram node ${index + 1}`;
+    const explicitId = node.dataset.nodeId || node.id || `native-svg-node-${index + 1}`;
+    let id = normalizeDiagramExplicitId(explicitId, `native-svg-node-${index + 1}`);
+    while (usedIds.has(id)) id = `${id}-${index + 1}`;
+    usedIds.add(id);
+    node.dataset.ifNativeSvgNode = "";
+    node.dataset.ifNativeSvgNodeId = id;
+    node.dataset.ifNativeSvgLabel = label;
+    node.setAttribute("role", "button");
+    node.setAttribute("tabindex", "0");
+    node.setAttribute("aria-label", label);
+    node.setAttribute("aria-selected", "false");
+    return node;
+  });
+  qsa("[data-if-native-svg-node-count]", viewer).forEach((output) => {
+    output.textContent = String(state.nodes.length);
+  });
+  return state.nodes;
+}
+
+function clearNativeSvgSearch(viewer) {
+  const state = nativeSvgViewerStates.get(viewer);
+  if (!state) return;
+  state.query = "";
+  state.matches = [];
+  delete viewer.dataset.ifNativeSvgSearchActive;
+  state.nodes.forEach((node) => node.classList.remove("is-search-match", "is-search-dimmed", "is-search-current"));
+  qsa("[data-if-native-svg-search-status]", viewer).forEach((output) => {
+    output.textContent = `Search ${state.nodes.length} diagram nodes`;
+  });
+  qsa("[data-if-native-svg-search-results]", viewer).forEach((output) => {
+    output.replaceChildren();
+    output.hidden = true;
+  });
+}
+
+function renderNativeSvgSearchResults(viewer) {
+  const state = nativeSvgViewerStates.get(viewer);
+  if (!state) return;
+  qsa("[data-if-native-svg-search-results]", viewer).forEach((output) => {
+    output.replaceChildren();
+    output.hidden = !state.query;
+    state.matches.slice(0, 12).forEach((node, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `if-native-svg-search-result${index === 0 ? " is-current" : ""}`;
+      button.dataset.ifNativeSvgSearchResult = node.dataset.ifNativeSvgNodeId;
+      button.textContent = node.dataset.ifNativeSvgLabel;
+      output.append(button);
+    });
+    if (state.query && !state.matches.length) {
+      const empty = document.createElement("span");
+      empty.className = "if-native-svg-search-results__empty";
+      empty.textContent = "No diagram nodes matched.";
+      output.append(empty);
+    }
+  });
+}
+
+function updateNativeSvgSearch(viewerOrInput, queryOverride = null) {
+  const viewer = getNativeSvgViewer(viewerOrInput);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !state) return [];
+  const input = viewerOrInput?.matches?.("[data-if-native-svg-search]")
+    ? viewerOrInput
+    : qs("[data-if-native-svg-search]", viewer);
+  const query = String(queryOverride ?? input?.value ?? "").trim().toLowerCase();
+  if (input && input.value !== queryOverride && queryOverride !== null) input.value = String(queryOverride);
+  clearNativeSvgSearch(viewer);
+  if (!query) {
+    viewer.dispatchEvent(new CustomEvent("if:native-svg-search", { bubbles: true, detail: { query: "", matches: [] } }));
+    return [];
+  }
+  const terms = query.split(/\s+/).filter(Boolean);
+  state.query = query;
+  state.matches = state.nodes.filter((node) => terms.every((term) => node.dataset.ifNativeSvgLabel.toLowerCase().includes(term)));
+  viewer.dataset.ifNativeSvgSearchActive = "true";
+  state.nodes.forEach((node) => {
+    const matched = state.matches.includes(node);
+    node.classList.toggle("is-search-match", matched);
+    node.classList.toggle("is-search-dimmed", !matched);
+    node.classList.toggle("is-search-current", matched && node === state.matches[0]);
+  });
+  qsa("[data-if-native-svg-search-status]", viewer).forEach((output) => {
+    output.textContent = `${state.matches.length} matching diagram node${state.matches.length === 1 ? "" : "s"}`;
+  });
+  renderNativeSvgSearchResults(viewer);
+  viewer.dispatchEvent(new CustomEvent("if:native-svg-search", {
+    bubbles: true,
+    detail: { query, matches: state.matches, viewer }
+  }));
+  return state.matches;
+}
+
+function getNativeSvgNode(viewer, nodeOrId) {
+  const state = nativeSvgViewerStates.get(viewer);
+  if (!state) return null;
+  if (nodeOrId?.matches?.("[data-if-native-svg-node]")) return nodeOrId;
+  const value = String(nodeOrId || "").trim().toLowerCase();
+  return state.nodes.find((node) => node.dataset.ifNativeSvgNodeId.toLowerCase() === value)
+    || state.nodes.find((node) => node.dataset.ifNativeSvgLabel.toLowerCase().includes(value))
+    || null;
+}
+
+function centerNativeSvgNode(viewer, node) {
+  const { stage } = getNativeSvgElements(viewer);
+  const state = nativeSvgViewerStates.get(viewer);
+  const svg = state?.svg;
+  if (!stage || !state || !svg || !node?.getBBox) return;
+  const box = node.getBBox();
+  const viewBox = svg.viewBox?.baseVal;
+  const sourceWidth = viewBox?.width || state.contentWidth;
+  const sourceHeight = viewBox?.height || state.contentHeight;
+  const sourceX = viewBox?.x || 0;
+  const sourceY = viewBox?.y || 0;
+  const x = ((box.x + box.width / 2 - sourceX) / sourceWidth) * state.contentWidth;
+  const y = ((box.y + box.height / 2 - sourceY) / sourceHeight) * state.contentHeight;
+  const rect = stage.getBoundingClientRect();
+  const zoom = clampNativeSvgZoom(Math.max(state.zoom, Math.min(2.4, state.fitScale * 1.8)));
+  applyNativeSvgView(viewer, {
+    panX: rect.width / 2 - x * zoom,
+    panY: rect.height / 2 - y * zoom,
+    zoom
+  }, { action: "focus" });
+}
+
+function resetNativeSvgSelection(viewerOrControl) {
+  const viewer = getNativeSvgViewer(viewerOrControl);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !state) return;
+  state.nodes.forEach((node) => {
+    node.classList.remove("is-selected");
+    node.setAttribute("aria-selected", "false");
+  });
+  state.selected = null;
+  delete viewer.dataset.ifNativeSvgSelection;
+  qsa("[data-if-native-svg-detail]", viewer).forEach((panel) => { panel.hidden = true; });
+  viewer.dispatchEvent(new CustomEvent("if:native-svg-clear", { bubbles: true, detail: { viewer } }));
+}
+
+function selectNativeSvgNode(viewerOrNode, nodeOrId = null, options = {}) {
+  const viewer = getNativeSvgViewer(viewerOrNode);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  const node = viewer ? getNativeSvgNode(viewer, nodeOrId || viewerOrNode) : null;
+  if (!viewer || !state || !node) return null;
+  state.nodes.forEach((item) => {
+    const selected = item === node;
+    item.classList.toggle("is-selected", selected);
+    item.setAttribute("aria-selected", String(selected));
+  });
+  state.selected = node;
+  viewer.dataset.ifNativeSvgSelection = node.dataset.ifNativeSvgNodeId;
+  const label = node.dataset.ifNativeSvgLabel;
+  const parts = label.split(" / ").filter(Boolean);
+  qsa("[data-if-native-svg-detail]", viewer).forEach((panel) => { panel.hidden = false; });
+  qsa("[data-if-native-svg-detail-title]", viewer).forEach((output) => { output.textContent = parts[0] || label; });
+  qsa("[data-if-native-svg-detail-body]", viewer).forEach((output) => { output.textContent = parts.slice(1).join(" / ") || "Selected diagram node"; });
+  qsa("[data-if-native-svg-detail-id]", viewer).forEach((output) => { output.textContent = node.dataset.ifNativeSvgNodeId; });
+  if (options.center !== false) centerNativeSvgNode(viewer, node);
+  if (options.focus !== false) node.focus?.({ preventScroll: true });
+  viewer.dispatchEvent(new CustomEvent("if:native-svg-select", {
+    bubbles: true,
+    detail: { id: node.dataset.ifNativeSvgNodeId, label, node, viewer }
+  }));
+  return node;
+}
+
+function stepNativeSvgSearch(viewer, direction = 1) {
+  const state = nativeSvgViewerStates.get(viewer);
+  if (!state?.matches.length) return null;
+  const current = state.matches.findIndex((node) => node.classList.contains("is-search-current"));
+  const next = state.matches[(Math.max(0, current) + direction + state.matches.length) % state.matches.length];
+  state.matches.forEach((node) => node.classList.toggle("is-search-current", node === next));
+  qsa("[data-if-native-svg-search-result]", viewer).forEach((control) => {
+    control.classList.toggle("is-current", control.dataset.ifNativeSvgSearchResult === next.dataset.ifNativeSvgNodeId);
+  });
+  return selectNativeSvgNode(viewer, next);
+}
+
+function sanitizeNativeSvg(svg) {
+  qsa("script, foreignObject, iframe, object, embed, audio, video", svg).forEach((node) => node.remove());
+  [svg, ...qsa("*", svg)].forEach((node) => {
+    Array.from(node.attributes || []).forEach((attribute) => {
+      const name = attribute.name.toLowerCase();
+      const value = attribute.value.trim().toLowerCase();
+      if (name.startsWith("on") || ((name === "href" || name === "xlink:href") && value.startsWith("javascript:"))) {
+        node.removeAttribute(attribute.name);
+      }
+    });
+  });
+  return svg;
+}
+
+function bindNativeSvgViewer(viewer) {
+  const state = nativeSvgViewerStates.get(viewer);
+  const { stage } = getNativeSvgElements(viewer);
+  if (!state || !stage) return;
+  const listen = (target, type, handler, options) => {
+    target.addEventListener(type, handler, options);
+    state.listeners.push(() => target.removeEventListener(type, handler, options));
+  };
+  listen(viewer, "click", (event) => {
+    const viewportControl = event.target.closest("[data-if-native-svg-action]");
+    if (viewportControl) {
+      event.preventDefault();
+      setNativeSvgViewport(viewer, viewportControl.dataset.ifNativeSvgAction);
+      return;
+    }
+    const result = event.target.closest("[data-if-native-svg-search-result]");
+    if (result) {
+      event.preventDefault();
+      selectNativeSvgNode(viewer, result.dataset.ifNativeSvgSearchResult);
+      return;
+    }
+    const step = event.target.closest("[data-if-native-svg-search-step]");
+    if (step) {
+      event.preventDefault();
+      stepNativeSvgSearch(viewer, Number(step.dataset.ifNativeSvgSearchStep) || 1);
+      return;
+    }
+    const clear = event.target.closest("[data-if-native-svg-search-clear]");
+    if (clear) {
+      event.preventDefault();
+      const input = qs("[data-if-native-svg-search]", viewer);
+      if (input) input.value = "";
+      clearNativeSvgSearch(viewer);
+      resetNativeSvgSelection(viewer);
+      return;
+    }
+    const node = event.target.closest("[data-if-native-svg-node]");
+    if (node && !state.suppressClick) selectNativeSvgNode(viewer, node, { focus: false });
+  });
+  qsa("[data-if-native-svg-search]", viewer).forEach((input) => {
+    listen(input, "input", () => updateNativeSvgSearch(input));
+    listen(input, "keydown", (event) => {
+      if (event.key !== "Escape") return;
+      input.value = "";
+      clearNativeSvgSearch(viewer);
+      resetNativeSvgSelection(viewer);
+    });
+  });
+  listen(stage, "wheel", (event) => {
+    if (!event.ctrlKey && Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+    event.preventDefault();
+    zoomNativeSvgViewer(viewer, event.deltaY < 0 ? 1.12 : 1 / 1.12, { x: event.clientX, y: event.clientY });
+  }, { passive: false });
+  listen(stage, "pointerdown", (event) => {
+    if (event.button !== 0 || event.target.closest("button, a, input, select, textarea")) return;
+    state.drag = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, panX: state.panX, panY: state.panY, moved: false };
+    stage.dataset.ifNativeSvgPanning = "true";
+    stage.setPointerCapture?.(event.pointerId);
+  });
+  listen(stage, "pointermove", (event) => {
+    if (!state.drag || state.drag.pointerId !== event.pointerId) return;
+    const dx = event.clientX - state.drag.startX;
+    const dy = event.clientY - state.drag.startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) state.drag.moved = true;
+    applyNativeSvgView(viewer, { panX: state.drag.panX + dx, panY: state.drag.panY + dy, zoom: state.zoom }, { action: "pan", emit: false });
+  });
+  const endPan = (event) => {
+    if (!state.drag || state.drag.pointerId !== event.pointerId) return;
+    stage.releasePointerCapture?.(event.pointerId);
+    state.suppressClick = state.drag.moved;
+    state.drag = null;
+    delete stage.dataset.ifNativeSvgPanning;
+    if (state.suppressClick) window.setTimeout(() => { state.suppressClick = false; }, 120);
+    viewer.dispatchEvent(new CustomEvent("if:native-svg-pan", { bubbles: true, detail: getNativeSvgState(viewer) }));
+  };
+  listen(stage, "pointerup", endPan);
+  listen(stage, "pointercancel", endPan);
+  listen(stage, "keydown", (event) => {
+    const node = event.target.closest?.("[data-if-native-svg-node]");
+    if (node && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      selectNativeSvgNode(viewer, node);
+      return;
+    }
+    const step = event.shiftKey ? 80 : 36;
+    const moves = {
+      ArrowDown: [0, -step],
+      ArrowLeft: [step, 0],
+      ArrowRight: [-step, 0],
+      ArrowUp: [0, step]
+    };
+    if (moves[event.key]) {
+      event.preventDefault();
+      applyNativeSvgView(viewer, { panX: state.panX + moves[event.key][0], panY: state.panY + moves[event.key][1], zoom: state.zoom }, { action: "keyboard-pan" });
+    } else if (["+", "="].includes(event.key)) {
+      event.preventDefault();
+      zoomNativeSvgViewer(viewer, 1.2);
+    } else if (event.key === "-") {
+      event.preventDefault();
+      zoomNativeSvgViewer(viewer, 1 / 1.2);
+    } else if (event.key === "0" || event.key === "Home") {
+      event.preventDefault();
+      setNativeSvgViewport(viewer, "fit");
+    } else if (event.key === "Escape") {
+      resetNativeSvgSelection(viewer);
+    }
+  });
+  if (typeof ResizeObserver === "function") {
+    state.resizeObserver = new ResizeObserver(() => {
+      if (state.lastViewAction === "fit") setNativeSvgViewport(viewer, "fit");
+    });
+    state.resizeObserver.observe(stage);
+  }
+}
+
+async function hydrateNativeSvgViewer(viewerOrSelector, options = {}) {
+  const viewer = typeof viewerOrSelector === "string" ? qs(viewerOrSelector) : getNativeSvgViewer(viewerOrSelector);
+  if (!viewer) return null;
+  const source = options.source || viewer.dataset.ifNativeSvgSrc;
+  if (!source) throw new Error("InterfaceFramework.hydrateNativeSvgViewer requires data-if-native-svg-src.");
+  const existing = nativeSvgViewerStates.get(viewer);
+  if (existing?.source === source && existing.svg) return viewer;
+  if (existing) destroyNativeSvgViewer(viewer);
+  const { stage, viewport } = getNativeSvgElements(viewer);
+  if (!stage || !viewport) throw new Error("Native SVG viewers require stage and viewport elements.");
+  const controller = new AbortController();
+  const state = {
+    contentHeight: 1,
+    contentWidth: 1,
+    controller,
+    drag: null,
+    fitScale: 1,
+    lastViewAction: "fit",
+    listeners: [],
+    matches: [],
+    nodes: [],
+    panX: 0,
+    panY: 0,
+    query: "",
+    selected: null,
+    source,
+    svg: null,
+    zoom: 1
+  };
+  nativeSvgViewerStates.set(viewer, state);
+  setNativeSvgStatus(viewer, "Loading diagram", "loading");
+  try {
+    const url = new URL(source, window.location.href);
+    if (url.origin !== window.location.origin) throw new Error("Native SVG sources must use the current origin.");
+    const response = await fetch(url, { signal: controller.signal, credentials: "same-origin" });
+    if (!response.ok) throw new Error(`Unable to load SVG (${response.status}).`);
+    const markup = await response.text();
+    const parsed = new DOMParser().parseFromString(markup, "image/svg+xml");
+    if (parsed.querySelector("parsererror") || parsed.documentElement.localName !== "svg") throw new Error("The source is not a valid SVG document.");
+    const svg = sanitizeNativeSvg(document.importNode(parsed.documentElement, true));
+    svg.classList.add("if-native-svg__document");
+    svg.removeAttribute("width");
+    svg.removeAttribute("height");
+    const viewBox = svg.viewBox?.baseVal;
+    const rawWidth = viewBox?.width || Number.parseFloat(parsed.documentElement.getAttribute("width")) || 1200;
+    const rawHeight = viewBox?.height || Number.parseFloat(parsed.documentElement.getAttribute("height")) || 800;
+    state.contentWidth = Math.max(1, rawWidth);
+    state.contentHeight = Math.max(1, rawHeight);
+    svg.style.width = `${state.contentWidth}px`;
+    svg.style.height = `${state.contentHeight}px`;
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    state.svg = svg;
+    viewport.replaceChildren(svg);
+    prepareNativeSvgNodes(viewer, svg);
+    bindNativeSvgViewer(viewer);
+    clearNativeSvgSearch(viewer);
+    window.requestAnimationFrame(() => setNativeSvgViewport(viewer, options.initialView || "fit"));
+    setNativeSvgStatus(viewer, `${state.nodes.length} interactive diagram nodes`, "ready");
+    viewer.dispatchEvent(new CustomEvent("if:native-svg-load", {
+      bubbles: true,
+      detail: { nodes: state.nodes, source, svg, viewer }
+    }));
+    return viewer;
+  } catch (error) {
+    if (error.name === "AbortError") return null;
+    setNativeSvgStatus(viewer, error.message, "error");
+    viewer.dispatchEvent(new CustomEvent("if:native-svg-error", { bubbles: true, detail: { error, source, viewer } }));
+    if (options.throwOnError) throw error;
+    return null;
+  }
+}
+
+function hydrateNativeSvgViewers(root = document, options = {}) {
+  const viewers = root.matches?.("[data-if-native-svg]") ? [root] : qsa("[data-if-native-svg]", root);
+  return Promise.all(viewers.map((viewer) => hydrateNativeSvgViewer(viewer, options)));
+}
+
+function destroyNativeSvgViewer(viewerOrSelector) {
+  const viewer = typeof viewerOrSelector === "string" ? qs(viewerOrSelector) : getNativeSvgViewer(viewerOrSelector);
+  const state = viewer ? nativeSvgViewerStates.get(viewer) : null;
+  if (!viewer || !state) return false;
+  state.controller?.abort();
+  state.resizeObserver?.disconnect();
+  state.listeners.forEach((remove) => remove());
+  nativeSvgViewerStates.delete(viewer);
+  delete viewer.dataset.ifNativeSvgState;
+  delete viewer.dataset.ifNativeSvgSearchActive;
+  delete viewer.dataset.ifNativeSvgSelection;
+  return true;
+}
+
 function getGraphCanvas(graphOrControl) {
   const graph = graphOrControl?.closest?.("[data-if-graph]") || graphOrControl;
   return qs(".if-graph-canvas", graph);
@@ -20102,6 +20641,19 @@ function registerCoreBehaviorModules() {
   });
 
   registerBehaviorModule({
+    name: "native-svg",
+    description: "Same-origin native SVG hydration, pan and zoom navigation, node search, highlighting, and selection details.",
+    selectors: ["[data-if-native-svg]"],
+    init: (root) => {
+      hydrateNativeSvgViewers(root);
+    },
+    destroy: (root) => {
+      const viewers = root.matches?.("[data-if-native-svg]") ? [root] : qsa("[data-if-native-svg]", root);
+      viewers.forEach(destroyNativeSvgViewer);
+    }
+  });
+
+  registerBehaviorModule({
     name: "diagrams",
     description: "Architecture diagram details, connector routing, search highlighting, edit-mode layout snapshots, and diagram CSS variable controls.",
     selectors: ["[data-if-diagram]", "[data-if-diagram-var]", "[data-if-diagram-search]", "[data-if-diagram-edit-toggle]", "[data-if-diagram-edit-tool]", "[data-if-diagram-node-type]", "[data-if-diagram-layout-save]", "[data-if-diagram-source]", "[data-if-connector-routing]"],
@@ -20594,7 +21146,7 @@ function getComponentController(target) {
   return controller;
 }
 
-window.InterfaceFramework = { activateTab, closeCommandPalette, closeDrawer, closeMenu, closeModal, closeMenus, closePopovers, cancelAdapterTask, cancelAutocomplete, cancelSurfaceExport, balanceGrid, applyConnectorRoutes, applyDiagramContainerFormat, applyDiagramLayoutSnapshot, applyDiagramNodeType, applyDiagramNodeTypes, applyGraphNodeType, applyGraphNodeTypes, applyHierarchyNodeType, applyHierarchyNodeTypes, applyHierarchyStructure, collectConnectorRoutes, collectDiagramDocument, computeConnectorRoute, computeTooltipPosition, createDiagramConnectorRoute, createDiagramNode, createDiagramNodeFromSource, duplicateDiagramItem, clearComponentInventoryFilter, clearPublicSearch, clearDataTableFilters, applyReviewWorkflowAction, applyGraphLayoutResult, collectDiagramLayoutSnapshot, collectGraphLayoutInput, destroy, destroyBehavior, filterCommandPalette, filterItems, getCommandPalette, getCommandPaletteState, getAutocompleteState, getBehaviorModules, getAdapterState, getDocumentViewer, getDocumentViewerState, getDocumentWorkspaceState, getDocumentAnnotationSchema, getDocumentAnnotationSchemas, getComponentController, getComponentInventory, getComponentInventoryCapabilityCoverage, getComponentInventoryDeficiencyBacklog, getComponentInventoryDeficiencyAssessment, getComponentInventoryEvidenceMatrix, getComponentInventoryReadinessActions, getComponentInventoryReadinessReport, getComponentInventoryReadinessScorecard, getComponentInventoryReadinessSnapshot, getComponentInventoryReleaseGate, getComponentInventoryRiskRegister, getComponentInventoryState, getComponentInventoryViewState, getConfigurationState, getOperationsWorkspaceState, evaluatePerformanceBudgets, getPerformanceProfile, getPolicyDiff, getPublicSearch, getClaimTrackerState, getReviewWorkflow, getReviewWorkflowState, getTabs, getTabsState, getAccordionState, getAnnotationToolbar, getAnnotationToolbarState, getAdapterTaskState, getWizard, getWizardState, getTheme, hydrateAssets, hydrateAutocompleteInputs, hydrateCharts, hydrateConfigurationControls, hydrateComponentInventories, hydrateComponentInventoryManifest, hydrateBalancedGrids, hydrateConnectorRoutes, hydrateClaimTrackers, hydrateCommandPalettes, hydrateDocumentViewers, hydrateIcons, hydrateKeyboardModel, hydrateOperationsWorkspaces, hydratePerformanceLabs, hydrateReviewWorkflows, hydrateAnnotationToolbars, hydrateSparklines, hydrateThemeControls, loadDiagramLayout, getKeyboardModel, getDiagramNodeTypeConfig, getGraphNodeTypeConfig, getGraphState, getGraphSurface, getHierarchyNodeTypeConfig, normalizeDiagramSchema, resetFocusSurface, deleteDiagramConnectorRoute, deleteDiagramItem, deleteSelectedDiagramTarget, resetSelectedDiagramTarget, resetDiagramFocus, resetDiagramLayout, renderCommandPalette, runCommandPaletteItem, init, initBehavior, normalizeAdapterState, nudgeDiagramItem, openCommandPalette, openDrawer, openMenu, openModal, applyGraphFilters, applyComponentInventoryPreset, applyComponentInventoryViewState, applyComponentInventoryFilters, applyDiagramDocument, applySelectedDiagramJson, applyGraphOrganization, copyDiagramSourceEditor, copySelectedDiagramJson, downloadDiagramSourceEditor, extractDiagramSourceText, formatDiagramSourceEditor, importDiagramSourceFile, pinDataTableColumn, parseDiagramSourceValue, registerAutocompleteAdapter, registerBehaviorModule, registerCoreBehaviorModules, registerDataTableAdapter, registerDiagramLayoutAdapter, registerDiagramNodeType, registerExportAdapter, registerGraphLayoutEngine, registerGraphNodeType, registerHierarchyNodeType, measureOverflow, moveDiagramItemToContainer, moveComponentInventorySelection, renderAutocomplete, renderConfigurationDemo, renderClaimTracker, renderDropzoneFiles, renderAccordion, renderDiagramSchema, renderGraph, renderReviewWorkflow, renderTabs, renderWizard, reorderDiagramItem, refreshBalancedGrids, refreshDiagramSourceEditor, refreshConnectorRoutes, refreshDataTable, refreshGraphGeometry, resizeDataTableColumn, retryAdapterRequest, runAdapterTask, runPerformanceLab, saveDiagramLayout, setOperationsSignal, selectGraphEdge, selectComponentInventoryCard, selectDiagramConnectorRoute, setDiagramEditMode, setDiagramEditTool, setDiagramConnectorRoute, setDiagramItemBackground, setDiagramItemIcon, setDiagramItemLayout, selectChartPoint, setChartDataset, setChartHeight, setChartThreshold, setComponentInventoryCapabilityFilter, setComponentInventoryCategoryFilter, setControlVariable, setDataTableData, setDemoState, setAnnotationTool, setAdapterState, renderSparkline, renderPolicyDiff, selectDatePickerDate, setDatePickerValue, selectClaim, resetOperationsSignal, selectDocumentAnnotation, selectDocumentArtifact, selectHistoryEvent, selectHierarchyNode, selectReviewWorkflowItem, resetGraphFocus, runGraphLayoutEngine, setDocumentArtifactMode, setStateVariant, setWizardStep, setPolicyDiffDecision, selectGraphNode, setGraphMode, setGraphLayout, setGraphViewport, setRouteNavigation, setTheme, showToast, startSparklineStream, stepSparklineStream, stopSparklineStream, toggleMenu, togglePopover, applyDataTable, filterDataTable, setDataTablePage, setDataTablePageSize, setDataTableDensity, setDisclosureState, setFieldState, setExpanded, sortDataTable, setPublicSearchFilter, getPolicyDiffState, hydratePolicyDiff, hydrateGraph, hydrateWizard, setPressed, setSelected, hideTooltip, showTooltip, hydrateCollapsibleSurfaces, hydratePublicSearches, toggleCollapsibleSurface, toggleSurfaceExpansion, toggleHierarchyBranch, toggleGraphCluster, traceGraphFrom, traverseGraph, hydrateDocumentCorpus, hydrateDocumentAnnotations, unregisterAutocompleteAdapter, unregisterBehaviorModule, unregisterDataTableAdapter, unregisterDiagramLayoutAdapter, unregisterDiagramNodeType, unregisterExportAdapter, unregisterGraphLayoutEngine, unregisterGraphNodeType, unregisterHierarchyNodeType, undoDiagramDelete, updateDataTableStatus, updateDocumentSearch, updateDiagramStats, updateDiagramSearch, updatePublicSearch, updateSelectedDiagramRoute, updateGraphA11yFallback, updatePolicyDiff, updateReviewWorkflow, validateField, validateForm, validateDiagramSourceEditor, validateDiagramSchema };
+window.InterfaceFramework = { activateTab, closeCommandPalette, closeDrawer, closeMenu, closeModal, closeMenus, closePopovers, cancelAdapterTask, cancelAutocomplete, cancelSurfaceExport, balanceGrid, applyConnectorRoutes, applyDiagramContainerFormat, applyDiagramLayoutSnapshot, applyDiagramNodeType, applyDiagramNodeTypes, applyGraphNodeType, applyGraphNodeTypes, applyHierarchyNodeType, applyHierarchyNodeTypes, applyHierarchyStructure, collectConnectorRoutes, collectDiagramDocument, computeConnectorRoute, computeTooltipPosition, createDiagramConnectorRoute, createDiagramNode, createDiagramNodeFromSource, duplicateDiagramItem, clearComponentInventoryFilter, clearPublicSearch, clearDataTableFilters, applyReviewWorkflowAction, applyGraphLayoutResult, collectDiagramLayoutSnapshot, collectGraphLayoutInput, destroy, destroyBehavior, destroyNativeSvgViewer, filterCommandPalette, filterItems, getCommandPalette, getCommandPaletteState, getAutocompleteState, getBehaviorModules, getAdapterState, getDocumentViewer, getDocumentViewerState, getDocumentWorkspaceState, getDocumentAnnotationSchema, getDocumentAnnotationSchemas, getComponentController, getComponentInventory, getComponentInventoryCapabilityCoverage, getComponentInventoryDeficiencyBacklog, getComponentInventoryDeficiencyAssessment, getComponentInventoryEvidenceMatrix, getComponentInventoryReadinessActions, getComponentInventoryReadinessReport, getComponentInventoryReadinessScorecard, getComponentInventoryReadinessSnapshot, getComponentInventoryReleaseGate, getComponentInventoryRiskRegister, getComponentInventoryState, getComponentInventoryViewState, getConfigurationState, getOperationsWorkspaceState, evaluatePerformanceBudgets, getPerformanceProfile, getPolicyDiff, getPublicSearch, getClaimTrackerState, getReviewWorkflow, getReviewWorkflowState, getTabs, getTabsState, getAccordionState, getAnnotationToolbar, getAnnotationToolbarState, getAdapterTaskState, getWizard, getWizardState, getTheme, hydrateAssets, hydrateAutocompleteInputs, hydrateCharts, hydrateConfigurationControls, hydrateComponentInventories, hydrateComponentInventoryManifest, hydrateBalancedGrids, hydrateConnectorRoutes, hydrateClaimTrackers, hydrateCommandPalettes, hydrateDocumentViewers, hydrateIcons, hydrateKeyboardModel, hydrateNativeSvgViewer, hydrateNativeSvgViewers, hydrateOperationsWorkspaces, hydratePerformanceLabs, hydrateReviewWorkflows, hydrateAnnotationToolbars, hydrateSparklines, hydrateThemeControls, loadDiagramLayout, getKeyboardModel, getDiagramNodeTypeConfig, getGraphNodeTypeConfig, getGraphState, getGraphSurface, getHierarchyNodeTypeConfig, getNativeSvgState, normalizeDiagramSchema, resetFocusSurface, deleteDiagramConnectorRoute, deleteDiagramItem, deleteSelectedDiagramTarget, resetSelectedDiagramTarget, resetDiagramFocus, resetDiagramLayout, renderCommandPalette, runCommandPaletteItem, init, initBehavior, normalizeAdapterState, nudgeDiagramItem, openCommandPalette, openDrawer, openMenu, openModal, applyGraphFilters, applyComponentInventoryPreset, applyComponentInventoryViewState, applyComponentInventoryFilters, applyDiagramDocument, applySelectedDiagramJson, applyGraphOrganization, copyDiagramSourceEditor, copySelectedDiagramJson, downloadDiagramSourceEditor, extractDiagramSourceText, formatDiagramSourceEditor, importDiagramSourceFile, pinDataTableColumn, parseDiagramSourceValue, registerAutocompleteAdapter, registerBehaviorModule, registerCoreBehaviorModules, registerDataTableAdapter, registerDiagramLayoutAdapter, registerDiagramNodeType, registerExportAdapter, registerGraphLayoutEngine, registerGraphNodeType, registerHierarchyNodeType, measureOverflow, moveDiagramItemToContainer, moveComponentInventorySelection, renderAutocomplete, renderConfigurationDemo, renderClaimTracker, renderDropzoneFiles, renderAccordion, renderDiagramSchema, renderGraph, renderReviewWorkflow, renderTabs, renderWizard, reorderDiagramItem, refreshBalancedGrids, refreshDiagramSourceEditor, refreshConnectorRoutes, refreshDataTable, refreshGraphGeometry, resizeDataTableColumn, retryAdapterRequest, runAdapterTask, runPerformanceLab, saveDiagramLayout, setOperationsSignal, selectGraphEdge, selectComponentInventoryCard, selectDiagramConnectorRoute, setDiagramEditMode, setDiagramEditTool, setDiagramConnectorRoute, setDiagramItemBackground, setDiagramItemIcon, setDiagramItemLayout, selectChartPoint, setChartDataset, setChartHeight, setChartThreshold, setComponentInventoryCapabilityFilter, setComponentInventoryCategoryFilter, setControlVariable, setDataTableData, setDemoState, setAnnotationTool, setAdapterState, renderSparkline, renderPolicyDiff, selectDatePickerDate, setDatePickerValue, selectClaim, resetOperationsSignal, selectDocumentAnnotation, selectDocumentArtifact, selectHistoryEvent, selectHierarchyNode, selectReviewWorkflowItem, resetGraphFocus, resetNativeSvgSelection, runGraphLayoutEngine, setDocumentArtifactMode, setStateVariant, setWizardStep, setPolicyDiffDecision, selectGraphNode, selectNativeSvgNode, setGraphMode, setGraphLayout, setGraphViewport, setNativeSvgViewport, setRouteNavigation, setTheme, showToast, startSparklineStream, stepSparklineStream, stopSparklineStream, toggleMenu, togglePopover, applyDataTable, filterDataTable, setDataTablePage, setDataTablePageSize, setDataTableDensity, setDisclosureState, setFieldState, setExpanded, sortDataTable, setPublicSearchFilter, getPolicyDiffState, hydratePolicyDiff, hydrateGraph, hydrateWizard, setPressed, setSelected, hideTooltip, showTooltip, hydrateCollapsibleSurfaces, hydratePublicSearches, toggleCollapsibleSurface, toggleSurfaceExpansion, toggleHierarchyBranch, toggleGraphCluster, traceGraphFrom, traverseGraph, hydrateDocumentCorpus, hydrateDocumentAnnotations, unregisterAutocompleteAdapter, unregisterBehaviorModule, unregisterDataTableAdapter, unregisterDiagramLayoutAdapter, unregisterDiagramNodeType, unregisterExportAdapter, unregisterGraphLayoutEngine, unregisterGraphNodeType, unregisterHierarchyNodeType, undoDiagramDelete, updateDataTableStatus, updateDocumentSearch, updateDiagramStats, updateDiagramSearch, updateNativeSvgSearch, updatePublicSearch, updateSelectedDiagramRoute, updateGraphA11yFallback, updatePolicyDiff, updateReviewWorkflow, validateField, validateForm, validateDiagramSourceEditor, validateDiagramSchema };
 
 if (typeof document !== "undefined") {
   if (document.readyState === "loading") {
@@ -20604,7 +21156,7 @@ if (typeof document !== "undefined") {
   }
 }
 
-window.InterfaceFramework = { activateTab, closeCommandPalette, closeDrawer, closeMenu, closeModal, closeMenus, closePopovers, cancelAdapterTask, cancelAutocomplete, cancelSurfaceExport, balanceGrid, applyConnectorRoutes, applyDiagramContainerFormat, applyDiagramLayoutSnapshot, applyDiagramNodeType, applyDiagramNodeTypes, applyGraphNodeType, applyGraphNodeTypes, applyHierarchyNodeType, applyHierarchyNodeTypes, applyHierarchyStructure, collectConnectorRoutes, collectDiagramDocument, computeConnectorRoute, computeTooltipPosition, createDiagramConnectorRoute, createDiagramNode, createDiagramNodeFromSource, duplicateDiagramItem, clearComponentInventoryFilter, clearPublicSearch, clearDataTableFilters, applyReviewWorkflowAction, applyGraphLayoutResult, collectDiagramLayoutSnapshot, collectGraphLayoutInput, destroy, destroyBehavior, filterCommandPalette, filterItems, getCommandPalette, getCommandPaletteState, getAutocompleteState, getBehaviorModules, getAdapterState, getDocumentViewer, getDocumentViewerState, getDocumentWorkspaceState, getDocumentAnnotationSchema, getDocumentAnnotationSchemas, getComponentController, getComponentInventory, getComponentInventoryCapabilityCoverage, getComponentInventoryDeficiencyBacklog, getComponentInventoryDeficiencyAssessment, getComponentInventoryEvidenceMatrix, getComponentInventoryReadinessActions, getComponentInventoryReadinessReport, getComponentInventoryReadinessScorecard, getComponentInventoryReadinessSnapshot, getComponentInventoryReleaseGate, getComponentInventoryRiskRegister, getComponentInventoryState, getComponentInventoryViewState, getConfigurationState, getOperationsWorkspaceState, evaluatePerformanceBudgets, getPerformanceProfile, getPolicyDiff, getPublicSearch, getClaimTrackerState, getReviewWorkflow, getReviewWorkflowState, getTabs, getTabsState, getAccordionState, getAnnotationToolbar, getAnnotationToolbarState, getAdapterTaskState, getWizard, getWizardState, getTheme, hydrateAssets, hydrateAutocompleteInputs, hydrateCharts, hydrateConfigurationControls, hydrateComponentInventories, hydrateComponentInventoryManifest, hydrateBalancedGrids, hydrateConnectorRoutes, hydrateClaimTrackers, hydrateCommandPalettes, hydrateDocumentViewers, hydrateIcons, hydrateKeyboardModel, hydrateOperationsWorkspaces, hydratePerformanceLabs, hydrateReviewWorkflows, hydrateAnnotationToolbars, hydrateSparklines, hydrateThemeControls, loadDiagramLayout, getKeyboardModel, getDiagramNodeTypeConfig, getGraphNodeTypeConfig, getGraphState, getGraphSurface, getHierarchyNodeTypeConfig, normalizeDiagramSchema, resetFocusSurface, deleteDiagramConnectorRoute, deleteDiagramItem, deleteSelectedDiagramTarget, resetSelectedDiagramTarget, resetDiagramFocus, resetDiagramLayout, renderCommandPalette, runCommandPaletteItem, init, initBehavior, normalizeAdapterState, nudgeDiagramItem, openCommandPalette, openDrawer, openMenu, openModal, applyGraphFilters, applyComponentInventoryPreset, applyComponentInventoryViewState, applyComponentInventoryFilters, applyDiagramDocument, applySelectedDiagramJson, applyGraphOrganization, copyDiagramSourceEditor, copySelectedDiagramJson, downloadDiagramSourceEditor, extractDiagramSourceText, formatDiagramSourceEditor, importDiagramSourceFile, pinDataTableColumn, parseDiagramSourceValue, registerAutocompleteAdapter, registerBehaviorModule, registerCoreBehaviorModules, registerDataTableAdapter, registerDiagramLayoutAdapter, registerDiagramNodeType, registerExportAdapter, registerGraphLayoutEngine, registerGraphNodeType, registerHierarchyNodeType, measureOverflow, moveDiagramItemToContainer, moveComponentInventorySelection, renderAutocomplete, renderConfigurationDemo, renderClaimTracker, renderDropzoneFiles, renderAccordion, renderDiagramSchema, renderGraph, renderReviewWorkflow, renderTabs, renderWizard, reorderDiagramItem, refreshBalancedGrids, refreshDiagramSourceEditor, refreshConnectorRoutes, refreshDataTable, refreshGraphGeometry, resizeDataTableColumn, retryAdapterRequest, runAdapterTask, runPerformanceLab, saveDiagramLayout, setOperationsSignal, selectGraphEdge, selectComponentInventoryCard, selectDiagramConnectorRoute, setDiagramEditMode, setDiagramEditTool, setDiagramConnectorRoute, setDiagramItemBackground, setDiagramItemIcon, setDiagramItemLayout, selectChartPoint, setChartDataset, setChartHeight, setChartThreshold, setComponentInventoryCapabilityFilter, setComponentInventoryCategoryFilter, setControlVariable, setDataTableData, setDemoState, setAnnotationTool, setAdapterState, renderSparkline, renderPolicyDiff, selectDatePickerDate, setDatePickerValue, selectClaim, resetOperationsSignal, selectDocumentAnnotation, selectDocumentArtifact, selectHistoryEvent, selectHierarchyNode, selectReviewWorkflowItem, resetGraphFocus, runGraphLayoutEngine, setDocumentArtifactMode, setStateVariant, setWizardStep, setPolicyDiffDecision, selectGraphNode, setGraphMode, setGraphLayout, setGraphViewport, setRouteNavigation, setTheme, showToast, startSparklineStream, stepSparklineStream, stopSparklineStream, toggleMenu, togglePopover, applyDataTable, filterDataTable, setDataTablePage, setDataTablePageSize, setDataTableDensity, setDisclosureState, setFieldState, setExpanded, sortDataTable, setPublicSearchFilter, getPolicyDiffState, hydratePolicyDiff, hydrateGraph, hydrateWizard, setPressed, setSelected, hideTooltip, showTooltip, hydrateCollapsibleSurfaces, hydratePublicSearches, toggleCollapsibleSurface, toggleSurfaceExpansion, toggleHierarchyBranch, toggleGraphCluster, traceGraphFrom, traverseGraph, hydrateDocumentCorpus, hydrateDocumentAnnotations, unregisterAutocompleteAdapter, unregisterBehaviorModule, unregisterDataTableAdapter, unregisterDiagramLayoutAdapter, unregisterDiagramNodeType, unregisterExportAdapter, unregisterGraphLayoutEngine, unregisterGraphNodeType, unregisterHierarchyNodeType, undoDiagramDelete, updateDataTableStatus, updateDocumentSearch, updateDiagramStats, updateDiagramSearch, updatePublicSearch, updateSelectedDiagramRoute, updateGraphA11yFallback, updatePolicyDiff, updateReviewWorkflow, validateField, validateForm, validateDiagramSourceEditor, validateDiagramSchema };
+window.InterfaceFramework = { activateTab, closeCommandPalette, closeDrawer, closeMenu, closeModal, closeMenus, closePopovers, cancelAdapterTask, cancelAutocomplete, cancelSurfaceExport, balanceGrid, applyConnectorRoutes, applyDiagramContainerFormat, applyDiagramLayoutSnapshot, applyDiagramNodeType, applyDiagramNodeTypes, applyGraphNodeType, applyGraphNodeTypes, applyHierarchyNodeType, applyHierarchyNodeTypes, applyHierarchyStructure, collectConnectorRoutes, collectDiagramDocument, computeConnectorRoute, computeTooltipPosition, createDiagramConnectorRoute, createDiagramNode, createDiagramNodeFromSource, duplicateDiagramItem, clearComponentInventoryFilter, clearPublicSearch, clearDataTableFilters, applyReviewWorkflowAction, applyGraphLayoutResult, collectDiagramLayoutSnapshot, collectGraphLayoutInput, destroy, destroyBehavior, destroyNativeSvgViewer, filterCommandPalette, filterItems, getCommandPalette, getCommandPaletteState, getAutocompleteState, getBehaviorModules, getAdapterState, getDocumentViewer, getDocumentViewerState, getDocumentWorkspaceState, getDocumentAnnotationSchema, getDocumentAnnotationSchemas, getComponentController, getComponentInventory, getComponentInventoryCapabilityCoverage, getComponentInventoryDeficiencyBacklog, getComponentInventoryDeficiencyAssessment, getComponentInventoryEvidenceMatrix, getComponentInventoryReadinessActions, getComponentInventoryReadinessReport, getComponentInventoryReadinessScorecard, getComponentInventoryReadinessSnapshot, getComponentInventoryReleaseGate, getComponentInventoryRiskRegister, getComponentInventoryState, getComponentInventoryViewState, getConfigurationState, getOperationsWorkspaceState, evaluatePerformanceBudgets, getPerformanceProfile, getPolicyDiff, getPublicSearch, getClaimTrackerState, getReviewWorkflow, getReviewWorkflowState, getTabs, getTabsState, getAccordionState, getAnnotationToolbar, getAnnotationToolbarState, getAdapterTaskState, getWizard, getWizardState, getTheme, hydrateAssets, hydrateAutocompleteInputs, hydrateCharts, hydrateConfigurationControls, hydrateComponentInventories, hydrateComponentInventoryManifest, hydrateBalancedGrids, hydrateConnectorRoutes, hydrateClaimTrackers, hydrateCommandPalettes, hydrateDocumentViewers, hydrateIcons, hydrateKeyboardModel, hydrateNativeSvgViewer, hydrateNativeSvgViewers, hydrateOperationsWorkspaces, hydratePerformanceLabs, hydrateReviewWorkflows, hydrateAnnotationToolbars, hydrateSparklines, hydrateThemeControls, loadDiagramLayout, getKeyboardModel, getDiagramNodeTypeConfig, getGraphNodeTypeConfig, getGraphState, getGraphSurface, getHierarchyNodeTypeConfig, getNativeSvgState, normalizeDiagramSchema, resetFocusSurface, deleteDiagramConnectorRoute, deleteDiagramItem, deleteSelectedDiagramTarget, resetSelectedDiagramTarget, resetDiagramFocus, resetDiagramLayout, renderCommandPalette, runCommandPaletteItem, init, initBehavior, normalizeAdapterState, nudgeDiagramItem, openCommandPalette, openDrawer, openMenu, openModal, applyGraphFilters, applyComponentInventoryPreset, applyComponentInventoryViewState, applyComponentInventoryFilters, applyDiagramDocument, applySelectedDiagramJson, applyGraphOrganization, copyDiagramSourceEditor, copySelectedDiagramJson, downloadDiagramSourceEditor, extractDiagramSourceText, formatDiagramSourceEditor, importDiagramSourceFile, pinDataTableColumn, parseDiagramSourceValue, registerAutocompleteAdapter, registerBehaviorModule, registerCoreBehaviorModules, registerDataTableAdapter, registerDiagramLayoutAdapter, registerDiagramNodeType, registerExportAdapter, registerGraphLayoutEngine, registerGraphNodeType, registerHierarchyNodeType, measureOverflow, moveDiagramItemToContainer, moveComponentInventorySelection, renderAutocomplete, renderConfigurationDemo, renderClaimTracker, renderDropzoneFiles, renderAccordion, renderDiagramSchema, renderGraph, renderReviewWorkflow, renderTabs, renderWizard, reorderDiagramItem, refreshBalancedGrids, refreshDiagramSourceEditor, refreshConnectorRoutes, refreshDataTable, refreshGraphGeometry, resizeDataTableColumn, retryAdapterRequest, runAdapterTask, runPerformanceLab, saveDiagramLayout, setOperationsSignal, selectGraphEdge, selectComponentInventoryCard, selectDiagramConnectorRoute, setDiagramEditMode, setDiagramEditTool, setDiagramConnectorRoute, setDiagramItemBackground, setDiagramItemIcon, setDiagramItemLayout, selectChartPoint, setChartDataset, setChartHeight, setChartThreshold, setComponentInventoryCapabilityFilter, setComponentInventoryCategoryFilter, setControlVariable, setDataTableData, setDemoState, setAnnotationTool, setAdapterState, renderSparkline, renderPolicyDiff, selectDatePickerDate, setDatePickerValue, selectClaim, resetOperationsSignal, selectDocumentAnnotation, selectDocumentArtifact, selectHistoryEvent, selectHierarchyNode, selectReviewWorkflowItem, resetGraphFocus, resetNativeSvgSelection, runGraphLayoutEngine, setDocumentArtifactMode, setStateVariant, setWizardStep, setPolicyDiffDecision, selectGraphNode, selectNativeSvgNode, setGraphMode, setGraphLayout, setGraphViewport, setNativeSvgViewport, setRouteNavigation, setTheme, showToast, startSparklineStream, stepSparklineStream, stopSparklineStream, toggleMenu, togglePopover, applyDataTable, filterDataTable, setDataTablePage, setDataTablePageSize, setDataTableDensity, setDisclosureState, setFieldState, setExpanded, sortDataTable, setPublicSearchFilter, getPolicyDiffState, hydratePolicyDiff, hydrateGraph, hydrateWizard, setPressed, setSelected, hideTooltip, showTooltip, hydrateCollapsibleSurfaces, hydratePublicSearches, toggleCollapsibleSurface, toggleSurfaceExpansion, toggleHierarchyBranch, toggleGraphCluster, traceGraphFrom, traverseGraph, hydrateDocumentCorpus, hydrateDocumentAnnotations, unregisterAutocompleteAdapter, unregisterBehaviorModule, unregisterDataTableAdapter, unregisterDiagramLayoutAdapter, unregisterDiagramNodeType, unregisterExportAdapter, unregisterGraphLayoutEngine, unregisterGraphNodeType, unregisterHierarchyNodeType, undoDiagramDelete, updateDataTableStatus, updateDocumentSearch, updateDiagramStats, updateDiagramSearch, updateNativeSvgSearch, updatePublicSearch, updateSelectedDiagramRoute, updateGraphA11yFallback, updatePolicyDiff, updateReviewWorkflow, validateField, validateForm, validateDiagramSourceEditor, validateDiagramSchema };
 const demoState = {
   widgets: [
     { id: "policy", icon: "policy", title: "Policy Changes", description: "Summary of recent and upcoming policy changes", value: 27, note: "New & Upcoming", change: "Up 18% vs last 7 days", meta: ["DoD + SECNAV", "Last 7 days"], tone: "success", size: "Medium", visible: true },

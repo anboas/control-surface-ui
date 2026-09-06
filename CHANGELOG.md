@@ -4,8 +4,11 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.2.0 - 2026-09-05
+
 ### Added
 
+- Native SVG intelligence viewport with same-origin DOM embedding, safe SVG sanitization, responsive fit, pointer and keyboard pan/zoom, node discovery, search highlighting, selection details, and lifecycle events.
 - Reusable `.if-loading-dots` and `.if-loading-inline` loading contracts with small, large, and orbit variants, reduced-motion handling, and examples for state panels, action buttons, notification loading, and autocomplete.
 
 ## 0.1.0 - 2026-05-17

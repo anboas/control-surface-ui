@@ -1,7 +1,7 @@
 {
   "$schema": "https://control-surface-ui.local/schemas/component-manifest.schema.json",
   "schemaVersion": "0.1.0",
-  "frameworkVersion": "0.1.0",
+  "frameworkVersion": "0.2.0",
   "generatedOn": "2026-05-18",
   "purpose": "Agent-readable component inventory for selecting, wiring, and documenting Control Surface UI components without reading source files.",
   "packageEntrypoints": {
@@ -2991,7 +2991,12 @@
         "if-diagram-layout-status",
         "if-diagram-node-layout--compact",
         "if-diagram-node-bg--tint",
-        "if-connector-layer"
+        "if-connector-layer",
+        "if-native-svg",
+        "if-native-svg__stage",
+        "if-native-svg__viewport",
+        "if-native-svg__detail",
+        "if-native-svg-search-results"
       ],
       "dataAttributes": [
         "data-if-diagram",
@@ -3077,7 +3082,17 @@
         "data-diagram-node-type",
         "data-diagram-node-layout",
         "data-diagram-node-background",
-        "data-diagram-node-icon"
+        "data-diagram-node-icon",
+        "data-if-native-svg",
+        "data-if-native-svg-src",
+        "data-if-native-svg-stage",
+        "data-if-native-svg-viewport",
+        "data-if-native-svg-action",
+        "data-if-native-svg-search",
+        "data-if-native-svg-search-step",
+        "data-if-native-svg-search-clear",
+        "data-if-native-svg-search-results",
+        "data-if-native-svg-detail"
       ],
       "jsApis": [
         "refreshConnectorRoutes",
@@ -3133,7 +3148,15 @@
         "unregisterExportAdapter",
         "cancelSurfaceExport",
         "setAdapterState",
-        "getAdapterState"
+        "getAdapterState",
+        "hydrateNativeSvgViewer",
+        "hydrateNativeSvgViewers",
+        "destroyNativeSvgViewer",
+        "getNativeSvgState",
+        "setNativeSvgViewport",
+        "updateNativeSvgSearch",
+        "selectNativeSvgNode",
+        "resetNativeSvgSelection"
       ],
       "events": [
         "if:diagram-select",
@@ -3172,7 +3195,14 @@
         "if:surface-export-result",
         "if:surface-export-cancel",
         "if:surface-export-error",
-        "if:adapter-state"
+        "if:adapter-state",
+        "if:native-svg-load",
+        "if:native-svg-viewport",
+        "if:native-svg-pan",
+        "if:native-svg-search",
+        "if:native-svg-select",
+        "if:native-svg-clear",
+        "if:native-svg-error"
       ],
       "recipes": [
         "architecture-diagram",

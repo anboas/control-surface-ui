@@ -45,7 +45,7 @@ The package itself includes `dist`, `src`, `docs`, `examples`, `starters`, relea
 For a local handoff tarball:
 
 ```bash
-npm install ./control-surface-ui-0.1.0.tgz
+npm install ./control-surface-ui-0.2.0.tgz
 ```
 
 For plain HTML:

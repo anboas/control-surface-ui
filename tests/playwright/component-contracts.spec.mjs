@@ -31,7 +31,15 @@ const publicApi = [
   "runPerformanceLab",
   "measureOverflow",
   "validateForm",
-  "validateField"
+  "validateField",
+  "hydrateNativeSvgViewer",
+  "hydrateNativeSvgViewers",
+  "destroyNativeSvgViewer",
+  "getNativeSvgState",
+  "setNativeSvgViewport",
+  "updateNativeSvgSearch",
+  "selectNativeSvgNode",
+  "resetNativeSvgSelection"
 ];
 
 const behaviorModules = [
@@ -178,6 +186,58 @@ test.describe("component and behavior contracts", () => {
 
     await diagram.locator("[data-if-diagram-detail-close]").first().click({ force: true });
     await expect(detail).toBeHidden();
+  });
+
+  test("native SVG viewport supports navigation, search, and node selection", async ({ page }) => {
+    await gotoExample(page, "components.html");
+    await page.evaluate(async () => {
+      const viewer = document.createElement("section");
+      viewer.id = "native-svg-contract";
+      viewer.className = "if-native-svg";
+      viewer.dataset.ifNativeSvg = "";
+      viewer.dataset.ifNativeSvgSrc = "/examples/assets/native-svg-contract.svg";
+      viewer.innerHTML = `
+        <input data-if-native-svg-search aria-label="Search diagram nodes">
+        <button type="button" data-if-native-svg-action="in">Zoom in</button>
+        <span data-if-native-svg-zoom-label></span>
+        <span data-if-native-svg-node-count></span>
+        <span data-if-native-svg-search-status></span>
+        <div data-if-native-svg-search-results hidden></div>
+        <div class="if-native-svg__stage" data-if-native-svg-stage tabindex="0">
+          <div class="if-native-svg__viewport" data-if-native-svg-viewport></div>
+        </div>
+        <aside data-if-native-svg-detail hidden>
+          <strong data-if-native-svg-detail-title></strong>
+          <span data-if-native-svg-detail-body></span>
+          <code data-if-native-svg-detail-id></code>
+        </aside>
+      `;
+      document.body.append(viewer);
+      await window.InterfaceFramework.hydrateNativeSvgViewer(viewer);
+    });
+
+    const viewer = page.locator("#native-svg-contract");
+    await expect(viewer).toHaveAttribute("data-if-native-svg-state", "ready");
+    await expect(viewer.locator("[data-if-native-svg-node]")).toHaveCount(3);
+    await expect(viewer.locator("[data-if-native-svg-node-count]")).toHaveText("3");
+
+    const before = await page.evaluate(() => window.InterfaceFramework.getNativeSvgState(document.querySelector("#native-svg-contract")));
+    await viewer.getByRole("button", { name: "Zoom in" }).click();
+    const zoomed = await page.evaluate(() => window.InterfaceFramework.getNativeSvgState(document.querySelector("#native-svg-contract")));
+    expect(zoomed.zoom).toBeGreaterThan(before.zoom);
+
+    await viewer.getByRole("textbox", { name: "Search diagram nodes" }).fill("Bravo");
+    await expect(viewer.locator(".is-search-match")).toHaveCount(1);
+    await expect(viewer.locator(".is-search-dimmed")).toHaveCount(2);
+    await viewer.locator("[data-if-native-svg-search-result]").click();
+    await expect(viewer.locator("[data-if-native-svg-detail]")).toBeVisible();
+    await expect(viewer.locator(".is-selected")).toHaveCount(1);
+    await expect(viewer.locator("[data-if-native-svg-detail-title]")).toContainText("Bravo");
+
+    const centered = await page.evaluate(() => window.InterfaceFramework.getNativeSvgState(document.querySelector("#native-svg-contract")));
+    await viewer.locator("[data-if-native-svg-stage]").press("ArrowRight");
+    const panned = await page.evaluate(() => window.InterfaceFramework.getNativeSvgState(document.querySelector("#native-svg-contract")));
+    expect(panned.panX).toBeLessThan(centered.panX);
   });
 
   test("adapter task runner normalizes success, empty, error, and cancellation states", async ({ page }) => {
