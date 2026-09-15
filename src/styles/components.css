@@ -4765,6 +4765,10 @@
   .if-dialog__footer .if-btn {
     min-height: 2.75rem;
   }
+
+  .if-dialog--mobile-sheet :is(.if-input, .if-select) {
+    min-height: 2.75rem;
+  }
 }
 
 .if-form-grid {

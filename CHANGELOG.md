@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.3 - 2026-09-15
+
+### Fixed
+
+- Mobile-sheet dialogs now preserve 44px input and select controls alongside their existing 44px actions, keeping credential and settings forms touch-safe without downstream overrides.
+
 ## 0.3.2 - 2026-09-15
 
 ### Fixed
