@@ -39300,7 +39300,7 @@ button.if-analytics-list-item:focus-visible {
 
   .if-product-header.if-product-header--masthead.if-product-header--compact.if-product-header--mobile-condensed {
     min-height: 0;
-    padding: 0.125rem var(--if-space-2);
+    padding: 0 var(--if-space-2);
   }
 
   .if-product-header.if-product-header--mobile-condensed .if-product-header__inner {
