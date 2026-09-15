@@ -129,7 +129,7 @@ This keeps programmatic state changes, pointer interactions, keyboard interactio
 | Contract | Required | Optional | Notes |
 | --- | --- | --- | --- |
 | Topbar | `.if-topbar` | `.if-topbar__nav`, `.if-topbar__actions` | Global nav and utility area. |
-| Product header | `.if-product-header` | `.if-product-header--sticky`, `.if-product-header--compact`, `.if-product-header__inner` | Product masthead or compact app header. |
+| Product header | `.if-product-header` | `.if-product-header--sticky`, `.if-product-header--compact`, `.if-product-header--mobile-condensed`, `.if-product-header__inner`, `.if-product-header__copy`, `.if-product-header__account` | Product masthead or compact app header. The mobile-condensed variant preserves two 44 px touch rows with reduced chrome. |
 | Operations top nav | `.if-operations-topnav` | `.if-operations-topnav__link`, `.if-operations-topnav__secondary-button`, `.if-operations-topnav__menu` | Header-level primary and secondary operations navigation. |
 | Brand | `.if-brand` | `.if-brand__mark` | Use as first topbar item. |
 | Navigation | `.if-nav-link` | `.is-active`, `aria-current="page"` | Active state is underline/bar style. |

@@ -330,6 +330,40 @@ test.describe("component and behavior contracts", () => {
     await expect(loadingPanel).toContainText("Loading source results");
   });
 
+  test("mobile-condensed product header preserves touch targets in a shorter masthead", async ({ page }) => {
+    await page.setContent(`
+      <header class="if-product-header if-product-header--masthead if-product-header--compact if-product-header--mobile-condensed">
+        <div class="if-product-header__inner">
+          <a class="if-brand if-product-header__brand" href="#">
+            <span class="if-brand__mark" aria-hidden="true"></span>
+            <span class="if-product-header__copy"><span class="if-product-header__eyebrow">Program intelligence</span><strong class="if-product-header__title">Transactions</strong></span>
+          </a>
+          <nav class="if-operations-topnav" aria-label="Primary"><a class="if-operations-topnav__link" href="#">Transactions</a><button class="if-operations-topnav__secondary-button" type="button">More</button></nav>
+          <div class="if-product-header__account"><button class="if-account-menu" type="button">Account</button></div>
+        </div>
+      </header>
+    `);
+    await page.addStyleTag({ path: "dist/interface-framework.css" });
+
+    const geometry = await page.locator(".if-product-header").evaluate((header) => ({
+      width: window.innerWidth,
+      headerHeight: header.getBoundingClientRect().height,
+      eyebrowDisplay: getComputedStyle(header.querySelector(".if-product-header__eyebrow")).display,
+      controls: [...header.querySelectorAll(".if-operations-topnav__link, .if-operations-topnav__secondary-button, .if-product-header__account > :first-child")].map((node) => node.getBoundingClientRect().height),
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    }));
+
+    expect(geometry.overflow).toBeLessThanOrEqual(1);
+    if (geometry.width <= 700) {
+      expect(geometry.headerHeight).toBeLessThanOrEqual(92);
+      expect(geometry.eyebrowDisplay).toBe("none");
+      expect(geometry.controls.every((height) => height >= 44)).toBe(true);
+    } else {
+      expect(geometry.headerHeight).toBeLessThanOrEqual(55);
+      expect(geometry.eyebrowDisplay).not.toBe("none");
+    }
+  });
+
   test("performance scale lab contains large demos at desktop and mobile widths", async ({ page }) => {
     for (const viewport of [
       { width: 1440, height: 1000 },
