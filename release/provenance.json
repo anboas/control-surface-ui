@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-15T17:43:21.406Z",
+  "generatedAt": "2026-09-15T20:46:17.117Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.1",
+  "packageVersion": "0.3.2",
   "releaseIdentity": {
     "localBuildSigned": false,
     "trustedPublisherRequired": true,
@@ -85,14 +85,14 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "385c03b7ca0e626f3a35015fff0c7fe90c3ec633521a539622c6223eaf7929e0",
-    "sha256SumsSha256": "3e1eac20af5af33fba517858a7051cb0127d65bff62ddeb48eabba1273745d85",
+    "manifestComparableSha256": "6846b54a727993cd4220b2bd78fc054d50244ad0097e9f2bf12039424364b74b",
+    "sha256SumsSha256": "eb822fd44df0c0ec0803133e850de982c5734a93e601b05c9c5fcce555a00e05",
     "artifactCount": 15,
     "artifacts": [
       {
         "path": "package.json",
         "bytes": 6529,
-        "sha256": "eebef12da3d9a8729b5ba5cda16e56f48d341a430373268f2acdcd34dac2c978"
+        "sha256": "20839cba74e696e0a53edf2b8116e5866920f5dcc0287c43c8cda9e5a68ed89d"
       },
       {
         "path": "README.md",
@@ -101,8 +101,8 @@
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 6880,
-        "sha256": "27298071126bb3a2813d80d796da26af2dc4457460d75149313fd1565b727c31"
+        "bytes": 7080,
+        "sha256": "46cf093fb1c6ded8ba3682d24f09500a4767630eac8c4777c3ef910fb7b02414"
       },
       {
         "path": "dist/interface-framework.css",
@@ -162,7 +162,7 @@
       {
         "path": "docs/release-smoke.md",
         "bytes": 1889,
-        "sha256": "6f0c3202012e180fa72acb18c17934bdbd1d0a4adb099c705fdc08f7c5e446f1"
+        "sha256": "d2923f0bf134e1b33848046cc3e7e5ef3e173cc15fa3a91a78a42149b630d57e"
       }
     ]
   },
@@ -190,6 +190,12 @@
       "file": "control-surface-ui-0.3.1.tgz",
       "bytes": 4990708,
       "sha256": "09dde6bfbf418e2ac224efc44b3e2b9751cc9d5a1b7772a467013c72932a1ac0"
+    },
+    {
+      "path": "release/control-surface-ui-0.3.2.tgz",
+      "file": "control-surface-ui-0.3.2.tgz",
+      "bytes": 4991053,
+      "sha256": "22b6fa55513859b6297b02c9324e48bb795f1251e6c553e144104c166c998748"
     }
   ],
   "verification": {

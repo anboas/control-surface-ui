@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-15T17:42:52.538Z",
+  "generatedAt": "2026-09-15T20:46:18.588Z",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.1",
+  "packageVersion": "0.3.2",
   "algorithm": "sha256",
   "signing": {
     "localBuildSigned": false,
@@ -17,7 +17,7 @@
       "path": "package.json",
       "file": "package.json",
       "bytes": 6529,
-      "sha256": "eebef12da3d9a8729b5ba5cda16e56f48d341a430373268f2acdcd34dac2c978"
+      "sha256": "20839cba74e696e0a53edf2b8116e5866920f5dcc0287c43c8cda9e5a68ed89d"
     },
     {
       "path": "README.md",
@@ -28,8 +28,8 @@
     {
       "path": "CHANGELOG.md",
       "file": "CHANGELOG.md",
-      "bytes": 6880,
-      "sha256": "27298071126bb3a2813d80d796da26af2dc4457460d75149313fd1565b727c31"
+      "bytes": 7080,
+      "sha256": "46cf093fb1c6ded8ba3682d24f09500a4767630eac8c4777c3ef910fb7b02414"
     },
     {
       "path": "dist/interface-framework.css",
@@ -101,7 +101,7 @@
       "path": "docs/release-smoke.md",
       "file": "release-smoke.md",
       "bytes": 1889,
-      "sha256": "6f0c3202012e180fa72acb18c17934bdbd1d0a4adb099c705fdc08f7c5e446f1"
+      "sha256": "d2923f0bf134e1b33848046cc3e7e5ef3e173cc15fa3a91a78a42149b630d57e"
     }
   ]
 }

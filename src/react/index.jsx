@@ -283,6 +283,29 @@ export function ControlDialog({
     window.requestAnimationFrame(() => restoreFocusRef.current?.focus?.());
   }
 
+  function containDialogFocus(event) {
+    dialogProps.onKeyDown?.(event);
+    if (event.defaultPrevented || event.key !== "Tab") return;
+    const dialog = resolvedDialogRef.current;
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusables = [...(dialog?.querySelectorAll(focusableSelector) || [])]
+      .filter((node) => !node.hidden && node.getClientRects().length > 0);
+    if (!focusables.length) {
+      event.preventDefault();
+      dialog?.focus();
+      return;
+    }
+    const first = focusables[0];
+    const last = focusables.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   const content = <dialog
     {...dialogProps}
     ref={resolvedDialogRef}
@@ -293,6 +316,7 @@ export function ControlDialog({
       if (open) onClose?.();
       window.requestAnimationFrame(() => restoreFocusRef.current?.focus?.());
     }}
+    onKeyDown={containDialogFocus}
     onClick={(event) => { if (event.target === event.currentTarget) requestClose(); }}
   >
     <div {...surfaceProps} className={`if-dialog__surface ${surfaceProps.className || ""}`.trim()}>

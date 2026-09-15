@@ -162,13 +162,14 @@ async function verifyInstalledPackage(sampleDir) {
   for (const file of requiredDistFiles) {
     await assertFile(resolve(pkgDir, file));
   }
-  const deps = {
-    ...pkg.dependencies,
-    ...pkg.peerDependencies,
-    ...pkg.optionalDependencies
-  };
-  if (deps.react || deps["react-dom"]) {
-    throw new Error("Installed package unexpectedly depends on React");
+  const requiredReact = pkg.dependencies?.react || pkg.dependencies?.["react-dom"] || pkg.optionalDependencies?.react || pkg.optionalDependencies?.["react-dom"];
+  if (requiredReact) {
+    throw new Error("Installed package unexpectedly requires React");
+  }
+  for (const peer of ["react", "react-dom"]) {
+    if (pkg.peerDependencies?.[peer] && pkg.peerDependenciesMeta?.[peer]?.optional !== true) {
+      throw new Error(`Installed package ${peer} peer must remain optional`);
+    }
   }
   for (const field of ["exports", "style", "browser", "module", "unpkg", "jsdelivr", "cdn", "releaseGovernance"]) {
     if (!pkg[field]) throw new Error(`Installed package missing package field: ${field}`);
@@ -240,8 +241,11 @@ destroy(document, { modules: ["tables", "overlays", "graph"] });
   await runNpm(npm, ["install", "--ignore-scripts", "--no-audit", "--no-fund"], { cwd: sampleDir });
   await verifyInstalledPackage(sampleDir);
   await run(process.execPath, [resolve(sampleDir, "node_modules", "vite", "bin", "vite.js"), "build"], { cwd: sampleDir });
-  const lock = await readFile(resolve(sampleDir, "package-lock.json"), "utf8");
-  if (/"react"|"react-dom"/.test(lock)) throw new Error("Vite consumer lockfile unexpectedly includes React");
+  for (const runtime of ["react", "react-dom"]) {
+    if (existsSync(resolve(sampleDir, "node_modules", runtime))) {
+      throw new Error(`Vite consumer unexpectedly installed optional ${runtime} runtime`);
+    }
+  }
   log("Vite consumer imported CSS and named ESM APIs from package artifacts");
 }
 

@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.2 - 2026-09-15
+
+### Fixed
+
+- React detail dialogs now contain forward and reverse keyboard focus at their first and last controls while preserving consumer key handlers and focus restoration.
+
 ## 0.3.1 - 2026-09-15
 
 ### Added

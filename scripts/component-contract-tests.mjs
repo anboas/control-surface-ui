@@ -99,7 +99,10 @@ function testFrameworkSurfaceContracts() {
     "export function ToastProvider",
     "export function useToast",
     "window.innerWidth - gutter * 2",
-    "dialog.showModal()"
+    "dialog.showModal()",
+    "function containDialogFocus",
+    "event.shiftKey && document.activeElement === first",
+    "!event.shiftKey && document.activeElement === last"
   ]);
   assertIncludes("src/styles/components.css", [
     ".if-picker__menu",
