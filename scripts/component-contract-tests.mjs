@@ -48,6 +48,9 @@ function testPackageScripts() {
   assert(pkg.releaseGovernance?.provenance === "./release/provenance.json", "package.json missing release provenance metadata");
   assert(pkg.exports?.["./release-governance"] === "./docs/release-governance.md", "package.json missing release governance export");
   assert(pkg.exports?.["./checksums"] === "./dist/interface-framework.checksums.json", "package.json missing checksum export");
+  assert(pkg.exports?.["./react"] === "./src/react/index.jsx", "package.json missing optional React adapter export");
+  assert(pkg.exports?.["./react-adapters"] === "./docs/react-adapters.md", "package.json missing React adapter documentation export");
+  assert(pkg.peerDependencies?.react === ">=18", "package.json missing optional React peer contract");
 }
 
 function testPlaywrightFiles() {
@@ -89,6 +92,22 @@ function testPlaywrightFiles() {
 }
 
 function testFrameworkSurfaceContracts() {
+  assertIncludes("src/react/index.jsx", [
+    "export function ControlPicker",
+    "export function ControlMultiSelect",
+    "export function ControlDialog",
+    "export function ToastProvider",
+    "export function useToast",
+    "window.innerWidth - gutter * 2",
+    "dialog.showModal()"
+  ]);
+  assertIncludes("src/styles/components.css", [
+    ".if-picker__menu",
+    ".if-dialog__header",
+    ".if-dialog--mobile-sheet",
+    ".if-toast-stack--masthead",
+    ".if-toast--success"
+  ]);
   assertIncludes("src/js/index.js", [
     "function init(",
     "function destroy(",

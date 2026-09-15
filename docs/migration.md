@@ -12,6 +12,28 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.0
+
+### Summary
+
+Adds optional React adapters for rich pickers, native dialogs, and structured toast feedback. Existing plain HTML contracts remain compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Import optional adapters from `control-surface-ui/react`; continue importing CSS from `control-surface-ui/css`.
+2. Replace app-owned picker, dialog, and toast styling with `.if-picker`, `.if-dialog`, and `.if-toast` contracts.
+3. Keep domain labels, options, persistence, and permission checks in the consuming app.
+4. Verify portal containment at 12 px viewport gutters, 44 px mobile controls, focus restoration, and reduced-motion behavior.
+
+### Verification
+
+- Run `npm run release:verify` and `npm run test:browser` here.
+- Run the consuming application's authenticated desktop/mobile browser suite.
+
 ## 0.2.0
 
 ### Summary
@@ -39,7 +61,7 @@ Initial release. There is no prior framework version to migrate from.
 
 ### Compatibility Notes
 
-- No React runtime dependency is required.
+- No React runtime dependency is required for the core package. React adapters are optional peer entrypoints.
 - Plain HTML consumers should load `dist/interface-framework.css` and `dist/interface-framework.js`.
 - Bundler consumers should import `control-surface-ui/css` and named APIs from `control-surface-ui`.
 - CSS customization should prefer public tokens and component classes over internal selectors.

@@ -4,6 +4,24 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.0 - 2026-09-15
+
+### Added
+
+- Optional React adapters at `control-surface-ui/react`: `ControlPicker`, `ControlMultiSelect`, `ControlDialog`, `ToastProvider`, and `useToast`.
+- One tokenized rich-picker family for searchable single and multiple selection, icon and avatar options, descriptions, metadata, async states, portal collision handling, keyboard navigation, and mobile containment.
+- A native detail-dialog family with title/action grids, sticky body/footer regions, focus restoration, wide factual layouts, and a mobile bottom-sheet variant.
+- Structured success, info, warning, and error toasts with title/body copy, optional actions, dismissal, expiry, stacking, and masthead-safe placement.
+
+### Changed
+
+- `showToast` now accepts a structured options object while preserving the legacy string signature.
+
+### Compatibility
+
+- React remains optional. Plain HTML and vanilla JavaScript consumers do not install or load React.
+- Existing `.if-modal`, `.if-select`, and legacy `showToast(message, icon)` contracts remain supported.
+
 ## 0.2.0 - 2026-09-05
 
 ### Added

@@ -766,23 +766,64 @@ function togglePopover(trigger) {
   setDisclosureState(trigger, target, !expanded);
 }
 
-function showToast(message, icon = "check") {
+function showToast(input, legacyIcon = "check") {
+  const config = typeof input === "string"
+    ? { title: input, message: "Mock interaction completed.", icon: legacyIcon, tone: "info", duration: 2600 }
+    : { title: "Update", tone: "info", duration: 4500, ...input };
+  const tone = ["success", "warning", "danger", "error", "info"].includes(config.tone) ? config.tone : "info";
   const stack = qs(".if-toast-stack") || (() => {
     const node = document.createElement("div");
-    node.className = "if-toast-stack";
+    node.className = `if-toast-stack${config.placement === "masthead" ? " if-toast-stack--masthead" : ""}`;
     node.setAttribute("aria-live", "polite");
+    node.setAttribute("aria-relevant", "additions removals");
     document.body.append(node);
     return node;
   })();
-  const toast = document.createElement("div");
-  toast.className = "if-toast";
-  toast.innerHTML = `<span class="if-icon-slot" data-if-icon="${icon}" aria-hidden="true"></span><div><strong>${message}</strong><span>Mock interaction completed.</span></div>`;
+  const toast = document.createElement("article");
+  toast.className = `if-toast if-toast--${tone}`;
+  toast.setAttribute("role", tone === "danger" || tone === "error" ? "alert" : "status");
+  if (config.id) toast.id = config.id;
+
+  const toneMark = document.createElement("span");
+  toneMark.className = "if-toast__tone";
+  toneMark.setAttribute("aria-hidden", "true");
+  const copy = document.createElement("div");
+  copy.className = "if-toast__copy";
+  const title = document.createElement("strong");
+  title.textContent = config.title || "Update";
+  copy.append(title);
+  if (config.message) {
+    const message = document.createElement("p");
+    message.textContent = config.message;
+    copy.append(message);
+  }
+  toast.append(toneMark, copy);
+
+  if (config.action?.label && typeof config.action.onClick === "function") {
+    const action = document.createElement("button");
+    action.type = "button";
+    action.className = "if-toast__action";
+    action.textContent = config.action.label;
+    action.addEventListener("click", () => config.action.onClick({ toast, dismiss }));
+    toast.append(action);
+  }
+  const dismissButton = document.createElement("button");
+  dismissButton.type = "button";
+  dismissButton.className = "if-toast__dismiss";
+  dismissButton.setAttribute("aria-label", config.dismissLabel || "Dismiss notification");
+  dismissButton.textContent = "×";
+  toast.append(dismissButton);
   stack.append(toast);
-  hydrateIcons(toast);
-  window.setTimeout(() => {
+
+  let timeoutId = null;
+  function dismiss() {
+    if (timeoutId) window.clearTimeout(timeoutId);
     toast.remove();
     if (!stack.children.length) stack.remove();
-  }, 2600);
+  }
+  dismissButton.addEventListener("click", dismiss);
+  if (config.duration !== 0) timeoutId = window.setTimeout(dismiss, Math.max(500, Number(config.duration) || 4500));
+  return { element: toast, dismiss };
 }
 
 function dispatchFrameworkEvent(target, name, detail = {}) {

@@ -143,6 +143,35 @@ The JavaScript layer keeps controls synchronized and exposes `setTheme`, `getThe
 </label>
 ```
 
+### Rich picker family
+
+React applications can use the framework-owned picker behavior without recreating portal, collision, keyboard, or responsive logic. Options may include `icon`, `description`, `meta`, `searchText`, and `disabled`. Use `ControlMultiSelect` for checkbox-style multiple selection.
+
+```jsx
+import { ControlPicker, ControlMultiSelect } from "control-surface-ui/react";
+
+<ControlPicker
+  label="Workspace"
+  value={workspaceId}
+  searchable
+  options={workspaces.map((workspace) => ({
+    value: workspace.id,
+    label: workspace.name,
+    description: workspace.description,
+    icon: <img src={workspace.iconUrl} alt="" />,
+    meta: workspace.role,
+  }))}
+  onChange={setWorkspaceId}
+/>
+
+<ControlMultiSelect
+  label="Attendees"
+  value={attendeeIds}
+  options={users}
+  onChange={setAttendeeIds}
+/>
+```
+
 ## Autocomplete Search
 
 Use `data-if-autocomplete` for local suggestions in a plain HTML search box. Suggestions can be a pipe-delimited string or JSON objects with `label`, `value`, `type`, `meta`, and `id`. The component supports highlighted query matches, mouse selection, outside-click dismissal, arrow-key navigation, Enter, Escape, ARIA combobox attributes, and dispatches an `input` event after selection so it can pair with `data-if-filter`. Option selection and outside dismissal run in the framework capture layer, so autocomplete menus still close correctly inside modals, popovers, and other control surfaces that stop click propagation.
@@ -712,6 +741,41 @@ Accordions use `data-if-accordion-trigger` on disclosure buttons. For compatibil
     <div class="if-modal__body">Are you sure?</div>
   </div>
 </div>
+```
+
+React applications can use `ControlDialog` from `control-surface-ui/react`. It uses the native `dialog` lifecycle, restores focus, separates heading copy from actions, contains scrolling, and can become a mobile bottom sheet.
+
+```jsx
+<ControlDialog
+  open={open}
+  onClose={() => setOpen(false)}
+  eyebrow="Event"
+  title={event.title}
+  size="detail"
+  actions={<button className="if-btn">Edit</button>}
+  footer={<button className="if-btn if-btn--primary">Save</button>}
+>
+  <EventFacts event={event} />
+</ControlDialog>
+```
+
+## Toast feedback
+
+Vanilla consumers can pass structured options to `showToast`. React applications use `ToastProvider` and `useToast` from the optional adapter entrypoint.
+
+```js
+showToast({
+  tone: "success",
+  title: "Workspace updated",
+  message: "Branding and member roles are current.",
+  placement: "masthead",
+  duration: 4500
+});
+```
+
+```jsx
+const { showToast } = useToast();
+showToast({ tone: "danger", title: "Action needed", message: error.message });
 ```
 
 ## Drawers
