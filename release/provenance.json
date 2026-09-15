@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-15T17:33:17.499Z",
+  "generatedAt": "2026-09-15T17:43:21.406Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.0",
+  "packageVersion": "0.3.1",
   "releaseIdentity": {
     "localBuildSigned": false,
     "trustedPublisherRequired": true,
@@ -85,14 +85,14 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "86c662f31fb34db4dbfd442ef024e0dc6712720f5b9b663164e477a11cccfd10",
-    "sha256SumsSha256": "3a99700002f91d84348e1a2ce94d14ee00e4a53a2d30a4ea1813c752db987123",
+    "manifestComparableSha256": "385c03b7ca0e626f3a35015fff0c7fe90c3ec633521a539622c6223eaf7929e0",
+    "sha256SumsSha256": "3e1eac20af5af33fba517858a7051cb0127d65bff62ddeb48eabba1273745d85",
     "artifactCount": 15,
     "artifacts": [
       {
         "path": "package.json",
         "bytes": 6529,
-        "sha256": "92bec399de5150926344116e0813d461a07718106d80e9644a0b70d8a8eba2ae"
+        "sha256": "eebef12da3d9a8729b5ba5cda16e56f48d341a430373268f2acdcd34dac2c978"
       },
       {
         "path": "README.md",
@@ -101,8 +101,8 @@
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 6540,
-        "sha256": "d059e1b70646f4da55ae8ab841f4276072d38ab26d5c72417133993608bfcbe1"
+        "bytes": 6880,
+        "sha256": "27298071126bb3a2813d80d796da26af2dc4457460d75149313fd1565b727c31"
       },
       {
         "path": "dist/interface-framework.css",
@@ -184,6 +184,12 @@
       "file": "control-surface-ui-0.3.0.tgz",
       "bytes": 4990320,
       "sha256": "2503c56722a998f2a4129dc7403b1cbe105e1f90384343348e7cfe8a93e5ab16"
+    },
+    {
+      "path": "release/control-surface-ui-0.3.1.tgz",
+      "file": "control-surface-ui-0.3.1.tgz",
+      "bytes": 4990708,
+      "sha256": "09dde6bfbf418e2ac224efc44b3e2b9751cc9d5a1b7772a467013c72932a1ac0"
     }
   ],
   "verification": {

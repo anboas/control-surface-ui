@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-15T17:32:21.308Z",
+  "generatedAt": "2026-09-15T17:42:52.538Z",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.0",
+  "packageVersion": "0.3.1",
   "algorithm": "sha256",
   "signing": {
     "localBuildSigned": false,
@@ -17,7 +17,7 @@
       "path": "package.json",
       "file": "package.json",
       "bytes": 6529,
-      "sha256": "92bec399de5150926344116e0813d461a07718106d80e9644a0b70d8a8eba2ae"
+      "sha256": "eebef12da3d9a8729b5ba5cda16e56f48d341a430373268f2acdcd34dac2c978"
     },
     {
       "path": "README.md",
@@ -28,8 +28,8 @@
     {
       "path": "CHANGELOG.md",
       "file": "CHANGELOG.md",
-      "bytes": 6540,
-      "sha256": "d059e1b70646f4da55ae8ab841f4276072d38ab26d5c72417133993608bfcbe1"
+      "bytes": 6880,
+      "sha256": "27298071126bb3a2813d80d796da26af2dc4457460d75149313fd1565b727c31"
     },
     {
       "path": "dist/interface-framework.css",

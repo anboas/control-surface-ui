@@ -4,6 +4,13 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.1 - 2026-09-15
+
+### Added
+
+- React picker trigger and portal-menu prop passthrough for product-specific test hooks and semantics without duplicating the primitive.
+- React dialog ref and element-prop passthrough so contained picker portals, forms, and product-specific semantics can compose with the shared native-dialog lifecycle.
+
 ## 0.3.0 - 2026-09-15
 
 ### Added

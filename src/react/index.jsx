@@ -57,6 +57,8 @@ export function ControlPicker({
   emptyMessage = "No matching options",
   portalTarget = null,
   align = "start",
+  triggerProps = {},
+  menuProps = {},
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -181,6 +183,7 @@ export function ControlPicker({
 
   const menu = open ? createPortal(
     <section
+      {...menuProps}
       ref={menuRef}
       id={menuId}
       className={`if-picker__menu ${multiple ? "if-picker__menu--multiple" : ""}`.trim()}
@@ -211,6 +214,7 @@ export function ControlPicker({
 
   return <div ref={rootRef} className={`if-picker ${compact ? "if-picker--compact" : ""} ${className}`.trim()}>
     <button
+      {...triggerProps}
       ref={triggerRef}
       type="button"
       className="if-picker__trigger"
@@ -253,13 +257,18 @@ export function ControlDialog({
   className = "",
   portalTarget = null,
   closeLabel = "Close dialog",
+  dialogRef = null,
+  dialogProps = {},
+  surfaceProps = {},
+  bodyProps = {},
 }) {
-  const dialogRef = useRef(null);
+  const internalDialogRef = useRef(null);
+  const resolvedDialogRef = dialogRef || internalDialogRef;
   const restoreFocusRef = useRef(null);
   const titleId = `if-dialog-title-${useId().replaceAll(":", "")}`;
 
   useEffect(() => {
-    const dialog = dialogRef.current;
+    const dialog = resolvedDialogRef.current;
     if (!dialog) return;
     if (open && !dialog.open) {
       restoreFocusRef.current = document.activeElement;
@@ -267,7 +276,7 @@ export function ControlDialog({
     } else if (!open && dialog.open) {
       dialog.close();
     }
-  }, [open]);
+  }, [open, resolvedDialogRef]);
 
   function requestClose() {
     onClose?.();
@@ -275,7 +284,8 @@ export function ControlDialog({
   }
 
   const content = <dialog
-    ref={dialogRef}
+    {...dialogProps}
+    ref={resolvedDialogRef}
     className={`if-dialog if-dialog--${size} ${mobileSheet ? "if-dialog--mobile-sheet" : ""} ${className}`.trim()}
     aria-labelledby={titleId}
     onCancel={(event) => { event.preventDefault(); requestClose(); }}
@@ -285,7 +295,7 @@ export function ControlDialog({
     }}
     onClick={(event) => { if (event.target === event.currentTarget) requestClose(); }}
   >
-    <div className="if-dialog__surface">
+    <div {...surfaceProps} className={`if-dialog__surface ${surfaceProps.className || ""}`.trim()}>
       <header className="if-dialog__header">
         <div className="if-dialog__heading">
           {eyebrow ? <span className="if-dialog__eyebrow">{eyebrow}</span> : null}
@@ -294,7 +304,7 @@ export function ControlDialog({
         </div>
         <div className="if-dialog__actions">{actions}<button type="button" className="if-icon-btn if-dialog__close" aria-label={closeLabel} onClick={requestClose}><span aria-hidden="true">×</span></button></div>
       </header>
-      <div className="if-dialog__body">{children}</div>
+      <div {...bodyProps} className={`if-dialog__body ${bodyProps.className || ""}`.trim()}>{children}</div>
       {footer ? <footer className="if-dialog__footer">{footer}</footer> : null}
     </div>
   </dialog>;
