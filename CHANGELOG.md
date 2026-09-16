@@ -4,6 +4,10 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+### Changed
+
+- Accounted for strip borders in compact mobile metric geometry so the complete summary rail remains within a 56 px product density budget.
+
 ### Added
 
 - Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.

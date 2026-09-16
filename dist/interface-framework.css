@@ -41279,7 +41279,7 @@ button.if-analytics-list-item:focus-visible {
 
   .if-management-grid--strip.if-management-grid--mobile-compact > .if-management-card {
     grid-template-areas: "label" "value";
-    min-height: 3.5rem;
+    min-height: 3.375rem;
     padding-block: var(--if-space-2);
   }
 
