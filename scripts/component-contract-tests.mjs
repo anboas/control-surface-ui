@@ -95,6 +95,7 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPicker",
     "export function ControlMultiSelect",
+    "export function ControlSparkline",
     "export function ControlDialog",
     "export function ToastProvider",
     "export function useToast",

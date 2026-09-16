@@ -7,6 +7,7 @@ import {
   ControlDialog,
   ControlMultiSelect,
   ControlPicker,
+  ControlSparkline,
   ToastProvider,
   useToast,
 } from "control-surface-ui/react";
@@ -22,6 +23,19 @@ Consumers own option data, domain labels, persistence, authorization, async requ
 ## Picker
 
 `ControlPicker` supports single selection. `ControlMultiSelect` is the same primitive with multiple selection enabled. Both accept array tuples, strings, or objects with `value`, `label`, `description`, `meta`, `icon`, `searchText`, and `disabled`.
+
+## Sparkline
+
+`ControlSparkline` renders the framework sparkline contract directly in React without requiring the plain-HTML behavior hydrator. Pass numeric `values`, optional point `labels`, and an accessible series `label`. The component derives an up/down tone automatically, supports the framework's streaming and updating states, and preserves per-point SVG titles.
+
+```jsx
+<ControlSparkline
+  label="Requests by day"
+  values={[18, 22, 19, 31, 28, 36, 41]}
+  labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+  formatValue={(value) => `${value} requests`}
+/>
+```
 
 Use `triggerProps` and `menuProps` for product-specific semantics or stable test hooks. These props extend the shared elements without replacing their framework classes, ARIA state, or behavior.
 

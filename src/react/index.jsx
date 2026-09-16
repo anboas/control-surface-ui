@@ -243,6 +243,61 @@ export function ControlMultiSelect(props) {
   return <ControlPicker {...props} multiple />;
 }
 
+export function ControlSparkline({
+  values = [],
+  labels = [],
+  label = "Trend",
+  trend = "auto",
+  streaming = false,
+  updating = false,
+  className = "",
+  width = 120,
+  height = 32,
+  formatValue = (value) => String(value),
+  ...props
+}) {
+  const samples = values
+    .map((value, index) => ({ value: Number(value), label: labels[index] || `Sample ${index + 1}` }))
+    .filter((sample) => Number.isFinite(sample.value));
+  const plotted = samples.length === 1 ? [samples[0], { ...samples[0], label: samples[0].label }] : samples;
+  const minimum = Math.min(...plotted.map((sample) => sample.value), 0);
+  const maximum = Math.max(...plotted.map((sample) => sample.value), 0);
+  const range = maximum - minimum || 1;
+  const padding = 3;
+  const innerWidth = Math.max(1, width - padding * 2);
+  const innerHeight = Math.max(1, height - padding * 2);
+  const points = plotted.map((sample, index) => ({
+    ...sample,
+    x: padding + (plotted.length > 1 ? (index / (plotted.length - 1)) * innerWidth : innerWidth / 2),
+    y: padding + ((maximum - sample.value) / range) * innerHeight,
+  }));
+  const resolvedTrend = trend === "auto"
+    ? points.length > 1 && points.at(-1).value < points[0].value ? "down" : "up"
+    : trend;
+  const pointList = points.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(" ");
+  const baseline = height - padding;
+  const area = points.length ? `${padding},${baseline} ${pointList} ${width - padding},${baseline}` : "";
+  const accessibleLabel = points.length
+    ? `${label}: ${points.map((point) => `${point.label} ${formatValue(point.value)}`).join(", ")}`
+    : `${label}: no data`;
+
+  return <span
+    {...props}
+    className={`if-sparkline if-sparkline--${resolvedTrend}${streaming ? " is-streaming" : ""}${updating ? " is-updating" : ""} ${className}`.trim()}
+    role="img"
+    aria-label={props["aria-label"] || accessibleLabel}
+  >
+    {points.length ? <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <polygon className="if-sparkline__area" points={area} />
+      <polyline className="if-sparkline__line" points={pointList} />
+      {points.map((point, index) => <g key={`${point.label}-${index}`} className="if-sparkline__sample" transform={`translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})`}>
+        <circle className={`if-sparkline__point${index === points.length - 1 ? " if-sparkline__point--latest" : ""}`} r={index === points.length - 1 ? 2.8 : 2.35} />
+        <title>{point.label}: {formatValue(point.value)}</title>
+      </g>)}
+    </svg> : null}
+  </span>;
+}
+
 export function ControlDialog({
   open,
   onClose,
