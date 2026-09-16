@@ -65,3 +65,36 @@ Treat a cross-suite visual shift as environment drift until a clean unchanged wo
 - **Notes**: Detached unchanged-commit reproduction isolated the failure to the local rendering environment. No baselines were changed.
 
 ---
+
+## [ERR-20260916-003] ci-theme-baseline-staleness
+
+**Logged**: 2026-09-16T12:38:00Z
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Framework CI retained two stale Theme System screenshots after all behavioral, accessibility, component, and other visual contracts passed.
+
+### Error
+```
+2 failed: design-system-theme-surface on chromium-desktop and chromium-mobile; 74 passed.
+```
+
+### Context
+- CI actual images were byte-identical across retries, proving stable rendering in the canonical environment.
+- The expected and actual surfaces were visually reviewed; the only geometry drift was one pixel in the specimen height.
+- Local full-suite visual drift remained broader, so local screenshots were not used as the source of truth.
+
+### Suggested Fix
+When local rendering is known to drift, refresh only the proven stale baseline from deterministic canonical-CI artifacts after visual review. Keep behavior and accessibility contracts blocking.
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/playwright/__screenshots__/chromium-desktop/design-system-theme-surface.png, tests/playwright/__screenshots__/chromium-mobile/design-system-theme-surface.png
+
+### Resolution
+- **Resolved**: 2026-09-16T12:40:00Z
+- **Notes**: Refreshed the two reviewed canonical-CI baselines and upgraded CI actions/test Node runtime to supported Node 24-compatible action releases and Node 22.
+
+---
