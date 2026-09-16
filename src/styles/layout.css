@@ -725,7 +725,7 @@
 }
 
 .if-page-header--divided {
-  padding-bottom: var(--if-space-3);
+  padding: var(--if-space-3);
   border-bottom: var(--if-divider);
 }
 

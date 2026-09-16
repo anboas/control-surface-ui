@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.11 - 2026-09-16
+
+### Changed
+
+- Divided page headers now apply a complete framework gutter so headings, summaries, metadata, and actions never touch an enclosing management surface.
+
 ## 0.3.10 - 2026-09-16
 
 ### Added
