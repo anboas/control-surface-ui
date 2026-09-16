@@ -34,6 +34,21 @@ Validate immutable action pins, run package smoke before provenance generation, 
 
 ---
 
+## [ERR-20260916-005] cross-repo-search-context
+
+**Logged**: 2026-09-16T18:14:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Searched DBI application paths while the command working directory was the Control Surface repository.
+
+### Resolution
+Use the explicit repository root for every cross-repository command and resolve immutable framework SHAs separately from consumer searches.
+
+---
+
 ## [ERR-20260916-004] framework-component-script-alias
 
 **Logged**: 2026-09-16T18:12:00Z
