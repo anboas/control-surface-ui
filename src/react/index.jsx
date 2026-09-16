@@ -102,6 +102,52 @@ export function ControlMetricStrip({
   </div>;
 }
 
+export function ControlProgressRail({
+  items = [],
+  label = "Progress",
+  className = "",
+  ...props
+}) {
+  return <ol {...props} className={`if-progress-rail ${className}`.trim()} aria-label={label} style={{ "--progress-count": Math.max(1, items.length) }}>
+    {items.map((item, index) => {
+      const state = ["complete", "active", "blocked", "pending"].includes(item.state) ? item.state : "pending";
+      return <li className={`if-progress-rail__step is-${state}`} key={item.id ?? `${item.label}-${index}`} aria-current={state === "active" ? "step" : undefined}>
+        <span className="if-progress-rail__marker" aria-hidden="true">{item.icon || index + 1}</span>
+        <span className="if-progress-rail__copy">
+          <strong>{item.label}</strong>
+          {item.meta ? <small>{item.meta}</small> : null}
+        </span>
+      </li>;
+    })}
+  </ol>;
+}
+
+export function ControlChangeList({
+  items = [],
+  label = "Changes",
+  beforeLabel = "Before",
+  afterLabel = "Verified draft",
+  empty,
+  className = "",
+  ...props
+}) {
+  if (!items.length && empty) return empty;
+  return <div {...props} className={`if-change-list ${className}`.trim()} role="list" aria-label={label}>
+    {items.map((item, index) => <article className="if-change-list__item" role="listitem" key={item.id ?? item.field ?? `${item.label}-${index}`}>
+      <strong className="if-change-list__label">{item.label}</strong>
+      <div className="if-change-list__value if-change-list__value--before">
+        <span>{beforeLabel}</span>
+        <p>{item.before}</p>
+      </div>
+      <span className="if-change-list__arrow" aria-hidden="true">→</span>
+      <div className="if-change-list__value if-change-list__value--after">
+        <span>{afterLabel}</span>
+        <p>{item.after}</p>
+      </div>
+    </article>)}
+  </div>;
+}
+
 export function ControlActivityTrail({
   items = [],
   label = "Activity",

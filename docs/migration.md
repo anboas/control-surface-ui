@@ -12,6 +12,25 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.13
+
+### Summary
+
+Adds compact workflow progress and unified field-change review adapters. Existing steppers and diff classes remain compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Replace short mobile workflows that collapse into tall vertical steppers with `ControlProgressRail`.
+2. Replace duplicated before/after panels with `ControlChangeList` when changes can be matched by field.
+
+### Verification
+
+- Confirm workflow stages remain ordered and readable at 390 px, and every changed field keeps its before and after value in one contained row.
+
 ## 0.3.9
 
 ### Summary

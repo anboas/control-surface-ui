@@ -67,6 +67,28 @@ Pass `compact` when the trail sits beside a review surface or contains several p
 />
 ```
 
+## Progress rail and change review
+
+`ControlProgressRail` presents a short, ordered process without turning mobile layouts into a tall vertical stepper. Pass `complete`, `active`, `blocked`, or `pending` through each item's `state`; compact descriptions remain available on desktop while mobile retains the stage label and state marker.
+
+`ControlChangeList` presents field-level before/after values in one row per change. It replaces duplicated side-by-side lists that force operators to match rows by position. On mobile, each row keeps its field label and a contained before-to-after comparison.
+
+```jsx
+<ControlProgressRail
+  label="Enrichment progress"
+  items={[
+    { label: "Research", state: "complete", meta: "Cited public details" },
+    { label: "Verify", state: "complete", meta: "Independent evidence check" },
+    { label: "Review", state: "active", meta: "Human decision" },
+  ]}
+/>
+
+<ControlChangeList
+  label="Verified event changes"
+  items={[{ field: "notes", label: "Notes", before: "Not set", after: "Verified public summary" }]}
+/>
+```
+
 ## Metric strip
 
 `ControlMetricStrip` renders a flat responsive summary band from `items`. Each item accepts `label`, `value`, `meta`, `tone`, and an optional `visual` such as `ControlSparkline`. Use it instead of recreating management-card markup in every route.

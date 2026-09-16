@@ -4,6 +4,18 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.13 - 2026-09-16
+
+### Added
+
+- React `ControlProgressRail` for short workflow status that stays horizontal and compact on mobile.
+- React `ControlChangeList` for unified field-level before/after review without duplicated comparison panels.
+
+### Changed
+
+- Mobile workflow descriptions collapse to stage labels while retaining accessible ordered-state semantics.
+- Field changes use one contained responsive row per changed field.
+
 ## 0.3.12 - 2026-09-16
 
 ### Added

@@ -96,6 +96,8 @@ function testFrameworkSurfaceContracts() {
     "export function ControlPageHeader",
     "export function ControlPageBody",
     "export function ControlMetricStrip",
+    "export function ControlProgressRail",
+    "export function ControlChangeList",
     "export function ControlActivityTrail",
     "export function ControlAsyncState",
     "export class ControlErrorBoundary",
@@ -120,6 +122,8 @@ function testFrameworkSurfaceContracts() {
     ".if-async-state__copy",
     ".if-async-state__action",
     ".if-activity-trail--compact",
+    ".if-progress-rail",
+    ".if-change-list",
     ".if-toast__action"
   ]);
   assertIncludes("src/styles/layout.css", [
