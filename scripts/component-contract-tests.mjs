@@ -99,7 +99,9 @@ function testFrameworkSurfaceContracts() {
     "if-identity-editor--compact",
     "export function ControlMetricStrip",
     "mobileScroll = false",
+    "compactMobile = false",
     "if-management-grid--mobile-scroll",
+    "if-management-grid--mobile-compact",
     "export function ControlProgressRail",
     "export function ControlChangeList",
     "export function ControlActivityTrail",
@@ -129,6 +131,7 @@ function testFrameworkSurfaceContracts() {
     ".if-async-state__copy",
     ".if-async-state__action",
     ".if-activity-trail--compact",
+    ".if-management-grid--mobile-compact",
     ".if-progress-rail",
     ".if-change-list",
     ".if-toast__action"

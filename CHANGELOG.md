@@ -4,6 +4,10 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+### Added
+
+- Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.
+
 ## 0.3.19 - 2026-09-16
 
 ### Changed

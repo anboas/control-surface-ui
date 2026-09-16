@@ -108,10 +108,11 @@ export function ControlMetricStrip({
   items = [],
   label = "Summary",
   mobileScroll = false,
+  compactMobile = false,
   className = "",
   ...props
 }) {
-  return <div {...props} className={`if-management-grid if-management-grid--strip${mobileScroll ? " if-management-grid--mobile-scroll" : ""} ${className}`.trim()} aria-label={label}>
+  return <div {...props} className={`if-management-grid if-management-grid--strip${mobileScroll ? " if-management-grid--mobile-scroll" : ""}${compactMobile ? " if-management-grid--mobile-compact" : ""} ${className}`.trim()} aria-label={label}>
     {items.map((item, index) => {
       const tone = ["neutral", "success", "warning", "danger", "info", "purple", "gold"].includes(item.tone) ? item.tone : "neutral";
       return <article className={`if-management-card if-tone-${tone}`} key={item.id ?? `${item.label}-${index}`}>
