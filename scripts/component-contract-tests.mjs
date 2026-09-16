@@ -96,6 +96,8 @@ function testFrameworkSurfaceContracts() {
     "export function ControlPageHeader",
     "export function ControlPageBody",
     "export function ControlMetricStrip",
+    "mobileScroll = false",
+    "if-management-grid--mobile-scroll",
     "export function ControlProgressRail",
     "export function ControlChangeList",
     "export function ControlActivityTrail",

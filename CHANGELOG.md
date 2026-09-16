@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.14 - 2026-09-16
+
+### Added
+
+- `ControlMetricStrip` can opt into a compact, touch-scrollable mobile row with `mobileScroll`.
+
 ## 0.3.13 - 2026-09-16
 
 ### Added

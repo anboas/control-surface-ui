@@ -41140,6 +41140,26 @@ button.if-analytics-list-item:focus-visible {
     border-block-start: var(--if-divider);
   }
 
+  .if-management-grid--strip.if-management-grid--mobile-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: thin;
+  }
+
+  .if-management-grid--strip.if-management-grid--mobile-scroll > .if-management-card {
+    flex: 0 0 min(9rem, 42vw);
+    border-block-start: 0;
+    border-inline-start: var(--if-divider);
+    scroll-snap-align: start;
+  }
+
+  .if-management-grid--strip.if-management-grid--mobile-scroll > .if-management-card:first-child {
+    border-inline-start: 0;
+  }
+
   .if-chart-grid--band > .if-chart-card--flat + .if-chart-card--flat {
     border-block-start: var(--if-divider);
     border-inline-start: 0;

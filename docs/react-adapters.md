@@ -91,7 +91,7 @@ Pass `compact` when the trail sits beside a review surface or contains several p
 
 ## Metric strip
 
-`ControlMetricStrip` renders a flat responsive summary band from `items`. Each item accepts `label`, `value`, `meta`, `tone`, and an optional `visual` such as `ControlSparkline`. Use it instead of recreating management-card markup in every route.
+`ControlMetricStrip` renders a flat responsive summary band from `items`. Each item accepts `label`, `value`, `meta`, `tone`, and an optional `visual` such as `ControlSparkline`. Use `mobileScroll` for longer operational summaries that should remain one compact, touch-scrollable row on small screens instead of becoming a tall card wall. Use it instead of recreating management-card markup in every route.
 
 ```jsx
 <ControlMetricStrip
