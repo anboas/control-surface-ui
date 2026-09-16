@@ -12,6 +12,7 @@ All notable framework releases are documented here. Dates use ISO format.
 
 - Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.
 - React `ControlDisclosure` for consistent progressive disclosure of secondary analysis, diagnostics, and evidence without duplicating summary/body anatomy in each product.
+- React `ControlFactGrid` for compact, semantic record facts in one divided surface, including opt-in two-column mobile layouts and deliberate full-width facts.
 
 ## 0.3.19 - 2026-09-16
 

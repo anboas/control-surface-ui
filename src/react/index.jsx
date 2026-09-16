@@ -149,6 +149,22 @@ export function ControlMetricStrip({
   </div>;
 }
 
+export function ControlFactGrid({
+  items = [],
+  label = "Details",
+  mobileTwoColumn = false,
+  className = "",
+  ...props
+}) {
+  return <dl {...props} className={`if-fact-grid${mobileTwoColumn ? " if-fact-grid--mobile-two" : ""} ${className}`.trim()} aria-label={label}>
+    {items.map((item, index) => <div className={`if-fact-grid__item${item.wide ? " is-wide" : ""}`} key={item.id ?? `${item.label}-${index}`}>
+      <dt>{item.label}</dt>
+      <dd>{item.value}</dd>
+      {item.meta ? <small>{item.meta}</small> : null}
+    </div>)}
+  </dl>;
+}
+
 export function ControlProgressRail({
   items = [],
   label = "Progress",

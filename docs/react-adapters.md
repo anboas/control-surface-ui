@@ -133,6 +133,22 @@ Pass `compact` when the trail sits beside a review surface or contains several p
 />
 ```
 
+## Fact grid
+
+`ControlFactGrid` presents record facts as a semantic description list inside one divided surface. Use `mobileTwoColumn` for compact inspection panels and mark selected items with `wide: true` when a long identity or narrative should span both mobile columns. It replaces stacks of individually bordered fact cards.
+
+```jsx
+<ControlFactGrid
+  label="Record facts"
+  mobileTwoColumn
+  items={[
+    { id: "owner", label: "Owner", value: "Mission systems", wide: true },
+    { id: "status", label: "Status", value: "Active" },
+    { id: "value", label: "Value", value: "$24.8M", meta: "Reported ceiling" },
+  ]}
+/>
+```
+
 ## Async states and error boundaries
 
 `ControlAsyncState` renders the framework loading, empty, cancelled, and error contracts with one accessible anatomy. Pass visible `title` and `message` copy, an optional decorative `icon`, and a retry or recovery `action`. Use `compact` for embedded panels.
