@@ -364,6 +364,35 @@ test.describe("component and behavior contracts", () => {
     }
   });
 
+  test("mobile-sheet dialog body actions and fields preserve touch targets", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.setContent(`
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <dialog open class="if-dialog if-dialog--mobile-sheet">
+        <div class="if-dialog__surface">
+          <div class="if-dialog__body">
+            <label class="if-field">
+              <span class="if-field__label">Direction</span>
+              <textarea class="if-input">Find official event details.</textarea>
+            </label>
+            <button class="if-btn if-btn--primary" type="button">Research and augment</button>
+          </div>
+        </div>
+      </dialog>
+    `);
+    await page.addStyleTag({ path: "dist/interface-framework.css" });
+
+    const geometry = await page.locator(".if-dialog").evaluate((dialog) => ({
+      controls: [...dialog.querySelectorAll(".if-dialog__body .if-btn, .if-dialog__body .if-input")]
+        .map((node) => node.getBoundingClientRect().height),
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    }));
+
+    expect(geometry.controls).toHaveLength(2);
+    expect(geometry.controls.every((height) => height >= 44)).toBe(true);
+    expect(geometry.overflow).toBeLessThanOrEqual(1);
+  });
+
   test("performance scale lab contains large demos at desktop and mobile widths", async ({ page }) => {
     for (const viewport of [
       { width: 1440, height: 1000 },

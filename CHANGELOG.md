@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.4 - 2026-09-15
+
+### Fixed
+
+- Mobile-sheet dialogs now preserve 44px touch targets for actions placed inside the scrollable dialog body, covering progressive workflows without downstream overrides.
+
 ## 0.3.3 - 2026-09-15
 
 ### Fixed

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-15T21:29:34.994Z",
+  "generatedAt": "2026-09-16T00:45:01.125Z",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.3",
+  "packageVersion": "0.3.4",
   "algorithm": "sha256",
   "signing": {
     "localBuildSigned": false,
@@ -17,7 +17,7 @@
       "path": "package.json",
       "file": "package.json",
       "bytes": 6529,
-      "sha256": "9d36cc34982597555ad49d1d47fba68d69e8e04eae002b956742820eb067bf11"
+      "sha256": "41bab1d5cba5e4f43e3ab64b0a9d875c03c7592ebeb5c458494092deb34832ad"
     },
     {
       "path": "README.md",
@@ -28,20 +28,20 @@
     {
       "path": "CHANGELOG.md",
       "file": "CHANGELOG.md",
-      "bytes": 7300,
-      "sha256": "d1114abeb5bb73d8d1e4ce3f6f01394907a693626ba424b1e10bba515ecc2731"
+      "bytes": 7505,
+      "sha256": "b6cfd1468af25d507a55ac8b1888e839a56e881934607019828f0ba1287e2b96"
     },
     {
       "path": "dist/interface-framework.css",
       "file": "interface-framework.css",
-      "bytes": 981369,
-      "sha256": "deee04b1686e7bd5ec83542737cd5d23586acec2499213ff899e031a94b79ee9"
+      "bytes": 981422,
+      "sha256": "bff599eae65918694c520b74e6e25f4edc71284e7a0007b125c169bfd8a8b614"
     },
     {
       "path": "dist/interface-framework.min.css",
       "file": "interface-framework.min.css",
-      "bytes": 846933,
-      "sha256": "701218f3a4541dd122011ba5eb6f48884253fec93d569a06271145da08564d70"
+      "bytes": 846983,
+      "sha256": "808125aecd47734bc0b2dbc056a2fba050a055a4f2034c8a157a17fb3f391613"
     },
     {
       "path": "dist/interface-framework.js",
@@ -76,8 +76,8 @@
     {
       "path": "docs/migration.md",
       "file": "migration.md",
-      "bytes": 3708,
-      "sha256": "1d58952527a872e3ae5d8eefad83a324e6124ef013928584d8652b08ce2a1590"
+      "bytes": 4366,
+      "sha256": "1075e07b13abca77cfa73086fdae6383c6d8bc2b3506fb0746168325926b97ac"
     },
     {
       "path": "docs/browser-support.md",
@@ -101,7 +101,7 @@
       "path": "docs/release-smoke.md",
       "file": "release-smoke.md",
       "bytes": 1889,
-      "sha256": "d196acac02f60678713495334cde69c37771eaa532d39f7f21193b444ce9163f"
+      "sha256": "89a3fd5057c8ba0dbe587e0d3e65981be36d01d9b9cecc1a389d2017ddaebce5"
     }
   ]
 }

@@ -12,6 +12,27 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.4
+
+### Summary
+
+Extends the mobile-sheet touch-target contract to actions placed inside the scrollable dialog body. Existing dialog markup remains compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Upgrade the package and compiled CSS together.
+2. Remove downstream minimum-height overrides for body actions inside `.if-dialog--mobile-sheet` where they are no longer needed.
+3. Re-run authenticated mobile dialog geometry checks at 390 px or narrower.
+
+### Verification
+
+- Run `npm run release:verify` and `npm run test:browser` here.
+- Confirm every actionable control in the consuming mobile-sheet dialog measures at least 44 px.
+
 ## 0.3.0
 
 ### Summary

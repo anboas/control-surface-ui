@@ -108,6 +108,7 @@ function testFrameworkSurfaceContracts() {
     ".if-picker__menu",
     ".if-dialog__header",
     ".if-dialog--mobile-sheet",
+    ".if-dialog--mobile-sheet .if-dialog__body .if-btn",
     ".if-dialog--mobile-sheet :is(.if-input, .if-select)",
     ".if-toast-stack--masthead",
     ".if-toast--success"
