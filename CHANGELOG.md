@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.16 - 2026-09-16
+
+### Added
+
+- React `ControlIdentityEditor` for consistent profile, member, and workspace identity editing with compact mobile actions.
+
 ## 0.3.15 - 2026-09-16
 
 ### Added

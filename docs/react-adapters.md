@@ -9,6 +9,7 @@ import {
   ControlActivityTrail,
   ControlMetricStrip,
   ControlErrorBoundary,
+  ControlIdentityEditor,
   ControlMultiSelect,
   ControlPageBody,
   ControlPageHeader,
@@ -49,6 +50,19 @@ Pair route and management headers with `ControlPageBody`. It provides the shared
     <TaskTable />
   </ControlPageBody>
 </section>
+```
+
+## Identity editor
+
+`ControlIdentityEditor` provides the shared compact anatomy for an account avatar or organization mark, explanatory copy, and image-management actions. Use it inside profile, member, and workspace settings forms instead of rebuilding bordered avatar rows and mobile action wrapping in each product.
+
+```jsx
+<ControlIdentityEditor
+  avatar={<UserAvatar user={user} />}
+  title="Profile picture"
+  summary="Square crop, optimized before upload."
+  actions={<><button className="if-btn">Replace</button><button className="if-btn">Remove</button></>}
+/>
 ```
 
 ## Activity trail

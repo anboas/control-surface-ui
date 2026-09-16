@@ -95,6 +95,7 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPageHeader",
     "export function ControlPageBody",
+    "export function ControlIdentityEditor",
     "export function ControlMetricStrip",
     "mobileScroll = false",
     "if-management-grid--mobile-scroll",
@@ -120,6 +121,8 @@ function testFrameworkSurfaceContracts() {
     "!event.shiftKey && document.activeElement === last"
   ]);
   assertIncludes("src/styles/components.css", [
+    ".if-identity-editor",
+    ".if-identity-editor__actions",
     ".if-async-state--compact",
     ".if-async-state__copy",
     ".if-async-state__action",

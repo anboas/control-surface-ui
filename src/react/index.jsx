@@ -83,6 +83,26 @@ export function ControlPageBody({
   </div>;
 }
 
+export function ControlIdentityEditor({
+  avatar,
+  title,
+  summary,
+  actions,
+  className = "",
+  children,
+  ...props
+}) {
+  return <div {...props} className={`if-identity-editor ${className}`.trim()}>
+    {avatar ? <div className="if-identity-editor__avatar">{avatar}</div> : null}
+    <div className="if-identity-editor__body">
+      <strong className="if-identity-editor__title">{title}</strong>
+      {summary ? <span className="if-identity-editor__summary">{summary}</span> : null}
+      {children}
+      {actions ? <div className="if-identity-editor__actions">{actions}</div> : null}
+    </div>
+  </div>;
+}
+
 export function ControlMetricStrip({
   items = [],
   label = "Summary",
