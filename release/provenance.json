@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-16T04:16:29.485Z",
+  "generatedAt": "2026-09-16T05:41:02.123Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.7",
+  "packageVersion": "0.3.8",
   "releaseIdentity": {
     "localBuildSigned": false,
     "trustedPublisherRequired": true,
@@ -85,14 +85,14 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "84f3dcc0984c74386781363c003f62ba7e847f494f383321d88d56dee8bbcc08",
-    "sha256SumsSha256": "662a0627033d29acadfa82d61f05ed0ad187f9d4e582de1957212d8d4e934fc3",
+    "manifestComparableSha256": "19458f081e5bc50aae205e93f8aa98e6daa04fcc9a8e1c1d946c16a75cbea931",
+    "sha256SumsSha256": "a42ad7e968af8d4f58da75c315fd7a8ab4de4a3cf1ef152e20229a808cee5957",
     "artifactCount": 15,
     "artifacts": [
       {
         "path": "package.json",
         "bytes": 6529,
-        "sha256": "7dd51ade0a72043d428bc52e7eb7eea854d3db0e26aa4d194c89cc25b21dba9d"
+        "sha256": "996927e78d0f680df10e6767227e25d66d05c47c9206fe2bace40abe8c1e703f"
       },
       {
         "path": "README.md",
@@ -101,18 +101,18 @@
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 8557,
-        "sha256": "3e4613b5726e563f3517b3f442a74ec5cc2338f4df99caf01a1f424bda7e03d5"
+        "bytes": 8831,
+        "sha256": "bfbca4fad01fcb6cfd4a823f622f88ff81f29b2b2218bae5726426cc686855b3"
       },
       {
         "path": "dist/interface-framework.css",
-        "bytes": 987493,
-        "sha256": "126687a350a2043eb04d2dcdce3f14b8d4840b4cdf04386b6503ec022580e149"
+        "bytes": 988067,
+        "sha256": "b907e509d82b205374a41ff4c9acb18f0cb05819e9a074f3c0d0c20cf4ece02d"
       },
       {
         "path": "dist/interface-framework.min.css",
-        "bytes": 852279,
-        "sha256": "9a6854cbf62d5f17602b8c11fcdbb16fc11a94369a29bb190988e77ef56c7a48"
+        "bytes": 852774,
+        "sha256": "6ea81589dcaf67356c62c1f621df016cb8253c11c4054ab6b11785ac7cdeb481"
       },
       {
         "path": "dist/interface-framework.js",
@@ -141,8 +141,8 @@
       },
       {
         "path": "docs/migration.md",
-        "bytes": 5576,
-        "sha256": "d5c77a07343779a3d91588461c00c7aa58508effc23b98b7fab244fabc4e5717"
+        "bytes": 6087,
+        "sha256": "d504d2cd5f21ea50559190bb326967aaf2131344ca7a43fed5b112ee8b7754e5"
       },
       {
         "path": "docs/browser-support.md",

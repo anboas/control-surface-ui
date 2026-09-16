@@ -93,6 +93,7 @@ function testPlaywrightFiles() {
 
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
+    "export function ControlPageHeader",
     "export function ControlPicker",
     "export function ControlMultiSelect",
     "export function ControlSparkline",
@@ -106,6 +107,11 @@ function testFrameworkSurfaceContracts() {
     "function containDialogFocus",
     "event.shiftKey && document.activeElement === first",
     "!event.shiftKey && document.activeElement === last"
+  ]);
+  assertIncludes("src/styles/layout.css", [
+    ".if-page-header--compact",
+    ".if-page-header--divided",
+    ".if-page-header__summary"
   ]);
   assertIncludes("src/styles/components.css", [".if-touch-target", "min-height: 2.75rem"]);
   assertIncludes("src/styles/components.css", [

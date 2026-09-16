@@ -38,6 +38,36 @@ function SearchIcon() {
   return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" strokeWidth="1.4" /><path d="m10.25 10.25 3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>;
 }
 
+export function ControlPageHeader({
+  title,
+  eyebrow,
+  summary,
+  meta,
+  actions,
+  headingLevel = 1,
+  compact = false,
+  divided = false,
+  className = "",
+  titleId,
+  children,
+  ...props
+}) {
+  const Heading = `h${Math.min(6, Math.max(1, Number(headingLevel) || 1))}`;
+  return <header
+    {...props}
+    className={`if-page-header${compact ? " if-page-header--compact" : ""}${divided ? " if-page-header--divided" : ""} ${className}`.trim()}
+  >
+    <div className="if-page-header__heading">
+      {eyebrow ? <span className="if-page-header__eyebrow">{eyebrow}</span> : null}
+      <Heading id={titleId} className="if-page-header__title">{title}</Heading>
+      {summary ? <p className="if-page-header__summary">{summary}</p> : null}
+      {meta ? <div className="if-page-header__meta">{meta}</div> : null}
+      {children}
+    </div>
+    {actions ? <div className="if-page-header__actions">{actions}</div> : null}
+  </header>;
+}
+
 export function ControlPicker({
   value,
   options = [],

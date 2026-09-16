@@ -12,6 +12,25 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.8
+
+### Summary
+
+Adds a React page-header adapter and compact/divided layout variants. Existing page-header markup remains compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Replace product-owned route and section heading wrappers with `ControlPageHeader` where they duplicate the framework anatomy.
+2. Keep domain actions and routing in the consuming application.
+
+### Verification
+
+- Confirm each route has one primary heading and that actions wrap without overflow at mobile widths.
+
 ## 0.3.6
 
 ### Summary

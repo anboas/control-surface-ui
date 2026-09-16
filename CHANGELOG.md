@@ -4,6 +4,16 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.8 - 2026-09-16
+
+### Added
+
+- A reusable React page-header adapter for route and section ownership, with compact and divided variants.
+
+### Changed
+
+- Page-header summaries, metadata, and actions now share one documented responsive anatomy across consuming products.
+
 ## 0.3.7 - 2026-09-16
 
 ### Added

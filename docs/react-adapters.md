@@ -6,6 +6,7 @@ Control Surface UI remains a dependency-free CSS and vanilla JavaScript framewor
 import {
   ControlDialog,
   ControlMultiSelect,
+  ControlPageHeader,
   ControlPicker,
   ControlSparkline,
   ToastProvider,
@@ -19,6 +20,19 @@ import "control-surface-ui/css";
 The adapters own DOM anatomy, ARIA state, keyboard behavior, portal placement, viewport collision handling, mobile containment, native-dialog lifecycle, focus restoration, toast stacking, dismissal, and reduced-motion presentation.
 
 Consumers own option data, domain labels, persistence, authorization, async requests, and application routing.
+
+## Page header
+
+`ControlPageHeader` provides one consistent route or section heading with an optional eyebrow, summary, metadata, and action group. Use `compact` for embedded management sections and `divided` when the heading needs a quiet boundary from the work surface below. Set `headingLevel` when nesting the adapter below a route-level heading.
+
+```jsx
+<ControlPageHeader
+  eyebrow="Workspace administration"
+  title="Agent access"
+  summary="Create and revoke machine credentials for this workspace."
+  actions={<button className="if-btn if-btn--primary">Add credential</button>}
+/>
+```
 
 ## Picker
 
