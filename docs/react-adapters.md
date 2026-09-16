@@ -26,7 +26,7 @@ Consumers own option data, domain labels, persistence, authorization, async requ
 
 ## Sparkline
 
-`ControlSparkline` renders the framework sparkline contract directly in React without requiring the plain-HTML behavior hydrator. Pass numeric `values`, optional point `labels`, and an accessible series `label`. The component derives an up/down tone automatically, supports the framework's streaming and updating states, and preserves per-point SVG titles.
+`ControlSparkline` renders the framework sparkline contract directly in React without requiring the plain-HTML behavior hydrator. Pass numeric `values`, optional point `labels`, and an accessible series `label`. The component derives an up/down tone automatically, supports the framework's streaming and updating states, preserves the plot aspect ratio by default, and exposes every sample through pointer and keyboard tooltips. Use `className="if-sparkline--summary"` for compact metric strips.
 
 ```jsx
 <ControlSparkline

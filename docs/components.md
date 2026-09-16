@@ -467,6 +467,8 @@ Interactive controls can target any chart by selector:
 
 Use `.if-chart-card--interactive` and `.if-chart-controls` when a chart needs a visible control surface. `data-if-chart-threshold` dims points below the slider value; `data-if-chart-height` updates the chart canvas height. Bars, grouped bars, stacked segments, lines, pie segments, heatmap cells, gauges, and bullet rows include animated entry, hover, focus, active, and muted states.
 
+Dense observability pages can use `.if-management-grid--strip` for one flat metric band and `.if-chart-grid--band` with `.if-chart-card--flat` for one compact chart band. This removes nested card chrome while retaining dividers, responsive stacking, and interactive bar states. React metric sparklines can add `.if-sparkline--summary`; samples expose visible pointer and keyboard tooltips without stretching the plot.
+
 Dataset buttons can reuse the same chart surface:
 
 ```html

@@ -4,6 +4,18 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.7 - 2026-09-16
+
+### Added
+
+- Flat metric and chart bands for compact observability dashboards without nested card chrome.
+- Pointer and keyboard sample tooltips for the React sparkline adapter.
+
+### Changed
+
+- React sparklines preserve their plotted aspect ratio by default and provide a compact summary-strip variant.
+- Framework bar rows can be rendered as accessible filter buttons with selected, hover, and focus states.
+
 ## 0.3.6 - 2026-09-15
 
 ### Added

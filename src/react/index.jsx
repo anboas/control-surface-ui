@@ -254,8 +254,10 @@ export function ControlSparkline({
   width = 120,
   height = 32,
   formatValue = (value) => String(value),
+  preserveAspectRatio = "xMidYMid meet",
   ...props
 }) {
+  const [activeIndex, setActiveIndex] = useState(null);
   const samples = values
     .map((value, index) => ({ value: Number(value), label: labels[index] || `Sample ${index + 1}` }))
     .filter((sample) => Number.isFinite(sample.value));
@@ -280,21 +282,34 @@ export function ControlSparkline({
   const accessibleLabel = points.length
     ? `${label}: ${points.map((point) => `${point.label} ${formatValue(point.value)}`).join(", ")}`
     : `${label}: no data`;
+  const activePoint = activeIndex === null ? null : points[activeIndex];
 
   return <span
     {...props}
     className={`if-sparkline if-sparkline--${resolvedTrend}${streaming ? " is-streaming" : ""}${updating ? " is-updating" : ""} ${className}`.trim()}
-    role="img"
+    role="group"
     aria-label={props["aria-label"] || accessibleLabel}
+    onPointerLeave={() => setActiveIndex(null)}
   >
-    {points.length ? <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    {points.length ? <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio={preserveAspectRatio} aria-label={label} role="img">
       <polygon className="if-sparkline__area" points={area} />
       <polyline className="if-sparkline__line" points={pointList} />
-      {points.map((point, index) => <g key={`${point.label}-${index}`} className="if-sparkline__sample" transform={`translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})`}>
+      {points.map((point, index) => <g
+        key={`${point.label}-${index}`}
+        className={`if-sparkline__sample${activeIndex === index ? " is-active" : ""}`}
+        transform={`translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})`}
+        tabIndex="0"
+        aria-label={`${point.label}: ${formatValue(point.value)}`}
+        onPointerEnter={() => setActiveIndex(index)}
+        onFocus={() => setActiveIndex(index)}
+        onBlur={() => setActiveIndex(null)}
+      >
+        <circle className="if-sparkline__hit" r="7" />
         <circle className={`if-sparkline__point${index === points.length - 1 ? " if-sparkline__point--latest" : ""}`} r={index === points.length - 1 ? 2.8 : 2.35} />
         <title>{point.label}: {formatValue(point.value)}</title>
       </g>)}
     </svg> : null}
+    {activePoint ? <span className="if-sparkline__tooltip" role="tooltip"><strong>{formatValue(activePoint.value)}</strong><span>{activePoint.label}</span></span> : null}
   </span>;
 }
 
