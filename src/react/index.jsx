@@ -1,4 +1,5 @@
 import {
+  Component,
   createContext,
   useCallback,
   useContext,
@@ -66,6 +67,81 @@ export function ControlPageHeader({
     </div>
     {actions ? <div className="if-page-header__actions">{actions}</div> : null}
   </header>;
+}
+
+export function ControlAsyncState({
+  state = "loading",
+  title,
+  message,
+  icon,
+  action,
+  compact = false,
+  className = "",
+  children,
+  ...props
+}) {
+  const normalizedState = ["loading", "empty", "error", "cancelled"].includes(state) ? state : "loading";
+  const defaultTitle = {
+    loading: "Loading",
+    empty: "Nothing to show",
+    error: "Something went wrong",
+    cancelled: "Request cancelled",
+  }[normalizedState];
+  const stateClass = normalizedState === "error" ? "if-error-state" : normalizedState === "empty" ? "if-empty" : "if-loading";
+  const role = normalizedState === "error" ? "alert" : "status";
+  return <section
+    {...props}
+    className={`${stateClass}${compact ? " if-async-state--compact" : ""} ${className}`.trim()}
+    data-if-async-state={normalizedState}
+    role={role}
+    aria-live={normalizedState === "error" ? "assertive" : "polite"}
+  >
+    {icon ? <span className={normalizedState === "error" ? "if-error-state__icon" : "if-empty__icon"} aria-hidden="true">{icon}</span> : null}
+    <div className="if-async-state__copy">
+      <strong>{title || defaultTitle}</strong>
+      {message ? <p>{message}</p> : null}
+      {children}
+    </div>
+    {action ? <div className="if-async-state__action">{action}</div> : null}
+  </section>;
+}
+
+export class ControlErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+    this.reset = this.reset.bind(this);
+  }
+
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+
+  componentDidCatch(error, info) {
+    this.props.onError?.(error, info);
+  }
+
+  componentDidUpdate(previousProps) {
+    if (this.state.error && previousProps.resetKey !== this.props.resetKey) this.reset();
+  }
+
+  reset() {
+    this.setState({ error: null });
+    this.props.onReset?.();
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children;
+    if (typeof this.props.fallback === "function") return this.props.fallback({ error: this.state.error, reset: this.reset });
+    if (this.props.fallback) return this.props.fallback;
+    return <ControlAsyncState
+      state="error"
+      title={this.props.title || "This surface could not be displayed"}
+      message={this.props.message || "Retry the surface. If the problem continues, use the trace or support details provided by the application."}
+      action={<button type="button" className="if-btn if-btn--secondary" onClick={this.reset}>{this.props.retryLabel || "Retry"}</button>}
+      data-if-error-boundary
+    />;
+  }
 }
 
 export function ControlPicker({

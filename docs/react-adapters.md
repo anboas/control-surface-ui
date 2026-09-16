@@ -5,6 +5,8 @@ Control Surface UI remains a dependency-free CSS and vanilla JavaScript framewor
 ```jsx
 import {
   ControlDialog,
+  ControlAsyncState,
+  ControlErrorBoundary,
   ControlMultiSelect,
   ControlPageHeader,
   ControlPicker,
@@ -33,6 +35,22 @@ Consumers own option data, domain labels, persistence, authorization, async requ
   actions={<button className="if-btn if-btn--primary">Add credential</button>}
 />
 ```
+
+## Async states and error boundaries
+
+`ControlAsyncState` renders the framework loading, empty, cancelled, and error contracts with one accessible anatomy. Pass visible `title` and `message` copy, an optional decorative `icon`, and a retry or recovery `action`. Use `compact` for embedded panels.
+
+`ControlErrorBoundary` contains render failures to the owned surface instead of blanking the application. It reports through `onError`, resets when `resetKey` changes, accepts a custom `fallback`, and otherwise renders a framework error state with a retry action.
+
+```jsx
+<ControlErrorBoundary resetKey={routeId} onError={reportUiFailure}>
+  {loading ? (
+    <ControlAsyncState state="loading" title="Loading request ledger" message="Reading the current workspace ledger." />
+  ) : <RequestLedger />}
+</ControlErrorBoundary>
+```
+
+Keep domain traces and sensitive diagnostics in the consuming application. Do not place credentials, request bodies, or raw provider output in boundary copy or `onError` telemetry.
 
 ## Picker
 

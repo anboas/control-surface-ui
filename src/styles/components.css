@@ -18839,6 +18839,34 @@ img.if-official-mark {
   text-align: center;
 }
 
+.if-async-state--compact {
+  min-height: 6rem;
+  padding: var(--if-space-4);
+}
+
+.if-async-state__copy {
+  display: grid;
+  gap: var(--if-space-1);
+  max-width: 42rem;
+}
+
+.if-async-state__copy > strong {
+  color: var(--if-text-strong);
+  font-size: var(--if-font-size-sm);
+}
+
+.if-async-state__copy > p {
+  margin: 0;
+  line-height: var(--if-line-height-normal);
+}
+
+.if-async-state__action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--if-space-2);
+}
+
 [data-if-adapter-state][hidden] {
   display: none !important;
 }

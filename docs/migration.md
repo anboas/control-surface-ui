@@ -12,6 +12,25 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.9
+
+### Summary
+
+Adds React async-state and error-boundary adapters plus hardened release automation. Existing state classes and React adapters remain compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Replace repeated product-owned loading, empty, cancelled, and retry wrappers with `ControlAsyncState`.
+2. Wrap independently navigable or data-heavy product surfaces in `ControlErrorBoundary` and send only redacted failure metadata through `onError`.
+
+### Verification
+
+- Confirm loading states use visible text, failures stay contained to one surface, retry restores the surface, and boundary telemetry excludes sensitive data.
+
 ## 0.3.8
 
 ### Summary

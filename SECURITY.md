@@ -6,8 +6,8 @@ The current supported version is the latest tagged or packaged release documente
 
 | Version | Supported |
 | --- | --- |
-| 0.1.x | Yes |
-| Earlier local prototypes | No |
+| 0.3.x | Yes |
+| 0.2.x and earlier | No |
 
 ## Reporting A Vulnerability
 
@@ -39,3 +39,10 @@ Out of scope for this framework repository:
 ## Maintainer Response
 
 Maintainers should acknowledge a report, reproduce the issue, classify severity, and ship a fix or mitigation note. Security fixes that remove or change a public contract still require `CHANGELOG.md`, `docs/migration.md`, and `docs/deprecation-policy.md` updates when relevant.
+
+## Release and Supply-Chain Controls
+
+- GitHub Actions must be pinned to immutable commit SHAs and run with job-scoped least privilege.
+- CI must run dependency auditing, package checksums, release provenance validation, and a CycloneDX SBOM build.
+- CodeQL and automated dependency updates cover JavaScript, Actions, and package manifests.
+- Consuming applications should pin this framework to an immutable package version or commit and verify packaged checksum/provenance artifacts.

@@ -94,6 +94,8 @@ function testPlaywrightFiles() {
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPageHeader",
+    "export function ControlAsyncState",
+    "export class ControlErrorBoundary",
     "export function ControlPicker",
     "export function ControlMultiSelect",
     "export function ControlSparkline",
@@ -107,6 +109,11 @@ function testFrameworkSurfaceContracts() {
     "function containDialogFocus",
     "event.shiftKey && document.activeElement === first",
     "!event.shiftKey && document.activeElement === last"
+  ]);
+  assertIncludes("src/styles/components.css", [
+    ".if-async-state--compact",
+    ".if-async-state__copy",
+    ".if-async-state__action"
   ]);
   assertIncludes("src/styles/layout.css", [
     ".if-page-header--compact",

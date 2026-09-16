@@ -4,6 +4,17 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.9 - 2026-09-16
+
+### Added
+
+- React `ControlAsyncState` and `ControlErrorBoundary` adapters for consistent loading, empty, cancelled, retry, and contained render-failure behavior.
+- CI dependency auditing, CycloneDX SBOM evidence, CodeQL analysis, immutable action pins, and automated dependency updates.
+
+### Security
+
+- Framework workflows now use least-privilege job permissions and commit-pinned third-party actions.
+
 ## 0.3.8 - 2026-09-16
 
 ### Added

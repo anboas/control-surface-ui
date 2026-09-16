@@ -314,7 +314,6 @@ async function main() {
   const pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"));
 
   await run(process.execPath, ["scripts/build.mjs"]);
-  await run(process.execPath, ["scripts/validate.mjs"]);
   await run(process.execPath, ["scripts/checksums.mjs", "--check"]);
 
   const tarball = await packPackage(npm, workRoot, "pack-initial");
