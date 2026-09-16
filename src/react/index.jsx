@@ -83,6 +83,30 @@ export function ControlPageBody({
   </div>;
 }
 
+export function ControlDisclosure({
+  title,
+  summary,
+  icon,
+  defaultOpen = false,
+  className = "",
+  children,
+  ...props
+}) {
+  return <details {...props} open={defaultOpen || undefined} className={`if-disclosure ${className}`.trim()}>
+    <summary className="if-disclosure__summary">
+      <span className="if-disclosure__heading">
+        {icon ? <span className="if-disclosure__icon" aria-hidden="true">{icon}</span> : null}
+        <span className="if-disclosure__copy">
+          <strong className="if-disclosure__title">{title}</strong>
+          {summary ? <small className="if-disclosure__description">{summary}</small> : null}
+        </span>
+      </span>
+      <PickerChevron />
+    </summary>
+    <div className="if-disclosure__body">{children}</div>
+  </details>;
+}
+
 export function ControlIdentityEditor({
   avatar,
   title,

@@ -5,6 +5,7 @@ Control Surface UI remains a dependency-free CSS and vanilla JavaScript framewor
 ```jsx
 import {
   ControlDialog,
+  ControlDisclosure,
   ControlAsyncState,
   ControlActivityTrail,
   ControlMetricStrip,
@@ -50,6 +51,20 @@ Pair route and management headers with `ControlPageBody`. It provides the shared
     <TaskTable />
   </ControlPageBody>
 </section>
+```
+
+## Disclosure
+
+`ControlDisclosure` keeps secondary analysis, evidence, diagnostics, and advanced controls behind one native, keyboard-accessible summary row. It owns the icon, title, supporting copy, chevron state, border, touch target, and body gutter. Use it when the content must remain available but should not compete with the route's primary work surface.
+
+```jsx
+<ControlDisclosure
+  icon={<ChartIcon />}
+  title="Detailed request history"
+  summary="Largest changes, appropriation vintages, and signal movement"
+>
+  <DetailedHistory />
+</ControlDisclosure>
 ```
 
 ## Identity editor

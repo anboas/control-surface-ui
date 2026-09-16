@@ -11,6 +11,7 @@ All notable framework releases are documented here. Dates use ISO format.
 ### Added
 
 - Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.
+- React `ControlDisclosure` for consistent progressive disclosure of secondary analysis, diagnostics, and evidence without duplicating summary/body anatomy in each product.
 
 ## 0.3.19 - 2026-09-16
 

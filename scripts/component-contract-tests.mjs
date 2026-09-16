@@ -95,6 +95,8 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPageHeader",
     "export function ControlPageBody",
+    "export function ControlDisclosure",
+    "if-disclosure__body",
     "export function ControlIdentityEditor",
     "if-identity-editor--compact",
     "export function ControlMetricStrip",
@@ -124,6 +126,9 @@ function testFrameworkSurfaceContracts() {
     "!event.shiftKey && document.activeElement === last"
   ]);
   assertIncludes("src/styles/components.css", [
+    ".if-disclosure",
+    ".if-disclosure__summary",
+    ".if-disclosure__body",
     ".if-identity-editor",
     ".if-identity-editor__actions",
     ".if-identity-editor--compact",

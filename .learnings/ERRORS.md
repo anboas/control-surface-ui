@@ -34,6 +34,21 @@ Validate immutable action pins, run package smoke before provenance generation, 
 
 ---
 
+## [ERR-20260916-004] framework-component-script-alias
+
+**Logged**: 2026-09-16T18:12:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Used the nonexistent `test:components` npm alias instead of the repository's canonical `test:contracts` script.
+
+### Resolution
+Run `npm run test:contracts` for framework component contracts, then `npm run validate` for the complete release gate.
+
+---
+
 ## [ERR-20260916-002] playwright-visual-baseline-environment-drift
 
 **Logged**: 2026-09-16T12:09:00Z
