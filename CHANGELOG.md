@@ -10,6 +10,7 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ### Added
 
+- A flat analytics-panel modifier for nested analytical sections that need shared heading anatomy without another border, surface fill, or shadow.
 - Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.
 - React `ControlDisclosure` for consistent progressive disclosure of secondary analysis, diagnostics, and evidence without duplicating summary/body anatomy in each product.
 - React `ControlFactGrid` for compact, semantic record facts in one divided surface, including opt-in two-column mobile layouts and deliberate full-width facts.

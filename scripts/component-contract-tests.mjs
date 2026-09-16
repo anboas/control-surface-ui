@@ -142,6 +142,7 @@ function testFrameworkSurfaceContracts() {
     ".if-management-grid--mobile-compact",
     ".if-progress-rail",
     ".if-change-list",
+    ".if-analytics-panel--flat",
     ".if-toast__action"
   ]);
   assertIncludes("src/styles/layout.css", [

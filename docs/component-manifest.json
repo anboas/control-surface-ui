@@ -1847,6 +1847,8 @@
         "The application needs heavy statistical charting, canvas-scale datasets, or full BI interactions."
       ],
       "primaryClasses": [
+        "if-analytics-panel",
+        "if-analytics-panel--flat",
         "if-chart-card",
         "if-chart",
         "if-sparkline",
