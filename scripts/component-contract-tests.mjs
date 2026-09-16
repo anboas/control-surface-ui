@@ -94,6 +94,8 @@ function testPlaywrightFiles() {
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPageHeader",
+    "export function ControlPageBody",
+    "export function ControlActivityTrail",
     "export function ControlAsyncState",
     "export class ControlErrorBoundary",
     "export function ControlPicker",
@@ -118,7 +120,15 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/styles/layout.css", [
     ".if-page-header--compact",
     ".if-page-header--divided",
-    ".if-page-header__summary"
+    ".if-page-header__summary",
+    ".if-page-body",
+    ".if-page-body--compact"
+  ]);
+  assertIncludes("src/styles/components.css", [
+    ".if-activity-trail",
+    ".if-activity-trail__item",
+    ".if-activity-trail__marker",
+    ".if-activity-trail__content"
   ]);
   assertIncludes("src/styles/components.css", [".if-touch-target", "min-height: 2.75rem"]);
   assertIncludes("src/styles/components.css", [

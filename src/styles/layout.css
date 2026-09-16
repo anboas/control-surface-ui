@@ -985,6 +985,29 @@
   gap: var(--if-space-2);
 }
 
+.if-page-body {
+  display: grid;
+  gap: var(--if-space-4);
+  min-width: 0;
+  padding: var(--if-space-4);
+}
+
+.if-page-body--compact {
+  gap: var(--if-space-3);
+  padding: var(--if-space-3);
+}
+
+.if-page-body > :where(.if-analytics-panel, .if-management-grid) {
+  margin-block: 0;
+}
+
+@media (max-width: 40rem) {
+  .if-page-body {
+    gap: var(--if-space-3);
+    padding: var(--if-space-3);
+  }
+}
+
 .if-context-action-grid {
   display: grid;
   gap: var(--if-space-2);

@@ -4,6 +4,13 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.10 - 2026-09-16
+
+### Added
+
+- React `ControlPageBody` for consistent interior gutters and section rhythm below route and management headers.
+- React `ControlActivityTrail` for flat, ordered task and provider activity with optional bounded request/response content.
+
 ## 0.3.9 - 2026-09-16
 
 ### Added

@@ -69,6 +69,45 @@ export function ControlPageHeader({
   </header>;
 }
 
+export function ControlPageBody({
+  compact = false,
+  className = "",
+  children,
+  ...props
+}) {
+  return <div
+    {...props}
+    className={`if-page-body${compact ? " if-page-body--compact" : ""} ${className}`.trim()}
+  >
+    {children}
+  </div>;
+}
+
+export function ControlActivityTrail({
+  items = [],
+  label = "Activity",
+  className = "",
+  ...props
+}) {
+  return <ol {...props} className={`if-activity-trail ${className}`.trim()} aria-label={label}>
+    {items.map((item, index) => {
+      const tone = ["success", "warning", "danger", "muted", "info"].includes(item.tone) ? item.tone : "info";
+      return <li className={`if-activity-trail__item is-${tone}`} key={item.id ?? `${item.title}-${index}`}>
+        <span className="if-activity-trail__marker" aria-hidden="true">{item.icon || index + 1}</span>
+        <div className="if-activity-trail__body">
+          <header className="if-activity-trail__header">
+            <strong className="if-activity-trail__title">{item.title}</strong>
+            {item.status ? <span className={`if-status-pill if-status-pill--compact${tone === "danger" ? " is-error" : ` is-${tone}`}`}>{item.status}</span> : null}
+          </header>
+          {item.meta ? <span className="if-activity-trail__meta">{item.meta}</span> : null}
+          {item.detail ? <p className="if-activity-trail__detail">{item.detail}</p> : null}
+          {item.content ? <div className="if-activity-trail__content">{item.content}</div> : null}
+        </div>
+      </li>;
+    })}
+  </ol>;
+}
+
 export function ControlAsyncState({
   state = "loading",
   title,

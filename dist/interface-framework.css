@@ -1340,6 +1340,29 @@ hr {
   gap: var(--if-space-2);
 }
 
+.if-page-body {
+  display: grid;
+  gap: var(--if-space-4);
+  min-width: 0;
+  padding: var(--if-space-4);
+}
+
+.if-page-body--compact {
+  gap: var(--if-space-3);
+  padding: var(--if-space-3);
+}
+
+.if-page-body > :where(.if-analytics-panel, .if-management-grid) {
+  margin-block: 0;
+}
+
+@media (max-width: 40rem) {
+  .if-page-body {
+    gap: var(--if-space-3);
+    padding: var(--if-space-3);
+  }
+}
+
 .if-context-action-grid {
   display: grid;
   gap: var(--if-space-2);
@@ -11977,6 +12000,137 @@ button.if-chart-bar.is-selected {
   border: 2px solid var(--if-accent);
   border-radius: 50%;
   background: var(--if-bg-surface);
+}
+
+.if-activity-trail {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: var(--if-divider);
+  border-radius: var(--if-radius-2);
+  background: var(--if-bg-surface);
+  list-style: none;
+}
+
+.if-activity-trail__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: var(--if-space-3);
+  min-width: 0;
+  padding: var(--if-space-3) var(--if-space-4);
+}
+
+.if-activity-trail__item + .if-activity-trail__item {
+  border-top: var(--if-divider);
+}
+
+.if-activity-trail__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 2.35rem;
+  bottom: -0.45rem;
+  left: calc(var(--if-space-4) + 0.81rem);
+  width: 2px;
+  background: var(--if-border-strong);
+}
+
+.if-activity-trail__marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border: 1px solid var(--if-border-selected);
+  border-radius: var(--if-radius-pill);
+  background: var(--if-bg-selected);
+  color: var(--if-accent);
+  font-size: var(--if-font-size-2xs);
+  font-weight: var(--if-font-weight-black);
+}
+
+.if-activity-trail__item.is-success .if-activity-trail__marker {
+  border-color: color-mix(in srgb, var(--if-success) 42%, var(--if-border));
+  background: var(--if-success-soft);
+  color: var(--if-success);
+}
+
+.if-activity-trail__item.is-warning .if-activity-trail__marker {
+  border-color: color-mix(in srgb, var(--if-warning) 48%, var(--if-border));
+  background: var(--if-warning-soft);
+  color: var(--if-warning);
+}
+
+.if-activity-trail__item.is-danger .if-activity-trail__marker {
+  border-color: color-mix(in srgb, var(--if-danger) 42%, var(--if-border));
+  background: var(--if-danger-soft);
+  color: var(--if-danger);
+}
+
+.if-activity-trail__item.is-muted .if-activity-trail__marker {
+  border-color: var(--if-border);
+  background: var(--if-bg-subtle);
+  color: var(--if-text-muted);
+}
+
+.if-activity-trail__body {
+  display: grid;
+  gap: var(--if-space-1);
+  min-width: 0;
+}
+
+.if-activity-trail__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--if-space-2);
+  min-width: 0;
+}
+
+.if-activity-trail__title {
+  min-width: 0;
+  color: var(--if-text-strong);
+  font-size: var(--if-font-size-sm);
+  line-height: var(--if-line-height-snug);
+  overflow-wrap: anywhere;
+}
+
+.if-activity-trail__meta,
+.if-activity-trail__detail {
+  margin: 0;
+  color: var(--if-text-muted);
+  font-size: var(--if-font-size-xs);
+  line-height: var(--if-line-height-normal);
+  overflow-wrap: anywhere;
+}
+
+.if-activity-trail__content {
+  display: grid;
+  gap: var(--if-space-2);
+  min-width: 0;
+  padding-top: var(--if-space-1);
+}
+
+@media (max-width: 40rem) {
+  .if-activity-trail__item {
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: var(--if-space-2);
+    padding: var(--if-space-3);
+  }
+
+  .if-activity-trail__marker {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .if-activity-trail__item:not(:last-child)::after {
+    top: 2.1rem;
+    left: calc(var(--if-space-3) + 0.69rem);
+  }
 }
 
 .if-command-panel {

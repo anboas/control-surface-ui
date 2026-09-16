@@ -6,8 +6,10 @@ Control Surface UI remains a dependency-free CSS and vanilla JavaScript framewor
 import {
   ControlDialog,
   ControlAsyncState,
+  ControlActivityTrail,
   ControlErrorBoundary,
   ControlMultiSelect,
+  ControlPageBody,
   ControlPageHeader,
   ControlPicker,
   ControlSparkline,
@@ -33,6 +35,32 @@ Consumers own option data, domain labels, persistence, authorization, async requ
   title="Agent access"
   summary="Create and revoke machine credentials for this workspace."
   actions={<button className="if-btn if-btn--primary">Add credential</button>}
+/>
+```
+
+Pair route and management headers with `ControlPageBody`. It provides the shared interior gutter and vertical rhythm between bordered work surfaces so tables, alerts, metadata, and inspector copy never sit against a page boundary. Use `compact` for embedded management surfaces.
+
+```jsx
+<section className="if-panel">
+  <ControlPageHeader compact divided title="Task Center" />
+  <ControlPageBody compact>
+    <TaskSummary />
+    <TaskTable />
+  </ControlPageBody>
+</section>
+```
+
+## Activity trail
+
+`ControlActivityTrail` presents ordered task, provider, audit, and workflow activity as one divided surface instead of a stack of nested cards. Each item accepts `title`, `status`, `tone`, `meta`, `detail`, and optional `content` for bounded request/response inspectors.
+
+```jsx
+<ControlActivityTrail
+  label="Task activity"
+  items={[
+    { id: "submitted", title: "Task submitted", status: "Accepted", tone: "info", meta: "09:42", detail: "Research request created." },
+    { id: "verified", title: "Verification completed", status: "Succeeded", tone: "success", meta: "09:44" },
+  ]}
 />
 ```
 
