@@ -211,6 +211,51 @@ export function ControlChangeList({
   </div>;
 }
 
+export function ControlCollectionEditor({
+  items = [],
+  getKey = (item, index) => item?.id ?? index,
+  renderSummary,
+  renderEditor,
+  onRemove,
+  removeLabel = "Remove item",
+  empty,
+  label = "Items",
+  className = "",
+  ...props
+}) {
+  const baseId = useId().replaceAll(":", "");
+  const keys = items.map((item, index) => String(getKey(item, index)));
+  const [expandedKey, setExpandedKey] = useState(keys[0] || "");
+  const previousKeysRef = useRef(keys);
+
+  useEffect(() => {
+    const previousKeys = previousKeysRef.current;
+    const addedKey = keys.find((key) => !previousKeys.includes(key));
+    if (addedKey) setExpandedKey(addedKey);
+    else if (expandedKey && !keys.includes(expandedKey)) setExpandedKey(keys[0] || "");
+    previousKeysRef.current = keys;
+  }, [keys.join("\u001f"), expandedKey]);
+
+  if (!items.length) return empty || null;
+  return <div {...props} className={`if-collection-editor ${className}`.trim()} role="list" aria-label={label}>
+    {items.map((item, index) => {
+      const key = String(getKey(item, index));
+      const expanded = expandedKey === key;
+      const regionId = `if-collection-${baseId}-${index}`;
+      return <section className={`if-collection-editor__item${expanded ? " is-expanded" : ""}`} role="listitem" key={key}>
+        <button type="button" className="if-collection-editor__summary" aria-expanded={expanded} aria-controls={regionId} onClick={() => setExpandedKey(expanded ? "" : key)}>
+          <span className="if-collection-editor__copy">{renderSummary?.(item, index)}</span>
+          <PickerChevron />
+        </button>
+        <div className="if-collection-editor__body" id={regionId} hidden={!expanded}>
+          <div className="if-collection-editor__fields">{renderEditor?.(item, index)}</div>
+          {onRemove ? <div className="if-collection-editor__actions"><button type="button" className="if-btn if-btn--quiet if-btn--sm" aria-label={`${removeLabel} ${index + 1}`} onClick={() => onRemove(item, index)}>{removeLabel}</button></div> : null}
+        </div>
+      </section>;
+    })}
+  </div>;
+}
+
 export function ControlActivityTrail({
   items = [],
   label = "Activity",

@@ -8,6 +8,7 @@ import {
   ControlDisclosure,
   ControlAsyncState,
   ControlActivityTrail,
+  ControlCollectionEditor,
   ControlMetricStrip,
   ControlErrorBoundary,
   ControlIdentityEditor,
@@ -118,6 +119,24 @@ Pass `compact` when the trail sits beside a review surface or contains several p
   items={[{ field: "notes", label: "Notes", before: "Not set", after: "Verified public summary" }]}
 />
 ```
+
+## Collection editor
+
+`ControlCollectionEditor` turns repeated structured fields into one divided list with a single active editor. Use it for links, milestones, contacts, rules, or other collections that become visually overwhelming when every item stays expanded. Each item keeps a compact summary row, new items open automatically, and removal remains adjacent to the item it affects.
+
+```jsx
+<ControlCollectionEditor
+  label="Event links"
+  items={links}
+  getKey={(link) => link.id}
+  renderSummary={(link, index) => <><strong>{link.label || `Link ${index + 1}`}</strong><small>{link.url || "URL not entered"}</small></>}
+  renderEditor={(link, index) => <><LinkLabelField index={index} /><LinkUrlField index={index} /></>}
+  onRemove={(_, index) => removeLink(index)}
+  removeLabel="Remove link"
+/>
+```
+
+The consumer owns collection state, validation, add controls, and persistence. The adapter owns disclosure state, focusable summary rows, divided-item anatomy, mobile field stacking, and automatic expansion when a new stable key appears.
 
 ## Metric strip
 

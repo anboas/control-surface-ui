@@ -10,6 +10,7 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ### Added
 
+- React `ControlCollectionEditor` for compact, progressively disclosed repeated-field editing with one active item, automatic expansion of newly added items, and touch-safe mobile actions.
 - A flat analytics-panel modifier for nested analytical sections that need shared heading anatomy without another border, surface fill, or shadow.
 - Opt-in compact mobile metric strips that retain helper copy for assistive technology while keeping dense dashboards within a single short summary rail.
 - React `ControlDisclosure` for consistent progressive disclosure of secondary analysis, diagnostics, and evidence without duplicating summary/body anatomy in each product.

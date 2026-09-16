@@ -109,6 +109,8 @@ function testFrameworkSurfaceContracts() {
     "if-management-grid--mobile-compact",
     "export function ControlProgressRail",
     "export function ControlChangeList",
+    "export function ControlCollectionEditor",
+    "if-collection-editor__summary",
     "export function ControlActivityTrail",
     "export function ControlAsyncState",
     "export class ControlErrorBoundary",
@@ -142,6 +144,8 @@ function testFrameworkSurfaceContracts() {
     ".if-management-grid--mobile-compact",
     ".if-progress-rail",
     ".if-change-list",
+    ".if-collection-editor",
+    ".if-collection-editor__fields",
     ".if-analytics-panel--flat",
     ".if-toast__action"
   ]);
