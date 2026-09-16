@@ -105,6 +105,7 @@ function testFrameworkSurfaceContracts() {
     "event.shiftKey && document.activeElement === first",
     "!event.shiftKey && document.activeElement === last"
   ]);
+  assertIncludes("src/styles/components.css", [".if-touch-target", "min-height: 2.75rem"]);
   assertIncludes("src/styles/components.css", [
     ".if-picker__menu",
     ".if-dialog__header",

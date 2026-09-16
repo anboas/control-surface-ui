@@ -12,6 +12,26 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.6
+
+### Summary
+
+Adds a React sparkline adapter and a reusable 44px touch-target utility. Existing markup remains compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Import `ControlSparkline` from `control-surface-ui/react` when a React surface needs the existing framework sparkline without behavior hydration.
+2. Add `.if-touch-target` only to standalone controls that are not already covered by a component-specific mobile touch contract.
+
+### Verification
+
+- Run `npm run release:verify` and the consuming application's responsive browser contracts.
+- Confirm sparkline accessible labels and 44px standalone control geometry.
+
 ## 0.3.5
 
 ### Summary

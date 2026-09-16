@@ -1840,7 +1840,7 @@ Public functions: `renderReviewWorkflow(root, config)`, `getReviewWorkflow(root)
 
 ## States
 
-Use `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `.if-loading-inline`, and `.if-loading-dots` for non-data states. Loading dots are decorative and should sit beside visible progress text.
+Use `.if-empty`, `.if-loading`, `.if-error-state`, `.if-skeleton`, `.if-loading-inline`, and `.if-loading-dots` for non-data states. Loading dots are decorative and should sit beside visible progress text. Add `.if-touch-target` to standalone controls that must preserve a 44px pointer target outside a component with its own mobile touch contract.
 
 ## Public Website Patterns
 

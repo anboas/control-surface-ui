@@ -4,6 +4,17 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.6 - 2026-09-15
+
+### Added
+
+- Optional `ControlSparkline` React adapter for accessible framework-native trend lines without the plain-HTML behavior hydrator.
+- Reusable `.if-touch-target` utility for standalone controls that must retain a 44px pointer target outside components with built-in touch behavior.
+
+### Compatibility
+
+- Existing plain HTML sparkline and control contracts remain unchanged. React remains optional.
+
 ## 0.3.5 - 2026-09-15
 
 ### Added

@@ -15071,6 +15071,10 @@ img.if-official-mark {
   pointer-events: none;
 }
 
+.if-touch-target {
+  min-height: 2.75rem;
+}
+
 .if-btn__spinner {
   width: 0.85rem;
   height: 0.85rem;
