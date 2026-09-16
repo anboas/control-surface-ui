@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.5 - 2026-09-15
+
+### Added
+
+- Flat purple `.if-btn--ai` and `.if-icon-btn--ai` variants for AI-assisted commands, with shared tokens, dark/high-contrast behavior, and no gradients.
+
 ## 0.3.4 - 2026-09-15
 
 ### Fixed

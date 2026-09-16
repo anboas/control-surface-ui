@@ -74,4 +74,9 @@
   --if-danger-soft: var(--if-color-red-100);
   --if-purple: var(--if-color-violet-700);
   --if-purple-soft: var(--if-color-violet-100);
+  --if-ai-action: var(--if-color-violet-700);
+  --if-ai-action-hover: #4c1d95;
+  --if-ai-action-soft: #faf5ff;
+  --if-ai-action-border: #c4b5fd;
+  --if-ai-action-text: #ffffff;
 }

@@ -76,6 +76,11 @@
   --if-danger-soft: var(--if-color-red-100);
   --if-purple: var(--if-color-violet-700);
   --if-purple-soft: var(--if-color-violet-100);
+  --if-ai-action: var(--if-color-violet-700);
+  --if-ai-action-hover: #4c1d95;
+  --if-ai-action-soft: #faf5ff;
+  --if-ai-action-border: #c4b5fd;
+  --if-ai-action-text: #ffffff;
 }
 
 
@@ -2534,6 +2539,14 @@ hr {
   --if-btn-color: var(--if-warning);
 }
 
+.if-btn--ai {
+  --if-btn-bg: var(--if-ai-action);
+  --if-btn-border: var(--if-ai-action);
+  --if-btn-color: var(--if-ai-action-text);
+  --if-btn-hover-bg: var(--if-ai-action-hover);
+  --if-btn-hover-border: var(--if-ai-action-hover);
+}
+
 .if-btn--block {
   width: 100%;
 }
@@ -2585,6 +2598,21 @@ hr {
   border-color: var(--if-border-selected);
   background: var(--if-accent-soft);
   color: var(--if-accent);
+}
+
+.if-icon-btn--ai {
+  border-color: var(--if-ai-action-border);
+  background: var(--if-ai-action-soft);
+  color: var(--if-ai-action);
+}
+
+.if-icon-btn--ai:hover,
+.if-icon-btn--ai.is-active,
+.if-icon-btn--ai[aria-pressed="true"] {
+  border-color: var(--if-ai-action);
+  background: var(--if-ai-action);
+  color: var(--if-ai-action-text);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--if-ai-action) 18%, transparent);
 }
 
 .if-toolbar__group {
@@ -42543,6 +42571,11 @@ button.if-analytics-list-item:focus-visible {
     --if-danger-soft: #451a1a;
     --if-purple: #c4b5fd;
     --if-purple-soft: #2b1b4f;
+    --if-ai-action: #8b5cf6;
+    --if-ai-action-hover: #7c3aed;
+    --if-ai-action-soft: #2b1b4f;
+    --if-ai-action-border: #8b5cf6;
+    --if-ai-action-text: #ffffff;
     --if-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.34);
     --if-shadow-sm: 0 8px 18px rgb(0 0 0 / 0.28);
     --if-shadow-md: 0 14px 32px rgb(0 0 0 / 0.32);
@@ -42587,6 +42620,11 @@ button.if-analytics-list-item:focus-visible {
   --if-danger-soft: #451a1a;
   --if-purple: #c4b5fd;
   --if-purple-soft: #2b1b4f;
+  --if-ai-action: #8b5cf6;
+  --if-ai-action-hover: #7c3aed;
+  --if-ai-action-soft: #2b1b4f;
+  --if-ai-action-border: #8b5cf6;
+  --if-ai-action-text: #ffffff;
   --if-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.34);
   --if-shadow-sm: 0 8px 18px rgb(0 0 0 / 0.28);
   --if-shadow-md: 0 14px 32px rgb(0 0 0 / 0.32);
@@ -42629,6 +42667,11 @@ button.if-analytics-list-item:focus-visible {
   --if-danger-soft: #3f0000;
   --if-purple: #d6b2ff;
   --if-purple-soft: #240040;
+  --if-ai-action: Highlight;
+  --if-ai-action-hover: Highlight;
+  --if-ai-action-soft: Canvas;
+  --if-ai-action-border: Highlight;
+  --if-ai-action-text: HighlightText;
   --if-border-width: 2px;
   --if-border-width-strong: 2px;
   --if-ring-width: 3px;
@@ -42663,6 +42706,29 @@ button.if-analytics-list-item:focus-visible {
 [data-theme="high-contrast"] .if-btn,
 [data-theme="high-contrast"] .if-icon-btn {
   background-color: var(--if-bg-surface);
+}
+
+[data-theme="dark"] .if-btn--ai,
+[data-theme="midnight"] .if-btn--ai,
+[data-theme="high-contrast"] .if-btn--ai {
+  background-color: var(--if-ai-action);
+  border-color: var(--if-ai-action);
+  color: var(--if-ai-action-text);
+}
+
+[data-theme="dark"] .if-btn--ai:hover,
+[data-theme="midnight"] .if-btn--ai:hover,
+[data-theme="high-contrast"] .if-btn--ai:hover {
+  background-color: var(--if-ai-action-hover);
+  border-color: var(--if-ai-action-hover);
+}
+
+[data-theme="dark"] .if-icon-btn--ai,
+[data-theme="midnight"] .if-icon-btn--ai,
+[data-theme="high-contrast"] .if-icon-btn--ai {
+  background-color: var(--if-ai-action-soft);
+  border-color: var(--if-ai-action-border);
+  color: var(--if-ai-action);
 }
 
 [data-theme="high-contrast"] .if-btn--primary,

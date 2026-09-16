@@ -12,6 +12,27 @@ Use this file with `CHANGELOG.md` when upgrading the framework. It records versi
 6. Run local visual, keyboard, accessibility, and adapter smoke tests.
 7. Verify artifacts against `dist/interface-framework.checksums.json` when using packaged files directly.
 
+## 0.3.5
+
+### Summary
+
+Adds framework-owned full and icon AI action variants. Existing button markup remains compatible.
+
+### Breaking Changes
+
+- None.
+
+### Required Actions
+
+1. Use `.if-btn--ai` only for actions that invoke or configure an AI workflow.
+2. Use `.if-icon-btn--ai` for compact AI commands and keep an accessible name.
+3. Remove downstream purple button overrides when adopting these variants.
+
+### Verification
+
+- Run `npm run release:verify` and the button browser contract.
+- Verify the variants in light, dark, and high-contrast themes.
+
 ## 0.3.4
 
 ### Summary

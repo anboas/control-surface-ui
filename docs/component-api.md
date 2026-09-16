@@ -216,6 +216,7 @@ This keeps programmatic state changes, pointer interactions, keyboard interactio
 | Success | `.if-btn--success` | Approve/positive workflow. |
 | Warning | `.if-btn--warning` | Snooze/escalation caution. |
 | Danger | `.if-btn--danger` | Reject/delete/destructive. |
+| AI action | `.if-btn--ai` | Start or configure an AI-assisted workflow. |
 | Small | `.if-btn--sm` | Dense toolbars. |
 | Large | `.if-btn--lg` | Prominent CTA. |
 | Full width | `.if-btn--block` | Drawer or mobile actions. |
@@ -228,6 +229,10 @@ This keeps programmatic state changes, pointer interactions, keyboard interactio
   Create policy
 </button>
 <button class="if-btn if-btn--danger" type="button">Delete</button>
+<button class="if-btn if-btn--ai" type="button">
+  <span class="if-icon-slot" data-if-icon="bot" aria-hidden="true"></span>
+  Research and augment
+</button>
 ```
 
 ## Icon Buttons

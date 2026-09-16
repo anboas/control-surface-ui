@@ -470,7 +470,9 @@
         "if-btn--success",
         "if-btn--warning",
         "if-btn--danger",
+        "if-btn--ai",
         "if-icon-btn",
+        "if-icon-btn--ai",
         "if-control-row",
         "if-command-strip"
       ],

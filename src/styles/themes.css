@@ -37,6 +37,11 @@
     --if-danger-soft: #451a1a;
     --if-purple: #c4b5fd;
     --if-purple-soft: #2b1b4f;
+    --if-ai-action: #8b5cf6;
+    --if-ai-action-hover: #7c3aed;
+    --if-ai-action-soft: #2b1b4f;
+    --if-ai-action-border: #8b5cf6;
+    --if-ai-action-text: #ffffff;
     --if-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.34);
     --if-shadow-sm: 0 8px 18px rgb(0 0 0 / 0.28);
     --if-shadow-md: 0 14px 32px rgb(0 0 0 / 0.32);
@@ -81,6 +86,11 @@
   --if-danger-soft: #451a1a;
   --if-purple: #c4b5fd;
   --if-purple-soft: #2b1b4f;
+  --if-ai-action: #8b5cf6;
+  --if-ai-action-hover: #7c3aed;
+  --if-ai-action-soft: #2b1b4f;
+  --if-ai-action-border: #8b5cf6;
+  --if-ai-action-text: #ffffff;
   --if-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.34);
   --if-shadow-sm: 0 8px 18px rgb(0 0 0 / 0.28);
   --if-shadow-md: 0 14px 32px rgb(0 0 0 / 0.32);
@@ -123,6 +133,11 @@
   --if-danger-soft: #3f0000;
   --if-purple: #d6b2ff;
   --if-purple-soft: #240040;
+  --if-ai-action: Highlight;
+  --if-ai-action-hover: Highlight;
+  --if-ai-action-soft: Canvas;
+  --if-ai-action-border: Highlight;
+  --if-ai-action-text: HighlightText;
   --if-border-width: 2px;
   --if-border-width-strong: 2px;
   --if-ring-width: 3px;
@@ -157,6 +172,29 @@
 [data-theme="high-contrast"] .if-btn,
 [data-theme="high-contrast"] .if-icon-btn {
   background-color: var(--if-bg-surface);
+}
+
+[data-theme="dark"] .if-btn--ai,
+[data-theme="midnight"] .if-btn--ai,
+[data-theme="high-contrast"] .if-btn--ai {
+  background-color: var(--if-ai-action);
+  border-color: var(--if-ai-action);
+  color: var(--if-ai-action-text);
+}
+
+[data-theme="dark"] .if-btn--ai:hover,
+[data-theme="midnight"] .if-btn--ai:hover,
+[data-theme="high-contrast"] .if-btn--ai:hover {
+  background-color: var(--if-ai-action-hover);
+  border-color: var(--if-ai-action-hover);
+}
+
+[data-theme="dark"] .if-icon-btn--ai,
+[data-theme="midnight"] .if-icon-btn--ai,
+[data-theme="high-contrast"] .if-icon-btn--ai {
+  background-color: var(--if-ai-action-soft);
+  border-color: var(--if-ai-action-border);
+  color: var(--if-ai-action);
 }
 
 [data-theme="high-contrast"] .if-btn--primary,

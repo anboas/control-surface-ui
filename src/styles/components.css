@@ -1074,6 +1074,14 @@
   --if-btn-color: var(--if-warning);
 }
 
+.if-btn--ai {
+  --if-btn-bg: var(--if-ai-action);
+  --if-btn-border: var(--if-ai-action);
+  --if-btn-color: var(--if-ai-action-text);
+  --if-btn-hover-bg: var(--if-ai-action-hover);
+  --if-btn-hover-border: var(--if-ai-action-hover);
+}
+
 .if-btn--block {
   width: 100%;
 }
@@ -1125,6 +1133,21 @@
   border-color: var(--if-border-selected);
   background: var(--if-accent-soft);
   color: var(--if-accent);
+}
+
+.if-icon-btn--ai {
+  border-color: var(--if-ai-action-border);
+  background: var(--if-ai-action-soft);
+  color: var(--if-ai-action);
+}
+
+.if-icon-btn--ai:hover,
+.if-icon-btn--ai.is-active,
+.if-icon-btn--ai[aria-pressed="true"] {
+  border-color: var(--if-ai-action);
+  background: var(--if-ai-action);
+  color: var(--if-ai-action-text);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--if-ai-action) 18%, transparent);
 }
 
 .if-toolbar__group {

@@ -393,6 +393,37 @@ test.describe("component and behavior contracts", () => {
     expect(geometry.overflow).toBeLessThanOrEqual(1);
   });
 
+  test("AI action variants are distinct, flat, and accessible", async ({ page }) => {
+    await page.setContent(`
+      <button class="if-btn if-btn--ai" type="button">Research and augment</button>
+      <button class="if-icon-btn if-icon-btn--ai" type="button" aria-label="Run AI assist">AI</button>
+    `);
+    await page.addStyleTag({ path: "dist/interface-framework.css" });
+
+    const styles = await page.evaluate(() => {
+      const button = document.querySelector(".if-btn--ai");
+      const icon = document.querySelector(".if-icon-btn--ai");
+      const buttonStyle = getComputedStyle(button);
+      const iconStyle = getComputedStyle(icon);
+      return {
+        buttonBackground: buttonStyle.backgroundColor,
+        buttonImage: buttonStyle.backgroundImage,
+        buttonColor: buttonStyle.color,
+        iconBackground: iconStyle.backgroundColor,
+        iconColor: iconStyle.color,
+        buttonHeight: button.getBoundingClientRect().height,
+        iconHeight: icon.getBoundingClientRect().height,
+      };
+    });
+
+    expect(styles.buttonImage).toBe("none");
+    expect(styles.buttonBackground).not.toBe(styles.iconBackground);
+    expect(styles.buttonColor).not.toBe(styles.buttonBackground);
+    expect(styles.iconColor).not.toBe(styles.iconBackground);
+    expect(styles.buttonHeight).toBeGreaterThanOrEqual(34);
+    expect(styles.iconHeight).toBeGreaterThanOrEqual(34);
+  });
+
   test("performance scale lab contains large demos at desktop and mobile widths", async ({ page }) => {
     for (const viewport of [
       { width: 1440, height: 1000 },
