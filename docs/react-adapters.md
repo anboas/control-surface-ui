@@ -54,10 +54,11 @@ Pair route and management headers with `ControlPageBody`. It provides the shared
 
 ## Identity editor
 
-`ControlIdentityEditor` provides the shared compact anatomy for an account avatar or organization mark, explanatory copy, and image-management actions. Use it inside profile, member, and workspace settings forms instead of rebuilding bordered avatar rows and mobile action wrapping in each product.
+`ControlIdentityEditor` provides the shared anatomy for an account avatar or organization mark, explanatory copy, and image-management actions. Use it inside profile, member, and workspace settings forms instead of rebuilding bordered avatar rows and mobile action wrapping in each product. Pass `compact` inside dense utility forms.
 
 ```jsx
 <ControlIdentityEditor
+  compact
   avatar={<UserAvatar user={user} />}
   title="Profile picture"
   summary="Square crop, optimized before upload."

@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.17 - 2026-09-16
+
+### Added
+
+- Compact `ControlIdentityEditor` density for utility forms with established above-the-fold geometry budgets.
+
 ## 0.3.16 - 2026-09-16
 
 ### Added

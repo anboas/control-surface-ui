@@ -88,11 +88,12 @@ export function ControlIdentityEditor({
   title,
   summary,
   actions,
+  compact = false,
   className = "",
   children,
   ...props
 }) {
-  return <div {...props} className={`if-identity-editor ${className}`.trim()}>
+  return <div {...props} className={`if-identity-editor${compact ? " if-identity-editor--compact" : ""} ${className}`.trim()}>
     {avatar ? <div className="if-identity-editor__avatar">{avatar}</div> : null}
     <div className="if-identity-editor__body">
       <strong className="if-identity-editor__title">{title}</strong>

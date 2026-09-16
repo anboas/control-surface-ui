@@ -96,6 +96,7 @@ function testFrameworkSurfaceContracts() {
     "export function ControlPageHeader",
     "export function ControlPageBody",
     "export function ControlIdentityEditor",
+    "if-identity-editor--compact",
     "export function ControlMetricStrip",
     "mobileScroll = false",
     "if-management-grid--mobile-scroll",
@@ -123,6 +124,7 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/styles/components.css", [
     ".if-identity-editor",
     ".if-identity-editor__actions",
+    ".if-identity-editor--compact",
     ".if-async-state--compact",
     ".if-async-state__copy",
     ".if-async-state__action",

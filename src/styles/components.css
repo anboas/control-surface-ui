@@ -1012,6 +1012,17 @@
   width: auto;
 }
 
+.if-identity-editor--compact {
+  gap: var(--if-space-2);
+  padding: var(--if-space-2);
+}
+
+.if-identity-editor--compact .if-identity-editor__avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-basis: 3.5rem;
+}
+
 @media (max-width: 30rem) {
   .if-identity-editor {
     align-items: flex-start;
