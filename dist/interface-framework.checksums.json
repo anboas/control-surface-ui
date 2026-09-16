@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-16T16:28:40.270Z",
+  "generatedAt": "2026-09-16T16:30:48.941Z",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.17",
+  "packageVersion": "0.3.18",
   "algorithm": "sha256",
   "signing": {
     "localBuildSigned": false,
@@ -17,7 +17,7 @@
       "path": "package.json",
       "file": "package.json",
       "bytes": 6603,
-      "sha256": "4b442a6fd37270a9ef106e70d16784b65466d8d8d029a56bfa43da868f31af68"
+      "sha256": "9c8e720cf1a96791acc4a06cd86cc9ff1be3bd8d2f0bc39044f36dd442fe2f44"
     },
     {
       "path": "README.md",
@@ -28,20 +28,20 @@
     {
       "path": "CHANGELOG.md",
       "file": "CHANGELOG.md",
-      "bytes": 11164,
-      "sha256": "6128beaef307ef5e7cae6b9a9a4e1a7dc7656ddc9d4678a0224be419d326698f"
+      "bytes": 11333,
+      "sha256": "6f61e18db11945837795b584af41f3e8a085c7c65fce352b7d9c1ee2eef7fd9f"
     },
     {
       "path": "dist/interface-framework.css",
       "file": "interface-framework.css",
-      "bytes": 1000113,
-      "sha256": "675988b499e21d1114b1bae75ecce2ed7993dd499218a72ef397f4cbb7e08a4d"
+      "bytes": 1000107,
+      "sha256": "87fe912b83d2465ef03ba4b4908bf7cb039f95092f0ac1a01b14d4ea2dd207f5"
     },
     {
       "path": "dist/interface-framework.min.css",
       "file": "interface-framework.min.css",
-      "bytes": 863014,
-      "sha256": "78ee57954b502f0953e5ae3a084a2265c2d2af823b61e9c407c59da1a6c8f162"
+      "bytes": 863008,
+      "sha256": "223486441f9577cadcf08e9a0ea85eae384cf8227650e1745723d63e2cd6f230"
     },
     {
       "path": "dist/interface-framework.js",
@@ -101,7 +101,7 @@
       "path": "docs/release-smoke.md",
       "file": "release-smoke.md",
       "bytes": 1891,
-      "sha256": "05f0ae00c334099484fd398c6d3272d36359fea0e101be57b268b8d2dae2b912"
+      "sha256": "15bd83b1606bb1d5f539c48c3da890d70cd8c33985cdc492b222ff00efbe868c"
     }
   ]
 }

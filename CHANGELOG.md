@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.18 - 2026-09-16
+
+### Changed
+
+- Tightened compact `ControlIdentityEditor` avatars to 48 px so utility forms preserve established above-the-fold density budgets.
+
 ## 0.3.17 - 2026-09-16
 
 ### Added

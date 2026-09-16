@@ -1018,9 +1018,9 @@
 }
 
 .if-identity-editor--compact .if-identity-editor__avatar {
-  width: 3.5rem;
-  height: 3.5rem;
-  flex-basis: 3.5rem;
+  width: 3rem;
+  height: 3rem;
+  flex-basis: 3rem;
 }
 
 @media (max-width: 30rem) {
