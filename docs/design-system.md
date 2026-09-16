@@ -93,7 +93,7 @@ Keep the public-site side restrained and direct: strong headline, concise body c
 
 ## Source-Aware Data Language
 
-The policy product examples include synthetic ingest data modeled on the Azure deployment architecture: external source adapters, ingestion and extraction, agent processing, data/search/knowledge stores, and experience surfaces. Use `.if-ingest-flow`, `.if-ingest-stage`, `.if-source-card`, and `.if-relationship-bundle` to explain how source records become extracted intelligence, graph links, obligations, events, opportunities, and review findings.
+The policy product examples include synthetic ingest data modeled on the Azure deployment architecture: external source adapters, ingestion and extraction, agent processing, data/search/knowledge stores, and experience surfaces. Use `.if-ingest-flow`, `.if-ingest-stage`, `.if-source-card`, and `.if-relationship-bundle` to explain how source records become extracted intelligence, graph links, obligations, events, opportunities, and review findings. Add `.if-ingest-flow--mobile-scroll` or `.if-relationship-bundle-grid--mobile-scroll` when a complete sequence or relationship inventory should remain available as one contained touch rail instead of becoming a long mobile card wall.
 
 Synthetic source examples cover Federal Register, GovInfo/Congress.gov, DoD Issuances, Navy directives, OMB memoranda, NIST publications, CISA alerts, and restricted repositories. These examples are illustrative and designed to exercise the UI framework; replace them with real adapter outputs in production.
 

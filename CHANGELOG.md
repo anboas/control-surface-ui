@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.15 - 2026-09-16
+
+### Added
+
+- Opt-in mobile scroll rails for ingest-stage sequences and relationship-bundle grids.
+
 ## 0.3.14 - 2026-09-16
 
 ### Added

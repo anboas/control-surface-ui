@@ -144,6 +144,8 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/styles/components.css", [".if-touch-target", "min-height: 2.75rem"]);
   assertIncludes("src/styles/components.css", [
     ".if-management-grid--strip",
+    ".if-ingest-flow--mobile-scroll",
+    ".if-relationship-bundle-grid--mobile-scroll",
     ".if-chart-grid--band",
     ".if-chart-card--flat",
     "button.if-chart-bar",
