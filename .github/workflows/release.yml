@@ -59,7 +59,7 @@ jobs:
           echo "This workflow grants id-token: write so npm provenance or Sigstore signing can be enabled in the publish pipeline."
 
       - name: Upload release package and evidence
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: control-surface-ui-${{ inputs.release_version }}-release
           path: |
