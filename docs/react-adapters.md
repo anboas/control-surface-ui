@@ -7,6 +7,7 @@ import {
   ControlDialog,
   ControlAsyncState,
   ControlActivityTrail,
+  ControlMetricStrip,
   ControlErrorBoundary,
   ControlMultiSelect,
   ControlPageBody,
@@ -54,12 +55,28 @@ Pair route and management headers with `ControlPageBody`. It provides the shared
 
 `ControlActivityTrail` presents ordered task, provider, audit, and workflow activity as one divided surface instead of a stack of nested cards. Each item accepts `title`, `status`, `tone`, `meta`, `detail`, and optional `content` for bounded request/response inspectors.
 
+Pass `compact` when the trail sits beside a review surface or contains several provider exchanges. The compact variant keeps the same ordered semantics and touch-safe expandable content while reducing repeated chrome.
+
 ```jsx
 <ControlActivityTrail
   label="Task activity"
   items={[
     { id: "submitted", title: "Task submitted", status: "Accepted", tone: "info", meta: "09:42", detail: "Research request created." },
     { id: "verified", title: "Verification completed", status: "Succeeded", tone: "success", meta: "09:44" },
+  ]}
+/>
+```
+
+## Metric strip
+
+`ControlMetricStrip` renders a flat responsive summary band from `items`. Each item accepts `label`, `value`, `meta`, `tone`, and an optional `visual` such as `ControlSparkline`. Use it instead of recreating management-card markup in every route.
+
+```jsx
+<ControlMetricStrip
+  label="User access summary"
+  items={[
+    { label: "Active", value: 18, tone: "success" },
+    { label: "Suspended", value: 2, tone: "warning" },
   ]}
 />
 ```
@@ -109,6 +126,6 @@ Pass a React ref through `dialogRef` when a contained picker needs the dialog as
 
 ## Toasts
 
-Wrap the application once in `ToastProvider`, then call `useToast()` from descendants. Toast options include `tone`, `title`, `message`, `duration`, `action`, and stable `id`. A duration of `0` disables automatic expiry.
+Wrap the application once in `ToastProvider`, then call `useToast()` from descendants. Toast options include `tone`, `title`, `message`, `duration`, `action`, and stable `id`. A duration of `0` disables automatic expiry. `maxVisible` defaults to three and evicts the oldest transient toast, preventing mutation bursts from obscuring the owned work surface. Products with a durable notification center may use a lower limit.
 
 Toasts expose only transient feedback. Validation errors that block task completion must also remain adjacent to the relevant field or form.

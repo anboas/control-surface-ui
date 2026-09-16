@@ -4,6 +4,18 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.12 - 2026-09-16
+
+### Added
+
+- React `ControlMetricStrip` for consistent responsive KPI and management summaries.
+- Compact `ControlActivityTrail` density for task review and provider exchange histories.
+
+### Changed
+
+- `ToastProvider` now caps visible transient notifications with `maxVisible` so mutation bursts cannot obscure the application surface.
+- Mobile toasts use a compact action layout that preserves readable content width.
+
 ## 0.3.11 - 2026-09-16
 
 ### Changed

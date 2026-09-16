@@ -83,13 +83,33 @@ export function ControlPageBody({
   </div>;
 }
 
-export function ControlActivityTrail({
+export function ControlMetricStrip({
   items = [],
-  label = "Activity",
+  label = "Summary",
   className = "",
   ...props
 }) {
-  return <ol {...props} className={`if-activity-trail ${className}`.trim()} aria-label={label}>
+  return <div {...props} className={`if-management-grid if-management-grid--strip ${className}`.trim()} aria-label={label}>
+    {items.map((item, index) => {
+      const tone = ["neutral", "success", "warning", "danger", "info", "purple", "gold"].includes(item.tone) ? item.tone : "neutral";
+      return <article className={`if-management-card if-tone-${tone}`} key={item.id ?? `${item.label}-${index}`}>
+        <span className="if-management-card__label">{item.label}</span>
+        <strong className="if-management-card__value">{item.value}</strong>
+        {item.visual || null}
+        {item.meta ? <small className="if-management-card__meta">{item.meta}</small> : null}
+      </article>;
+    })}
+  </div>;
+}
+
+export function ControlActivityTrail({
+  items = [],
+  label = "Activity",
+  compact = false,
+  className = "",
+  ...props
+}) {
+  return <ol {...props} className={`if-activity-trail${compact ? " if-activity-trail--compact" : ""} ${className}`.trim()} aria-label={label}>
     {items.map((item, index) => {
       const tone = ["success", "warning", "danger", "muted", "info"].includes(item.tone) ? item.tone : "info";
       return <li className={`if-activity-trail__item is-${tone}`} key={item.id ?? `${item.title}-${index}`}>
@@ -553,9 +573,10 @@ export function ControlDialog({
 
 const ToastContext = createContext(null);
 
-export function ToastProvider({ children, placement = "masthead", defaultDuration = 4500 }) {
+export function ToastProvider({ children, placement = "masthead", defaultDuration = 4500, maxVisible = 3 }) {
   const [toasts, setToasts] = useState([]);
   const timersRef = useRef(new Map());
+  const visibleLimit = Math.max(1, Math.floor(Number(maxVisible) || 3));
 
   const dismiss = useCallback((id) => {
     const timer = timersRef.current.get(id);
@@ -568,13 +589,22 @@ export function ToastProvider({ children, placement = "masthead", defaultDuratio
     const toast = typeof input === "string" ? { message: input } : input;
     const id = toast.id || `if-toast-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const normalized = { tone: "info", title: "Update", duration: defaultDuration, ...toast, id };
-    setToasts((current) => [...current.filter((item) => item.id !== id), normalized]);
+    setToasts((current) => [...current.filter((item) => item.id !== id), normalized].slice(-visibleLimit));
     if (normalized.duration !== 0) {
       const timer = window.setTimeout(() => dismiss(id), normalized.duration);
       timersRef.current.set(id, timer);
     }
     return id;
-  }, [defaultDuration, dismiss]);
+  }, [defaultDuration, dismiss, visibleLimit]);
+
+  useEffect(() => {
+    const visibleIds = new Set(toasts.map((toast) => toast.id));
+    timersRef.current.forEach((timer, id) => {
+      if (visibleIds.has(id)) return;
+      window.clearTimeout(timer);
+      timersRef.current.delete(id);
+    });
+  }, [toasts]);
 
   useEffect(() => () => {
     timersRef.current.forEach((timer) => window.clearTimeout(timer));

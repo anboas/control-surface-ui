@@ -95,6 +95,7 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlPageHeader",
     "export function ControlPageBody",
+    "export function ControlMetricStrip",
     "export function ControlActivityTrail",
     "export function ControlAsyncState",
     "export class ControlErrorBoundary",
@@ -105,6 +106,8 @@ function testFrameworkSurfaceContracts() {
     "if-sparkline__tooltip",
     "preserveAspectRatio",
     "export function ToastProvider",
+    "maxVisible = 3",
+    ".slice(-visibleLimit)",
     "export function useToast",
     "window.innerWidth - gutter * 2",
     "dialog.showModal()",
@@ -115,7 +118,9 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/styles/components.css", [
     ".if-async-state--compact",
     ".if-async-state__copy",
-    ".if-async-state__action"
+    ".if-async-state__action",
+    ".if-activity-trail--compact",
+    ".if-toast__action"
   ]);
   assertIncludes("src/styles/layout.css", [
     ".if-page-header--compact",
