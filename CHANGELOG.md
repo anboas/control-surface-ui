@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.19 - 2026-09-16
+
+### Changed
+
+- Reduced compact `ControlIdentityEditor` block padding while retaining full-size interactive controls.
+
 ## 0.3.18 - 2026-09-16
 
 ### Changed

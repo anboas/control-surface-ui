@@ -1014,7 +1014,7 @@
 
 .if-identity-editor--compact {
   gap: var(--if-space-2);
-  padding: var(--if-space-2);
+  padding: var(--if-space-1) var(--if-space-2);
 }
 
 .if-identity-editor--compact .if-identity-editor__avatar {
