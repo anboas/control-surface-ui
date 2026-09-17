@@ -98,6 +98,18 @@ Pass `compact` when the trail sits beside a review surface or contains several p
 />
 ```
 
+`ControlActivityInspector` is the scan-first alternative for workflows whose stages contain substantial request, response, evidence, or diagnostic payloads. It keeps the complete chain visible as one keyboard-navigable stage rail and renders only the selected stage detail. On phones, the rail becomes a contained horizontal selector instead of a tall timeline.
+
+```jsx
+<ControlActivityInspector
+  label="Provider stages"
+  items={[
+    { id: "submitted", title: "Submitted", status: "Accepted", tone: "info", content: <RequestResponse /> },
+    { id: "verified", title: "Verification", status: "Completed", tone: "success", content: <Verification /> },
+  ]}
+/>
+```
+
 ## Progress rail and change review
 
 `ControlProgressRail` presents a short, ordered process without turning mobile layouts into a tall vertical stepper. Pass `complete`, `active`, `blocked`, or `pending` through each item's `state`; compact descriptions remain available on desktop while mobile retains the stage label and state marker.

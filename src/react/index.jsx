@@ -282,6 +282,80 @@ export function ControlActivityTrail({
   </ol>;
 }
 
+export function ControlActivityInspector({
+  items = [],
+  label = "Activity stages",
+  initialId,
+  className = "",
+  ...props
+}) {
+  const baseId = useId().replaceAll(":", "");
+  const firstId = items[0]?.id ?? "";
+  const preferredId = initialId && items.some((item) => item.id === initialId) ? initialId : firstId;
+  const [activeId, setActiveId] = useState(preferredId);
+  useEffect(() => {
+    if (items.some((item) => item.id === activeId)) return;
+    setActiveId(preferredId);
+  }, [activeId, items, preferredId]);
+  const activeIndex = Math.max(0, items.findIndex((item) => item.id === activeId));
+  const activeItem = items[activeIndex];
+  if (!activeItem) return null;
+  const tone = ["success", "warning", "danger", "muted", "info"].includes(activeItem.tone) ? activeItem.tone : "info";
+  const panelId = `if-activity-inspector-panel-${baseId}`;
+
+  return <section {...props} className={`if-activity-inspector ${className}`.trim()}>
+    <div className="if-activity-inspector__rail" role="tablist" aria-label={label}>
+      {items.map((item, index) => {
+        const itemTone = ["success", "warning", "danger", "muted", "info"].includes(item.tone) ? item.tone : "info";
+        const selected = item.id === activeItem.id;
+        const tabId = `if-activity-inspector-tab-${baseId}-${index}`;
+        return <button
+          type="button"
+          role="tab"
+          id={tabId}
+          aria-selected={selected}
+          aria-controls={panelId}
+          tabIndex={selected ? 0 : -1}
+          className={`if-activity-inspector__stage is-${itemTone}${selected ? " is-active" : ""}`}
+          key={item.id ?? `${item.title}-${index}`}
+          onClick={() => setActiveId(item.id)}
+          onKeyDown={(event) => {
+            if (!["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+            event.preventDefault();
+            const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : ["ArrowDown", "ArrowRight"].includes(event.key) ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
+            setActiveId(items[nextIndex].id);
+            event.currentTarget.parentElement?.querySelectorAll('[role="tab"]')?.[nextIndex]?.focus();
+          }}
+        >
+          <span className="if-activity-inspector__marker" aria-hidden="true">{item.icon || index + 1}</span>
+          <span className="if-activity-inspector__stage-copy">
+            <strong>{item.title}</strong>
+            <small>{item.status || item.meta}</small>
+          </span>
+        </button>;
+      })}
+    </div>
+    <div
+      className={`if-activity-inspector__panel is-${tone}`}
+      role="tabpanel"
+      id={panelId}
+      aria-labelledby={`if-activity-inspector-tab-${baseId}-${activeIndex}`}
+      key={activeItem.id}
+    >
+      <header className="if-activity-inspector__header">
+        <span className="if-activity-inspector__marker" aria-hidden="true">{activeItem.icon || activeIndex + 1}</span>
+        <span className="if-activity-inspector__heading">
+          <strong>{activeItem.title}</strong>
+          {activeItem.meta ? <small>{activeItem.meta}</small> : null}
+        </span>
+        {activeItem.status ? <span className={`if-status-pill if-status-pill--compact${tone === "danger" ? " is-error" : ` is-${tone}`}`}>{activeItem.status}</span> : null}
+      </header>
+      {activeItem.detail ? <p className="if-activity-inspector__detail">{activeItem.detail}</p> : null}
+      {activeItem.content ? <div className="if-activity-inspector__content">{activeItem.content}</div> : null}
+    </div>
+  </section>;
+}
+
 export function ControlAsyncState({
   state = "loading",
   title,
