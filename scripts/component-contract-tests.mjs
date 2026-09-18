@@ -100,6 +100,8 @@ function testFrameworkSurfaceContracts() {
     "export function ControlIdentityEditor",
     "if-identity-editor--compact",
     "export function ControlMetricStrip",
+    "export function ControlWorkbenchHeader",
+    "if-workbench-header__commands",
     "export function ControlFactGrid",
     "if-fact-grid--mobile-two",
     "if-fact-grid__item",

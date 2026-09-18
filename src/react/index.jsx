@@ -149,6 +149,50 @@ export function ControlMetricStrip({
   </div>;
 }
 
+export function ControlWorkbenchHeader({
+  title,
+  eyebrow,
+  summary,
+  meta,
+  actions,
+  metrics = [],
+  metricLabel = "Summary",
+  tabs,
+  controls,
+  secondaryControls,
+  headingLevel = 1,
+  mobileScrollMetrics = true,
+  compactMobileMetrics = false,
+  className = "",
+  children,
+  ...props
+}) {
+  const hasCommandRow = Boolean(tabs || controls || secondaryControls || children);
+  return <section {...props} className={`if-workbench-header ${className}`.trim()}>
+    <ControlPageHeader
+      compact
+      title={title}
+      eyebrow={eyebrow}
+      summary={summary}
+      meta={meta}
+      actions={actions}
+      headingLevel={headingLevel}
+    />
+    {metrics.length ? <ControlMetricStrip
+      items={metrics}
+      label={metricLabel}
+      mobileScroll={mobileScrollMetrics}
+      compactMobile={compactMobileMetrics}
+    /> : null}
+    {hasCommandRow ? <div className="if-workbench-header__commands">
+      {tabs ? <div className="if-workbench-header__tabs">{tabs}</div> : null}
+      {controls ? <div className="if-workbench-header__controls">{controls}</div> : null}
+      {secondaryControls ? <div className="if-workbench-header__secondary">{secondaryControls}</div> : null}
+      {children}
+    </div> : null}
+  </section>;
+}
+
 export function ControlFactGrid({
   items = [],
   label = "Details",

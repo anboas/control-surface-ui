@@ -10,6 +10,7 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ### Added
 
+- React `ControlWorkbenchHeader` for consolidating route identity, summary metrics, tabs, filters, and actions into one bounded command surface.
 - React `ControlActivityInspector` for keeping an ordered task/provider chain visible while rendering one selected request/response stage at a time, with keyboard navigation and a contained mobile stage rail.
 - React `ControlCollectionEditor` for compact, progressively disclosed repeated-field editing with one active item, automatic expansion of newly added items, and touch-safe mobile actions.
 - A flat analytics-panel modifier for nested analytical sections that need shared heading anatomy without another border, surface fill, or shadow.

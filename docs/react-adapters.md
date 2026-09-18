@@ -15,6 +15,7 @@ import {
   ControlMultiSelect,
   ControlPageBody,
   ControlPageHeader,
+  ControlWorkbenchHeader,
   ControlPicker,
   ControlSparkline,
   ToastProvider,
@@ -161,6 +162,23 @@ The consumer owns collection state, validation, add controls, and persistence. T
     { label: "Active", value: 18, tone: "success" },
     { label: "Suspended", value: 2, tone: "warning" },
   ]}
+/>
+```
+
+## Workbench header
+
+`ControlWorkbenchHeader` consolidates route identity, summary metrics, tabs, filters, search, and actions into one bounded command surface. Use it when a data-heavy workspace would otherwise stack a page introduction, KPI cards, filter panel, and section header. Keep results and visualizations outside the header.
+
+```jsx
+<ControlWorkbenchHeader
+  eyebrow="Portfolio"
+  title="Awards"
+  summary="Search, filter, inspect, and export the complete matched award set."
+  metrics={summaryItems}
+  tabs={<ViewTabs />}
+  controls={<><SearchField data-if-workbench-primary /><FilterPicker /></>}
+  secondaryControls={<ActiveFilters />}
+  actions={<ExportButton />}
 />
 ```
 

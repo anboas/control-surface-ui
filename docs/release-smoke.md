@@ -1,6 +1,6 @@
 # Release Smoke
 
-Last run: 2026-09-17.
+Last run: 2026-09-18.
 
 ## Scope
 
@@ -13,7 +13,7 @@ The release smoke verifies that the framework works from package artifacts only:
 - Verify dist CSS/JS artifacts, package exports, CDN metadata, and no React runtime dependency.
 - Verify release-governance metadata and checksum artifacts.
 
-## 2026-09-17 Result
+## 2026-09-18 Result
 
 Status: passed.
 
@@ -28,8 +28,8 @@ Checks completed:
 - `node scripts/build.mjs`: passed.
 - `node scripts/validate.mjs`: passed.
 - `node scripts/checksums.mjs --check`: passed.
-- `npm pack`: produced `control-surface-ui-0.3.26.tgz`.
-- Final handoff tarball copied to `release/control-surface-ui-0.3.26.tgz`.
+- `npm pack`: produced `control-surface-ui-0.3.27.tgz`.
+- Final handoff tarball copied to `release/control-surface-ui-0.3.27.tgz`.
 - Packed tarball included required `dist`, `src`, `docs`, release, and package metadata files.
 - Plain HTML clean sample installed from the packed tarball and resolved package `dist` CSS/JS.
 - Vite clean sample installed from the packed tarball, imported `control-surface-ui/css`, imported named JavaScript APIs from `control-surface-ui`, and ran `vite build`.
