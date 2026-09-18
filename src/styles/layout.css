@@ -1146,7 +1146,7 @@
   .if-workbench-header__tabs :where(button, a),
   .if-workbench-header__controls :where(button, a),
   .if-workbench-header__secondary :where(button, a) {
-    min-height: 2.75rem;
+    min-height: 44px;
   }
 
   .if-workbench-header__controls > :where(.if-field, .if-search, [data-if-workbench-primary]) {
