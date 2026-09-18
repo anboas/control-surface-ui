@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.28 - 2026-09-18
+
+### Added
+
+- React `ControlDrawer` for contextual record detail with a shared header/body/footer anatomy, focus containment, Escape and backdrop dismissal, focus restoration, background scroll locking, and default, wide, and detail widths.
+
 ### Changed
 
 - Accounted for strip borders in compact mobile metric geometry so the complete summary rail remains within a 56 px product density budget.

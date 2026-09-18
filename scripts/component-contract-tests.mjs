@@ -123,6 +123,7 @@ function testFrameworkSurfaceContracts() {
     "export function ControlMultiSelect",
     "export function ControlSparkline",
     "export function ControlDialog",
+    "export function ControlDrawer",
     "if-sparkline__tooltip",
     "preserveAspectRatio",
     "export function ToastProvider",
@@ -132,6 +133,7 @@ function testFrameworkSurfaceContracts() {
     "window.innerWidth - gutter * 2",
     "dialog.showModal()",
     "function containDialogFocus",
+    "function containDrawerFocus",
     "event.shiftKey && document.activeElement === first",
     "!event.shiftKey && document.activeElement === last"
   ]);

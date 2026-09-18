@@ -782,6 +782,14 @@ showToast({ tone: "danger", title: "Action needed", message: error.message });
 
 ## Drawers
 
+Use `ControlDrawer` in React applications for contextual record detail. Drawers restore focus, trap keyboard focus while open, close with Escape or backdrop selection, and lock background scrolling. Reserve `ControlDialog` for create/edit/confirm work.
+
+```jsx
+<ControlDrawer open={Boolean(record)} onClose={() => setRecord(null)} title={record?.title} size="wide">
+  <RecordEvidence record={record} />
+</ControlDrawer>
+```
+
 ```html
 <button class="if-btn" data-if-drawer-open="#details-drawer">Open drawer</button>
 <aside class="if-drawer" id="details-drawer" aria-hidden="true">

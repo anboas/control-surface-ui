@@ -843,6 +843,108 @@ export function ControlDialog({
   return createPortal(content, portalTarget?.current || document.body);
 }
 
+export function ControlDrawer({
+  open,
+  onClose,
+  title,
+  eyebrow,
+  summary,
+  actions,
+  children,
+  footer,
+  side = "end",
+  size = "default",
+  className = "",
+  portalTarget = null,
+  closeLabel = "Close drawer",
+  drawerRef = null,
+  drawerProps = {},
+  bodyProps = {},
+}) {
+  const internalDrawerRef = useRef(null);
+  const resolvedDrawerRef = drawerRef || internalDrawerRef;
+  const restoreFocusRef = useRef(null);
+  const titleId = `if-drawer-title-${useId().replaceAll(":", "")}`;
+
+  useEffect(() => {
+    if (!open) return undefined;
+    restoreFocusRef.current = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(() => {
+      const drawer = resolvedDrawerRef.current;
+      const focusTarget = drawer?.querySelector("[autofocus], button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex=\"-1\"])");
+      (focusTarget || drawer)?.focus?.();
+    });
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.requestAnimationFrame(() => restoreFocusRef.current?.focus?.());
+    };
+  }, [open, resolvedDrawerRef]);
+
+  if (!open) return null;
+
+  function requestClose() {
+    onClose?.();
+  }
+
+  function containDrawerFocus(event) {
+    drawerProps.onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      requestClose();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const drawer = resolvedDrawerRef.current;
+    const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusables = [...(drawer?.querySelectorAll(selector) || [])]
+      .filter((node) => !node.hidden && node.getClientRects().length > 0);
+    if (!focusables.length) {
+      event.preventDefault();
+      drawer?.focus();
+      return;
+    }
+    const first = focusables[0];
+    const last = focusables.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  const content = <>
+    <div className="if-backdrop" aria-hidden="true" onClick={requestClose} />
+    <aside
+      {...drawerProps}
+      ref={resolvedDrawerRef}
+      className={`if-drawer is-open if-drawer--${side} if-drawer--${size} ${className}`.trim()}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      tabIndex="-1"
+      onKeyDown={containDrawerFocus}
+    >
+      <header className="if-drawer__header">
+        <div className="if-drawer__heading">
+          {eyebrow ? <span className="if-drawer__eyebrow">{eyebrow}</span> : null}
+          <h2 id={titleId} className="if-drawer__title">{title}</h2>
+          {summary ? <p className="if-drawer__summary">{summary}</p> : null}
+        </div>
+        <div className="if-drawer__actions">{actions}<button type="button" className="if-icon-btn" aria-label={closeLabel} onClick={requestClose}><span aria-hidden="true">×</span></button></div>
+      </header>
+      <div {...bodyProps} className={`if-drawer__body ${bodyProps.className || ""}`.trim()}>{children}</div>
+      {footer ? <footer className="if-drawer__footer">{footer}</footer> : null}
+    </aside>
+  </>;
+
+  return createPortal(content, portalTarget?.current || document.body);
+}
+
 const ToastContext = createContext(null);
 
 export function ToastProvider({ children, placement = "masthead", defaultDuration = 4500, maxVisible = 3 }) {
