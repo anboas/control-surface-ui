@@ -1498,6 +1498,7 @@ hr {
     justify-content: flex-start;
   }
 
+  .if-workbench-header__tabs .if-tab,
   .if-workbench-header__tabs :where(button, a),
   .if-workbench-header__controls :where(button, a),
   .if-workbench-header__secondary :where(button, a) {
