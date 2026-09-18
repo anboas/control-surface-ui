@@ -1498,9 +1498,9 @@ hr {
     justify-content: flex-start;
   }
 
-  .if-workbench-header__tabs > :where(button, a),
-  .if-workbench-header__controls > :where(button, a),
-  .if-workbench-header__secondary > :where(button, a) {
+  .if-workbench-header__tabs :where(button, a),
+  .if-workbench-header__controls :where(button, a),
+  .if-workbench-header__secondary :where(button, a) {
     min-height: 2.75rem;
   }
 

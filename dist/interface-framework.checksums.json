@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-18T18:10:31.828Z",
+  "generatedAt": "2026-09-18T18:12:29.703Z",
   "packageName": "control-surface-ui",
   "packageVersion": "0.3.29",
   "algorithm": "sha256",
@@ -34,14 +34,14 @@
     {
       "path": "dist/interface-framework.css",
       "file": "interface-framework.css",
-      "bytes": 1013031,
-      "sha256": "926334a06506743a6362eb4cd095d33753ab907cbd030120b133960f32322d98"
+      "bytes": 1013025,
+      "sha256": "20b5b3268073b74042c1273ac6ebaebdbc8ec011b7ad8ebd1636b681b62610a3"
     },
     {
       "path": "dist/interface-framework.min.css",
       "file": "interface-framework.min.css",
-      "bytes": 874079,
-      "sha256": "2ebd79a0b4f70f2773b7033105c5af1dd74dd2717ad60408bd0015d6dec80d94"
+      "bytes": 874076,
+      "sha256": "66bb8372d7eec26246817d4bc283aad24e227753fb8a2863abf084d1ef8cb58a"
     },
     {
       "path": "dist/interface-framework.js",
