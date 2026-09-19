@@ -182,6 +182,31 @@ The consumer owns collection state, validation, add controls, and persistence. T
 />
 ```
 
+## Operational month calendar
+
+The calendar family owns the reusable shell for a six-week operational month view. `ControlCalendarSurface` owns containment, `ControlCalendarHeader` owns identity/filter/navigation composition, `ControlMonthNavigator` provides the shared previous/today/next controls, `ControlCalendarOverlayRail` owns horizontally scrollable schedule overlays, and `ControlCalendarGrid` owns the weekday and six-week frame. Consumers retain event placement, permissions, busy-day aggregation, hover content, and record-specific detail.
+
+```jsx
+<ControlCalendarSurface>
+  <ControlCalendarHeader
+    eyebrow="Workspace calendar"
+    title={<span>September 2026</span>}
+    compactTitle="Sep 2026"
+    filters={<EventTypePicker />}
+    navigation={<ControlMonthNavigator onPrevious={previous} onToday={today} onNext={next} />}
+    summary="8 events"
+  />
+  <ControlCalendarOverlayRail summary="Toggle visible schedules">
+    <TeamOverlayButtons />
+  </ControlCalendarOverlayRail>
+  <ControlCalendarGrid label="September 2026 event calendar">
+    {weeks.map(renderWeek)}
+  </ControlCalendarGrid>
+</ControlCalendarSurface>
+```
+
+The framework intentionally does not infer dates or event lanes. This keeps source calendars, authorization, time zones, and crowded-day rules in the owning product while standardizing the visual and interaction shell.
+
 ## Fact grid
 
 `ControlFactGrid` presents record facts as a semantic description list inside one divided surface. Use `mobileTwoColumn` for compact inspection panels and mark selected items with `wide: true` when a long identity or narrative should span both mobile columns. It replaces stacks of individually bordered fact cards.

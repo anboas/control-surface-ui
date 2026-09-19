@@ -280,3 +280,7 @@ Equivalent unpkg paths:
 # 0.3.31
 
 - Enforced 44 px mobile targets for shared text and icon buttons across every control surface, including compact variants outside workbench headers.
+# 0.3.32
+
+- Add a composed operational month-calendar family for surface containment, calendar headers, month navigation, overlay rails, and six-week grids.
+- Keep event placement, permissions, busy-day aggregation, and domain inspection in consuming applications.

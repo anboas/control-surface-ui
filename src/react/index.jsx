@@ -244,6 +244,80 @@ export function ControlWorkbenchHeader({
   </section>;
 }
 
+export function ControlCalendarSurface({ className = "", children, ...props }) {
+  return <section {...props} className={`if-calendar-surface ${className}`.trim()}>{children}</section>;
+}
+
+export function ControlCalendarHeader({
+  identity,
+  title,
+  eyebrow,
+  compactTitle,
+  filters,
+  navigation,
+  summary,
+  identityClassName = "",
+  controlsClassName = "",
+  className = "",
+  ...props
+}) {
+  return <header {...props} className={`if-calendar-header ${className}`.trim()}>
+    <div className={`if-calendar-header__identity ${identityClassName}`.trim()}>
+      {identity || null}
+      <span>
+        {eyebrow ? <small>{eyebrow}</small> : null}
+        <strong><span className="if-calendar-header__title">{title}</span>{compactTitle ? <span className="if-calendar-header__compact-title">{compactTitle}</span> : null}</strong>
+      </span>
+    </div>
+    <div className={`if-calendar-header__controls ${controlsClassName}`.trim()}>
+      {filters ? <div className="if-calendar-header__filters">{filters}</div> : null}
+      {navigation || null}
+      {summary ? <div className="if-calendar-header__summary">{summary}</div> : null}
+    </div>
+  </header>;
+}
+
+export function ControlMonthNavigator({
+  onPrevious,
+  onToday,
+  onNext,
+  previousIcon = "‹",
+  nextIcon = "›",
+  previousLabel = "Previous month",
+  todayLabel = "Today",
+  nextLabel = "Next month",
+  className = "",
+  ...props
+}) {
+  return <nav {...props} className={`if-month-navigator ${className}`.trim()} aria-label={props["aria-label"] || "Month navigation"}>
+    <button type="button" className="if-btn if-btn--secondary if-btn--icon" aria-label={previousLabel} onClick={onPrevious}><span aria-hidden="true">{previousIcon}</span></button>
+    <button type="button" className="if-btn if-btn--secondary" onClick={onToday}>{todayLabel}</button>
+    <button type="button" className="if-btn if-btn--secondary if-btn--icon" aria-label={nextLabel} onClick={onNext}><span aria-hidden="true">{nextIcon}</span></button>
+  </nav>;
+}
+
+export function ControlCalendarOverlayRail({ label = "Calendar overlays", summary, className = "", children, ...props }) {
+  return <section {...props} className={`if-calendar-overlay-rail ${className}`.trim()} aria-label={label}>
+    <span><strong>{label}</strong>{summary ? <small>{summary}</small> : null}</span>
+    <div>{children}</div>
+  </section>;
+}
+
+export function ControlCalendarGrid({
+  label,
+  weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  className = "",
+  weekdaysClassName = "",
+  weeksClassName = "",
+  children,
+  ...props
+}) {
+  return <div {...props} className={`if-month-calendar ${className}`.trim()} tabIndex="0" aria-label={label}>
+    <div className={`if-month-calendar__weekdays ${weekdaysClassName}`.trim()} aria-hidden="true">{weekdays.map((day) => <span key={day}>{day}</span>)}</div>
+    <div className={`if-month-calendar__weeks ${weeksClassName}`.trim()}>{children}</div>
+  </div>;
+}
+
 export function ControlFactGrid({
   items = [],
   label = "Details",
