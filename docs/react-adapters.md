@@ -246,3 +246,6 @@ Pass a React ref through `dialogRef` when a contained picker needs the dialog as
 Wrap the application once in `ToastProvider`, then call `useToast()` from descendants. Toast options include `tone`, `title`, `message`, `duration`, `action`, and stable `id`. A duration of `0` disables automatic expiry. `maxVisible` defaults to three and evicts the oldest transient toast, preventing mutation bursts from obscuring the owned work surface. Products with a durable notification center may use a lower limit.
 
 Toasts expose only transient feedback. Validation errors that block task completion must also remain adjacent to the relevant field or form.
+# Identity links and status badges
+
+Use `ControlIdentityLink` anywhere a person or team identity opens a public detail route. Use `ControlStatusBadge` for lifecycle state instead of route-local badge mappings. Identity links preserve a compact avatar/copy hierarchy, keyboard focus, coarse-pointer targets, and truncation.

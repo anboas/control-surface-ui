@@ -128,6 +128,57 @@ export function ControlIdentityEditor({
   </div>;
 }
 
+export function ControlIdentityLink({
+  avatar,
+  name,
+  detail,
+  meta,
+  href,
+  onClick,
+  compact = false,
+  className = "",
+  ariaLabel,
+  children,
+  ...props
+}) {
+  const classNames = `if-identity-link${compact ? " if-identity-link--compact" : ""} ${className}`.trim();
+  const content = <>
+    {avatar ? <span className="if-identity-link__avatar" aria-hidden="true">{avatar}</span> : null}
+    <span className="if-identity-link__copy">
+      <strong className="if-identity-link__name">{name}</strong>
+      {detail ? <span className="if-identity-link__detail">{detail}</span> : null}
+      {meta ? <small className="if-identity-link__meta">{meta}</small> : null}
+      {children}
+    </span>
+  </>;
+  if (href) return <a {...props} className={classNames} href={href} aria-label={ariaLabel}>{content}</a>;
+  if (onClick) return <button {...props} className={classNames} type="button" onClick={onClick} aria-label={ariaLabel}>{content}</button>;
+  return <span {...props} className={classNames} aria-label={ariaLabel}>{content}</span>;
+}
+
+const STATUS_TONES = new Map([
+  ["active", "success"], ["amended", "success"], ["approved", "success"], ["clean", "success"],
+  ["complete", "success"], ["completed", "success"], ["healthy", "success"], ["succeeded", "success"],
+  ["running", "info"], ["in progress", "info"], ["researching", "info"], ["verifying", "info"],
+  ["needs review", "warning"], ["pending", "warning"], ["queued", "warning"], ["validation required", "warning"],
+  ["blocked", "danger"], ["error", "danger"], ["failed", "danger"], ["rejected", "danger"],
+  ["cancelled", "muted"], ["disabled", "muted"], ["hidden", "muted"], ["inactive", "muted"], ["not augmented", "muted"],
+]);
+
+export function ControlStatusBadge({
+  status,
+  label,
+  tone,
+  compact = true,
+  className = "",
+  ...props
+}) {
+  const normalized = String(status || label || "status").trim().toLowerCase().replaceAll(/[_-]+/g, " ");
+  const resolvedTone = ["success", "warning", "danger", "info", "muted"].includes(tone) ? tone : STATUS_TONES.get(normalized) || "muted";
+  const display = label || String(status || "Status").trim().replaceAll(/[_-]+/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return <span {...props} className={`if-status-pill${compact ? " if-status-pill--compact" : ""}${resolvedTone === "danger" ? " is-error" : ` is-${resolvedTone}`} ${className}`.trim()} data-status={normalized}>{display}</span>;
+}
+
 export function ControlMetricStrip({
   items = [],
   label = "Summary",

@@ -272,3 +272,7 @@ Equivalent unpkg paths:
 - The framework has no React runtime dependency.
 - Examples load only compiled files from `dist/`.
 - Browser tests require Playwright browsers to be installed separately with `npm run playwright:install`.
+# 0.3.30
+
+- Added `ControlIdentityLink` for consistent, accessible person and team links across tables, calendars, activity, and administration surfaces.
+- Added `ControlStatusBadge` with one shared status vocabulary and semantic tone mapping.
