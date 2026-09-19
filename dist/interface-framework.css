@@ -42888,6 +42888,17 @@ button.if-analytics-list-item:focus-visible {
   }
 }
 
+@media (max-width: 47.5rem) {
+  .if-btn,
+  .if-icon-btn {
+    min-height: 2.75rem;
+  }
+
+  .if-icon-btn {
+    min-width: 2.75rem;
+  }
+}
+
 
 
 .if-stack {

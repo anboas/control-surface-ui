@@ -276,3 +276,7 @@ Equivalent unpkg paths:
 
 - Added `ControlIdentityLink` for consistent, accessible person and team links across tables, calendars, activity, and administration surfaces.
 - Added `ControlStatusBadge` with one shared status vocabulary and semantic tone mapping.
+
+# 0.3.31
+
+- Enforced 44 px mobile targets for shared text and icon buttons across every control surface, including compact variants outside workbench headers.
