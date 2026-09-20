@@ -34,6 +34,38 @@ Validate immutable action pins, run package smoke before provenance generation, 
 
 ---
 
+## [ERR-20260920-001] framework-release-provenance-order
+
+**Logged**: 2026-09-20T16:00:00Z
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Framework validation ran before release provenance regeneration after an amended release build.
+
+### Error
+```
+Release provenance artifacts are stale. Run npm run release:provenance.
+```
+
+### Context
+- `npm run check` verifies release provenance freshness.
+- Generated build and checksum artifacts changed before provenance was regenerated.
+
+### Suggested Fix
+For release-bearing framework changes, run build and checksums, then `npm run release:provenance`, then the full validation gate.
+
+### Metadata
+- Reproducible: yes
+- Related Files: release/provenance.json, release/provenance.md
+
+### Resolution
+- **Resolved**: 2026-09-20T16:01:00Z
+- **Notes**: Regenerated provenance before rerunning validation.
+
+---
+
 ## [ERR-20260916-005] cross-repo-search-context
 
 **Logged**: 2026-09-16T18:14:00Z

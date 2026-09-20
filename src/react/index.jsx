@@ -244,6 +244,125 @@ export function ControlWorkbenchHeader({
   </section>;
 }
 
+export function ControlRecordHeader({
+  eyebrow,
+  title,
+  summary,
+  identity,
+  status,
+  meta = [],
+  actions,
+  headingLevel = 2,
+  className = "",
+  children,
+  ...props
+}) {
+  const Heading = `h${Math.min(6, Math.max(1, Number(headingLevel) || 2))}`;
+  return <header {...props} className={`if-record-header ${className}`.trim()}>
+    {identity ? <div className="if-record-header__identity" aria-hidden="true">{identity}</div> : null}
+    <div className="if-record-header__body">
+      {eyebrow ? <span className="if-record-header__eyebrow">{eyebrow}</span> : null}
+      <div className="if-record-header__title-row">
+        <Heading className="if-record-header__title">{title}</Heading>
+        {status ? <div className="if-record-header__status">{status}</div> : null}
+      </div>
+      {summary ? <p className="if-record-header__summary">{summary}</p> : null}
+      {meta.length ? <dl className="if-record-header__meta">{meta.map((item, index) => <div key={item.id ?? `${item.label}-${index}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl> : null}
+      {children}
+    </div>
+    {actions ? <div className="if-record-header__actions">{actions}</div> : null}
+  </header>;
+}
+
+export function ControlTableSelectionBar({
+  count = 0,
+  label,
+  actions,
+  onClear,
+  clearLabel = "Clear selection",
+  className = "",
+  ...props
+}) {
+  if (!count) return null;
+  return <div {...props} className={`if-table-selection-bar ${className}`.trim()} role="region" aria-label="Selected rows">
+    <strong>{label || `${count.toLocaleString()} selected`}</strong>
+    <div className="if-table-selection-bar__actions">{actions}<button type="button" className="if-btn if-btn--secondary" onClick={onClear}>{clearLabel}</button></div>
+  </div>;
+}
+
+export function ControlCommandPalette({
+  open,
+  onClose,
+  groups = [],
+  onSelect,
+  title = "Search and navigate",
+  placeholder = "Search pages and commands…",
+  emptyText = "No commands match.",
+  className = "",
+}) {
+  const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const inputRef = useRef(null);
+  const restoreFocusRef = useRef(null);
+  const titleId = `if-command-title-${useId().replaceAll(":", "")}`;
+  const commands = useMemo(() => groups.flatMap((group) => (group.commands || []).map((command) => ({ ...command, groupId: group.id, groupLabel: group.label }))), [groups]);
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return commands;
+    return commands.filter((command) => [command.label, command.description, command.groupLabel, ...(command.keywords || [])].filter(Boolean).join(" ").toLowerCase().includes(needle));
+  }, [commands, query]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    restoreFocusRef.current = document.activeElement;
+    setQuery("");
+    setActiveIndex(0);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(() => inputRef.current?.focus());
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.requestAnimationFrame(() => restoreFocusRef.current?.focus?.());
+    };
+  }, [open]);
+
+  useEffect(() => setActiveIndex((current) => Math.min(current, Math.max(0, filtered.length - 1))), [filtered.length]);
+  if (!open) return null;
+
+  function choose(command) {
+    onSelect?.(command);
+    onClose?.();
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Escape") { event.preventDefault(); onClose?.(); }
+    else if (event.key === "ArrowDown") { event.preventDefault(); setActiveIndex((current) => (current + 1) % Math.max(1, filtered.length)); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); setActiveIndex((current) => (current - 1 + Math.max(1, filtered.length)) % Math.max(1, filtered.length)); }
+    else if (event.key === "Home") { event.preventDefault(); setActiveIndex(0); }
+    else if (event.key === "End") { event.preventDefault(); setActiveIndex(Math.max(0, filtered.length - 1)); }
+    else if (event.key === "Enter" && filtered[activeIndex]) { event.preventDefault(); choose(filtered[activeIndex]); }
+  }
+
+  const visibleGroups = groups.map((group) => ({ ...group, commands: filtered.filter((command) => command.groupId === group.id) })).filter((group) => group.commands.length);
+  return createPortal(<>
+    <div className="if-backdrop" aria-hidden="true" onClick={onClose} />
+    <section className={`if-command-dialog ${className}`.trim()} role="dialog" aria-modal="true" aria-labelledby={titleId} onKeyDown={handleKeyDown}>
+      <header className="if-command-dialog__header"><h2 id={titleId}>{title}</h2><button type="button" className="if-icon-btn" aria-label="Close command palette" onClick={onClose}>×</button></header>
+      <label className="if-search if-search--compact if-command-dialog__search"><span className="if-search__icon" aria-hidden="true"><SearchIcon /></span><input ref={inputRef} className="if-input" type="search" value={query} onChange={(event) => { setQuery(event.target.value); setActiveIndex(0); }} placeholder={placeholder} aria-label={placeholder} /></label>
+      <div className="if-command-palette if-command-dialog__palette"><div className="if-command-palette__list" role="listbox" aria-label={title}>
+        {visibleGroups.map((group) => <section className="if-command-palette__group" key={group.id} aria-label={group.label}><h4>{group.label}</h4>{group.commands.map((command) => {
+          const index = filtered.indexOf(command);
+          return <button key={command.id} type="button" className={`if-command-palette__item${index === activeIndex ? " is-active" : ""}`} role="option" aria-selected={index === activeIndex} onMouseEnter={() => setActiveIndex(index)} onClick={() => choose(command)}>
+            <span className="if-command-palette__symbol" aria-hidden="true">{command.icon || "↗"}</span><span><strong>{command.label}</strong>{command.description ? <em>{command.description}</em> : null}</span>{command.shortcut ? <kbd>{command.shortcut}</kbd> : null}
+          </button>;
+        })}</section>)}
+        {!filtered.length ? <p className="if-empty if-empty--compact">{emptyText}</p> : null}
+      </div></div>
+      <footer className="if-command-dialog__footer"><span>↑↓ Navigate</span><span>Enter Open</span><span>Esc Close</span></footer>
+    </section>
+  </>, document.body);
+}
+
 export function ControlCalendarSurface({ className = "", children, ...props }) {
   return <section {...props} className={`if-calendar-surface ${className}`.trim()}>{children}</section>;
 }
@@ -985,6 +1104,7 @@ export function ControlDrawer({
   drawerRef = null,
   drawerProps = {},
   bodyProps = {},
+  header = null,
 }) {
   const internalDrawerRef = useRef(null);
   const resolvedDrawerRef = drawerRef || internalDrawerRef;
@@ -1054,14 +1174,14 @@ export function ControlDrawer({
       tabIndex="-1"
       onKeyDown={containDrawerFocus}
     >
-      <header className="if-drawer__header">
+      {header ? <div className="if-drawer__header if-drawer__custom-header">{header}<div className="if-drawer__actions if-drawer__custom-close"><button type="button" className="if-icon-btn" aria-label={closeLabel} onClick={requestClose}><span aria-hidden="true">×</span></button></div></div> : <header className="if-drawer__header">
         <div className="if-drawer__heading">
           {eyebrow ? <span className="if-drawer__eyebrow">{eyebrow}</span> : null}
           <h2 id={titleId} className="if-drawer__title">{title}</h2>
           {summary ? <p className="if-drawer__summary">{summary}</p> : null}
         </div>
         <div className="if-drawer__actions">{actions}<button type="button" className="if-icon-btn" aria-label={closeLabel} onClick={requestClose}><span aria-hidden="true">×</span></button></div>
-      </header>
+      </header>}
       <div {...bodyProps} className={`if-drawer__body ${bodyProps.className || ""}`.trim()}>{children}</div>
       {footer ? <footer className="if-drawer__footer">{footer}</footer> : null}
     </aside>
