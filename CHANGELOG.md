@@ -4,6 +4,14 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.34 - 2026-09-20
+
+### Added
+
+- React `ControlCommandPalette` with grouped search, keyboard navigation, focus restoration, and responsive modal containment.
+- React `ControlRecordHeader` for consistent record identity, status, metadata, and actions across drawers and profile surfaces.
+- React `ControlTableSelectionBar` for shared selected-row feedback and bulk actions.
+
 ## 0.3.33 - 2026-09-20
 
 ### Changed

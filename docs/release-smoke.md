@@ -28,8 +28,8 @@ Checks completed:
 - `node scripts/build.mjs`: passed.
 - `node scripts/validate.mjs`: passed.
 - `node scripts/checksums.mjs --check`: passed.
-- `npm pack`: produced `control-surface-ui-0.3.33.tgz`.
-- Final handoff tarball copied to `release/control-surface-ui-0.3.33.tgz`.
+- `npm pack`: produced `control-surface-ui-0.3.34.tgz`.
+- Final handoff tarball copied to `release/control-surface-ui-0.3.34.tgz`.
 - Packed tarball included required `dist`, `src`, `docs`, release, and package metadata files.
 - Plain HTML clean sample installed from the packed tarball and resolved package `dist` CSS/JS.
 - Vite clean sample installed from the packed tarball, imported `control-surface-ui/css`, imported named JavaScript APIs from `control-surface-ui`, and ran `vite build`.

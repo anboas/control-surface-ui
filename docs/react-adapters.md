@@ -16,6 +16,9 @@ import {
   ControlPageBody,
   ControlPageHeader,
   ControlWorkbenchHeader,
+  ControlCommandPalette,
+  ControlRecordHeader,
+  ControlTableSelectionBar,
   ControlPicker,
   ControlSparkline,
   ToastProvider,
@@ -29,6 +32,14 @@ import "control-surface-ui/css";
 The adapters own DOM anatomy, ARIA state, keyboard behavior, portal placement, viewport collision handling, mobile containment, native-dialog lifecycle, focus restoration, toast stacking, dismissal, and reduced-motion presentation.
 
 Consumers own option data, domain labels, persistence, authorization, async requests, and application routing.
+
+## Command palette
+
+`ControlCommandPalette` provides a portal-based, grouped command search with Arrow, Home, End, Enter, and Escape handling. Consumers own route authorization, recent/favorite persistence, and command execution.
+
+## Record header and table selection
+
+`ControlRecordHeader` gives drawers and public profiles one identity, status, metadata, and action anatomy. `ControlTableSelectionBar` presents selection count and consumer-owned bulk actions without rebuilding the responsive bar in every table.
 
 ## Page header
 
