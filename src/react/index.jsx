@@ -212,7 +212,7 @@ export function ControlWorkbenchHeader({
   controls,
   secondaryControls,
   headingLevel = 1,
-  mobileScrollMetrics = true,
+  mobileScrollMetrics = false,
   compactMobileMetrics = false,
   className = "",
   children,

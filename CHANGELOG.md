@@ -4,6 +4,13 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.33 - 2026-09-20
+
+### Changed
+
+- Workbench summary metrics now wrap into the framework's two-column mobile grid by default instead of hiding additional metrics in an unmarked horizontal rail.
+- Condensed mobile product branding now preserves the shared 44 px interaction target.
+
 ## 0.3.28 - 2026-09-18
 
 ### Added

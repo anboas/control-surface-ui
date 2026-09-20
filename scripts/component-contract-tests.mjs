@@ -115,6 +115,7 @@ function testFrameworkSurfaceContracts() {
     "if-fact-grid--mobile-two",
     "if-fact-grid__item",
     "mobileScroll = false",
+    "mobileScrollMetrics = false",
     "compactMobile = false",
     "if-management-grid--mobile-scroll",
     "if-management-grid--mobile-compact",

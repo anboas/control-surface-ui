@@ -42826,7 +42826,7 @@ button.if-analytics-list-item:focus-visible {
     grid-column: 1;
     grid-row: 1;
     min-width: 0;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     gap: var(--if-space-2);
   }
 
