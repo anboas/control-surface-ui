@@ -28225,6 +28225,10 @@ img.if-official-mark {
   background: var(--if-bg-subtle);
 }
 
+.if-graph-path:empty {
+  display: none;
+}
+
 .if-graph-path__step {
   display: inline-grid;
   grid-template-columns: auto;

@@ -10842,13 +10842,16 @@ function getGraphState(graphOrControl) {
 function normalizeGraphDocument(config = {}) {
   const nodes = Array.isArray(config.nodes) ? config.nodes : [];
   const edges = Array.isArray(config.edges) ? config.edges : [];
+  const hasExplicitSelection = Object.prototype.hasOwnProperty.call(config, "selected") || Object.prototype.hasOwnProperty.call(config, "selectedNode");
   return {
+    a11yMode: config.a11yMode === "screenreader" ? "screenreader" : "visible",
     a11yLabel: config.a11yLabel || "Accessible graph fallback",
     canvasLabel: config.canvasLabel || "Graph canvas",
     edgeLabelMode: config.edgeLabelMode || "pill",
     emptyLabel: config.emptyLabel || "Graph",
     layout: config.layout || "custom",
     mode: config.mode || "unified",
+    panelMode: config.panelMode === "external" ? "external" : "internal",
     nodes: nodes.map((node, index) => ({
       actionLabel: node.actionLabel || node.action || "",
       description: node.description || node.detail || "",
@@ -10876,7 +10879,9 @@ function normalizeGraphDocument(config = {}) {
       type: edge.type || "relationship",
       id: edge.id || `edge-${index + 1}`
     })).filter((edge) => edge.from && edge.to),
-    selected: config.selected || config.selectedNode || nodes.find((node) => node.selected)?.id || nodes[0]?.id || "",
+    selected: hasExplicitSelection
+      ? (config.selected ?? config.selectedNode ?? "")
+      : (nodes.find((node) => node.selected)?.id || nodes[0]?.id || ""),
     title: config.title || "Graph Explorer"
   };
 }
@@ -10995,23 +11000,23 @@ function renderGraph(graphOrSelector, config = {}) {
         ${model.nodes.map(renderGraphNode).join("")}
       </div>
     </div>
-    <section class="if-panel if-graph-a11y" data-if-graph-a11y aria-label="${escapeHtml(model.a11yLabel)}">
+    <section class="if-panel if-graph-a11y${model.a11yMode === "screenreader" ? " if-sr-only" : ""}" data-if-graph-a11y aria-label="${escapeHtml(model.a11yLabel)}">
       <p class="if-graph-a11y__summary" data-if-graph-a11y-summary></p>
       <div class="if-graph-a11y__grid">
         <section class="if-graph-a11y__section"><h3>Nodes</h3><ol class="if-graph-a11y__list" data-if-graph-a11y-nodes></ol></section>
         <section class="if-graph-a11y__section"><h3>Relationships</h3><ol class="if-graph-a11y__list" data-if-graph-a11y-edges></ol></section>
       </div>
     </section>
-    <div class="if-grid if-grid--auto-md if-gap-3">
+    ${model.panelMode === "external" ? "" : `<div class="if-grid if-grid--auto-md if-gap-3">
       ${model.nodes.map(renderGraphPanel).join("")}
       <section class="if-panel" data-edge-panel hidden></section>
-    </div>
+    </div>`}
   `;
   hydrateIcons(graph);
   applyGraphNodeTypes(graph);
   refreshGraphGeometry(graph);
   updateGraphA11yFallback(graph);
-  const selected = model.selected ? qs(`.if-graph-node[data-node-id="${escapeCssIdentifier(model.selected)}"]`, graph) : qs(".if-graph-node[data-node-id]", graph);
+  const selected = model.selected ? qs(`.if-graph-node[data-node-id="${escapeCssIdentifier(model.selected)}"]`, graph) : null;
   if (selected) selectGraphNode(selected);
   updateGraphStatus(graph);
   return graph;
@@ -21186,14 +21191,6 @@ function getComponentController(target) {
   return controller;
 }
 
-if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => init());
-  } else {
-    init();
-  }
-}
-
 export {
   activateTab,
   closeCommandPalette,
@@ -21480,6 +21477,14 @@ export {
   validateDiagramSourceEditor,
   validateDiagramSchema
 };
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => init());
+  } else {
+    init();
+  }
+}
 
 const demoState = {
   widgets: [

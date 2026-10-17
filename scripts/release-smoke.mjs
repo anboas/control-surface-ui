@@ -25,6 +25,7 @@ const requiredPackFiles = [
   "package/dist/interface-framework.min.js",
   "package/dist/interface-framework.esm.js",
   "package/dist/interface-framework.esm.min.js",
+  "package/src/react/graph.jsx",
   "package/src/tokens/index.css",
   "package/docs/package-handoff.md",
   "package/docs/component-manifest.json",
