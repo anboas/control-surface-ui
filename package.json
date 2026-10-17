@@ -1,6 +1,6 @@
 {
   "name": "control-surface-ui",
-  "version": "0.3.34",
+  "version": "0.3.36",
   "description": "A reusable CSS and JavaScript framework for dense enterprise control surfaces, analytics tooling, review workflows, diagrams, graphs, and data-heavy workspaces.",
   "type": "module",
   "main": "./dist/interface-framework.esm.js",
@@ -63,6 +63,7 @@
     "./js/esm": "./dist/interface-framework.esm.js",
     "./js/esm/min": "./dist/interface-framework.esm.min.js",
     "./react": "./src/react/index.jsx",
+    "./react/graph": "./src/react/graph.jsx",
     "./tokens": "./src/tokens/index.css",
     "./component-manifest": "./docs/component-manifest.json",
     "./recipes": "./docs/recipes.md",

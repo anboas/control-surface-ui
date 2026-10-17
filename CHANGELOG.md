@@ -4,6 +4,17 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.36 - 2026-10-17
+
+### Added
+
+- React `ControlGraph` adapter for the mature graph explorer runtime, including a separate tree-shakeable export, typed node registration, pluggable layout engines, selection events, accessible fallback, and controlled external-inspector composition.
+
+### Changed
+
+- Programmatic graph rendering now accepts `panelMode: "external"` so products can reuse graph interaction and geometry inside a shared record workspace without creating a second inspector container.
+- Programmatic graphs may explicitly start with no selected node while preserving the existing first-node default when selection is omitted.
+
 ## 0.3.34 - 2026-09-20
 
 ### Added

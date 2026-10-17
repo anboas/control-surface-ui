@@ -49,6 +49,7 @@ function testPackageScripts() {
   assert(pkg.exports?.["./release-governance"] === "./docs/release-governance.md", "package.json missing release governance export");
   assert(pkg.exports?.["./checksums"] === "./dist/interface-framework.checksums.json", "package.json missing checksum export");
   assert(pkg.exports?.["./react"] === "./src/react/index.jsx", "package.json missing optional React adapter export");
+  assert(pkg.exports?.["./react/graph"] === "./src/react/graph.jsx", "package.json missing React graph adapter export");
   assert(pkg.exports?.["./react-adapters"] === "./docs/react-adapters.md", "package.json missing React adapter documentation export");
   assert(pkg.peerDependencies?.react === ">=18", "package.json missing optional React peer contract");
 }
@@ -147,6 +148,17 @@ function testFrameworkSurfaceContracts() {
     "event.shiftKey && document.activeElement === first",
     "!event.shiftKey && document.activeElement === last"
   ]);
+  assertIncludes("src/react/graph.jsx", [
+    "export function ControlGraph",
+    "if:graph-node-select",
+    "if:graph-edge-select",
+    "if:graph-layout-result",
+    "a11yMode",
+    "selectGraphEdge",
+    "setGraphViewport",
+    "refreshGraphGeometry",
+    "data-graph-react-adapter=\"true\""
+  ]);
   assertIncludes("src/styles/components.css", [
     ".if-disclosure",
     ".if-disclosure__summary",
@@ -170,7 +182,8 @@ function testFrameworkSurfaceContracts() {
     ".if-collection-editor",
     ".if-collection-editor__fields",
     ".if-analytics-panel--flat",
-    ".if-toast__action"
+    ".if-toast__action",
+    ".if-graph-path:empty"
   ]);
   assertIncludes("src/styles/layout.css", [
     ".if-page-header--compact",

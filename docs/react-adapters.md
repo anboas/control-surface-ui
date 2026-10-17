@@ -24,6 +24,7 @@ import {
   ToastProvider,
   useToast,
 } from "control-surface-ui/react";
+import { ControlGraph } from "control-surface-ui/react/graph";
 import "control-surface-ui/css";
 ```
 
@@ -32,6 +33,28 @@ import "control-surface-ui/css";
 The adapters own DOM anatomy, ARIA state, keyboard behavior, portal placement, viewport collision handling, mobile containment, native-dialog lifecycle, focus restoration, toast stacking, dismissal, and reduced-motion presentation.
 
 Consumers own option data, domain labels, persistence, authorization, async requests, and application routing.
+
+## Graph explorer
+
+`ControlGraph` is the React lifecycle adapter for the framework graph explorer. It keeps the vanilla graph renderer as the single owner of node and edge DOM, pan/zoom/fit controls, selection, dragging, accessible fallback, and edge geometry. Products provide typed nodes and edges plus an optional bounded layout engine. Use `panelMode="external"` when the product already has one shared inspector; the framework still owns graph selection and emits the same node, edge, and layout events.
+
+```jsx
+<ControlGraph
+  nodes={nodes}
+  edges={edges}
+  selected={selectedNodeId || null}
+  layout="evidence-lanes"
+  layoutEngine={({ nodes }) => ({
+    coordinateSpace: "percent",
+    nodes: nodes.map((node, index) => ({ id: node.id, x: index ? 82 : 50, y: index ? 20 + index * 12 : 50 })),
+  })}
+  panelMode="external"
+  a11yMode="screenreader"
+  onNodeSelect={({ nodeId }) => setSelectedNodeId(nodeId)}
+/>
+```
+
+Keep layout functions stable with `useCallback` and node/edge arrays stable with `useMemo`. Import the separate `control-surface-ui/react/graph` subpath from a deferred product chunk so the graph runtime stays outside the initial application shell. Use the default visible accessible index when it is the primary non-visual traversal surface. Use `a11yMode="screenreader"` only when every node and relationship remains directly keyboard-operable in the canvas and a product-owned inspector supplies the visible detail path.
 
 ## Command palette
 

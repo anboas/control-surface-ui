@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20261017-002] nonexistent-framework-lint-script
+
+**Logged**: 2026-10-17T18:49:00-04:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Used the application repository's `npm run lint` convention in the framework repository, which has no lint script.
+
+### Error
+```
+npm error Missing script: "lint"
+```
+
+### Context
+- Control Surface UI defines `check`, `test`, `test:contracts`, and `release:verify` as its validation entry points.
+- No source or generated artifact was changed by the failed command.
+
+### Suggested Fix
+Inspect repository scripts before invoking a cross-repository validation convention; use `npm run check` and `npm run test:contracts` here.
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-10-17T18:50:00-04:00
+- **Notes**: Continued with the repository-native validation and release commands.
+
+---
+
 ## [ERR-20260916-001] release-verification-order
 
 **Logged**: 2026-09-16T12:02:00Z
@@ -31,6 +63,38 @@ Validate immutable action pins, run package smoke before provenance generation, 
 ### Resolution
 - **Resolved**: 2026-09-16T12:04:00Z
 - **Notes**: Validator tokens now enforce immutable pins. Release smoke validates after packing and provenance generation, and `release:verify` encodes the complete order.
+
+---
+
+## [ERR-20261017-001] playwright-runtime-browser-cache-mismatch
+
+**Logged**: 2026-10-17T18:45:00-04:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+The optional browser suite could not launch after `npm ci` because the resolved Playwright runtime expected Chromium build 1223 while the host cache contained a different build.
+
+### Error
+```
+browserType.launch: Executable doesn't exist at .../chromium_headless_shell-1223/...
+```
+
+### Context
+- Framework validation, package smoke, checksums, and release provenance all passed.
+- Every browser test failed at launch before page code executed.
+
+### Suggested Fix
+After dependency installation, run `npx playwright install chromium` before local browser proof when the cached executable does not match the lock-resolved Playwright runtime. Do not interpret launch-wide failures as component regressions.
+
+### Metadata
+- Reproducible: yes
+- Related Files: package-lock.json, playwright.config.mjs
+
+### Resolution
+- **Resolved**: 2026-10-17T18:46:00-04:00
+- **Notes**: Installed the lock-compatible Chromium runtime before rerunning the browser suite.
 
 ---
 

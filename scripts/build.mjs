@@ -70,6 +70,7 @@ function minifyJs(source) {
 const css = await bundleCss(resolve(root, "src/styles/index.css"));
 const jsSource = [
   await readFile(resolve(root, "src/js/index.js"), "utf8"),
+  await readFile(resolve(root, "src/js/auto-init.js"), "utf8"),
   await readFile(resolve(root, "src/js/demo.js"), "utf8")
 ].join("\n");
 const js = bundleJs(jsSource);
