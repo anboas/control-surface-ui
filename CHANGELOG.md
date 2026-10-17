@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.35 - 2026-10-17
+
+### Changed
+
+- Buttons, tabs, and rich-picker triggers now use the shared small control type token instead of inheriting inconsistent route-level font sizes.
+
 ## 0.3.34 - 2026-09-20
 
 ### Added
