@@ -1760,7 +1760,6 @@
   min-width: 0;
   overflow: hidden;
   color: var(--if-text-strong);
-  font-size: var(--if-font-size-sm);
   font-weight: var(--if-font-weight-semibold);
   line-height: var(--if-line-height-snug);
   text-overflow: ellipsis;
@@ -4192,6 +4191,7 @@
   border-bottom: 3px solid transparent;
   background: transparent;
   color: var(--if-text-muted);
+  font-size: var(--if-font-size-sm);
   font-weight: var(--if-font-weight-semibold);
   white-space: nowrap;
 }
@@ -25751,6 +25751,7 @@ img.if-official-mark {
   display: grid;
   min-width: clamp(6.75rem, 9.5vw, 9.25rem);
   max-width: 9.75rem;
+  min-height: clamp(2.5rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
   place-items: center;
   gap: var(--if-space-2);
   padding: var(--if-space-2);
@@ -26087,7 +26088,7 @@ img.if-official-mark {
 
 [data-graph-edge-label-mode="pill"] .if-edge-label {
   isolation: isolate;
-  min-height: 1.42rem;
+  min-height: clamp(1.42rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
   padding: 0.1rem 0.5rem;
   border-color: color-mix(in srgb, var(--edge-color, var(--if-link)) 50%, var(--if-border));
   background: rgb(255 255 255 / 0.98);
@@ -26104,10 +26105,10 @@ img.if-official-mark {
 }
 
 [data-graph-edge-label-mode="pill"] .if-edge-label--blank {
-  width: 0.62rem;
-  min-width: 0.62rem;
-  height: 0.62rem;
-  min-height: 0.62rem;
+  width: clamp(0.62rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
+  min-width: clamp(0.62rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
+  height: clamp(0.62rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
+  min-height: clamp(0.62rem, calc(2.75rem + 7190px - 1000vw), 2.75rem);
   padding: 0;
   border-width: 2px;
   background: var(--if-bg-surface);
