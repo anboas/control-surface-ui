@@ -10,6 +10,8 @@ import {
   ControlActivityTrail,
   ControlCollectionEditor,
   ControlMetricStrip,
+  ControlMenu,
+  ControlPopover,
   ControlErrorBoundary,
   ControlIdentityEditor,
   ControlMultiSelect,
@@ -59,6 +61,34 @@ Keep layout functions stable with `useCallback` and node/edge arrays stable with
 ## Command palette
 
 `ControlCommandPalette` provides a portal-based, grouped command search with Arrow, Home, End, Enter, and Escape handling. Consumers own route authorization, recent/favorite persistence, and command execution.
+
+## Command menu
+
+`ControlMenu` owns short command lists such as **More**, compact record actions, table utilities, and alternate destinations. It portals the menu outside clipped containers, keeps it inside viewport gutters, chooses above or below placement from available space, closes competing menus, restores trigger focus on Escape, and supports Arrow, Home, End, Tab, click-away, route-change, and disabled-item behavior. Use a disclosure instead when content expands in place, and use `ControlPicker` when the user is selecting a value rather than invoking a command.
+
+```jsx
+<ControlMenu
+  label="More"
+  ariaLabel="Selected opportunity actions"
+  align="end"
+  items={[
+    { id: "workspace", label: "Open workspace", description: "Full opportunity analysis", href: opportunityHref },
+    { id: "graph", label: "Open graph", description: "Traverse connected intelligence", href: graphHref },
+  ]}
+/>
+```
+
+## Popover
+
+`ControlPopover` owns bounded interactive panels such as filters, column settings, and display configuration. It uses the same portaled, viewport-aware placement and one-open-layer ownership as `ControlMenu`, while accepting arbitrary content. Keep short command lists in `ControlMenu` and in-place explanatory content in `ControlDisclosure`.
+
+```jsx
+<ControlPopover label="Filters" icon={<FilterIcon />} width={560}>
+  {({ close }) => <FilterForm onApply={close} />}
+</ControlPopover>
+```
+
+Items accept `id`, `label`, `description`, `meta`, `icon`, `href`, `target`, `rel`, `onSelect`, `disabled`, `active`, and `tone`. Consumers own authorization, routing, and mutations; the framework owns interaction and geometry.
 
 ## Record header and table selection
 

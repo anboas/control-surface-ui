@@ -32,6 +32,41 @@ Inspect repository scripts before invoking a cross-repository validation convent
 
 ---
 
+## [ERR-20261018-COMMAND-MENU-RELEASE-METADATA] framework-release-artifacts-stale-after-version-bump
+
+**Logged**: 2026-10-18T15:49:00-04:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+The first validation run after bumping control-surface-ui to 0.3.38 correctly rejected stale checksum and provenance metadata.
+
+### Error
+```
+checksum manifest package version should match package.json
+release provenance package version should match package.json
+Checksum artifacts are stale. Run npm run checksums.
+Release provenance artifacts are stale. Run npm run release:provenance.
+```
+
+### Context
+- `npm test` immediately after `npm version 0.3.38 --no-git-tag-version`.
+- Source, behavior, accessibility, component, and diagram contracts had already passed.
+
+### Suggested Fix
+Run the repository-owned build, checksum, and release-provenance scripts before the final validation whenever the framework version changes.
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, dist/interface-framework.checksums.json, release/provenance.json
+
+### Resolution
+- **Resolved**: 2026-10-18T15:49:00-04:00
+- **Notes**: Regenerated the framework build, checksum manifest, and release provenance before rerunning validation.
+
+---
+
 ## [ERR-20260916-001] release-verification-order
 
 **Logged**: 2026-09-16T12:02:00Z
@@ -222,5 +257,19 @@ When local rendering is known to drift, refresh only the proven stale baseline f
 ### Resolution
 - **Resolved**: 2026-09-16T12:40:00Z
 - **Notes**: Refreshed the two reviewed canonical-CI baselines and upgraded CI actions/test Node runtime to supported Node 24-compatible action releases and Node 22.
+
+---
+## [ERR-20261018-002] browser-baseline-without-dev-dependencies
+
+**Logged**: 2026-10-18T20:03:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Attempted a focused Playwright baseline review before installing the lockfile's development dependencies in the clean worktree.
+
+### Resolution
+Run `npm ci` before focused framework browser tests; use the repository's `test:browser` script instead of allowing `npx` to fetch an unrelated Playwright version.
 
 ---

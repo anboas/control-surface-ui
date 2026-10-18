@@ -4,6 +4,17 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.38 - 2026-10-18
+
+### Added
+
+- React `ControlMenu` adapter for viewport-aware portaled command lists, start/end alignment, automatic above/below placement, one-open-layer ownership, keyboard traversal, click-away and route dismissal, Escape focus restoration, and shared icon/copy/meta rows.
+- React `ControlPopover` adapter for bounded filter and settings panels with shared portal placement, viewport containment, competing-layer closure, click-away and route dismissal, and Escape focus restoration.
+
+### Changed
+
+- Small shared buttons retain the readable small-control type scale instead of being reduced to the extra-small metadata scale.
+
 ## 0.3.37 - 2026-10-17
 
 ### Added
