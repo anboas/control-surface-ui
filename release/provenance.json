@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-10-17T23:25:29.733Z",
+  "generatedAt": "2026-10-18T01:45:32.888Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.36",
+  "packageVersion": "0.3.37",
   "releaseIdentity": {
     "localBuildSigned": false,
     "trustedPublisherRequired": true,
@@ -86,14 +86,14 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "27ec51ece4221bc12935476204a2e3c0bb6c8a102996c37315e975f49466ba87",
-    "sha256SumsSha256": "a7511234b1f2bfbbcce6a8fad0c12964a440cc0f1e11df3dd8593d047780e5e5",
+    "manifestComparableSha256": "6ab278ab6a45c95632a4f3d8679b4172d5ddd0e3e49a38ce10eaeb633fd53d8c",
+    "sha256SumsSha256": "175371c85fc4f91bcb711e819a8ab9a5137d7136f22b84de584572a1f6612f6f",
     "artifactCount": 15,
     "artifacts": [
       {
         "path": "package.json",
         "bytes": 6649,
-        "sha256": "15e7d341227f9f4aaac138f03e5637bbaf101f122999d8725b4be75627bccf53"
+        "sha256": "b16b5eb1caa59c80b7507598b4665b54af498edbdf632cbf135249a3a8e7ecd1"
       },
       {
         "path": "README.md",
@@ -102,8 +102,8 @@
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 15059,
-        "sha256": "ef548a3a2df906439d1d7bdf1be29f2b03afb8845b4c634b1b5be7436115448f"
+        "bytes": 15317,
+        "sha256": "540a6648dae1fa3f4fe50bd13398214979eef5ae6f381c1cbca923c5840288e2"
       },
       {
         "path": "dist/interface-framework.css",
@@ -353,6 +353,12 @@
       "file": "control-surface-ui-0.3.36.tgz",
       "bytes": 5027587,
       "sha256": "dc63e3e20414e3bb6cdc3da0955b3b0207dd1892ad46084d87716266f4fc88ab"
+    },
+    {
+      "path": "release/control-surface-ui-0.3.37.tgz",
+      "file": "control-surface-ui-0.3.37.tgz",
+      "bytes": 5029061,
+      "sha256": "9940743cfae2393604a228fa3d1e6740133ca89967bd47bf5514b570b8b94503"
     },
     {
       "path": "release/control-surface-ui-0.3.4.tgz",
