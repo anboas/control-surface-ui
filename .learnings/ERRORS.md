@@ -259,3 +259,17 @@ When local rendering is known to drift, refresh only the proven stale baseline f
 - **Notes**: Refreshed the two reviewed canonical-CI baselines and upgraded CI actions/test Node runtime to supported Node 24-compatible action releases and Node 22.
 
 ---
+## [ERR-20261018-002] browser-baseline-without-dev-dependencies
+
+**Logged**: 2026-10-18T20:03:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Attempted a focused Playwright baseline review before installing the lockfile's development dependencies in the clean worktree.
+
+### Resolution
+Run `npm ci` before focused framework browser tests; use the repository's `test:browser` script instead of allowing `npx` to fetch an unrelated Playwright version.
+
+---
