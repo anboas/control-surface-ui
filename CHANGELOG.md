@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.37 - 2026-10-17
+
+### Added
+
+- React `ControlAutocomplete` adapter for local or asynchronous suggestions, controlled input state, keyboard navigation, accessible listbox semantics, request cancellation, and the framework autocomplete visual language.
+
 ## 0.3.36 - 2026-10-17
 
 ### Added

@@ -94,6 +94,7 @@ function testPlaywrightFiles() {
 
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
+    "export function ControlAutocomplete",
     "export function ControlPageHeader",
     "export function ControlPageBody",
     "export function ControlDisclosure",

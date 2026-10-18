@@ -39,6 +39,150 @@ function SearchIcon() {
   return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" strokeWidth="1.4" /><path d="m10.25 10.25 3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>;
 }
 
+function normalizeAutocompleteItems(items = []) {
+  return items.map((item, index) => {
+    if (typeof item === "string" || typeof item === "number") return { id: String(item), value: String(item), label: String(item) };
+    return {
+      ...item,
+      id: String(item.id ?? item.value ?? item.label ?? index),
+      value: String(item.value ?? item.label ?? ""),
+      label: String(item.label ?? item.value ?? ""),
+      meta: String(item.meta ?? ""),
+      type: String(item.type ?? ""),
+    };
+  }).filter((item) => item.label);
+}
+
+export function ControlAutocomplete({
+  value = "",
+  onChange,
+  onSelect,
+  items = [],
+  search,
+  minLength = 0,
+  limit = 8,
+  label,
+  ariaLabel,
+  placeholder = "Search…",
+  emptyText = "No matches found.",
+  loadingText = "Searching…",
+  className = "",
+  inputClassName = "",
+  autoFocus = false,
+  disabled = false,
+  reserveSpace = false,
+  ...props
+}) {
+  const inputId = `if-autocomplete-${useId().replaceAll(":", "")}`;
+  const menuId = `${inputId}-menu`;
+  const rootRef = useRef(null);
+  const requestRef = useRef(0);
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [results, setResults] = useState(() => normalizeAutocompleteItems(items));
+  const [status, setStatus] = useState("idle");
+  const normalizedValue = String(value ?? "");
+
+  useEffect(() => {
+    if (search || normalizedValue.trim().length < Number(minLength || 0)) return undefined;
+    const needle = normalizedValue.trim().toLowerCase();
+    const next = normalizeAutocompleteItems(items)
+      .filter((item) => !needle || `${item.label} ${item.meta} ${item.type} ${item.id}`.toLowerCase().includes(needle))
+      .slice(0, limit);
+    setResults(next);
+    setStatus(next.length ? "results" : "empty");
+    return undefined;
+  }, [items, limit, minLength, normalizedValue, search]);
+
+  useEffect(() => {
+    if (!search || normalizedValue.trim().length < Number(minLength || 0)) return undefined;
+    const requestId = requestRef.current + 1;
+    requestRef.current = requestId;
+    const controller = new AbortController();
+    setStatus("loading");
+    Promise.resolve(search({ query: normalizedValue.trim(), limit, signal: controller.signal }))
+      .then((payload) => {
+        if (requestRef.current !== requestId || controller.signal.aborted) return;
+        const next = normalizeAutocompleteItems(Array.isArray(payload) ? payload : payload?.items).slice(0, limit);
+        setResults(next);
+        setStatus(next.length ? "results" : "empty");
+      })
+      .catch((error) => {
+        if (controller.signal.aborted || error?.name === "AbortError") return;
+        setResults([]);
+        setStatus("error");
+      });
+    return () => controller.abort();
+  }, [limit, minLength, normalizedValue, search]);
+
+  useEffect(() => setActiveIndex((current) => Math.min(current, Math.max(0, results.length - 1))), [results.length]);
+  useEffect(() => {
+    const close = (event) => { if (!rootRef.current?.contains(event.target)) setOpen(false); };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, []);
+
+  function choose(item) {
+    onChange?.(item.value, item);
+    onSelect?.(item);
+    setOpen(false);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Escape") { setOpen(false); return; }
+    if (event.key === "ArrowDown") { event.preventDefault(); setOpen(true); setActiveIndex((current) => (current + 1) % Math.max(1, results.length)); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); setOpen(true); setActiveIndex((current) => (current - 1 + Math.max(1, results.length)) % Math.max(1, results.length)); }
+    else if (event.key === "Home" && open) { event.preventDefault(); setActiveIndex(0); }
+    else if (event.key === "End" && open) { event.preventDefault(); setActiveIndex(Math.max(0, results.length - 1)); }
+    else if (event.key === "Enter" && open && results[activeIndex]) { event.preventDefault(); choose(results[activeIndex]); }
+  }
+
+  const expanded = open && !disabled && normalizedValue.trim().length >= Number(minLength || 0);
+  return <label {...props} ref={rootRef} className={`if-autocomplete${reserveSpace ? " if-autocomplete--reserve" : ""} ${className}`.trim()}>
+    {label ? <span className="if-field__label">{label}</span> : null}
+    <span className="if-search">
+      <span className="if-search__icon" aria-hidden="true"><SearchIcon /></span>
+      <input
+        id={inputId}
+        className={`if-input ${inputClassName}`.trim()}
+        type="search"
+        value={normalizedValue}
+        placeholder={placeholder}
+        aria-label={ariaLabel || label || placeholder}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-controls={menuId}
+        aria-expanded={expanded}
+        aria-activedescendant={expanded && results[activeIndex] ? `${inputId}-option-${activeIndex}` : undefined}
+        autoComplete="off"
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onFocus={() => setOpen(true)}
+        onChange={(event) => { onChange?.(event.target.value, null); setOpen(true); setActiveIndex(0); }}
+        onKeyDown={handleKeyDown}
+      />
+    </span>
+    <div id={menuId} className="if-autocomplete__menu" role="listbox" hidden={!expanded}>
+      {status === "loading" ? <div className="if-autocomplete__state" role="status"><span className="if-loading-dots if-loading-dots--sm" aria-hidden="true"><span /><span /><span /></span><span><strong>{loadingText}</strong></span></div> : null}
+      {status === "empty" ? <div className="if-autocomplete__state" role="status"><span><strong>{emptyText}</strong></span></div> : null}
+      {status === "error" ? <div className="if-autocomplete__state if-autocomplete__state--error" role="alert"><span><strong>Search unavailable</strong><span>Try again.</span></span></div> : null}
+      {status === "results" ? results.map((item, index) => <button
+        key={item.id}
+        id={`${inputId}-option-${index}`}
+        type="button"
+        role="option"
+        aria-selected={index === activeIndex}
+        className={`if-autocomplete__option${index === activeIndex ? " is-active" : ""}`}
+        onPointerEnter={() => setActiveIndex(index)}
+        onClick={() => choose(item)}
+      >
+        <span className="if-autocomplete__option-main"><span className="if-autocomplete__label">{item.label}</span>{item.type ? <span className="if-badge">{item.type}</span> : null}</span>
+        {item.meta || item.id ? <small>{item.meta}{item.meta && item.id ? " · " : ""}{item.id}</small> : null}
+      </button>) : null}
+    </div>
+  </label>;
+}
+
 export function ControlPageHeader({
   title,
   eyebrow,
