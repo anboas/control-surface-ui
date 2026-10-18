@@ -95,6 +95,11 @@ function testPlaywrightFiles() {
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
     "export function ControlAutocomplete",
+    "export function ControlMenu",
+    "if:react-layer-open",
+    "if-menu--portal",
+    "export function ControlPopover",
+    "data-if-react-popover",
     "export function ControlPageHeader",
     "export function ControlPageBody",
     "export function ControlDisclosure",

@@ -39,6 +39,10 @@ function SearchIcon() {
   return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" strokeWidth="1.4" /><path d="m10.25 10.25 3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>;
 }
 
+function MenuChevron() {
+  return <svg className="if-menu-trigger__chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+}
+
 function normalizeAutocompleteItems(items = []) {
   return items.map((item, index) => {
     if (typeof item === "string" || typeof item === "number") return { id: String(item), value: String(item), label: String(item) };
@@ -181,6 +185,294 @@ export function ControlAutocomplete({
       </button>) : null}
     </div>
   </label>;
+}
+
+export function ControlMenu({
+  label = "More",
+  ariaLabel,
+  icon,
+  items = [],
+  align = "end",
+  placement = "auto",
+  className = "",
+  triggerClassName = "if-btn if-btn--secondary",
+  triggerProps = {},
+  menuProps = {},
+  portalTarget,
+  disabled = false,
+  hideChevron = false,
+  onOpenChange,
+  ...props
+}) {
+  const menuId = `if-menu-${useId().replaceAll(":", "")}`;
+  const rootRef = useRef(null);
+  const triggerRef = useRef(null);
+  const menuRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [geometry, setGeometry] = useState(null);
+  const rows = items.filter(Boolean);
+  const firstEnabledIndex = Math.max(0, rows.findIndex((item) => !item.disabled));
+
+  const close = useCallback(({ restoreFocus = false } = {}) => {
+    setOpen(false);
+    setGeometry(null);
+    onOpenChange?.(false);
+    if (restoreFocus) window.requestAnimationFrame(() => triggerRef.current?.focus());
+  }, [onOpenChange]);
+
+  const requestOpen = useCallback((focus = "first") => {
+    if (disabled || !rows.length) return;
+    setOpen(true);
+    onOpenChange?.(true);
+    document.dispatchEvent(new CustomEvent("if:react-layer-open", { detail: { id: menuId } }));
+    window.requestAnimationFrame(() => {
+      const menuItems = [...(menuRef.current?.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"])') || [])];
+      (focus === "last" ? menuItems.at(-1) : menuItems[0])?.focus();
+    });
+  }, [disabled, menuId, onOpenChange, rows.length]);
+
+  useLayoutEffect(() => {
+    if (!open) return undefined;
+    function updateGeometry() {
+      const trigger = triggerRef.current;
+      const menu = menuRef.current;
+      if (!trigger || !menu) return;
+      const bounds = trigger.getBoundingClientRect();
+      const gutter = 8;
+      const preferredWidth = Math.max(208, Math.min(288, menu.scrollWidth || 240));
+      const width = Math.min(preferredWidth, window.innerWidth - gutter * 2);
+      const availableBelow = window.innerHeight - bounds.bottom - gutter;
+      const availableAbove = bounds.top - gutter;
+      const naturalHeight = Math.min(menu.scrollHeight || 320, 360);
+      const placeAbove = placement === "above" || (placement === "auto" && availableBelow < Math.min(naturalHeight, 180) && availableAbove > availableBelow);
+      const maxHeight = Math.max(120, Math.min(360, placeAbove ? availableAbove - 5 : availableBelow - 5));
+      const preferredLeft = align === "start" ? bounds.left : bounds.right - width;
+      const left = Math.max(gutter, Math.min(preferredLeft, window.innerWidth - width - gutter));
+      const top = placeAbove
+        ? Math.max(gutter, bounds.top - Math.min(naturalHeight, maxHeight) - 5)
+        : Math.min(window.innerHeight - gutter, bounds.bottom + 5);
+      setGeometry({ left, top, width, maxHeight });
+    }
+    function closeOutside(event) {
+      if (!rootRef.current?.contains(event.target) && !menuRef.current?.contains(event.target)) close();
+    }
+    function closeOther(event) {
+      if (event.detail?.id !== menuId) close();
+    }
+    function closeRoute() { close(); }
+    updateGeometry();
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("if:react-layer-open", closeOther);
+    window.addEventListener("hashchange", closeRoute);
+    window.addEventListener("resize", updateGeometry);
+    window.addEventListener("scroll", updateGeometry, true);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("if:react-layer-open", closeOther);
+      window.removeEventListener("hashchange", closeRoute);
+      window.removeEventListener("resize", updateGeometry);
+      window.removeEventListener("scroll", updateGeometry, true);
+    };
+  }, [align, close, menuId, open, placement]);
+
+  function focusItem(offset) {
+    const menuItems = [...(menuRef.current?.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"])') || [])];
+    if (!menuItems.length) return;
+    const current = menuItems.indexOf(document.activeElement);
+    menuItems[(current + offset + menuItems.length) % menuItems.length]?.focus();
+  }
+
+  function handleMenuKeyDown(event) {
+    menuProps.onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+    const menuItems = [...(menuRef.current?.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"])') || [])];
+    if (event.key === "Escape") { event.preventDefault(); close({ restoreFocus: true }); }
+    else if (event.key === "ArrowDown") { event.preventDefault(); focusItem(1); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); focusItem(-1); }
+    else if (event.key === "Home") { event.preventDefault(); menuItems[0]?.focus(); }
+    else if (event.key === "End") { event.preventDefault(); menuItems.at(-1)?.focus(); }
+    else if (event.key === "Tab") close();
+  }
+
+  function select(item, event) {
+    if (item.disabled) { event.preventDefault(); return; }
+    item.onSelect?.(item, event);
+    close();
+  }
+
+  const menu = open ? createPortal(
+    <div
+      {...menuProps}
+      ref={menuRef}
+      id={menuId}
+      className={`if-menu if-menu--portal ${menuProps.className || ""}`.trim()}
+      role="menu"
+      aria-label={ariaLabel || label}
+      data-if-react-menu
+      data-if-floating-layer
+      style={{ ...geometry, visibility: geometry ? "visible" : "hidden", ...(menuProps.style || {}) }}
+      onKeyDown={handleMenuKeyDown}
+    >
+      {rows.map((item, index) => {
+        const content = <>{item.icon ? <span className="if-menu__icon" aria-hidden="true">{item.icon}</span> : null}<span className="if-menu__copy"><strong>{item.label}</strong>{item.description ? <em>{item.description}</em> : null}</span>{item.meta ? <span className="if-menu__meta">{item.meta}</span> : null}</>;
+        const common = { role: "menuitem", tabIndex: index === firstEnabledIndex ? 0 : -1, "aria-disabled": item.disabled || undefined, className: `${item.active ? "is-selected " : ""}${item.tone ? `is-${item.tone}` : ""}`.trim(), "data-control-menu-item": item.id || undefined, onClick: (event) => select(item, event) };
+        return item.href
+          ? <a {...common} key={item.id || item.href || item.label} href={item.href} target={item.target} rel={item.rel}>{content}</a>
+          : <button {...common} key={item.id || item.label} type="button" disabled={item.disabled}>{content}</button>;
+      })}
+    </div>,
+    portalTarget?.current || document.body,
+  ) : null;
+
+  return <span {...props} ref={rootRef} className={`if-menu-anchor ${className}`.trim()} data-if-react-menu-anchor>
+    <button
+      {...triggerProps}
+      ref={triggerRef}
+      type="button"
+      className={`${triggerClassName} ${triggerProps.className || ""}`.trim()}
+      aria-label={ariaLabel || undefined}
+      aria-haspopup="menu"
+      aria-expanded={open}
+      aria-controls={menuId}
+      disabled={disabled || !rows.length}
+      onClick={(event) => { triggerProps.onClick?.(event); if (!event.defaultPrevented) open ? close() : requestOpen("first"); }}
+      onKeyDown={(event) => {
+        triggerProps.onKeyDown?.(event);
+        if (event.defaultPrevented) return;
+        if (event.key === "ArrowDown") { event.preventDefault(); requestOpen("first"); }
+        if (event.key === "ArrowUp") { event.preventDefault(); requestOpen("last"); }
+        if (event.key === "Escape" && open) { event.preventDefault(); close({ restoreFocus: true }); }
+      }}
+    >{icon}{label}{hideChevron ? null : <MenuChevron />}</button>
+    {menu}
+  </span>;
+}
+
+export function ControlPopover({
+  label,
+  ariaLabel,
+  icon,
+  children,
+  align = "end",
+  placement = "auto",
+  width = 320,
+  className = "",
+  triggerClassName = "if-btn if-btn--secondary",
+  triggerProps = {},
+  popoverProps = {},
+  portalTarget,
+  disabled = false,
+  hideChevron = false,
+  onOpenChange,
+  ...props
+}) {
+  const popoverId = `if-popover-${useId().replaceAll(":", "")}`;
+  const rootRef = useRef(null);
+  const triggerRef = useRef(null);
+  const popoverRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [geometry, setGeometry] = useState(null);
+
+  const close = useCallback(({ restoreFocus = false } = {}) => {
+    setOpen(false);
+    setGeometry(null);
+    onOpenChange?.(false);
+    if (restoreFocus) window.requestAnimationFrame(() => triggerRef.current?.focus());
+  }, [onOpenChange]);
+
+  const requestOpen = useCallback(() => {
+    if (disabled) return;
+    setOpen(true);
+    onOpenChange?.(true);
+    document.dispatchEvent(new CustomEvent("if:react-layer-open", { detail: { id: popoverId } }));
+  }, [disabled, onOpenChange, popoverId]);
+
+  useLayoutEffect(() => {
+    if (!open) return undefined;
+    function updateGeometry() {
+      const trigger = triggerRef.current;
+      const popover = popoverRef.current;
+      if (!trigger || !popover) return;
+      const bounds = trigger.getBoundingClientRect();
+      const gutter = 8;
+      const resolvedWidth = Math.min(Math.max(240, Number(width) || 320), window.innerWidth - gutter * 2);
+      const availableBelow = window.innerHeight - bounds.bottom - gutter;
+      const availableAbove = bounds.top - gutter;
+      const naturalHeight = Math.min(popover.scrollHeight || 420, 560);
+      const placeAbove = placement === "above" || (placement === "auto" && availableBelow < Math.min(naturalHeight, 220) && availableAbove > availableBelow);
+      const maxHeight = Math.max(160, Math.min(560, placeAbove ? availableAbove - 5 : availableBelow - 5));
+      const preferredLeft = align === "start" ? bounds.left : bounds.right - resolvedWidth;
+      const left = Math.max(gutter, Math.min(preferredLeft, window.innerWidth - resolvedWidth - gutter));
+      const top = placeAbove
+        ? Math.max(gutter, bounds.top - Math.min(naturalHeight, maxHeight) - 5)
+        : Math.min(window.innerHeight - gutter, bounds.bottom + 5);
+      setGeometry({ left, top, width: resolvedWidth, maxHeight });
+    }
+    function closeOutside(event) {
+      if (event.target.closest?.("[data-if-floating-layer]")) return;
+      if (!rootRef.current?.contains(event.target) && !popoverRef.current?.contains(event.target)) close();
+    }
+    function closeOther(event) {
+      if (event.detail?.id !== popoverId) close();
+    }
+    function handleKeyDown(event) {
+      if (event.key === "Escape") { event.preventDefault(); close({ restoreFocus: true }); }
+    }
+    updateGeometry();
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("if:react-layer-open", closeOther);
+    window.addEventListener("hashchange", close);
+    window.addEventListener("resize", updateGeometry);
+    window.addEventListener("scroll", updateGeometry, true);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("if:react-layer-open", closeOther);
+      window.removeEventListener("hashchange", close);
+      window.removeEventListener("resize", updateGeometry);
+      window.removeEventListener("scroll", updateGeometry, true);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [align, close, open, placement, popoverId, width]);
+
+  const popover = open ? createPortal(
+    <div
+      {...popoverProps}
+      ref={popoverRef}
+      id={popoverId}
+      className={`if-popover if-popover--portal ${popoverProps.className || ""}`.trim()}
+      role={popoverProps.role || "dialog"}
+      aria-label={popoverProps["aria-label"] || ariaLabel || label}
+      data-if-react-popover
+      data-if-floating-layer
+      style={{ ...geometry, visibility: geometry ? "visible" : "hidden", ...(popoverProps.style || {}) }}
+    >
+      {typeof children === "function" ? children({ close }) : children}
+    </div>,
+    portalTarget?.current || document.body,
+  ) : null;
+
+  return <span {...props} ref={rootRef} className={`if-popover-anchor ${className}`.trim()} data-if-react-popover-anchor>
+    <button
+      {...triggerProps}
+      ref={triggerRef}
+      type="button"
+      className={`${triggerClassName} ${triggerProps.className || ""}`.trim()}
+      aria-label={ariaLabel || undefined}
+      aria-haspopup="dialog"
+      aria-expanded={open}
+      aria-controls={popoverId}
+      disabled={disabled}
+      onClick={(event) => { triggerProps.onClick?.(event); if (!event.defaultPrevented) open ? close() : requestOpen(); }}
+      onKeyDown={(event) => {
+        triggerProps.onKeyDown?.(event);
+        if (event.defaultPrevented) return;
+        if ((event.key === "ArrowDown" || event.key === "ArrowUp") && !open) { event.preventDefault(); requestOpen(); }
+        if (event.key === "Escape" && open) { event.preventDefault(); close({ restoreFocus: true }); }
+      }}
+    >{icon}{label}{hideChevron ? null : <MenuChevron />}</button>
+    {popover}
+  </span>;
 }
 
 export function ControlPageHeader({
@@ -1013,6 +1305,7 @@ export function ControlPicker({
       id={menuId}
       className={`if-picker__menu ${multiple ? "if-picker__menu--multiple" : ""}`.trim()}
       data-if-picker-menu
+      data-if-floating-layer
       style={{ ...geometry, visibility: geometry ? "visible" : "hidden" }}
       onKeyDown={handleMenuKeyDown}
     >
