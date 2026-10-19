@@ -50,6 +50,23 @@ Consumers own option data, domain labels, persistence, authorization, async requ
 />
 ```
 
+## Tabs and view navigation
+
+`ControlTabs` owns compact second-layer navigation and local view switching. It accepts button or link items, renders one active-state grammar, supports icons and badges, keeps mobile targets at 44 px, and provides Left/Right/Home/End keyboard movement. Use `fill` when every item should share the available width. Use link items for route navigation and button items for in-place view changes; primary product navigation and collection filters remain separate owners.
+
+```jsx
+<ControlTabs
+  ariaLabel="Analysis views"
+  activeId={view}
+  onSelect={setView}
+  items={[
+    { id: "overview", label: "Overview" },
+    { id: "activity", label: "Activity", badge: 12 },
+    { id: "evidence", label: "Evidence", href: "#/evidence" },
+  ]}
+/>
+```
+
 ## Graph explorer
 
 `ControlGraph` is the React lifecycle adapter for the framework graph explorer. It keeps the vanilla graph renderer as the single owner of node and edge DOM, pan/zoom/fit controls, selection, dragging, accessible fallback, and edge geometry. Products provide typed nodes and edges plus an optional bounded layout engine. Use `panelMode="external"` when the product already has one shared inspector; the framework still owns graph selection and emits the same node, edge, and layout events.
