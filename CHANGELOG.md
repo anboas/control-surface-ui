@@ -4,6 +4,16 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.43 - 2026-10-19
+
+### Added
+
+- `ControlDisclosure` now supports controlled open state, `onOpenChange`, trailing metadata, compact and flush layouts, semantic tones, and consumer-owned summary/body classes.
+
+### Changed
+
+- Shared disclosures now own hover and focus-visible treatment while preserving native keyboard behavior and 44 px mobile targets.
+
 ## 0.3.42 - 2026-10-19
 
 ### Fixed

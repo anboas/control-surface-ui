@@ -676,13 +676,32 @@ export function ControlDisclosure({
   title,
   summary,
   icon,
+  meta,
   defaultOpen = false,
+  open,
+  onOpenChange,
+  onToggle,
+  compact = false,
+  flush = false,
+  tone = "neutral",
+  summaryClassName = "",
+  bodyClassName = "",
   className = "",
   children,
   ...props
 }) {
-  return <details {...props} open={defaultOpen || undefined} className={`if-disclosure ${className}`.trim()}>
-    <summary className="if-disclosure__summary">
+  const openProps = open === undefined ? { open: defaultOpen || undefined } : { open: Boolean(open) };
+  const handleToggle = (event) => {
+    onToggle?.(event);
+    onOpenChange?.(event.currentTarget.open, event);
+  };
+  return <details
+    {...props}
+    {...openProps}
+    onToggle={handleToggle}
+    className={`if-disclosure${compact ? " if-disclosure--compact" : ""}${flush ? " if-disclosure--flush" : ""}${tone && tone !== "neutral" ? ` if-disclosure--${tone}` : ""} ${className}`.trim()}
+  >
+    <summary className={`if-disclosure__summary ${summaryClassName}`.trim()}>
       <span className="if-disclosure__heading">
         {icon ? <span className="if-disclosure__icon" aria-hidden="true">{icon}</span> : null}
         <span className="if-disclosure__copy">
@@ -690,9 +709,12 @@ export function ControlDisclosure({
           {summary ? <small className="if-disclosure__description">{summary}</small> : null}
         </span>
       </span>
-      <PickerChevron />
+      <span className="if-disclosure__trailing">
+        {meta === undefined || meta === null || meta === "" ? null : <span className="if-disclosure__meta">{meta}</span>}
+        <PickerChevron />
+      </span>
     </summary>
-    <div className="if-disclosure__body">{children}</div>
+    <div className={`if-disclosure__body ${bodyClassName}`.trim()}>{children}</div>
   </details>;
 }
 
