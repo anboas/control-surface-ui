@@ -97,6 +97,13 @@ function testFrameworkSurfaceContracts() {
     "export function ControlSearch",
     "data-if-control-search",
     "if-search__clear",
+    "export function ControlTabs",
+    "data-if-control-tabs",
+    "data-if-control-tab",
+    "activation === \"automatic\"",
+    ":not(:disabled):not([aria-disabled='true'])",
+    "item.controlProps",
+    "if-control-tabs--fill",
     "export function ControlAutocomplete",
     "export function ControlMenu",
     "if:react-layer-open",
@@ -177,6 +184,11 @@ function testFrameworkSurfaceContracts() {
     "data-graph-react-adapter=\"true\""
   ]);
   assertIncludes("src/styles/components.css", [
+    ".if-control-tabs",
+    ".if-control-tabs--fill .if-tab",
+    "box-sizing: border-box",
+    ".if-tab__icon",
+    ".if-tab__label",
     ".if-disclosure",
     ".if-disclosure__summary",
     ".if-disclosure__body",

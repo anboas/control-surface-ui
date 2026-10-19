@@ -4,6 +4,14 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.41 - 2026-10-19
+
+### Added
+
+- React `ControlTabs` adapter for shared second-layer navigation and local view switching with button/link items, icons, badges, consistent active states, mobile targets, and arrow/Home/End keyboard movement.
+
+## 0.3.40 - 2026-10-19
+
 ### Added
 
 - Operational calendar adapters now include a shared view switcher, semantic day cells, selectable calendar items, and a summary/action footer.
