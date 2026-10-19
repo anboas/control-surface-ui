@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.42 - 2026-10-19
+
+### Fixed
+
+- `ControlTabs` now owns border-box sizing so 44 px touch targets align exactly beside consumer actions without relying on a product-wide reset.
+
 ## 0.3.41 - 2026-10-19
 
 ### Added

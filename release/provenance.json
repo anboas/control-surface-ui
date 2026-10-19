@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-10-19T16:10:29.151Z",
+  "generatedAt": "2026-10-19T16:19:04.813Z",
   "generatedBy": "scripts/release-provenance.mjs",
   "status": "local-provenance-frozen",
   "packageName": "control-surface-ui",
-  "packageVersion": "0.3.41",
+  "packageVersion": "0.3.42",
   "releaseIdentity": {
     "localBuildSigned": false,
     "trustedPublisherRequired": true,
@@ -86,14 +86,14 @@
   "checksumEvidence": {
     "manifestPath": "dist/interface-framework.checksums.json",
     "sha256SumsPath": "dist/SHA256SUMS",
-    "manifestComparableSha256": "3671e25f20f6f865d5632635d5088b5d6af6e9852f39b4253dd6a6753f1f1c8f",
-    "sha256SumsSha256": "b8be1352f06ce57e227ca31c180176ce2ec8a4df587ff015b7f9194edb9c1cad",
+    "manifestComparableSha256": "a7f760159726045341cc79da5cc2829a6324edf4323d1febbd41e0b5742737a9",
+    "sha256SumsSha256": "16a05a57f9239837586860bd666ee24c6e484feab54b7abba3bd16e22adee980",
     "artifactCount": 15,
     "artifacts": [
       {
         "path": "package.json",
         "bytes": 6649,
-        "sha256": "ea25283bd15443c6767de7362d32043f2a8e890e53327e2333de0a899609bfae"
+        "sha256": "cd60c8a2e6bd727facf058621783ebebf2132a605e0b334f21e95eada4901bca"
       },
       {
         "path": "README.md",
@@ -102,18 +102,18 @@
       },
       {
         "path": "CHANGELOG.md",
-        "bytes": 16783,
-        "sha256": "6df8855fb12ac56d92377e0252fac09009f9747dd5494e410331b806f74e18c8"
+        "bytes": 16964,
+        "sha256": "2dc88c96c0dc2cd141ae946cb7acaa38f730309e587ddd27e42409df760ad3d8"
       },
       {
         "path": "dist/interface-framework.css",
-        "bytes": 1028965,
-        "sha256": "cad72b8f35f976edf1bc9171c07d9227ec9e474b57092dd7c712886bd190eb0a"
+        "bytes": 1028991,
+        "sha256": "db213c00226026d45f07baaa3cdc4e02acedb3e8c9096de233a7d515b7c5122f"
       },
       {
         "path": "dist/interface-framework.min.css",
-        "bytes": 888024,
-        "sha256": "c3854fb2468939d36617caccf01ea85607cb3c41238047491dd66b87eb6d8885"
+        "bytes": 888046,
+        "sha256": "736afd98d25f231302f2904e53eea29e48faf6b870eccc36ebc76bd9e925a984"
       },
       {
         "path": "dist/interface-framework.js",
@@ -163,7 +163,7 @@
       {
         "path": "docs/release-smoke.md",
         "bytes": 1891,
-        "sha256": "c346f3ba507d8e3f5cf6e81179cb050bd47544d54baba0f32f7a2135a8d667d4"
+        "sha256": "8bd3245a28a35fd3255f345497871376b85dc0395e252699e892bcb1aab44dee"
       }
     ]
   },
@@ -389,6 +389,12 @@
       "file": "control-surface-ui-0.3.41.tgz",
       "bytes": 5036813,
       "sha256": "737d06ed97ff04bbcf27ddd5ed7375f487683e02319a0596682511028bae81f3"
+    },
+    {
+      "path": "release/control-surface-ui-0.3.42.tgz",
+      "file": "control-surface-ui-0.3.42.tgz",
+      "bytes": 5036877,
+      "sha256": "e214f33ffb87bb3c65b829af011dd568275610e6b5a54e7ecc7482c4f1260b86"
     },
     {
       "path": "release/control-surface-ui-0.3.5.tgz",
