@@ -154,11 +154,16 @@ Pair route and management headers with `ControlPageBody`. It provides the shared
 
 `ControlDisclosure` keeps secondary analysis, evidence, diagnostics, and advanced controls behind one native, keyboard-accessible summary row. It owns the icon, title, supporting copy, chevron state, border, touch target, and body gutter. Use it when the content must remain available but should not compete with the route's primary work surface.
 
+Use `meta` for a short count or state at the trailing edge. Pass `open` with `onOpenChange` when the product must persist or coordinate disclosure state; otherwise use `defaultOpen`. `compact` reduces desktop chrome while retaining the 44 px mobile target, `flush` removes redundant nested side borders, and `tone` accepts `info`, `success`, `warning`, or `danger` when the entire disclosure has a semantic posture. Keep commands and links outside the summary row.
+
 ```jsx
 <ControlDisclosure
   icon={<ChartIcon />}
   title="Detailed request history"
   summary="Largest changes, appropriation vintages, and signal movement"
+  meta="18 records"
+  open={historyOpen}
+  onOpenChange={setHistoryOpen}
 >
   <DetailedHistory />
 </ControlDisclosure>
