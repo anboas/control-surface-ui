@@ -260,15 +260,16 @@ The consumer owns collection state, validation, add controls, and persistence. T
 />
 ```
 
-## Operational month calendar
+## Operational calendar
 
-The calendar family owns the reusable shell for a six-week operational month view. `ControlCalendarSurface` owns containment, `ControlCalendarHeader` owns identity/filter/navigation composition, `ControlMonthNavigator` provides the shared previous/today/next controls, `ControlCalendarOverlayRail` owns horizontally scrollable schedule overlays, and `ControlCalendarGrid` owns the weekday and six-week frame. Consumers retain event placement, permissions, busy-day aggregation, hover content, and record-specific detail.
+The calendar family owns the reusable shell for operational month and bounded forward-window views. `ControlCalendarSurface` owns containment, `ControlCalendarHeader` owns identity/filter/navigation composition, `ControlCalendarViewSwitcher` owns Agenda/Lanes/Calendar mode selection, `ControlMonthNavigator` provides the shared previous/today/next controls, `ControlCalendarOverlayRail` owns horizontally scrollable schedule overlays, `ControlCalendarGrid` owns the weekday frame and variable row count, `ControlCalendarDay` owns date-cell anatomy, `ControlCalendarItem` owns compact selectable entries, and `ControlCalendarFooter` owns summary/action placement. Consumers retain date calculation, event placement, permissions, busy-day aggregation, hover content, and record-specific detail.
 
 ```jsx
 <ControlCalendarSurface>
   <ControlCalendarHeader
     eyebrow="Workspace calendar"
     title={<span>September 2026</span>}
+    description="Tasks, opportunity dates, research, and team events"
     compactTitle="Sep 2026"
     filters={<EventTypePicker />}
     navigation={<ControlMonthNavigator onPrevious={previous} onToday={today} onNext={next} />}
@@ -283,7 +284,7 @@ The calendar family owns the reusable shell for a six-week operational month vie
 </ControlCalendarSurface>
 ```
 
-The framework intentionally does not infer dates or event lanes. This keeps source calendars, authorization, time zones, and crowded-day rules in the owning product while standardizing the visual and interaction shell.
+Use `layout="range"` with `rows={2}` for a two-week forward window. Render the fourteen product-derived dates with `ControlCalendarDay` and their task, milestone, research, or team-event entries with `ControlCalendarItem`. The framework intentionally does not infer dates or event lanes. This keeps source calendars, authorization, time zones, crowded-day rules, and selection behavior in the owning product while standardizing the visual and interaction shell.
 
 ## Fact grid
 
