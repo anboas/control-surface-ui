@@ -39,6 +39,10 @@ function SearchIcon() {
   return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" strokeWidth="1.4" /><path d="m10.25 10.25 3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>;
 }
 
+function ClearIcon() {
+  return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>;
+}
+
 function MenuChevron() {
   return <svg className="if-menu-trigger__chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
@@ -55,6 +59,67 @@ function normalizeAutocompleteItems(items = []) {
       type: String(item.type ?? ""),
     };
   }).filter((item) => item.label);
+}
+
+export function ControlSearch({
+  value = "",
+  onChange,
+  onClear,
+  label,
+  ariaLabel,
+  placeholder = "Search…",
+  className = "",
+  inputClassName = "",
+  inputRef,
+  autoFocus = false,
+  disabled = false,
+  clearable = true,
+  compact = false,
+  ...props
+}) {
+  const inputId = `if-search-${useId().replaceAll(":", "")}`;
+  const internalInputRef = useRef(null);
+  const normalizedValue = String(value ?? "");
+
+  function assignInputRef(node) {
+    internalInputRef.current = node;
+    if (typeof inputRef === "function") inputRef(node);
+    else if (inputRef) inputRef.current = node;
+  }
+
+  function clear(event) {
+    onChange?.("", event);
+    onClear?.(event);
+    window.requestAnimationFrame(() => internalInputRef.current?.focus());
+  }
+
+  function handleKeyDown(event) {
+    if (event.key !== "Escape" || !normalizedValue) return;
+    event.preventDefault();
+    clear(event);
+  }
+
+  return <div {...props} className={`if-search-control ${className}`.trim()} data-if-control-search>
+    {label ? <label className="if-field__label" htmlFor={inputId}>{label}</label> : null}
+    <span className={`if-search${compact ? " if-search--compact" : ""}${clearable && normalizedValue ? " if-search--clearable" : ""}`}>
+      <span className="if-search__icon" aria-hidden="true"><SearchIcon /></span>
+      <input
+        id={inputId}
+        ref={assignInputRef}
+        className={`if-input ${inputClassName}`.trim()}
+        type="search"
+        value={normalizedValue}
+        placeholder={placeholder}
+        aria-label={ariaLabel || label || placeholder}
+        autoComplete="off"
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onChange={(event) => onChange?.(event.target.value, event)}
+        onKeyDown={handleKeyDown}
+      />
+      {clearable && normalizedValue ? <button type="button" className="if-search__clear" aria-label={`Clear ${ariaLabel || label || "search"}`} disabled={disabled} onClick={clear}><ClearIcon /></button> : null}
+    </span>
+  </div>;
 }
 
 export function ControlAutocomplete({

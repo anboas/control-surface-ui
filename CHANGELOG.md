@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.39 - 2026-10-18
+
+### Added
+
+- React `ControlSearch` adapter for plain collection filtering with owned icon alignment, accessible naming, clear action, and Escape-to-clear behavior. Exact entity selection remains owned by `ControlAutocomplete`.
+
 ## 0.3.38 - 2026-10-18
 
 ### Added
