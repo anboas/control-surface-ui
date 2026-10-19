@@ -872,6 +872,7 @@ export function ControlCalendarHeader({
   identity,
   title,
   eyebrow,
+  description,
   compactTitle,
   filters,
   navigation,
@@ -887,6 +888,7 @@ export function ControlCalendarHeader({
       <span>
         {eyebrow ? <small>{eyebrow}</small> : null}
         <strong><span className="if-calendar-header__title">{title}</span>{compactTitle ? <span className="if-calendar-header__compact-title">{compactTitle}</span> : null}</strong>
+        {description ? <span className="if-calendar-header__description">{description}</span> : null}
       </span>
     </div>
     <div className={`if-calendar-header__controls ${controlsClassName}`.trim()}>
@@ -895,6 +897,29 @@ export function ControlCalendarHeader({
       {summary ? <div className="if-calendar-header__summary">{summary}</div> : null}
     </div>
   </header>;
+}
+
+export function ControlCalendarViewSwitcher({
+  value,
+  onChange,
+  items = [
+    { id: "agenda", label: "Agenda" },
+    { id: "lanes", label: "Lanes" },
+    { id: "calendar", label: "Calendar" },
+  ],
+  label = "Calendar view",
+  className = "",
+  ...props
+}) {
+  return <div {...props} className={`if-calendar-view-switcher ${className}`.trim()} role="group" aria-label={label}>
+    {items.map((item) => <button
+      key={item.id}
+      type="button"
+      className={`if-btn if-btn--sm${value === item.id ? " if-btn--primary" : " if-btn--secondary"}`}
+      aria-pressed={value === item.id}
+      onClick={() => onChange?.(item.id)}
+    >{item.icon || null}{item.label}</button>)}
+  </div>;
 }
 
 export function ControlMonthNavigator({
@@ -926,16 +951,61 @@ export function ControlCalendarOverlayRail({ label = "Calendar overlays", summar
 export function ControlCalendarGrid({
   label,
   weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  layout = "month",
+  rows = 6,
+  showWeekdays = true,
   className = "",
   weekdaysClassName = "",
   weeksClassName = "",
   children,
+  style,
   ...props
 }) {
-  return <div {...props} className={`if-month-calendar ${className}`.trim()} tabIndex="0" aria-label={label}>
-    <div className={`if-month-calendar__weekdays ${weekdaysClassName}`.trim()} aria-hidden="true">{weekdays.map((day) => <span key={day}>{day}</span>)}</div>
+  const rowCount = Math.max(1, Number(rows) || 6);
+  const calendarStyle = { ...style, "--if-calendar-row-count": rowCount };
+  return <div {...props} className={`if-month-calendar if-month-calendar--${layout} ${className}`.trim()} style={calendarStyle} tabIndex="0" aria-label={label} data-if-calendar-grid data-calendar-layout={layout} data-calendar-rows={rowCount}>
+    {showWeekdays ? <div className={`if-month-calendar__weekdays ${weekdaysClassName}`.trim()} aria-hidden="true">{weekdays.map((day, index) => <span key={`${day}-${index}`}>{day}</span>)}</div> : null}
     <div className={`if-month-calendar__weeks ${weeksClassName}`.trim()}>{children}</div>
   </div>;
+}
+
+export function ControlCalendarDay({
+  date,
+  label,
+  meta,
+  current = false,
+  outside = false,
+  selected = false,
+  className = "",
+  children,
+  ...props
+}) {
+  return <article {...props} className={`if-calendar-day${current ? " is-today" : ""}${outside ? " is-outside-month" : ""}${selected ? " is-selected" : ""} ${className}`.trim()} data-if-calendar-day={date || undefined}>
+    <header className="if-calendar-day__header"><time dateTime={date}>{label || date}</time>{meta ? <span>{meta}</span> : null}</header>
+    <div className="if-calendar-day__items">{children}</div>
+  </article>;
+}
+
+export function ControlCalendarItem({
+  label,
+  meta,
+  tone = "info",
+  selected = false,
+  className = "",
+  children,
+  ...props
+}) {
+  const safeTone = ["info", "success", "warning", "danger", "muted"].includes(tone) ? tone : "info";
+  return <button {...props} type="button" className={`if-calendar-item is-${safeTone}${selected ? " is-selected" : ""} ${className}`.trim()} data-if-calendar-item>
+    {children || <><strong>{label}</strong>{meta ? <small>{meta}</small> : null}</>}
+  </button>;
+}
+
+export function ControlCalendarFooter({ className = "", children, actions, ...props }) {
+  return <footer {...props} className={`if-calendar-footer ${className}`.trim()}>
+    <span>{children}</span>
+    {actions ? <div className="if-calendar-footer__actions">{actions}</div> : null}
+  </footer>;
 }
 
 export function ControlFactGrid({

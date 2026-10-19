@@ -4,6 +4,14 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+### Added
+
+- Operational calendar adapters now include a shared view switcher, semantic day cells, selectable calendar items, and a summary/action footer.
+
+### Changed
+
+- `ControlCalendarGrid` supports variable row counts and bounded range layouts while retaining the six-week month default.
+
 ## 0.3.39 - 2026-10-18
 
 ### Added
