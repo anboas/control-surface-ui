@@ -94,6 +94,9 @@ function testPlaywrightFiles() {
 
 function testFrameworkSurfaceContracts() {
   assertIncludes("src/react/index.jsx", [
+    "export function ControlSearch",
+    "data-if-control-search",
+    "if-search__clear",
     "export function ControlAutocomplete",
     "export function ControlMenu",
     "if:react-layer-open",
