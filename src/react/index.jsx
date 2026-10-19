@@ -43,6 +43,94 @@ function ClearIcon() {
   return <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>;
 }
 
+function normalizeTabItems(items = []) {
+  return items.map((item, index) => {
+    if (Array.isArray(item)) return { id: String(item[0]), label: item[1] };
+    if (typeof item === "string" || typeof item === "number") return { id: String(item), label: String(item) };
+    return { ...item, id: String(item.id ?? item.value ?? index), label: item.label ?? item.id ?? item.value ?? String(index) };
+  }).filter((item) => !item.hidden);
+}
+
+export function ControlTabs({
+  items = [],
+  activeId = "",
+  onSelect,
+  ariaLabel = "Views",
+  className = "",
+  itemClassName = "",
+  activation = "manual",
+  fill = false,
+  ...props
+}) {
+  const normalizedItems = normalizeTabItems(items);
+  const selectedId = String(activeId ?? "");
+
+  function handleKeyDown(event) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    const controls = [...event.currentTarget.querySelectorAll("[data-if-control-tab]:not(:disabled):not([aria-disabled='true'])")];
+    const currentIndex = controls.indexOf(event.target.closest("[data-if-control-tab]"));
+    if (currentIndex < 0 || !controls.length) return;
+    event.preventDefault();
+    const nextIndex = event.key === "Home"
+      ? 0
+      : event.key === "End"
+        ? controls.length - 1
+        : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + controls.length) % controls.length;
+    controls[nextIndex]?.focus();
+    if (activation === "automatic") controls[nextIndex]?.click();
+  }
+
+  return <nav
+    {...props}
+    className={`if-tabs__list if-control-tabs${fill ? " if-control-tabs--fill" : ""} ${className}`.trim()}
+    aria-label={ariaLabel}
+    data-if-control-tabs
+    onKeyDown={handleKeyDown}
+  >
+    {normalizedItems.map((item) => {
+      const active = item.id === selectedId;
+      const disabled = Boolean(item.disabled);
+      const content = <>
+        {item.icon ? <span className="if-tab__icon" aria-hidden="true">{item.icon}</span> : null}
+        <span className="if-tab__label">{item.label}</span>
+        {item.badge !== undefined && item.badge !== null ? <span className="if-badge">{item.badge}</span> : null}
+      </>;
+      const shared = {
+        ...(item.controlProps || {}),
+        className: `if-tab${active ? " is-active" : ""}${item.className ? ` ${item.className}` : ""}${itemClassName ? ` ${itemClassName}` : ""}`,
+        "data-if-control-tab": item.id,
+        "aria-label": item.ariaLabel,
+        title: item.title,
+      };
+      if (item.href) return <a
+        {...shared}
+        key={item.id}
+        href={disabled ? undefined : item.href}
+        target={item.target}
+        rel={item.rel}
+        aria-current={active ? "page" : undefined}
+        aria-disabled={disabled || undefined}
+        onClick={(event) => {
+          if (disabled) { event.preventDefault(); return; }
+          item.onSelect?.(item.id, event);
+          onSelect?.(item.id, event);
+        }}
+      >{content}</a>;
+      return <button
+        {...shared}
+        key={item.id}
+        type="button"
+        aria-pressed={active}
+        disabled={disabled}
+        onClick={(event) => {
+          item.onSelect?.(item.id, event);
+          onSelect?.(item.id, event);
+        }}
+      >{content}</button>;
+    })}
+  </nav>;
+}
+
 function MenuChevron() {
   return <svg className="if-menu-trigger__chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
