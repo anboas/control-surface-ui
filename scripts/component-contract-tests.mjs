@@ -186,6 +186,7 @@ function testFrameworkSurfaceContracts() {
   assertIncludes("src/styles/components.css", [
     ".if-control-tabs",
     ".if-control-tabs--fill .if-tab",
+    "box-sizing: border-box",
     ".if-tab__icon",
     ".if-tab__label",
     ".if-disclosure",
