@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.45 - 2026-10-20
+
+### Fixed
+
+- Graph viewports now inherit variable canvas minimum height, so percentage layouts fill canvases whose height is content-driven rather than explicitly fixed.
+
 ## 0.3.44 - 2026-10-20
 
 ### Fixed

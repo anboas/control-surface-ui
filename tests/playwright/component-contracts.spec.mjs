@@ -126,6 +126,8 @@ test.describe("component and behavior contracts", () => {
     await gotoExample(page, "graph-view.html");
     const geometry = await page.locator("[data-if-graph] .if-graph-canvas").first().evaluate((canvas) => {
       canvas.removeAttribute("data-graph-world");
+      canvas.style.height = "auto";
+      canvas.style.minHeight = "680px";
       const viewport = canvas.querySelector(".if-graph-viewport");
       const canvasRect = canvas.getBoundingClientRect();
       const viewportRect = viewport?.getBoundingClientRect();
