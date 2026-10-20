@@ -122,6 +122,23 @@ test.describe("component and behavior contracts", () => {
     });
   }
 
+  test("graph viewport fills its canvas before percentage layouts run", async ({ page }) => {
+    await gotoExample(page, "graph-view.html");
+    const geometry = await page.locator("[data-if-graph] .if-graph-canvas").first().evaluate((canvas) => {
+      canvas.removeAttribute("data-graph-world");
+      const viewport = canvas.querySelector(".if-graph-viewport");
+      const canvasRect = canvas.getBoundingClientRect();
+      const viewportRect = viewport?.getBoundingClientRect();
+      return {
+        canvas: { width: canvasRect.width, height: canvasRect.height },
+        viewport: viewportRect ? { width: viewportRect.width, height: viewportRect.height } : null,
+      };
+    });
+    expect(geometry.viewport).not.toBeNull();
+    expect(Math.abs(geometry.viewport.width - geometry.canvas.width)).toBeLessThanOrEqual(1);
+    expect(Math.abs(geometry.viewport.height - geometry.canvas.height)).toBeLessThanOrEqual(1);
+  });
+
   test("table contract supports filtering and selection state", async ({ page }) => {
     await gotoExample(page, "components.html#data");
 

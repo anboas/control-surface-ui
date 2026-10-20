@@ -202,6 +202,8 @@ function testFrameworkSurfaceContracts() {
     ".if-disclosure--compact",
     ".if-disclosure--flush",
     ".if-disclosure__body",
+    ".if-graph-viewport {",
+    "  width: 100%;\n  height: 100%;\n  transform: translate",
     ".if-identity-editor",
     ".if-identity-editor__actions",
     ".if-identity-editor--compact",
