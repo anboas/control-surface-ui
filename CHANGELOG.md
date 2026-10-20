@@ -4,6 +4,12 @@ All notable framework releases are documented here. Dates use ISO format.
 
 ## Unreleased
 
+## 0.3.44 - 2026-10-20
+
+### Fixed
+
+- Graph viewports now explicitly fill their canvas in both axes, preserving percentage-based layouts inside grid and variable-height route compositions.
+
 ## 0.3.43 - 2026-10-19
 
 ### Added
